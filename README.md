@@ -1,1 +1,1 @@
-# ProyectoGrupa
+# ProyectoGrupal

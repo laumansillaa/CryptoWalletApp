@@ -11,5 +11,3 @@ router.get('/detail/:id', getRecipeDetail);
 router.post('/create', postRecipe);
 
 module.exports = router;
-
-

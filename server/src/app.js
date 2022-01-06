@@ -1,13 +1,20 @@
 const express = require('express');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const session = require('express-session');
 const cors = require('cors');
 
 // Middlewares.
 const app = express();
 app.name = 'SERVER';
 app.use(morgan('dev'));
-app.use(cookieParser());
+app.use(session({
+  secret: 'hs01sAFol2ldpHqp1R0394l',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));

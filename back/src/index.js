@@ -30,7 +30,7 @@ db.sync({ force: true }).then(async () => {
   // console.log('Diets loaded.');
   // await Promise.all(recipesLoader());
   // console.log('Default recipes loaded.');
-  app.listen(process.env.PORT, () => {
+  app.listen(app.get('port'), () => {
     console.log(`Server listening at ${process.env.PORT}.`);
   });
 });

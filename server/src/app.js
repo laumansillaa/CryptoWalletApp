@@ -26,6 +26,8 @@ app.use((req, res, next) => {
 // app.use('/diets', diets);
 
 // Error catching endware.
+
+
 app.use((error, req, res, next) => { 
   const status = error.status || 500;
   const message = error.message || error;

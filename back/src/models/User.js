@@ -23,7 +23,7 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                min: 6,
+                len: [6,20],
                 isAlphanumeric: true           
             }
         },

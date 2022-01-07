@@ -1,26 +1,26 @@
 const axios = require("axios");
-const { User } = require("../db");
+const { User } = require("../../db").models;
 
 module.exports = async (req, res) => {
     const id = req.params.id;
-    const dbUser = await User.findByIdAndUpdate({ id: id }, req.body);
+    let { firstname, lastname, email, password, phone, pin } = req.body;
+
+    const dbUser = await User.update({
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+        phone: phone,
+        pin: pin
+    }, {
+        where: {
+            id: id,
+        }
+    });
 
     if(dbUser) {
         res.status(200).send("USER UPDATED");
     } else {
         res.status(400).send("FAILED UPDATE");
     }
-
-    // const id = req.params.id;
-    // let { name, lastname, email, phone, password, pin } = req.body;
-    // const dbUser = await /*model*/findByPk(id);
-
-    // if(name) dbUser.name = name;
-    // if(lastname) dbUser.lastname = lastname;
-    // if(email) dbUser.email = email;
-    // if(phone) dbUser.phone = phone;
-    // if(password && parseInt(password) && password.length >= 6) dbUser.password = password;
-    // if(pin && pin.length === 6) dbUser.pin = pin;
-
-    // res.status(200).send("USER UPDATED");
 }

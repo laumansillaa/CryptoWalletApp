@@ -13,6 +13,4 @@ const router = Router();
 router.post("/createUser", postUser);
 router.put("/users/:id", putUser);
 
-
-
 module.exports = router;

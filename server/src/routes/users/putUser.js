@@ -1,9 +1,22 @@
 const axios = require("axios");
-const { User } = require("../db");
+const { User } = require("../../db").models;
 
 module.exports = async (req, res) => {
     const id = req.params.id;
-    const dbUser = await User.findByIdAndUpdate({ id: id }, req.body);
+    let { firstname, lastname, email, password, phone, pin } = req.body;
+
+    const dbUser = await User.update({
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+        phone: phone,
+        pin: pin
+    }, {
+        where: {
+            id: id,
+        }
+    });
 
     if(dbUser) {
         res.status(200).send("USER UPDATED");

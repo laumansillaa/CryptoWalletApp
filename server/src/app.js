@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const routes = require('./routes/index');
 
 // Middlewares.
 const app = express();
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 // const diets = require('./routes/diets');
 // app.use('/recipes', recipes);
 // app.use('/diets', diets);
+app.use('/', routes);
 
 // Error catching endware.
 

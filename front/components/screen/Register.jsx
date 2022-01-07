@@ -37,6 +37,11 @@ function validateData (){
     setError({...error, errorEmail: "Debe ingresar un email valido"})
     isValid = false;
   }
+  if(state.password?!(state.password.length === 6) :false){
+    setError({...error, errorPassword: "Debe ingresar una password valido"})
+    isValid = false;
+  }
+  
 
   
 
@@ -47,13 +52,16 @@ function validateData (){
 useEffect(()=>{
 
   validateData()
+  
+  
 },[state])
 
 
 
-function handleChange (e, atr){
+const handleChange = (e, atr)=>{
 
-setState({...state, [atr]: e.target.value})
+setState({...state, [atr]: e})
+
 
 }
 
@@ -89,19 +97,22 @@ validateData()
         md:"25%"}}
       >  
         
-        <Input variant="filled"  placeholder="Enter Name" onChange={(e)=>handleChange(e,"name")} />  
+        <Input variant="filled"  placeholder="Enter Name" onChangeText={(e)=>handleChange(e,"name")} />  
      
-        <Input variant="filled"  placeholder="Enter Last Name" onChange={(e)=>handleChange(e,"lastName")}/>  
+        <Input variant="filled"  placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastName")}/>  
         
-        <Input  variant="filled" placeholder="Enter Email" onChange={(e)=>handleChange(e,"email")} errorMessage={error.errorEmail} />
+        <Input  variant="filled" placeholder="Enter Email" onChangeText={(e)=>handleChange(e,"email")} errorMessage={error.errorEmail} />
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           {error.errorEmail?error.errorEmail:""}
         </FormControl.ErrorMessage>  
         
-        <Input  variant="filled"  placeholder="Enter Phone" onChange={(e)=>handleChange(e,"phone")} />  
+        <Input  variant="filled"  placeholder="Enter Phone" onChangeText={(e)=>handleChange(e,"phone")} />  
     
-        <Input variant="filled"  placeholder="Enter Password" onChange={(e)=>handleChange(e,"password")} password={true} secureTextEntry={true}
+        <Input variant="filled"  placeholder="Enter Password" onChangeText={(e)=>handleChange(e,"password")} password={true} secureTextEntry={true}
          />  
+           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+          {error.errorPassword?error.errorPassword:""}
+        </FormControl.ErrorMessage>  
 
         <Button onPress={handleSubmit}>Next</Button>
 

@@ -26,6 +26,8 @@ const db = require('./db.js');
 // Syncing all the models at once.
 db.sync({ force: true }).then(async () => {
   console.log('Data base created.');
+  await db.models.User.create({firstname: 'julian', lastname: 'alvarez', email: 'juli@gmail.com', password: '12345678', pin: '12345678'})
+  await db.models.User.create({firstname: 'carlos', lastname: 'alvarez', email: 'carlos@gmail.com', password: '12345678', pin: '12345678'})
   // await Promise.all(dietsLoader());
   // console.log('Diets loaded.');
   // await Promise.all(recipesLoader());

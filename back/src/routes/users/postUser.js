@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { User } = require("../../db");
+const { User } = require("../../db.js");
 
 module.exports = async (req, res) => {
     let { name, lastname, email, phone, password, pin } = req.body;

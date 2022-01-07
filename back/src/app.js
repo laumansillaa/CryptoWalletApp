@@ -9,10 +9,10 @@ app.set('port', process.env.PORT || 3001);
 require('./middlewares')(app);
 
 // Routes middleware.
-// const recipes = require('./routes/recipes');
-// const diets = require('./routes/diets');
-// app.use('/recipes', recipes);
-// app.use('/diets', diets);
+require('./routes')(app);
+app.get("/", (req, res) => {
+    res.status(200).send("hola")
+})
 
 // Error catching endware.
 app.use((error, req, res, next) => { 

@@ -1,1 +1,18 @@
-node_modules
+# General ignored files/folders.
+.env
+node_modules/
+
+# Front ignored files/folders.
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# For macOS.
+.DS_Store

@@ -8,6 +8,7 @@ import store from "./redux/store";
 import Home from './components/Home/Home';
 import Currencies from './components/Currencies/Currencies';
 import Account from './components/Account/Account';
+import Login from './components/Login/Login';
 
 
 const Tab = createBottomTabNavigator();
@@ -17,6 +18,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator>
+          <Tab.Screen name="Login" component={Login}/>
           <Tab.Screen name="Home" component={Home}/>
           <Tab.Screen name="Currencies" component={Currencies}/>
           <Tab.Screen name="Account" component={Account}/>

@@ -23,5 +23,4 @@ module.exports = async (req, res) => {
     } else {
         res.status(400).send("FAILED UPDATE");
     }
-
 }

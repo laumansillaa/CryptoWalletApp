@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const localLogin = require('./localLogin.js');
 
-router.post('/login', localLogin);
+router.post('/localLogin', require('./localLogin'));
 
 module.exports = router;

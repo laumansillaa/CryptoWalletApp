@@ -23,6 +23,7 @@ module.exports = async (req, res) => {
     } else {
         res.status(400).send("FAILED UPDATE");
     }
+<<<<<<< Updated upstream
 
     // const id = req.params.id;
     // let { name, lastname, email, phone, password, pin } = req.body;
@@ -36,4 +37,7 @@ module.exports = async (req, res) => {
     // if(pin && pin.length === 6) dbUser.pin = pin;
 
     // res.status(200).send("USER UPDATED");
+=======
+    
+>>>>>>> Stashed changes
 }

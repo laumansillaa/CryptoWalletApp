@@ -1,7 +1,4 @@
-require ('dotenv').config();
-const fs = require ('fs');
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
-
 
 // Initialize data base.
 const { Sequelize } = require('sequelize');
@@ -37,17 +34,7 @@ const sequelize = process.env.NODE_ENV === 'production'
 
 
 // Connect models to sequelize.
-// const RecipeModelCreator = require('./models/Recipe.js')
-// const DietModelCreator = require('./models/Diet')
-// RecipeModelCreator(sequelize);
-// DietModelCreator(sequelize);
-const UserModel = require ('./models/User.js')
-UserModel(sequelize)
-
-const {User} = sequelize.models
-
-
-
+require('./models')(sequelize)
 
 // Associations.
 // const { Recipe, Diet } = sequelize.models;

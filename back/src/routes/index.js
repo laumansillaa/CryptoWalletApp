@@ -1,18 +1,8 @@
-const passport = require('')
-const { Router } = require('express');
-const { User } = require("../db");
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-const postUser = require("./users/postUser");
-const putUser = require("./users/putUser");
+module.exports = function(app) {
+    app.use('/user', require('./user'))
+    app.use('/session', require('./session'))
 
-const router = Router();
-
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
-router.post("/createUser", postUser);
-router.put("/users/:id", putUser);
-
-
-
-module.exports = router;
+    app.get("/", (req, res) => {
+        res.status(200).send("hola")
+    })
+};

@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const {User} = require('../db').models;
 
 passport.use('local', new LocalStrategy({
     usernameField: 'email',
@@ -7,14 +8,11 @@ passport.use('local', new LocalStrategy({
     passReqToCallback: true
   },
 
-  async function (mail, password, done) {
+  async function (req, email, password, done) {
     try {
-      const user = await db.users.findByUsername(mail)
+      const user = await User.findOne({where: {email: email}});
 
-      if (!user) return done(null, false)
-
-      else if (user.password !== password) return done(null, false)
-
+      if (!user || user.password !== password) return done(null, false)
       else return done(null, user);
     }
 

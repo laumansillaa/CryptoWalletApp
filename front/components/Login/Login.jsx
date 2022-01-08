@@ -27,8 +27,9 @@ export default function Login ({ navigation }) {
             <TextInput placeholder="email" value={email} onChangeText={setEmail} />
             <TextInput placeholder="password"  value={password} onChangeText={setPassword} secureTextEntry={true} />
             <Button title="Log in"/ >
-            <Button title="Create a new account" onPress={() => navigation.navigate("Account")}/>
+            <Button title="Create a new account" onPress={() => navigation.navigate("Register")}/>
             {/* <Button title="register with google"/> */}
+            <Button title="Home" onPress={() => navigation.navigate("Home")}/>
 
         </View>
 

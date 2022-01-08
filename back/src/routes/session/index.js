@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
-router.post('/signin', require('./signin'));
-router.post('/localLogin', require('./localLogin'));
+router.post('/signup', require('./signup'));
+router.post('/localSignin', require('./localSignin'));
+router.post('/signout', require('./signout'));
 
 module.exports = router;

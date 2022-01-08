@@ -3,7 +3,7 @@ const userDataValidator = require('../../utils/userDataValidator.js');
 
 module.exports = async function(req, res) {
     try {
-        if (userDataValidator(req.body)) {
+        if (userDataValidator(User, req.body)) {
             const id = req.user.id;
             const { firstname, lastname, email, password, phone, pin } = req.body;
 

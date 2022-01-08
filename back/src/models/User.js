@@ -1,4 +1,4 @@
-const { DataTypes } = require ('sequelize'); 
+const { DataTypes, Op } = require ('sequelize'); 
 
 module.exports = function (sequelize) {
     sequelize.define('User', {
@@ -33,7 +33,7 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [6,6]
+                is: /^\d{6}$/,
             }
         }
     })

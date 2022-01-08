@@ -20,19 +20,18 @@
 require('dotenv').config();
 const app = require('./app.js');
 const db = require('./db.js');
-// const dietsLoader = require('./preloaders/dietsLoader.js')
-// const recipesLoader = require('./preloaders/recipesLoader.js')
 
-// Syncing all the models at once.
-db.sync({ force: true }).then(async () => {
-  console.log('Data base created.');
-  await db.models.User.create({firstname: 'julian', lastname: 'alvarez', email: 'juli@gmail.com', password: '12345678', pin: '123456'})
-  await db.models.User.create({firstname: 'carlos', lastname: 'alvarez', email: 'carlos@gmail.com', password: '12345678', pin: '123456'})
-  // await Promise.all(dietsLoader());
-  // console.log('Diets loaded.');
-  // await Promise.all(recipesLoader());
-  // console.log('Default recipes loaded.');
-  app.listen(app.get('port'), () => {
-    console.log(`Server listening at ${process.env.PORT}.`);
-  });
-});
+// Server initialization.
+(async function() {
+  try {
+    await db.sync({ force: true })
+    console.log('Data base created.');
+    await Promise.all([
+      db.models.User.create({firstname: 'julian', lastname: 'alvarez', email: 'julian@gmail.com', password: 'password123', pin: '123456'}),
+      db.models.User.create({firstname: 'carlos', lastname: 'gonzalez', email: 'carlos@gmail.com', password: 'password321', pin: '654321'})
+    ])
+    app.listen(app.get('port'), () => {
+      console.log(`Server listening at port ${process.env.PORT}.`);
+    });
+  } catch(error) { console.error(error) }
+})()

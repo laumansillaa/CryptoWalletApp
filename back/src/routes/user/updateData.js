@@ -20,9 +20,9 @@ module.exports = async function(req, res) {
                 }
             });
 
-            res.status(200).send('User update succeeded.');
+            return res.status(200).send('User update succeeded.');
         } else {
-            res.status(400).send('User update failed: invalid values.');
+            return res.status(400).send('User update failed: invalid values.');
         }
     } catch(error) { next(error) };
 };

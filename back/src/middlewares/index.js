@@ -29,9 +29,9 @@ module.exports = function (app) {
   // Session middleware.
   app.use((req, res, next) => {
     if (
-      req.url !== '/session/signin' &&
-      req.url !== '/session/localLogin' &&
-      req.url !== '/session/googleLogin' &&
+      req.url !== '/session/signup' &&
+      req.url !== '/session/localSignin' &&
+      req.url !== '/session/googleSignin' &&
       !req.isAuthenticated()
     ) {
       return res.status(401).send('Access denied.');

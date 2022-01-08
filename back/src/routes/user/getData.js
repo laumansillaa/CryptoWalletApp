@@ -6,6 +6,6 @@ module.exports = async function(req, res) {
 
         const dbUser = await User.findByPk(id);
 
-        res.status(200).send(dbUser)
+        return res.status(200).send(dbUser)
     } catch(error) { next(error) };
 };

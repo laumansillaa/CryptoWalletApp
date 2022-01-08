@@ -14,9 +14,10 @@ module.exports = async function(req, res, next) {
                 phone: phone,
                 pin: pin
             })
-            res.status(200).send('Sign in succeeded.');
+
+            return res.status(200).send('Sign in succeeded.');
         } catch(error) { next(error) }
     } else {
-        res.status(400).send('Sign in failed: invalid values.');
+        return res.status(400).send('Sign in failed: invalid values.');
     }
 };

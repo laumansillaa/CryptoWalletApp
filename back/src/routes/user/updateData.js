@@ -1,27 +1,28 @@
-const User = require("../../db").models.User;
+const User = require('../../db').models.User;
+const userDataValidator = require('../../utils/userDataValidator.js');
 
 module.exports = async function(req, res) {
-    const id = req.params.id;
-    const { firstname, lastname, email, password, phone, pin } = req.body;
-
     try {
-        const dbUser = await User.update({
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            password: password,
-            phone: phone,
-            pin: pin
-        }, {
-            where: {
-                id: id,
-            }
-        });
+        if (userDataValidator(User, req.body)) {
+            const id = req.user.id;
+            const { firstname, lastname, email, password, phone, pin } = req.body;
 
-        if (dbUser) {
-            res.status(200).send("USER UPDATE SUCCEEDED");
+            const dbUser = await User.update({
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                password: password,
+                phone: phone,
+                pin: pin
+            }, {
+                where: {
+                    id: id,
+                }
+            });
+
+            return res.status(200).send('User update succeeded.');
         } else {
-            res.status(400).send("USER UPDATE FAILED: INVALID ID");
+            return res.status(400).send('User update failed: invalid values.');
         }
     } catch(error) { next(error) };
-}
+};

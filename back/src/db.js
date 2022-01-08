@@ -32,7 +32,6 @@ const sequelize = process.env.NODE_ENV === 'production'
       define: { timestamps: false }
     });
 
-
 // Connect models to sequelize.
 require('./models')(sequelize)
 

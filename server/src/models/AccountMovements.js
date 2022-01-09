@@ -24,3 +24,5 @@ module.exports = (sequelize) => {
         },
     })
 }
+
+//Chequear fecha/id movimientos

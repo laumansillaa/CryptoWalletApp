@@ -1,4 +1,4 @@
-const { DataTypes } = require ('sequelize'); 
+const { DataTypes, Op } = require ('sequelize'); 
 
 module.exports = function (sequelize) {
     sequelize.define('User', {
@@ -16,14 +16,13 @@ module.exports = function (sequelize) {
             unique: true,
             validate: {
                 isEmail: true
-                
             }
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                min: 6,
+                len: [6,20],
                 isAlphanumeric: true           
             }
         },
@@ -34,7 +33,7 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [6]
+                is: /^\d{6}$/,
             }
         }
     })

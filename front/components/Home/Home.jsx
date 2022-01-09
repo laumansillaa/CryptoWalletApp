@@ -1,10 +1,16 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Currencies from '../Currencies/Currencies';
+import Account from '../Account/Account';
+
+const Tab = createBottomTabNavigator();
 
 export default function Home() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
+    <Tab.Navigator>
+        <Tab.Screen name="Currencies" component={Currencies}/>
+        <Tab.Screen name="Account" component={Account}/>
+    </Tab.Navigator>
+    
   );
 }

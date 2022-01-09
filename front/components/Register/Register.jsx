@@ -1,13 +1,16 @@
 
 import { StyleSheet, } from 'react-native';
 
-import {  NativeBaseProvider, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button } from 'native-base';
+import {  ScrollView, NativeBaseProvider, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button } from 'native-base';
 
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
+import axios from "axios"
+import {IP_HOST} from "@env"
+
 export default function Register() {
 
-
+const [message, setMessage] = useState("");
 const [state,setState] = useState({
   firstname: "",
   lastname: "",
@@ -68,19 +71,29 @@ const handleChange = (e, atr)=>{
 setState({...state, [atr]: e})}
 
 
-function handleSubmit(){
+async function handleSubmit(){
+  setMessage("Loading...")
     if(!error.firstName&&!error.lastName&&!error.email&&!error.phone&&!error.password&&!error.pin){
-    console.log("registro ok")
 
-  }
-
+      if(state.firstname&&state.lastname&&state.email&&state.phone&&state.password&&state.pin){
+        console.log(state)
+          try {
+             await axios.post(`http://${IP_HOST}:3001/session/signup`, state)
+            setMessage("Sign in succeeded.");
+          } catch (error) {
+            setMessage("Registration failed, try again ")
+          }
+        
+        }else{
+          setMessage("Please fill all fields");
+        }
+     
+     }
 }
-
-
-
 
   return (
   <NativeBaseProvider>
+    <ScrollView>
     <FormControl
     isInvalid
     w={{
@@ -97,8 +110,7 @@ function handleSubmit(){
         base: "85%",
         md: "25%",
       }}
-      h={{base: "50%",
-        md:"25%"}}
+      
       >  
         
         <Input variant="filled"   placeholder="Enter Name" onChangeText={(e)=>handleChange(e,"firstname")} />
@@ -134,11 +146,14 @@ function handleSubmit(){
         </FormControl.ErrorMessage>  
 
         <Button onPress={handleSubmit}>Next</Button>
-
+        <FormControl.HelperText>
+            {message}
+          </FormControl.HelperText>
       </Stack>
      
   
   </FormControl>
+  </ScrollView>
   </NativeBaseProvider>
   );
 }

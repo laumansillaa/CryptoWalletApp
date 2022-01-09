@@ -18,7 +18,7 @@ export function validateEmail(email) {
   export function validatePassword(pass){
     if(!pass) return true;
  
-    const re = /^(?=.*[0-9])(?=.*[A-Z])[A-Za-z0-9]{6,16}$/
+    const re = /^(?=.*[0-9])(?=.*[A-Z])[A-Za-z0-9]{6,20}$/
     return re.test(pass)
 
   

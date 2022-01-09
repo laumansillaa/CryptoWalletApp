@@ -88,6 +88,8 @@ async function handleSubmit(){
           setMessage("Please fill all fields");
         }
      
+     }else{
+      setMessage("Please review the warnings")
      }
 }
 

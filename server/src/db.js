@@ -42,7 +42,12 @@ const sequelize = process.env.NODE_ENV === 'production'
 // RecipeModelCreator(sequelize);
 // DietModelCreator(sequelize);
 const UserModel = require ('./models/User.js')
-UserModel(sequelize)
+UserModel(sequelize);
+const Transaction = require ('./models/Transaction.js')
+Transaction(sequelize);
+const AccountMovement = require ('./models/AccountMovements.js')
+AccountMovement(sequelize);
+
 
 const {User} = sequelize.models
 

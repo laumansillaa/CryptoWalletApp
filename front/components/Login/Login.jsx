@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, TextInput, Image, StyleSheet, Button} from "react-native";
-
+import {IP_HOST} from "@env"
+import axios from "axios";
 
 export default function Login ({ navigation }) {
     
@@ -18,6 +19,27 @@ export default function Login ({ navigation }) {
             
         },
       });
+
+    async function handleSubmit(){
+        let obj={
+            email: email,
+            password: password
+
+        }
+        try{
+            await axios.post(`http://${IP_HOST}:3001/session/localSignin`, obj)
+            navigation.navigate("Home")
+
+        }catch(e){
+            console.log("Fallo en el login")
+
+        }
+       
+
+      }
+
+
+    
     
     return (
         <View style={styles.container}>
@@ -26,7 +48,7 @@ export default function Login ({ navigation }) {
             <Text>Put your data pls</Text>
             <TextInput placeholder="email" value={email} onChangeText={setEmail} />
             <TextInput placeholder="password"  value={password} onChangeText={setPassword} secureTextEntry={true} />
-            <Button title="Log in"/ >
+            <Button title="Log in" onPress={handleSubmit}/>
             <Button title="Create a new account" onPress={() => navigation.navigate("Register")}/>
             {/* <Button title="register with google"/> */}
             <Button title="Home" onPress={() => navigation.navigate("Home")}/>

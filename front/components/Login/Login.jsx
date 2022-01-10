@@ -39,6 +39,27 @@ export default function Login ({ navigation }) {
             
         },
       });
+
+    async function handleSubmit(){
+        let obj={
+            email: email,
+            password: password
+
+        }
+        try{
+            await axios.post(`http://${IP_HOST}:3001/session/localSignin`, obj)
+            navigation.navigate("Home")
+
+        }catch(e){
+            console.log("Fallo en el login")
+
+        }
+       
+
+      }
+
+
+    
     
     return (
         <View style={styles.container}>

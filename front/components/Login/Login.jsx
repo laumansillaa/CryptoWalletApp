@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Text, View, TextInput, Image, StyleSheet, Button} from "react-native";
 import {IP_HOST} from "@env"
 import axios from "axios";
-
+import { useDispatch } from "react-redux";
+import { getLoginUser } from "../../redux/actions";
 export default function Login ({ navigation }) {
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
     
     const styles = StyleSheet.create({
         logo: {
@@ -28,6 +30,7 @@ export default function Login ({ navigation }) {
         }
         try{
             await axios.post(`http://${IP_HOST}:3001/session/localSignin`, obj)
+            dispatch(getLoginUser(obj))
             navigation.navigate("Home")
 
         }catch(e){

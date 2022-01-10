@@ -7,11 +7,12 @@ import store from "./redux/store";
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Register from "./components/Register/Register"
-import MyTags from './components/Mytags/MyTags';
+import MyTags from "./components/MyTags/MyTags"
 import MyData from './components/MyData/MyData';
 import Security from './components/Security/Security';
 import Settings from './components/Settings/Settings';
-import Help from './components/Help/Help'
+import Help from './components/Help/Help';
+import EditDataUser from "./components/EditDataUser/EditDataUser";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LogOut from './components/LogOut/LogOut';
 
@@ -31,6 +32,7 @@ export default function App() {
           <Stack.Screen name="Settings" component={Settings}/>
           <Stack.Screen name="Help" component={Help}/>
           <Stack.Screen name="LogOut" component={LogOut}/>
+          <Stack.Screen name="EditDataUser" component={EditDataUser}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

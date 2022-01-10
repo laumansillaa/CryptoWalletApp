@@ -1,5 +1,5 @@
 
-import {LOG} from "./actions"
+import {LOG, LOGOUT} from "./actions"
 
 const initialState={
    Log: false
@@ -14,6 +14,11 @@ const rootReducer = (state = initialState, action)=>{
                ...state,
                Log: true,
            }
+        case LOGOUT:
+            return {
+                ...state,
+                Log: false,
+            }
        default: return state 
     }
 

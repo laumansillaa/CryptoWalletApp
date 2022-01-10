@@ -3,23 +3,24 @@ import { Provider } from 'react-redux';
 
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import store from "./redux/store";
 import Home from './components/Home/Home';
-import Login from './components/Login/Login';
-import Register from "./components/Register/Register"
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Currencies from './components/Currencies/Currencies';
+import Account from './components/Account/Account';
 
-const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login'>
-          <Stack.Screen name="Login" component={Login}/>
-          <Stack.Screen name="Register" component={Register}/>
-          <Stack.Screen name="Home" component={Home}/>
-        </Stack.Navigator>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={Home}/>
+          <Tab.Screen name="Currencies" component={Currencies}/>
+          <Tab.Screen name="Account" component={Account}/>
+        </Tab.Navigator>
       </NavigationContainer>
     </Provider>
   );

@@ -1,8 +1,9 @@
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import Help from '../Help/Help';
 import MyData from '../MyData/MyData';
-import MyTags from '../Mytags/MyTags';
+import MyTags from "../MyTags/MyTags";
 import Security from '../Security/Security';
 import Settings from '../Settings/Settings';
 import Account from './Account';
@@ -11,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 export default function AccountIndex() {
     return (
-      <Stack.Navigator initialRouteName='Account'>
+        <Stack.Navigator initialRouteName='Account'>
         <Stack.Screen name="Account" component={Account} />
         <Stack.Screen name="MyData" component={MyData}/>
         <Stack.Screen name="MyTags" component={MyTags}/>

@@ -57,7 +57,7 @@ export default function Login ({ navigation }) {
             <Button title="Log in" onPress={onLogin}/>
             <Button title="Create a new account" onPress={() => navigation.navigate("Register")}/>
             {/* <Button title="register with google"/> */}
-            <Button title="Home" onPress={() => navigation.navigate("Home")}/>
+            {/* <Button title="Home" onPress={() => navigation.navigate("Home")}/> */}
 
         </View>
 

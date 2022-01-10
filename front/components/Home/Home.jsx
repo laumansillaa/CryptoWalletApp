@@ -8,10 +8,9 @@ const Tab = createBottomTabNavigator();
 
 export default function Home() {
   return (
-    <Tab.Navigator>
-        <Tab.Screen name="Currencies" component={Currencies}/>
-        <Tab.Screen name="Account" component={Account} options={{headerTitle:()=><HeaderUser/>}}/>
-    </Tab.Navigator>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+    </View>
     
   );
 }

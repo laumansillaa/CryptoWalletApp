@@ -7,6 +7,7 @@ import MyTags from "../MyTags/MyTags";
 import Security from '../Security/Security';
 import Settings from '../Settings/Settings';
 import Account from './Account';
+import EditDataUser from "../EditDataUser/EditDataUser";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ export default function AccountIndex() {
         <Stack.Screen name="Security" component={Security}/>
         <Stack.Screen name="Settings" component={Settings}/>
         <Stack.Screen name="Help" component={Help}/>
+        <Stack.Screen name="EditDataUser" component={EditDataUser}/>
       </Stack.Navigator>
     );
   }

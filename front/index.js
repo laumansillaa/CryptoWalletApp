@@ -12,6 +12,7 @@ import Register from "./components/Register/Register"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AccountIndex from './components/Account/AccountIndex';
+import HeaderCurrencies from "./components/HeaderCurrencies/HeaderCurrencies"
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -44,7 +45,7 @@ export default function Index() {
     : 
                    <Tab.Navigator initialRouteName="Home">
                       <Tab.Screen name="Home" component={Home}/>
-                      <Tab.Screen name="Currencies" component={Currencies}/>
+                      <Tab.Screen name="Currencies" component={HeaderCurrencies}/>
                       <Tab.Screen name="AccountIndex" component={AccountIndex} options={{headerTitle:()=><HeaderUser/>}}/>
                    </Tab.Navigator>
       }</NavigationContainer>

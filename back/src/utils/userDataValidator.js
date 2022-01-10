@@ -5,12 +5,13 @@ module.exports = async function(User, { firstname, lastname, email, password, pi
     const passwordRegex = /^(?=\w*\d)(?=\w*[a-z])\S{6,20}$/;
     const pinRegex = /^\d{6}$/;
 
-    return (
-        checkEmailAvailability === 0 &&
-        namesRegex.test(firstname) &&
-        namesRegex.test(lastname) &&
-        emailRegex.test(email) &&
-        passwordRegex.test(password) &&
-        pinRegex.test(pin)
-    );
+    return ({
+        availableEmail: checkEmailAvailability === 0,
+        validValues: 
+            namesRegex.test(firstname) &&
+            namesRegex.test(lastname) &&
+            emailRegex.test(email) &&
+            passwordRegex.test(password) &&
+            pinRegex.test(pin)
+    });
 }

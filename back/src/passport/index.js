@@ -1,6 +1,7 @@
 const passport = require('passport');
 const User = require('../db.js').models.User;
 require('./emailStrategy.js')(passport, User);
+require('./googleStrategy.js')(passport, User);
 
 passport.serializeUser(function(user, done) {
   console.log('ENTERING passport.serializeUser -----------')

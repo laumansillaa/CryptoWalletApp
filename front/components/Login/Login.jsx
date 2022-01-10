@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, TextInput, Image, StyleSheet, Button} from "react-native";
 import axios from "axios";
 import { Log } from "../../redux/actions";
+import {IP_HOST} from "@env"
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -13,26 +14,18 @@ export default function Login ({ navigation }) {
     const log = useSelector(state => state.Log);
 
     const onLogin = async e => {
-        e.preventDefault();
-        await axios.post("http://localhost:3001/session/localSignin", {
-            "email": email,
-            "password": password
-        }).then(function (response) {
-            console.log(response);
-            if(response.status === 200) {
-              dispatch(Log)
-              console.log(log);
-            }
-            console.log(response.status);
-            console.log(log);
-             })
-          .catch(function (error) {
-            console.log(error);
-          });
+        let obj = {
+          email: email,
+          password: password,
+        };
+        await axios.post(`http://${IP_HOST}:3001/session/localSignin`, obj)
+        .then(() => dispatch(Log()))
+        .catch(err => console.log(err))
+      
     }
 
     useEffect(() => {
-      console.log(log);
+      console.log("fallo en el login");
   }, [log]);
     
     const styles = StyleSheet.create({

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text, View, TextInput, Image, StyleSheet, Button} from "react-native";
 import Currencies from '../Currencies/Currencies';
 import Account from '../Account/Account';
 import HeaderUser from '../HeaderUser/HeaderUser';

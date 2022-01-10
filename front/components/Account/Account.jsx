@@ -1,10 +1,15 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { Button } from 'react-native';
 
-export default function Account() {
+export default function Account({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Account Screen</Text>
-    </View>
+    <>
+      <Button title='My Data' onPress={() => navigation.navigate("MyData")} />
+      <Button title="My tags" onPress={()=>navigation.navigate("MyTags")} />
+      <Button title="Security" onPress={()=>navigation.navigate("Security")} />
+      <Button title="Settings" onPress={()=>navigation.navigate("Settings")} />
+      <Button title="Help" onPress={()=>navigation.navigate("Help")} />
+      <Button title="Log out" onPress={()=>navigation.navigate("LogOut")} />
+    </>
   );
 }

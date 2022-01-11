@@ -1,16 +1,13 @@
 
-import { useSelector } from 'react-redux';
-import Currencies from './components/Currencies/Currencies';
-import HeaderUser from './components/HeaderUser/HeaderUser';
-import { useState, useEffect } from 'react';
-
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import Home from './components/Home/Home';
-import Login from './components/Login/Login';
-import Register from "./components/Register/Register"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Login from './components/Login/Login';
+import Register from "./components/Register/Register"
+import Home from './components/Home/Home';
 import AccountIndex from './components/Account/AccountIndex';
 import HeaderCurrencies from "./components/HeaderCurrencies/HeaderCurrencies"
 
@@ -46,7 +43,7 @@ export default function Index() {
                    <Tab.Navigator initialRouteName="Home">
                       <Tab.Screen name="Home" component={Home}/>
                       <Tab.Screen name="Currencies" component={HeaderCurrencies}/>
-                      <Tab.Screen name="AccountIndex" component={AccountIndex} options={{headerTitle:()=><HeaderUser/>}}/>
+                      <Tab.Screen name="Account" component={AccountIndex}/>
                    </Tab.Navigator>
       }</NavigationContainer>
   );

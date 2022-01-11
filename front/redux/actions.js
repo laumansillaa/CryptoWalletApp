@@ -31,8 +31,8 @@ export const getDataUser = ()=> async dispatch =>{
               url: "http://localhost:3001/user/getData",
             })
         console.log(response.data);
-        const jsonDataUser =  response.data.json();
-        dispatch({type:GET_DATA_USER, payload: jsonDataUser})
+        const dataUser =  response.data;
+        dispatch({type:GET_DATA_USER, payload: dataUser})
     }catch(e){
         console.log("Error al consultar")
     }

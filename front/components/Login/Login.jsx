@@ -7,22 +7,42 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 export default function Login ({ navigation }) {
-    
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const log = useSelector(state => state.Log);
 
-    const onLogin = async e => {
-        let obj = {
-          email: email,
-          password: password,
-        };
-        await axios.post(`http://${IP_HOST}:3001/session/localSignin`, obj)
-        .then(() => dispatch(Log()))
-        .catch(err => console.log(err))
-      
+    const onLogin = async (e) => {
+      try {
+        const response = await axios({
+          method: "post",
+          data: {
+            email: email,
+            password: password,
+          },
+          withCredentials: true,
+          url: `http://localhost:3001/session/localSignin`,
+        })
+        console.log(response)
+        dispatch(Log())
+      } catch (error) { console.error(error) }
+    };
+
+    const onGoogleLogin = async (e) => {
+      try {
+        window.open('http://localhost:3001/session/googleSignin', '_self')
+        dispatch(Log())
+      } catch (error) { console.error(error) }
     }
+    // const onLogin = async e => {
+    //     let obj = {
+    //       email: email,
+    //       password: password,
+    //     };
+    //     await axios.post(`http://${IP_HOST}:3001/session/localSignin`, obj)
+    //     .then(() => dispatch(Log()))
+    //     .catch(err => console.log(err))
+    // }
 
     useEffect(() => {
       console.log("fallo en el login");
@@ -69,6 +89,7 @@ export default function Login ({ navigation }) {
             <TextInput placeholder="email" value={email} onChangeText={setEmail} />
             <TextInput placeholder="password"  value={password} onChangeText={setPassword} secureTextEntry={true} />
             <Button title="Log in" onPress={onLogin}/>
+            <Button title="Log in with Google" onPress={onGoogleLogin}/>
             <Button title="Create a new account" onPress={() => navigation.navigate("Register")}/>
             {/* <Button title="register with google"/> */}
             {/* <Button title="Home" onPress={() => navigation.navigate("Home")}/> */}

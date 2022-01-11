@@ -24,9 +24,14 @@ export function Logout () {
 
 export const getDataUser = ()=> async dispatch =>{
     try{
-
-        let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
-        let jsonDataUser = await dataUser.json();
+        // let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
+        const response = await axios({
+              method: "get",
+              withCredentials: true,
+              url: "http://localhost:3001/user/getData",
+            })
+        console.log(response.data);
+        const jsonDataUser =  response.data.json();
         dispatch({type:GET_DATA_USER, payload: jsonDataUser})
     }catch(e){
         console.log("Error al consultar")

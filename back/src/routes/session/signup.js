@@ -2,6 +2,7 @@ const User = require('../../db').models.User;
 const userDataValidator = require('../../utils/userDataValidator.js');
 
 module.exports = async function(req, res, next) {
+    console.log('---------- ROUTE SESSION SIGN UP ----------')
     const { availableEmail, validValues } = await userDataValidator(User, req.body)
     if (availableEmail && validValues) {
         try {

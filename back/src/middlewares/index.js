@@ -1,20 +1,26 @@
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const passport = require('passport');
-const session = require('express-session');
 const cors = require('cors');
+const session = require('express-session');
+const passport = require('passport');
 
 module.exports = function (app) {
   app.use(morgan('dev'));
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*'); // Update to match the domain you will make the request from.
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-  });
+  // app.use((req, res, next) => {
+  //   res.header('Access-Control-Allow-Origin', '*'); // Update to match the domain you will make the request from.
+  //   res.header('Access-Control-Allow-Credentials', 'true');
+  //   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  //   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  //   next();
+  // });
   app.use(bodyParser.json({limit: '50mb'}));
   app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
+  app.use(
+    cors({
+      origin: "http://localhost:19006",
+      credentials: true,
+    })
+  );
 
   // Authentication middlewares
   app.use(session({
@@ -24,10 +30,11 @@ module.exports = function (app) {
   }));
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(cors());
+  // app.use(cors());
 
   // Access middlewares.
   app.use((req, res, next) => {
+    console.log('---------- ACCESS MIDDLEWARE 1 ----------')
     if (
       (!req.url.startsWith('/session/') || req.url === '/session/signout') &&
       !req.isAuthenticated()
@@ -36,6 +43,7 @@ module.exports = function (app) {
     } else next()
   });
   app.use((req, res, next) => {
+    console.log('---------- ACCESS MIDDLEWARE 2 ----------')
     if (
       (req.url.startsWith('/session/') && req.url !== '/session/signout') &&
       req.isAuthenticated()

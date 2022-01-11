@@ -8,33 +8,28 @@ module.exports = function(passport, User) {
     },
 
     async function(accessToken, refreshToken, profile, done) {
-      console.log('ENTERING google strategy cb.')
+      console.log('---------- PASSPORT GOOGLE STRATEGY ----------')
       try {
         const firstname = profile.name.givenName; 
         const lastname = profile.name.familyName;
         const email = profile.emails[0].value;
-        console.log('email', email)
-        console.log('accessToken', accessToken)
-        console.log('refreshToken', refreshToken)
       
         const dbUser = await User.findOne({
           where: { email: email } 
         });
         
         if (dbUser) {
-          console.log('dbUser', dbUser)
           done(null, dbUser)
         } else {
           const dbCreatedUser = await User.create({
             firstname,
             lastname,
             email,
-            password: '1password',
-            phone: '1133333333',
-            pin: '123456'
+            password: 'password123',
+            phone: '1111111111',
+            pin: '000000'
           });
 
-          console.log('dbCreatedUser', dbCreatedUser)
           done(null, dbCreatedUser);
         }
       } catch(error) { done(error) }

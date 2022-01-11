@@ -4,18 +4,12 @@ require('./emailStrategy.js')(passport, User);
 require('./googleStrategy.js')(passport, User);
 
 passport.serializeUser(function(user, done) {
-  console.log('ENTERING passport.serializeUser -----------')
-  console.log('user', user)
-  console.log('done', done)
-  console.log('QUITING passport.serializeUser -----------')
+  console.log('---------- PASSPORT SERIALIZE USER ----------')
   done(null, user.id);
 });
 
 passport.deserializeUser(async function(id, done) {
-  console.log('ENTERING passport.deserializeUser -----------')
-  console.log('id', id)
-  console.log('done', done)
-  console.log('QUITING passport.deserializeUser -----------')
+  console.log('---------- PASSPORT DESERIALIZE USER ----------')
   try {
     const user = await User.findByPk(id)
     done(null, user);

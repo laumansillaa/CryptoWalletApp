@@ -1,7 +1,7 @@
 # Backend documentation
 
-In <back> folder you must execute <npm install> command in order to install the required dependencies.
-Then create an <.env> file, in which the following data must be entered:
+In `back` folder you must execute `npm install` command in order to install the required dependencies.
+Then create an `.env` file, in which the following data must be entered:
 ```
     DB_USER=postgresUsername
     DB_PASSWORD=postgresPassword
@@ -11,11 +11,15 @@ Then create an <.env> file, in which the following data must be entered:
     PORT=3001   
 ```
 You must replace the first three values with your corresponding Postgres credentials,
-and the database name (<postgresDatabaseName>) can be whatever you prefer (you must creat that data base on your computer!).
+and the database name (`postgresDatabaseName`) can be whatever you prefer (you must creat that data base on your computer!).
 
-Once this is done, you can start the server by executing <npm start> inside <back> folder.
+Once this is done, you can start the server by executing `npm start` command inside `back` folder.
 
-## Routes
+# Routes
+
+In order to get access to all the available routes, you must first set a session using either one of the following
+routes: /session/localSignin, /session/googleSignin, /session/signup (see how to interact with these routes down below.).
+If you try to reach any other route without being authenticated, the response will be 'Access denied' (status 401).
 
 ### Sign up:
 
@@ -33,12 +37,12 @@ You must send through body the following data:
     pin: "123456"
   }
 ``` 
-All the values have to be of type <string> and with the following restrictions:
-- <firstname> and <lastname> must be non empty.
-- <email> must be a valid email. 
-- <password> must contain at least 8 characters and contain at least one number.
-- <phone> has no restrictions.
-- <pin> must be exactly 6 characters long and contain only numbers.
+All the values have to be of type `string` and with the following restrictions:
+- `firstname` and `lastname` must be non empty.
+- `email` must be a valid email. 
+- `password` must contain at least 8 characters and contain at least one number.
+- `phone` has no restrictions.
+- `pin` must be exactly 6 characters long and contain only numbers.
 
 The possible respnses are:
 - 'Sign up succeeded.' (status 200).
@@ -57,7 +61,7 @@ You must send through body the following data:
     password: "somePassword1234",
   }
 ``` 
-All the values have to be of type <string> and must be non empty.
+All the values have to be of type `string` and must be non empty.
 
 The possible respnses are:
 - 'Sign in succeeded.' (status 200).
@@ -100,12 +104,13 @@ You must send through body the following data:
     pin: "123456"
   }
 ``` 
-All the values have to be of type <string> and with the following restrictions:
-- <firstname> and <lastname> must be non empty.
-- <email> must be a valid email. 
-- <password> must contain at least 8 characters and contain at least one number.
-- <phone> has no restrictions.
-- <pin> must be exactly 6 characters long and contain only numbers.
+All the values have to be of type `string` and with the following restrictions:
+- `firstname` and `lastname` must be non empty.
+- `email` must be a valid email. 
+- `password` must contain at least 8 characters and contain at least one number.
+- `phone` has no restrictions.
+- `pin` must be exactly 6 characters long and contain only numbers.
+
 If there are some fields that you don't want to update, just send the previous
 values so they remain the same.
 

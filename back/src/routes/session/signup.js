@@ -2,7 +2,9 @@ const User = require('../../db').models.User;
 const userDataValidator = require('../../utils/userDataValidator.js');
 
 module.exports = async function(req, res, next) {
-    if (await userDataValidator(User, req.body)) {
+    console.log('---------- ROUTE SESSION SIGN UP ----------')
+    const { availableEmail, validValues } = await userDataValidator(User, req.body)
+    if (availableEmail && validValues) {
         try {
             const { firstname, lastname, email, password, phone, pin } = req.body;
 
@@ -15,9 +17,11 @@ module.exports = async function(req, res, next) {
                 pin: pin
             })
 
-            return res.status(200).send('Sign in succeeded.');
+            return res.status(200).send('Sign up succeeded.');
         } catch(error) { next(error) }
-    } else {
-        return res.status(400).send('Sign in failed: invalid values.');
+    } else if (!availableEmail){
+        return res.status(400).send('Sign up failed: email not available.');
+    } else if (!validValues) {
+        return res.status(400).send('Sign up failed: invalid values.');
     }
 };

@@ -23,8 +23,8 @@ export default function MyData({navigation}) {
   const dispatch = useDispatch();
 
   React.useEffect(async()=>{
-    /* await axios.post(`http://${IP_HOST}:3001/session/localSignin`, userLogin)
-    dispatch(getDataUser()) */
+     // await axios.post(`http://${IP_HOST}:3001/session/localSignin`, userLogin)
+    dispatch(getDataUser()) 
 },[])
 
   return (

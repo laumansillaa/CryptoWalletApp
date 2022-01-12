@@ -9,7 +9,7 @@ import axios from "axios"
 import {IP_HOST} from "@env"
 
 import { useSelector, useDispatch } from 'react-redux';
-import { dataHard } from '../../redux/actions';
+import {  getDataUser } from '../../redux/actions';
 
 export default function EditDataUser({navigation}) {
 const userData = useSelector(state => state.userData)
@@ -82,10 +82,29 @@ setState({...state, [atr]: e})}
   if(!error.firstName&&!error.lastName&&!error.email&&!error.phone&&!error.password&&!error.pin){
 
     if(state.firstname&&state.lastname&&state.email&&state.phone&&state.password&&state.pin){
+      try {
+        const response = await axios({
+          method: "put",
+          data: {
+            id:3,
+            firstname: state.firstname,
+            lastname: state.lastname,
+            phone: state.phone,
+            email: state.email,
+            password: state.password,
+            pin: state.pin
+
+          },
+          withCredentials: true,
+          url: `http://${IP_HOST}:3001/user/updateData`,
+        })
+        dispatch(getDataUser());
+        setMessage("Updated information")
+        
+        navigation.navigate("AccountComponent");
+     
+      } catch (error) { console.error(error) }
       
-       dispatch(dataHard(state))
-       setMessage("Updated information")
-       navigation.navigate("Account");
       
       }else{
         setMessage("Please fill all fields");
@@ -130,10 +149,7 @@ setState({...state, [atr]: e})}
           {error.lastName}
         </FormControl.ErrorMessage>   
         
-        <Input  variant="filled" value={state.email} placeholder="Enter Email" onChangeText={(e)=>handleChange(e,"email")} />
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.email}
-        </FormControl.ErrorMessage>  
+      
         
         <Input  variant="filled" value={state.phone} placeholder="Enter Phone" onChangeText={(e)=>handleChange(e,"phone")} /> 
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>

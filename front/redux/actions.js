@@ -24,13 +24,14 @@ export function Logout () {
 
 export const getDataUser = ()=> async dispatch =>{
     try{
+    
         // let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
         const response = await axios({
               method: "get",
               withCredentials: true,
-              url: "http://localhost:3001/user/getData",
+              url: `http://${IP_HOST}:3001/user/getData`,
             })
-        console.log(response.data);
+        
         const dataUser =  response.data;
         dispatch({type:GET_DATA_USER, payload: dataUser})
     }catch(e){

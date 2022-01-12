@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
+const IP_HOST = process.env.IP_HOST
 
 module.exports = function (app) {
   app.use(morgan('dev'));
@@ -17,7 +18,7 @@ module.exports = function (app) {
   app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
   app.use(
     cors({
-      origin: "http://localhost:19006",
+      origin: `http://${IP_HOST}:19006`,
       credentials: true,
     })
   );

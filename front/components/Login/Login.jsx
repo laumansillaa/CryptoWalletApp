@@ -21,28 +21,19 @@ export default function Login ({ navigation }) {
             password: password,
           },
           withCredentials: true,
-          url: `http://localhost:3001/session/localSignin`,
+          url: `http://${IP_HOST}:3001/session/localSignin`,
         })
-        console.log(response)
+       
         dispatch(Log())
       } catch (error) { console.error(error) }
     };
 
     const onGoogleLogin = async (e) => {
       try {
-        window.open('http://localhost:3001/session/googleSignin', '_self')
+        window.open(`http://${IP_HOST}:3001/session/googleSignin`, '_self')
         dispatch(Log())
       } catch (error) { console.error(error) }
     }
-    // const onLogin = async e => {
-    //     let obj = {
-    //       email: email,
-    //       password: password,
-    //     };
-    //     await axios.post(`http://${IP_HOST}:3001/session/localSignin`, obj)
-    //     .then(() => dispatch(Log()))
-    //     .catch(err => console.log(err))
-    // }
 
     useEffect(() => {
       console.log("fallo en el login");
@@ -60,23 +51,7 @@ export default function Login ({ navigation }) {
         },
       });
 
-    async function handleSubmit(){
-        let obj={
-            email: email,
-            password: password
-
-        }
-        try{
-            await axios.post(`http://${IP_HOST}:3001/session/localSignin`, obj)
-            navigation.navigate("Home")
-
-        }catch(e){
-            console.log("Fallo en el login")
-
-        }
-       
-
-      }
+    
 
 
     

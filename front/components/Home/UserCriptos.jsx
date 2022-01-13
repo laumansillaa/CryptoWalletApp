@@ -22,7 +22,7 @@ return (
         
          alignSelf="center"
         width={500}
-         
+         height={630}
          maxWidth="100%"
          maxHeight="100%"
         >

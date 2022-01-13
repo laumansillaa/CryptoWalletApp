@@ -1,8 +1,10 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, RETRIEVE_TOKEN} from "./actions"
 
 const initialState={
    Log: false,
+   isLoading: true,
+   userToken: null,
    userData:{
         
     firstname: "",
@@ -24,12 +26,22 @@ const rootReducer = (state = initialState, action)=>{
        case LOG:
            return {
                ...state,
+               userToken: action.payload,
+               isLoading: false,
                Log: true,
            }
         case LOGOUT:
             return {
                 ...state,
+                isLoading:false,
+                userToken: null,
                 Log: false,
+            }
+        case RETRIEVE_TOKEN:
+            return {
+                ...state,
+                userToken: action.token,
+                isLoading: false,
             }
 
             case GET_DATA_USER:

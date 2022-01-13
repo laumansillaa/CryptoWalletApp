@@ -4,6 +4,9 @@ import axios from "axios";
 import { Log } from "../../redux/actions";
 import {IP_HOST} from "@env"
 import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 
 export default function Login ({ navigation }) {
@@ -11,21 +14,47 @@ export default function Login ({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const log = useSelector(state => state.Log);
+    let userToken = useSelector(state => state.userToken);
 
     const onLogin = async (e) => {
-      try {
-        const response = await axios({
-          method: "post",
-          data: {
-            email: email,
-            password: password,
-          },
-          withCredentials: true,
-          url: `http://${IP_HOST}:3001/session/localSignin`,
-        })
-       
-        dispatch(Log())
-      } catch (error) { console.error(error) }
+      // try {
+      //   userToken = null;
+      //   const response = await axios({
+      //     method: "post",
+      //     data: {
+      //       email: email,
+      //       password: password,
+      //     },
+      //     withCredentials: true,
+      //     url: `http://${IP_HOST}:3001/session/localSignin`,
+      //   });
+      //   userToken = "loggety logged";     
+      // } catch (error) { console.error(error) }
+      // dispatch(Log(userToken));  
+      userToken = null;
+      if (email === "user" && password === "pass" ) {
+        try {
+          userToken = "loggety logged";
+          await AsyncStorage.setItem('userToken', userToken);
+          dispatch(Log(userToken));
+        } catch (e) {
+          console.error(e)
+        }
+      } else {
+        console.error("bad");
+      }
+      
+
+
+      // try {
+      //   let data = {
+      //     email: email,
+      //     password: password,
+      // }
+      // const jsonValue = JSON.stringify(data);
+      // await AsyncStorage.setItem('@userToken', jsonValue);
+      // dispatch(Log())
+      // } catch (error) { console.error(error)}
     };
 
     const onGoogleLogin = async (e) => {
@@ -35,9 +64,15 @@ export default function Login ({ navigation }) {
       } catch (error) { console.error(error) }
     }
 
-    useEffect(() => {
+    useEffect( async () => {
       console.log("fallo en el login");
+      // const value = await AsyncStorage.getItem('@storage_Key');
+      // alert(value.toString);
   }, [log]);
+
+    // useEffect(() => {
+
+    // })
     
     const styles = StyleSheet.create({
         logo: {

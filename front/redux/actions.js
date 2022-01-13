@@ -6,18 +6,26 @@ export const GET_DATA_USER = "GET_DATA_USER";
 export const DATA_HARD = "DATA_HARD"
 export const LOG = "LOG";
 export const LOGOUT = "LOGOUT";
+export const RETRIEVE_TOKEN = "RETRIEVE_TOKEN";
+export const LOADING_TRUE = "LOADING_TRUE";
 
-
-export function Log () {
+export function Log (payload) {
     return {
         type: LOG,
-        payload: null,
+        payload: payload,
     }
 }
 
 export function Logout () {
     return {
         type:LOGOUT,
+        payload: null,
+    }
+}
+
+export function RetrieveToken () {
+    return {
+        type: RETRIEVE_TOKEN,
         payload: null,
     }
 }

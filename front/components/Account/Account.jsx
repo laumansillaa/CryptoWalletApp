@@ -7,7 +7,12 @@ export default function Account({ navigation }) {
 
   const dispatch = useDispatch();
 
-  function onLogout() {
+  async function onLogout () {
+    try {
+      await AsyncStorage.removeItem('userToken')
+    } catch (e) {
+      console.error(e)
+    }
     dispatch(Logout());
   }
 

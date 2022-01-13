@@ -36,7 +36,7 @@ export const getDataUser = ()=> async dispatch =>{
             })
         
         const dataUser =  response.data;
-        dataUser.balance= "1000"
+        
         dispatch({type:GET_DATA_USER, payload: dataUser})
     }catch(e){
         console.log("Error al consultar")

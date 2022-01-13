@@ -8,6 +8,7 @@ export const LOG = "LOG";
 export const LOGOUT = "LOGOUT";
 export const TOKENS_HARD = "TOKENS_HARD";
 export const ADD_FOUNDS = "ADD_FOUNDS";
+export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
 
 
 export function Log () {
@@ -69,4 +70,8 @@ export const getTokernsHard = ()=> async dispatch =>{
 
 export const addFounds = (founds)=>{
     return({type:ADD_FOUNDS, payload:founds})
+}
+
+export const depositTransaction = (transaction)=>{
+    return({type:DEPOSIT_TRANSACTION, payload:transaction})
 }

@@ -94,7 +94,7 @@ async function handleSubmit(){
 }
 
   return (
-  <NativeBaseProvider>
+  
     <ScrollView>
     <FormControl
     isInvalid
@@ -156,7 +156,7 @@ async function handleSubmit(){
   
   </FormControl>
   </ScrollView>
-  </NativeBaseProvider>
+  
   );
 }
 

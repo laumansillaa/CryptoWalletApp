@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useDispatch, useSelector} from "react-redux"
-import { addFounds, getDataUser, getTokernsHard } from '../../redux/actions';
+import { addFounds, depositTransaction, getDataUser, getTokernsHard } from '../../redux/actions';
 import { useState } from 'react';
 import {
   Button,
@@ -18,12 +18,18 @@ import {
   Center,
   InputGroup,
   InputLeftAddon,
+  CheckIcon,
+  ScrollView,
+  extendTheme
 } from 'native-base';
+import Transaction from './components/Transaction';
+
 
 export default function Home() {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)
   const [showModal, setShowModal] = useState(false)
+  const[showModalConfirm, setShowModalConfirm] = useState(false);
   const [founds, setFounds] = useState("");
 
  
@@ -36,20 +42,19 @@ export default function Home() {
   
 
 
-  return (
-
-
-    <NativeBaseProvider>
-
+  return (<Box bg="indigo.100" width={400} alignSelf="center" >
       
     <Box
-      bg="primary.600"
+      bg="indigo.600"
       py="5"
       px="8"
       rounded="md"
       alignSelf="center"
       width={375}
       maxWidth="100%"
+      
+     
+      shadow={9}
     >
       <HStack justifyContent="space-between">
         <Box justifyContent="space-between">
@@ -61,15 +66,9 @@ export default function Home() {
             Your balance ${userData.balance}
             </Text>
           </VStack>
-          <Pressable
-            rounded="sm"
-            bg="primary.400"
-            alignSelf="flex-start"
-            py="4"
-            px="3"
-          >
-             <Button onPress={() => setShowModal(true)}>Add founds</Button>
-          </Pressable>
+          
+             <Button bg="indigo.400"  onPress={() => setShowModal(true)}><Text color="#ffffff" >Add founds</Text></Button>
+         
         </Box>
         <Image
           source={{
@@ -84,10 +83,53 @@ export default function Home() {
 
 
     </Box>
-    <Box>
-     
-    </Box>
+    
+    <Box
+      bg="blue.100"
+      py="1"
+      px="3"
+      
+      rounded="md"
+      alignSelf="center"
+      width={500}
+      height={800}
+      maxWidth="100%"
+      maxHeight="100%"
+    >
+<ScrollView>
+      <Box
+             bg="darkBlue.900"
+             py="5"
+             px="1"
+             mb={0.2}
+            shadow={9}
+             rounded="md"
+             alignSelf="center"
+             width={400}
+             alignItems="center"
+             maxWidth="100%"
+             maxHeight="100%"
+          >
+            <Text color="white" fontSize="lg" pb="1">
+            Transactions
+            </Text>
+          </Box>
 
+          {userData.transactions?.map((element)=>{
+            return ( <Transaction 
+                      action={element.action}
+                      mont={element.mont}
+                      money={element.money}
+                      date={element.date}
+
+                      />)
+
+          })}
+         
+          </ScrollView>
+
+    </Box>
+    
     <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="500px">
           <Modal.CloseButton />
@@ -130,6 +172,10 @@ export default function Home() {
               <Button
                 onPress={() => {
                   dispatch(addFounds(founds))
+                  let d = new Date();
+                  d = `${d.getDate()}/${1 +parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
+                  dispatch(depositTransaction({action:"Deposit", money:"USD", mont: founds, date:d}))
+                  setShowModalConfirm(true)
                   setShowModal(false)
                 }}
               >
@@ -139,6 +185,23 @@ export default function Home() {
           </Modal.Footer>
         </Modal.Content>
       </Modal>
-  </NativeBaseProvider>
+
+
+      <Modal isOpen={showModalConfirm} onClose={() => setShowModalConfirm(false)}>
+        <Modal.Content maxWidth="500px">
+          <Modal.CloseButton />
+          <Modal.Header>Confirm </Modal.Header>
+          <Modal.Body>
+          <HStack space={2}>
+            <CheckIcon size="5" mt="0.5" color="emerald.500" />
+              <Text color="emerald.500" fontSize="md">
+                    Amount added correctly
+                 </Text>
+           </HStack>
+          </Modal.Body>
+          
+        </Modal.Content>
+      </Modal>
+      </Box>
   );
 }

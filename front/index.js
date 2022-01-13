@@ -11,6 +11,8 @@ import Home from './components/Home/Home';
 import AccountIndex from './components/Account/AccountIndex';
 import HeaderCurrencies from "./components/HeaderCurrencies/HeaderCurrencies"
 
+
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +36,7 @@ export default function Index() {
   }
 
   return ( 
+   
       <NavigationContainer>
         {!logged ? <Stack.Navigator initialRouteName='Login'>
                       <Stack.Screen name="Login" component={Login}/>

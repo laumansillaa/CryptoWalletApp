@@ -25,7 +25,7 @@ import {
 import Transaction from './components/Transaction';
 
 
-export default function Home() {
+export default function Home({navigation}) {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)
   const [showModal, setShowModal] = useState(false)
@@ -42,8 +42,15 @@ export default function Home() {
   
 
 
-  return (<Box bg="indigo.100" width={400} alignSelf="center" >
+  return (<>
+
+  {/* Componenente balance */}
+      <Pressable 
+      onPress={() => {
+        navigation.navigate("UserCriptos")
+      }}
       
+      >
     <Box
       bg="indigo.600"
       py="5"
@@ -52,8 +59,6 @@ export default function Home() {
       alignSelf="center"
       width={375}
       maxWidth="100%"
-      
-     
       shadow={9}
     >
       <HStack justifyContent="space-between">
@@ -83,29 +88,19 @@ export default function Home() {
 
 
     </Box>
-    
-    <Box
-      bg="blue.100"
-      py="1"
-      px="3"
-      
-      rounded="md"
-      alignSelf="center"
-      width={500}
-      height={800}
-      maxWidth="100%"
-      maxHeight="100%"
-    >
-<ScrollView>
+    </Pressable>
+   
+     {/*componente transactions */}
       <Box
              bg="darkBlue.900"
              py="5"
              px="1"
              mb={0.2}
+             mt={0.5}
             shadow={9}
              rounded="md"
              alignSelf="center"
-             width={400}
+             width={375}
              alignItems="center"
              maxWidth="100%"
              maxHeight="100%"
@@ -113,10 +108,12 @@ export default function Home() {
             <Text color="white" fontSize="lg" pb="1">
             Transactions
             </Text>
-          </Box>
+      </Box>
+      <ScrollView>
+          <VStack>
 
-          {userData.transactions?.map((element)=>{
-            return ( <Transaction 
+          {userData.transactions?.map((element, index)=>{
+            return ( <Transaction key={index}
                       action={element.action}
                       mont={element.mont}
                       money={element.money}
@@ -125,11 +122,13 @@ export default function Home() {
                       />)
 
           })}
-         
-          </ScrollView>
 
-    </Box>
-    
+       </VStack>
+       
+       </ScrollView>
+       
+   
+   {/*Ventana que se abren */}
     <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="500px">
           <Modal.CloseButton />
@@ -202,6 +201,7 @@ export default function Home() {
           
         </Modal.Content>
       </Modal>
-      </Box>
+      </>
+      
   );
 }

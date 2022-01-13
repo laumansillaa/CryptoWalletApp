@@ -32,7 +32,7 @@ return (
         >
         <Stack direction="row" >
             <Box aligSelf="center" >
-            <Avatar size="lg"  alignSelf="center">
+            <Avatar bg="darkBlue.900" size="lg"  alignSelf="center">
                 <Text fontSize="4xl">{money.charAt(0)}</Text>
             </Avatar>
             </Box>

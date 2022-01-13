@@ -58,8 +58,9 @@ const rootReducer = (state = initialState, action)=>{
                 return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}
       
            case DEPOSIT_TRANSACTION:
-             
-               return {...state, userData:{...state.userData, transactions: state.userData.transactions.concat(action.payload)}}
+             let aux = state.userData.transactions;
+             aux.unshift(action.payload)
+               return {...state, userData:{...state.userData, transactions: aux}}
        default: return state 
     }
 

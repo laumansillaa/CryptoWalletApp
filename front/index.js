@@ -7,9 +7,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './components/Login/Login';
 import Register from "./components/Register/Register"
-import Home from './components/Home/Home';
+import HomeIndex from './components/Home/HomeIndex';
 import AccountIndex from './components/Account/AccountIndex';
 import HeaderCurrencies from "./components/HeaderCurrencies/HeaderCurrencies"
+
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -34,6 +36,7 @@ export default function Index() {
   }
 
   return ( 
+   
       <NavigationContainer>
         {!logged ? <Stack.Navigator initialRouteName='Login'>
                       <Stack.Screen name="Login" component={Login}/>
@@ -41,7 +44,7 @@ export default function Index() {
                    </Stack.Navigator>
     : 
                    <Tab.Navigator initialRouteName="Home">
-                      <Tab.Screen name="Home" component={Home}/>
+                      <Tab.Screen name="Home" component={HomeIndex}/>
                       <Tab.Screen name="Currencies" component={HeaderCurrencies}/>
                       <Tab.Screen name="Account" component={AccountIndex}/>
                    </Tab.Navigator>

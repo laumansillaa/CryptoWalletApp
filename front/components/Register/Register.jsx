@@ -76,7 +76,7 @@ async function handleSubmit(){
     if(!error.firstName&&!error.lastName&&!error.email&&!error.phone&&!error.password&&!error.pin){
 
       if(state.firstname&&state.lastname&&state.email&&state.phone&&state.password&&state.pin){
-        console.log(state)
+ 
           try {
              await axios.post(`http://${IP_HOST}:3001/session/signup`, state)
             setMessage("Sign in succeeded.");
@@ -94,7 +94,7 @@ async function handleSubmit(){
 }
 
   return (
-  <NativeBaseProvider>
+  
     <ScrollView>
     <FormControl
     isInvalid
@@ -156,7 +156,7 @@ async function handleSubmit(){
   
   </FormControl>
   </ScrollView>
-  </NativeBaseProvider>
+  
   );
 }
 

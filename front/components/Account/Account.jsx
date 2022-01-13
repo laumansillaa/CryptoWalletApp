@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Logout } from '../../redux/actions';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Account({ navigation }) {
 
@@ -9,11 +10,11 @@ export default function Account({ navigation }) {
 
   async function onLogout () {
     try {
-      await AsyncStorage.removeItem('userToken')
+      await AsyncStorage.removeItem('userToken');
+      dispatch(Logout());
     } catch (e) {
       console.error(e)
     }
-    dispatch(Logout());
   }
 
   return (

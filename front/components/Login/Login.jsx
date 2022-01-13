@@ -36,12 +36,13 @@ export default function Login ({ navigation }) {
         try {
           userToken = "loggety logged";
           await AsyncStorage.setItem('userToken', userToken);
+          console.log("userToken",userToken);
           dispatch(Log(userToken));
         } catch (e) {
           console.error(e)
         }
       } else {
-        console.error("bad");
+        console.error("bad credentials");
       }
       
 
@@ -64,11 +65,11 @@ export default function Login ({ navigation }) {
       } catch (error) { console.error(error) }
     }
 
-    useEffect( async () => {
-      console.log("fallo en el login");
-      // const value = await AsyncStorage.getItem('@storage_Key');
-      // alert(value.toString);
-  }, [log]);
+  //   useEffect( async () => {
+  //     console.log("fallo en el login");
+  //     // const value = await AsyncStorage.getItem('@storage_Key');
+  //     // alert(value.toString);
+  // }, [log]);
 
     // useEffect(() => {
 

@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,6 +12,9 @@ import AccountIndex from './components/Account/AccountIndex';
 import HeaderCurrencies from "./components/HeaderCurrencies/HeaderCurrencies"
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import { View, Text } from 'native-base';
+import Loading from './components/LOADING/LOADING';
+import { LoadingFalse, RetrieveToken } from './redux/actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -20,17 +23,18 @@ const Tab = createBottomTabNavigator();
 
 export default function Index() {
 
+const dispatch = useDispatch();
+let userToken =useSelector(state => state.userToken);
+
   const [logged, setLogged] = useState(false);
   const log = useSelector(state => state.Log);
-  const isLoading = useSelector(state => state.isLoading);
+  let isLoading = useSelector(state => state.isLoading);
  
   useEffect(() => {
     isLogged()
   },[log])
  
   const isLogged = () => {
-    console.log(log);
-  
     if(log) {    
       setLogged(true)
     } else {
@@ -38,11 +42,28 @@ export default function Index() {
     }
   }
 
+  useEffect(() => {
+    setTimeout( async () => {
+      userToken= null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+        if (userToken) {
+          isLoading= false;
+          setLogged(true);
+        } else {
+          dispatch(RetrieveToken(userToken));
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }, [])
+
 
   if(isLoading) { return (
-                  <View style={{flex:1, alignItems:"center", justifyContent: "center",}}>
-                    <Text>LOADING</Text>
-                  </View>
+                  <>
+                  <Loading/>
+                  </>
   )
   }
 

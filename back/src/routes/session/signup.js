@@ -6,7 +6,7 @@ module.exports = async function(req, res, next) {
     const { availableEmail, validValues } = await userDataValidator(User, req.body)
     if (availableEmail && validValues) {
         try {
-            const { firstname, lastname, email, password, phone, pin } = req.body;
+            const { firstname, lastname, email, password, phone, pin, publicKey, secretKey } = req.body;
 
             await User.create({
                 firstname: firstname,
@@ -14,7 +14,9 @@ module.exports = async function(req, res, next) {
                 email: email,
                 password: password,
                 phone: phone,
-                pin: pin
+                pin: pin,
+                publicKey: publicKey,
+                secretKey: secretKey
             })
 
             return res.status(200).send('Sign up succeeded.');

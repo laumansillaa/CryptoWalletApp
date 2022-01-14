@@ -15,9 +15,7 @@ const initialState={
   
     balance:"0"
     },
-    tokensHard:{
-
-    }
+    tokensHard:[]
    
 
 

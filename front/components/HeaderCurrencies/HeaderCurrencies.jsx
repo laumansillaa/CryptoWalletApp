@@ -37,7 +37,7 @@ let p
          <ScrollView>
            
         {state?.map((element, index)=>{
-          return (<Criptos  token={element[0]} price={element[1]} />)
+          return (<Criptos  key={index} token={element[0]} price={element[1]} />)
 
         })}
         

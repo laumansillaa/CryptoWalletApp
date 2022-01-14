@@ -31,15 +31,14 @@ export default function Home({navigation}) {
   const [showModal, setShowModal] = useState(false)
   const[showModalConfirm, setShowModalConfirm] = useState(false);
   const [founds, setFounds] = useState("");
-
+  
  
   React.useEffect(async()=>{
     dispatch(getDataUser()) 
-    
+  
 
 },[])
 
-  
 
 
   return (<>
@@ -111,7 +110,7 @@ export default function Home({navigation}) {
       </Box>
       <ScrollView>
           <VStack>
-
+         
           {userData.transactions?.map((element, index)=>{
             return ( <Transaction key={index}
                       action={element.action}

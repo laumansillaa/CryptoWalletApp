@@ -7,12 +7,10 @@ module.exports = function(passport, User) {
     },
 
     async function (email, password, done) {
-      console.log('ENTERING LocalStrategy -----------')
-      console.log('password', password)
-      console.log('email', email)
-      console.log('done', done)
-      console.log('QUITING LocalStrategy -----------')
+      console.log('---------- PASSPORT LOCAL STRATEGY ----------')
       try {
+        if (typeof email !== 'string' || !email.length > 0) return done(null, false);
+        
         const user = await User.findOne({ where: { email: email } });
 
         if (!user || user.password !== password) {

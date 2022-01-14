@@ -2,6 +2,7 @@ const User = require('../../db').models.User;
 const userDataValidator = require('../../utils/userDataValidator.js');
 
 module.exports = async function(req, res) {
+    console.log('---------- ROUTE USER UPDATE DATA ----------')
     try {
         if (userDataValidator(User, req.body)) {
             const id = req.user.id;

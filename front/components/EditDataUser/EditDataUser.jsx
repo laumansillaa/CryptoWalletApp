@@ -8,8 +8,12 @@ import { validateEmail, validateNumber, validatePassword, validateString, valida
 import axios from "axios"
 import {IP_HOST} from "@env"
 
-export default function Register() {
+import { useSelector, useDispatch } from 'react-redux';
+import {  getDataUser } from '../../redux/actions';
 
+export default function EditDataUser({navigation}) {
+const userData = useSelector(state => state.userData)
+ const dispatch = useDispatch()
 const [message, setMessage] = useState("");
 const [state,setState] = useState({
   firstname: "",
@@ -18,7 +22,6 @@ const [state,setState] = useState({
   phone:"",
   password:"",
   pin:""
-
 })
 const [error, setError] = useState({
   firstName: "",
@@ -46,9 +49,7 @@ function validateData (arg){
     case "phone":
       validateNumber(state.phone)? setError({...error, phone: ""}):setError({...error, phone:"Please just enter numbers"});
     break;
-    case "password":
-      validatePassword(state.password)? setError({...error, password: ""}):setError({...error, password:"Please enter a 6 to 16 digit password with at least one number and one capital letter"});
-    break;
+    
     case "pin":
       validatePin(state.pin)? setError({...error, pin: ""}):setError({...error, pin:"Please enter a 6-digit pin, only numbers are accepted"});
     break;
@@ -60,41 +61,64 @@ function validateData (arg){
 useEffect(()=>{validateData("firstname")},[state.firstname])
 useEffect(()=>{validateData("lastname")},[state.lastname])
 useEffect(()=>{validateData("phone")},[state.phone])
-useEffect(()=>{validateData("password")},[state.password])
+
 useEffect(()=>{validateData("email")},[state.email])
 useEffect(()=>{validateData("pin")},[state.pin])
  
 
+
+useEffect(()=>{
+    setState(userData)
+
+},[])
 
 const handleChange = (e, atr)=>{
 
 setState({...state, [atr]: e})}
 
 
-async function handleSubmit(){
+ async function handleSubmit(){
   setMessage("Loading...")
-    if(!error.firstName&&!error.lastName&&!error.email&&!error.phone&&!error.password&&!error.pin){
+  if(!error.firstName&&!error.lastName&&!error.email&&!error.phone&&!error.password&&!error.pin){
 
-      if(state.firstname&&state.lastname&&state.email&&state.phone&&state.password&&state.pin){
- 
-          try {
-             await axios.post(`http://${IP_HOST}:3001/session/signup`, state)
-            setMessage("Sign in succeeded.");
-          } catch (error) {
-            setMessage("Registration failed, try again ")
-          }
+    if(state.firstname&&state.lastname&&state.email&&state.phone&&state.password&&state.pin){
+      try {
+        const response = await axios({
+          method: "put",
+          data: {
+            id:3,
+            firstname: state.firstname,
+            lastname: state.lastname,
+            phone: state.phone,
+            email: state.email,
+            password: state.password,
+            pin: state.pin
+
+          },
+          withCredentials: true,
+          url: `http://${IP_HOST}:3001/user/updateData`,
+        })
+        dispatch(getDataUser());
+        setMessage("Updated information")
         
-        }else{
-          setMessage("Please fill all fields");
-        }
+        navigation.navigate("AccountComponent");
      
-     }else{
-      setMessage("Please review the warnings")
-     }
-}
-
-  return (
+      } catch (error) { console.error(error) }
+      
+      
+      }else{
+        setMessage("Please fill all fields");
+      }
+   
+   }else{
+    setMessage("Please review the warnings")
+   }
   
+  
+}
+ 
+  return (
+  <NativeBaseProvider>
     <ScrollView>
     <FormControl
     isInvalid
@@ -104,7 +128,7 @@ async function handleSubmit(){
     style={styles.container}>
 
 
-          <Heading>Register </Heading>
+          <Heading>Edit Info</Heading>
           
       <Stack
       space={4}
@@ -115,39 +139,25 @@ async function handleSubmit(){
       
       >  
         
-        <Input variant="filled"   placeholder="Enter Name" onChangeText={(e)=>handleChange(e,"firstname")} />
+        <Input variant="filled" value={state.firstname}  placeholder="Enter Name" onChangeText={(e)=>handleChange(e,"firstname")} />
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           {error.firstName}
         </FormControl.ErrorMessage>  
      
-        <Input variant="filled"  placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastname")}/> 
+        <Input variant="filled" value={state.lastname} placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastname")}/> 
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           {error.lastName}
         </FormControl.ErrorMessage>   
         
-        <Input  variant="filled" placeholder="Enter Email" onChangeText={(e)=>handleChange(e,"email")} />
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.email}
-        </FormControl.ErrorMessage>  
+      
         
-        <Input  variant="filled"  placeholder="Enter Phone" onChangeText={(e)=>handleChange(e,"phone")} /> 
+        <Input  variant="filled" value={state.phone} placeholder="Enter Phone" onChangeText={(e)=>handleChange(e,"phone")} /> 
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           {error.phone}
         </FormControl.ErrorMessage>   
     
-        <Input variant="filled"  placeholder="Enter Password" onChangeText={(e)=>handleChange(e,"password")} password={true} secureTextEntry={true}
-         />  
-           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.password}
-        </FormControl.ErrorMessage>  
-
-        <Input variant="filled"  placeholder="Enter 6 digit pin" onChangeText={(e)=>handleChange(e,"pin")} password={true} secureTextEntry={true}
-         />  
-           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.pin}
-        </FormControl.ErrorMessage>  
-
-        <Button onPress={handleSubmit}>Next</Button>
+        <Button onPress={handleSubmit}>Confirmar</Button>
+        
         <FormControl.HelperText>
             {message}
           </FormControl.HelperText>
@@ -156,7 +166,7 @@ async function handleSubmit(){
   
   </FormControl>
   </ScrollView>
-  
+  </NativeBaseProvider>
   );
 }
 

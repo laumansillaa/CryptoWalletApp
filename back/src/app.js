@@ -14,11 +14,7 @@ require('./routes')(app);
 app.use((err, req, res, next) => { 
   const status = err.status || 500;
   const message = err.message || err;
-  console.log('ENTERING error carching endware ----------')
-  console.log('STATUS', err.status)
-  console.log('MESSAGE', err.message)
-  console.log('ERR', err)
-  console.log('QUITING error carching endware ----------')
+  console.log('---------- ERROR CATCHING ENDWARE ----------')
   console.error(err);
   return res.status(status).send(message);
 });

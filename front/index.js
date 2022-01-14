@@ -1,25 +1,19 @@
-
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './components/Login/Login';
 import Register from "./components/Register/Register"
-import HomeIndex from './components/Home/HomeIndex';
-import AccountIndex from './components/Account/AccountIndex';
-import HeaderCurrencies from "./components/HeaderCurrencies/HeaderCurrencies"
 import SplashScreen from './components/SplashScreen/SplashScreen';
-import { View, Text } from 'native-base';
 import Loading from './components/LOADING/LOADING';
-import { LoadingFalse, RetrieveToken } from './redux/actions';
+import { RetrieveToken } from './redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+import Footer from '../front/components/Footer/Footer'
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 export default function Index() {
 
@@ -32,8 +26,8 @@ let userToken =useSelector(state => state.userToken);
  
   useEffect(() => {
     isLogged()
-  },[log])
- 
+  }, [log])
+
   const isLogged = () => {
     if(log) {    
       setLogged(true)
@@ -76,11 +70,7 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="Register" component={Register}/>
                    </Stack.Navigator>
     : 
-                   <Tab.Navigator initialRouteName="Home">
-                      <Tab.Screen name="Home" component={HomeIndex}/>
-                      <Tab.Screen name="Currencies" component={HeaderCurrencies}/>
-                      <Tab.Screen name="Account" component={AccountIndex}/>
-                   </Tab.Navigator>
+                   <Footer />
       }</NavigationContainer>
   );
 }
@@ -89,8 +79,7 @@ let userToken =useSelector(state => state.userToken);
 
 
 
-        
-      
-        
-        
-    
+
+
+
+

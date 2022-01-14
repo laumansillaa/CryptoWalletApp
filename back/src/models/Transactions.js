@@ -14,7 +14,7 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        sellingType: {
+        currencySell: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -22,7 +22,7 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        buyingType: {
+        currencyBuy: {
             type: DataTypes.STRING,
             allowNull: false
         },

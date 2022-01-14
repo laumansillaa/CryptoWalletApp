@@ -2,6 +2,10 @@ const { DataTypes, Op } = require ('sequelize');
 
 module.exports = function (sequelize) {
     sequelize.define('Currencies', {
+        publicKey: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         BTC: {
             type: DataTypes.STRING,
             allowNull: false

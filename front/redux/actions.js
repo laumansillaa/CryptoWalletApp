@@ -9,8 +9,8 @@ export const LOGOUT = "LOGOUT";
 export const TOKENS_HARD = "TOKENS_HARD";
 export const ADD_FOUNDS = "ADD_FOUNDS";
 export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
-export const TOKEN_BTCUSDT ="TOKEN_BTCUSDT";
-export const TOKEN_ETHUSDT ="TOKEN_ETHUSDT";
+export const GET_TOKENS ="GET_TOKENS";
+
 
 export function Log () {
     return {
@@ -65,11 +65,11 @@ export const depositTransaction = (transaction)=>{
 
 
 
-export const tokenBTCUSDT = (data) =>{
+export const getTokens = (data) =>{
     return({type:TOKEN_BTCUSDT, payload:data})
 
 }
-export const tokenETHUSDT = (data) =>{
+/* export const tokenETHUSDT = (data) =>{
     return({type:TOKEN_ETHUSDT, payload:data})
 
-}
+} */

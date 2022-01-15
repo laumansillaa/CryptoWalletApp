@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Text, View} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTokernsHard, tokenBTCUSDT,tokenETHUSDT } from '../../redux/actions';
+import { getTokens, getTokernsHard, tokenBTCUSDT,tokenETHUSDT } from '../../redux/actions';
 import Criptos from './Criptos';
 import io from "socket.io-client";
 
@@ -48,10 +48,11 @@ React.useEffect(()=>{
 React.useEffect(()=>{
   const socket = io("http://192.168.1.8:3001")
   socket.on("BTCUSDT", msg =>{
-    dispatch(tokenBTCUSDT(msg))})
+    dispatch(getTokens({name:"BTCUSDT", price:msg}))})
 
     socket.on("ETHUSDT", msg =>{
-      dispatch(tokenETHUSDT(msg))})
+      dispatch(getTokens({name:"ETHUSDT", price:msg}))})
+
 
   
 },[])

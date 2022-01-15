@@ -14,21 +14,21 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        currencySell: {
+        currencyEgress: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        sellingAmount: {
+        egressAmount: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        currencyBuy: {
+        currencyIngress: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
-        buyingAmount: {
+        ingressAmount: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         }
     })
 }

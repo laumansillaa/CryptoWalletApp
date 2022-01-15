@@ -4,47 +4,47 @@ module.exports = function (sequelize) {
     sequelize.define('Currencies', {
         publicKey: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         BTC: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         ETH: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         BNB: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         SOL: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         ADA: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         XRP: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         LUNA: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         DOT: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         DOGE: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         SHIB: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         }
     })
 }

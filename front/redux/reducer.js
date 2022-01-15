@@ -13,7 +13,9 @@ const initialState={
     pin: "",
     transactions:[],
   
-    balance:"0"
+    balance:"0",
+
+    //cvu:"0000034567800000123455"
     },
     tokensHard:[]
    
@@ -46,7 +48,8 @@ const rootReducer = (state = initialState, action)=>{
                                     password:password,
                                     phone:phone,
                                     balance: state.userData.balance,
-                                    transactions: state.userData.transactions
+                                    transactions: state.userData.transactions,
+                                    //cvu: state.userData.cvu
                                     }}
 
             case TOKENS_HARD:

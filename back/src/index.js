@@ -24,7 +24,7 @@ const db = require('./db.js');
 // Server initialization.
 (async function() {
   try {
-    await db.sync({ force: false })
+    await db.sync({ force: true })
     console.log('Data base created.');
     // await Promise.all([
     //   db.models.User.create({firstname: 'julian', lastname: 'alvarez', email: 'julian@gmail.com', password: 'password123', phone: '1133333333', pin: '123456'}),

@@ -1,67 +1,71 @@
-
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION} from "./actions"
-
+import {LOG, LOGOUT, GET_DATA_USER, ADD_FOUNDS, DEPOSIT_TRANSACTION, GET_TOKENS} from "./actions"
 const initialState={
-   Log: false,
-   userData:{
-        
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    phone: "",
-    pin: "",
-    transactions:[],
-  
-    balance:"0"
-    },
-    tokensHard:[]
-   
-
-
-}
-
-const rootReducer = (state = initialState, action)=>{
-
-    switch(action.type){
-       case LOG:
-           return {
-               ...state,
-               Log: true,
-           }
-        case LOGOUT:
+    Log: false,
+    userData:{
+             
+         firstname: "",
+         lastname: "",
+         email: "",
+         password: "",
+         phone: "",
+         pin: "",
+         transactions:[],
+     
+         balance:"0"
+         },
+ 
+     tokens:{
+         BTCUSDT:"",
+         ETHUSDT:"",}
+ 
+ 
+ }
+ 
+ const rootReducer = (state = initialState, action)=>{
+ 
+     switch(action.type){
+        case LOG:
             return {
                 ...state,
-                Log: false,
+                Log: true,
             }
-
-            case GET_DATA_USER:
-
-                const {firstname,lastname,email,pin,password,phone} = action.payload
-                return {...state, userData: {
-                                    firstname: firstname,
-                                    lastname: lastname,
-                                    email: email,
-                                    pin: pin,
-                                    password:password,
-                                    phone:phone,
-                                    balance: state.userData.balance,
-                                    transactions: state.userData.transactions
-                                    }}
-
-            case TOKENS_HARD:
-                return {...state, tokensHard: action.payload}
-
-            case ADD_FOUNDS:
-                return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}
-      
-           case DEPOSIT_TRANSACTION:
-             let aux = state.userData.transactions;
-             aux.unshift(action.payload)
-               return {...state, userData:{...state.userData, transactions: aux}}
-       default: return state 
-    }
-
-};
-
-export default rootReducer;
+        case LOGOUT:
+             return {
+                 ...state,
+                 Log: false,
+             }
+ 
+         case GET_DATA_USER:
+ 
+                 const {firstname,lastname,email,pin,password,phone} = action.payload
+                 return {...state, userData: {
+                                     firstname: firstname,
+                                     lastname: lastname,
+                                     email: email,
+                                     pin: pin,
+                                     password:password,
+                                     phone:phone,
+                                     balance: state.userData.balance,
+                                     transactions: state.userData.transactions
+                                     }}
+ 
+        
+ 
+        case ADD_FOUNDS:
+                 return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}
+                                     
+        case DEPOSIT_TRANSACTION:
+              let aux = state.userData.transactions;
+              aux.unshift(action.payload)
+                return {...state, userData:{...state.userData, transactions: aux}}
+ 
+        case GET_TOKENS:
+            const {name,price} = action.payload;
+            return {...state, tokens:{...state.tokens, [name]:price}}
+ 
+        default: return state 
+     }
+ 
+ };
+ 
+ export default rootReducer;

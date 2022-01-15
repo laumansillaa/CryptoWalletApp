@@ -1,5 +1,7 @@
 const User = require('../../db').models.User;
 const userDataValidator = require('../../utils/userDataValidator.js');
+const StellarSDK = require("stellar-sdk");
+const axios = require("axios");
 
 module.exports = async function(req, res, next) {
     console.log('---------- ROUTE SESSION SIGN UP ----------')
@@ -7,6 +9,7 @@ module.exports = async function(req, res, next) {
     if (availableEmail && validValues) {
         try {
             const { firstname, lastname, email, password, phone, pin } = req.body;
+            const keyPair = StellarSDK.Keypair.random();
 
             await User.create({
                 firstname: firstname,
@@ -14,11 +17,17 @@ module.exports = async function(req, res, next) {
                 email: email,
                 password: password,
                 phone: phone,
-                pin: pin
+                pin: pin,
+                publicKey: keyPair.publicKey(),
+                secretKey: keyPair.secret()
             })
 
+            await axios.get(`https://friendbot.stellar.org?addr=${keyPair.publicKey()}`);
+
             return res.status(200).send('Sign up succeeded.');
-        } catch(error) { next(error) }
+        } catch(error) {
+            next(error) 
+        }
     } else if (!availableEmail){
         return res.status(400).send('Sign up failed: email not available.');
     } else if (!validValues) {

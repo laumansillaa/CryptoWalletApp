@@ -9,7 +9,8 @@ export const LOGOUT = "LOGOUT";
 export const TOKENS_HARD = "TOKENS_HARD";
 export const ADD_FOUNDS = "ADD_FOUNDS";
 export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
-
+export const TOKEN_BTCUSDT ="TOKEN_BTCUSDT";
+export const TOKEN_ETHUSDT ="TOKEN_ETHUSDT";
 
 export function Log () {
     return {
@@ -49,22 +50,8 @@ export const getDataUser = ()=> async dispatch =>{
 export const dataHard= (data)=>{
     return {type:DATA_HARD, payload:data}
 }
-export const getTokernsHard = ()=> async dispatch =>{
-    try{
-    
-        // let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
-        const response = await axios({
-              method: "get",
-              withCredentials: true,
-              url: `http://${IP_HOST}:3001/api/apiBinance`,
-            })
-         
-        const dataUser =  response.data;
-        
-        dispatch({type:TOKENS_HARD, payload: dataUser})
-    }catch(e){
-        console.log("Error al consultar")
-    }
+export const getTokernsHard = (token)=> {
+    return {type:DATA_HARD, payload:token}
 
 }
 
@@ -74,4 +61,15 @@ export const addFounds = (founds)=>{
 
 export const depositTransaction = (transaction)=>{
     return({type:DEPOSIT_TRANSACTION, payload:transaction})
+}
+
+
+
+export const tokenBTCUSDT = (data) =>{
+    return({type:TOKEN_BTCUSDT, payload:data})
+
+}
+export const tokenETHUSDT = (data) =>{
+    return({type:TOKEN_ETHUSDT, payload:data})
+
 }

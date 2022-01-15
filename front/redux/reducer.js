@@ -1,22 +1,24 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, TOKEN_BTCUSDT,TOKEN_ETHUSDT} from "./actions"
 
 const initialState={
    Log: false,
    userData:{
-        
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    phone: "",
-    pin: "",
-    transactions:[],
-  
-    balance:"0"
-    },
-    tokensHard:[]
-   
+            
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        phone: "",
+        pin: "",
+        transactions:[],
+    
+        balance:"0"
+        },
+
+    tokens:{
+        BTCUSDT:"",
+        ETHUSDT:"",}
 
 
 }
@@ -54,11 +56,17 @@ const rootReducer = (state = initialState, action)=>{
 
             case ADD_FOUNDS:
                 return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}
-      
+                                    
            case DEPOSIT_TRANSACTION:
              let aux = state.userData.transactions;
              aux.unshift(action.payload)
                return {...state, userData:{...state.userData, transactions: aux}}
+
+            case TOKEN_BTCUSDT:
+                return {...state, tokens:{...state.tokens, BTCUSDT:action.payload }}
+
+                case TOKEN_ETHUSDT:
+                    return {...state, tokens:{...state.tokens, ETHUSDT:action.payload }}
        default: return state 
     }
 

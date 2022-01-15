@@ -18,8 +18,19 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require('dotenv').config();
+
+
+const { isObject } = require('util');
 const app = require('./app.js');
 const db = require('./db.js');
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const GeneratorFunction = require('./utils/GeneratorFunction.js');
+const httpServer = createServer(app);
+const io = new Server(httpServer, { cors: {
+  origin: "http://192.168.1.8:19006",
+  credentials:true
+} });
 
 // Server initialization.
 (async function() {
@@ -30,8 +41,22 @@ const db = require('./db.js');
       db.models.User.create({firstname: 'julian', lastname: 'alvarez', email: 'julian@gmail.com', password: 'password123', phone: '1133333333', pin: '123456'}),
       db.models.User.create({firstname: 'carlos', lastname: 'gonzalez', email: 'carlos@gmail.com', password: 'password321', phone: '1144444444', pin: '654321'})
     ])
-    app.listen(app.get('port'), () => {
+   
+
+
+    httpServer.listen(app.get('port'), () => {
       console.log(`Server listening at port ${process.env.PORT}.`);
     });
+
+    io.on("connection", socket => {
+      console.log("conect front")
+      GeneratorFunction(io);
+      
+  
+    })
+
+   
   } catch(error) { console.error(error) }
 })()
+
+

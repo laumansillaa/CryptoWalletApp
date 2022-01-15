@@ -11,11 +11,16 @@ import {
  
   Avatar
 } from 'native-base';
+import { Pressable } from 'react-native';
 
-export default function Criptos({token, price}) {
+export default function Criptos({token,price}) {
+  
 return (
 
-   
+   <Pressable onPress={()=> console.log(navigation)/* ,{
+        token:token
+
+        } */}>
         <Box 
          bg="indigo.600"
          
@@ -46,7 +51,7 @@ return (
         </Stack>
             
         </Box>  
-      
+        </Pressable>
   
  
   );

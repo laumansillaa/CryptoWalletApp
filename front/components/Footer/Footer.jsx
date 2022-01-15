@@ -10,9 +10,11 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import { NativeBaseProvider, Box, Icon, Center } from 'native-base';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import HomeIndex from '../Home/HomeIndex';
-import HeaderCurrencies from '../HeaderCurrencies/HeaderCurrencies';
+
 import AccountIndex from '../Account/AccountIndex';
 import Account from '../Account/Account';
+
+import HeaderCurrencies from '../HeaderCurrencies/HeaderCurrencies';
 
 const FirstRoute = () => <HomeIndex />;
 
@@ -72,7 +74,7 @@ export default function Footer() {
                             flex={1}
                             alignItems="center"
                             p="3"
-                            cursor="pointer">
+                           >
                             <Pressable
                                 onPress={() => {
                                     console.log(i);

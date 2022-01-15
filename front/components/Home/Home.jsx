@@ -31,24 +31,24 @@ export default function Home({navigation}) {
   const [showModal, setShowModal] = useState(false)
   const[showModalConfirm, setShowModalConfirm] = useState(false);
   const [founds, setFounds] = useState("");
-  
+ 
  
   React.useEffect(async()=>{
     dispatch(getDataUser()) 
-  
-
-},[])
+ },[])
 
 
 
   return (<>
-
+ 
   {/* Componenente balance */}
+  
       <Pressable 
       onPress={() => {
+        console.log(navigation)
         navigation.navigate("UserCriptos")
       }}
-      
+     
       >
     <Box
       bg="indigo.600"

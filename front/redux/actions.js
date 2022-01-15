@@ -52,6 +52,7 @@ export const depositTransaction = (transaction)=>{
 }
 
 export const getTokens = (data) =>{
+   
     return({type:GET_TOKENS, payload:data})
 
 }

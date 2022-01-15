@@ -13,15 +13,14 @@ import {
 } from 'native-base';
 import { Pressable } from 'react-native';
 
-export default function Criptos({token,price, nav}) {
-  
+export default function Criptos({token, nav}) {
+   
+
 return (
 
    <Pressable onPress={()=> nav.navigate("CardCripto", {
     token
-   })/* ,{
-        token:token
-        } */}>
+   })}>
         <Box 
          bg="indigo.600"
          
@@ -45,7 +44,7 @@ return (
             </Box>
             <VStack>
             <Text px="5" fontWeight="bold" fontSize="lg"color="#ffffff">{token}</Text>
-            <Text px="5" ml="100px"fontSize="xl"color="#ffffff">${price}</Text>
+            
             </VStack>
             
 

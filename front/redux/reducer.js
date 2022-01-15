@@ -15,8 +15,7 @@ const initialState={
          },
  
      tokens:{
-         BTCUSDT:"",
-         ETHUSDT:"",}
+         }
  
  
  }
@@ -60,8 +59,9 @@ const initialState={
                 return {...state, userData:{...state.userData, transactions: aux}}
  
         case GET_TOKENS:
-            const {name,price} = action.payload;
-            return {...state, tokens:{...state.tokens, [name]:price}}
+            
+            
+            return {...state, tokens:action.payload}
  
         default: return state 
      }

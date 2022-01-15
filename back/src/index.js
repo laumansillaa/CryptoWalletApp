@@ -44,9 +44,14 @@ const io = new Server(httpServer, { cors: {
     io.on("connection", socket => {
       console.log("conect front")
       GeneratorFunction(io);
+     
+   
+      
+     
       
   
     })
+
 
 
 

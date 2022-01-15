@@ -23,7 +23,7 @@ const binance = new Binance()
  */
 
 module.exports = function GeneratorFunction(io){
-
+   
     binance.futuresMiniTickerStream("BTCUSDT",(element)=>{
         io.emit("BTCUSDT",element.close)});
     binance.futuresMiniTickerStream("ETHUSDT",(element)=>{

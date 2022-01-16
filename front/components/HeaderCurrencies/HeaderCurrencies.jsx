@@ -45,14 +45,11 @@ const [aux, setAux] = useState([
             
             >
          <ScrollView>
-<<<<<<< HEAD
            
-        {state?.map((element, index)=>{
+        {/* {state?.map((element, index)=>{
           return (<Criptos  key={index} token={element[0]} price={element[1]} />)
 
-        })}
-=======
->>>>>>> fc8b4a2e7f63a86bf47e5d32c3122d5eb0e8d973
+        })} */}
         
          {aux?.map((element, index)=>{
           return <Criptos key ={index} token={element}  nav={navigation} />

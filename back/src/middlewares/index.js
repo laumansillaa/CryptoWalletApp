@@ -33,7 +33,7 @@ module.exports = function (app) {
   app.use(passport.session());
   // app.use(cors());
 
-  // Access middlewares.
+  //Access middlewares.
   app.use((req, res, next) => {
     console.log('---------- ACCESS MIDDLEWARE 1 ----------')
     if (

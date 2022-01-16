@@ -4,21 +4,37 @@ import {IP_HOST} from "@env"
 export const GET_DATA_USER = "GET_DATA_USER";
 export const LOG = "LOG";
 export const LOGOUT = "LOGOUT";
+export const RETRIEVE_TOKEN = "RETRIEVE_TOKEN";
+export const LOADING_FALSE = "LOADING_FALSE";
+export const TOKENS_HARD = "TOKENS_HARD";
 export const ADD_FOUNDS = "ADD_FOUNDS";
 export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
 export const GET_TOKENS ="GET_TOKENS";
 
-
-export function Log () {
+export function Log (payload) {
     return {
         type: LOG,
-        payload: null,
+        payload: payload,
     }
 }
 
 export function Logout () {
     return {
         type:LOGOUT,
+        payload: null,
+    }
+}
+
+export function RetrieveToken (payload) {
+    return {
+        type: RETRIEVE_TOKEN,
+        payload: payload,
+    }
+}
+
+export function LoadingFalse () {
+    return {
+        type: LOADING_FALSE,
         payload: null,
     }
 }

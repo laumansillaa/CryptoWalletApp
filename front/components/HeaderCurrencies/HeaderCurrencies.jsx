@@ -45,6 +45,11 @@ const [aux, setAux] = useState([
             
             >
          <ScrollView>
+           
+        {/* {state?.map((element, index)=>{
+          return (<Criptos  key={index} token={element[0]} price={element[1]} />)
+
+        })} */}
         
          {aux?.map((element, index)=>{
           return <Criptos key ={index} token={element}  nav={navigation} />

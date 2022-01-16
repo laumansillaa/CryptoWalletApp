@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
   useToast,
   Button,
@@ -30,7 +29,7 @@ export default function MyTags() {
       <Box w='250'>
         <VStack space={2}>
           <HStack alignItems="center" justifyContent="space-between">
-            <Text color="darck">CVU</Text>
+            <Text color="dark">CVU</Text>
             <HStack alignItems="center" space={3}>
               <Text color="blueGray.400">{cvu}</Text>
               <Button onPress={() => {

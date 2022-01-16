@@ -1,6 +1,5 @@
 const router = require('express').Router();
 
-router.get("/apiBinance", require('./apiBinance.js'));
-
+router.post("/transaction", require("./transactions.js"));
 
 module.exports = router;

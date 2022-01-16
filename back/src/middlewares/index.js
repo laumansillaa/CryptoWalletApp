@@ -33,23 +33,25 @@ module.exports = function (app) {
   app.use(passport.session());
   // app.use(cors());
 
-  //Access middlewares.
-  app.use((req, res, next) => {
-    console.log('---------- ACCESS MIDDLEWARE 1 ----------')
-    if (
-      (!req.url.startsWith('/session/') || req.url === '/session/signout') &&
-      !req.isAuthenticated()
-    ) {
-      return res.status(401).send('Access denied.');
-    } else next()
-  });
-  app.use((req, res, next) => {
-    console.log('---------- ACCESS MIDDLEWARE 2 ----------')
-    if (
-      (req.url.startsWith('/session/') && req.url !== '/session/signout') &&
-      req.isAuthenticated()
-    ) {
-      return res.status(200).send('You have already signed up.');
-    } else next()
-  });
+
+  // Access middlewares.
+  // app.use((req, res, next) => {
+  //   console.log('---------- ACCESS MIDDLEWARE 1 ----------')
+  //   if (
+  //     (!req.url.startsWith('/session/') || req.url === '/session/signout') &&
+  //     !req.isAuthenticated()
+  //   ) {
+  //     return res.status(401).send('Access denied.');
+  //   } else next()
+  // });
+  // app.use((req, res, next) => {
+  //   console.log('---------- ACCESS MIDDLEWARE 2 ----------')
+  //   if (
+  //     (req.url.startsWith('/session/') && req.url !== '/session/signout') &&
+  //     req.isAuthenticated()
+  //   ) {
+  //     return res.status(200).send('You have already signed up.');
+  //   } else next()
+  // });
+
 }

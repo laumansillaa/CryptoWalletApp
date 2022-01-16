@@ -25,6 +25,7 @@
     "express-session": "^1.17.2",
     "ioredis": "^4.19.2",
     "jsonwebtoken": "^8.5.1",
+    "mercadopago": "^1.5.11",
     "morgan": "^1.10.0",
     "node-binance-api": "^0.13.1",
     "nodemon": "^2.0.15",

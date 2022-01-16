@@ -33,6 +33,7 @@ module.exports = function (app) {
   app.use(passport.session());
   // app.use(cors());
 
+
   // Access middlewares.
   // app.use((req, res, next) => {
   //   console.log('---------- ACCESS MIDDLEWARE 1 ----------')
@@ -52,4 +53,5 @@ module.exports = function (app) {
   //     return res.status(200).send('You have already signed up.');
   //   } else next()
   // });
+
 }

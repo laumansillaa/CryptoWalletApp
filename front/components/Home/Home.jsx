@@ -51,8 +51,7 @@ export default function Home({ navigation }) {
 
   return (<>
 
-    <SafeAreaView style={{ flex: 1 }}>
-      <View>
+    
         <Spinner
           visible={loadingState}
         />
@@ -60,6 +59,7 @@ export default function Home({ navigation }) {
 
         {/* Componenente balance */}
         <Pressable
+        mt="50px"
           onPress={() => {
             navigation.navigate("UserCriptos")
           }}
@@ -103,6 +103,7 @@ export default function Home({ navigation }) {
 
           </Box>
         </Pressable>
+      
 
         {/*componente transactions */}
         <Box
@@ -123,6 +124,7 @@ export default function Home({ navigation }) {
             Transactions
           </Text>
         </Box>
+     
         <ScrollView>
           <VStack>
 
@@ -140,7 +142,7 @@ export default function Home({ navigation }) {
           </VStack>
 
         </ScrollView>
-
+    
 
         {/*Ventana que se abren */}
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -200,24 +202,7 @@ export default function Home({ navigation }) {
           </Modal.Content>
         </Modal>
 
-
-        {/*  <Modal isOpen={showModalConfirm} onClose={() => setShowModalConfirm(false)}>
-      <Modal.Content maxWidth="500px">
-        <Modal.CloseButton />
-        <Modal.Header>Confirm </Modal.Header>
-        <Modal.Body>
-          <HStack space={2}>
-            <CheckIcon size="5" mt="0.5" color="emerald.500" />
-            <Text color="emerald.500" fontSize="md">
-              Amount added correctly
-            </Text>
-          </HStack>
-        </Modal.Body>
-
-      </Modal.Content>
-    </Modal> */}
-      </View>
-    </SafeAreaView>
+     
   </>
 
   );

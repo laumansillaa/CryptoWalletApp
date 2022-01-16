@@ -46,7 +46,7 @@ const AccountMovement = require ('./models/AccountMovements.js')
 AccountMovement(sequelize);
 
 
-const {User} = sequelize.models
+
 
 
 require('./models')(sequelize)

@@ -33,15 +33,19 @@ export default function CardCripto({route, navigation}) {
                 let so;
               console.log('Screen was focused');
               try{
-                so = (io("http://192.168.1.8:3001"))
+                so =  (io("http://192.168.1.8:3001"))
+
+                so.emit("token client", token);
                 so.on(token, msg =>{
-                    dispatch(getTokens({name:token, price:msg}))}) 
+                   setState({name:token,price:msg})
+                    /* dispatch(getTokens({name:token, price:msg})) */
+                }) 
 
             }catch(e){
                 console.log("failed to connect")
             }
               // Do something when the screen is focused
-              return () => {
+              return  () => {
                 console.log('Screen was unfocused');
                 so.disconnect(true);
 
@@ -86,9 +90,11 @@ export default function CardCripto({route, navigation}) {
          maxWidth="100%"
          maxHeight="100%"
         >
-            <Text color="#000000">{stateToken.name}</Text>
-            <Text color="#000000">{stateToken.price}</Text>
+           {/*  <Text color="#000000">{stateToken.name}</Text>
+            <Text color="#000000">{stateToken.price}</Text> */}
             <Button onPress={()=> navigation.goBack()}> back</Button>
+            <Text color="#000000">{state?.name}</Text>
+            <Text color="#000000">{state?.price}</Text>
         </Box>  
       
   

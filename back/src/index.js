@@ -19,6 +19,8 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require('dotenv').config();
 const app = require('./app.js');
+const Binance = require('node-binance-api');
+const binance = new Binance()
 const db = require('./db.js');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
@@ -43,7 +45,12 @@ const io = new Server(httpServer, { cors: {
     });
     io.on("connection", socket => {
       console.log("conect front")
-      GeneratorFunction(io);
+
+      socket.on("token client",(token)=>{
+        binance.futuresMiniTickerStream(token,(element)=>{
+          io.emit(token,element.close)});
+      })
+      
      
    
       

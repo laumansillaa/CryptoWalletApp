@@ -1,5 +1,4 @@
-const Binance = require('node-binance-api');
-const binance = new Binance()
+
 /* const tokens = {
     BTCUSDT:"BTCUSDT",
     ETHUSDT:"ETCUSDT",
@@ -22,8 +21,8 @@ const binance = new Binance()
    }
  */
 
-module.exports = function GeneratorFunction(io){
-   
+module.exports = function GeneratorFunction(io,token){
+   /* 
     binance.futuresMiniTickerStream("BTCUSDT",(element)=>{
         io.emit("BTCUSDT",element.close)});
     binance.futuresMiniTickerStream("ETHUSDT",(element)=>{
@@ -60,8 +59,10 @@ module.exports = function GeneratorFunction(io){
         io.emit("NEARUSDT",element.close)});
     binance.futuresMiniTickerStream("ATOMUSDT",(element)=>{
         io.emit("ATOMUSDT",element.close)});
+ */
+           
+       
 
-                   
            
 
 

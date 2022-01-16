@@ -35,7 +35,8 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
-    "react-native-pager-view": "5.4.9"
+    "react-native-pager-view": "5.4.9",
+    "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

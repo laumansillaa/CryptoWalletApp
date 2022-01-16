@@ -1,6 +1,6 @@
 
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS} from "./actions"
 
 const initialState={
    Log: false,
@@ -18,7 +18,8 @@ const initialState={
   
     balance:"0"
     },
-    tokensHard:[]
+    tokens:{
+    }
    
 
 
@@ -67,8 +68,11 @@ const rootReducer = (state = initialState, action)=>{
                                     transactions: state.userData.transactions
                                     }}
 
-            case TOKENS_HARD:
-                return {...state, tokensHard: action.payload}
+            case GET_TOKENS:
+            
+            
+                return {...state, tokens:action.payload};
+                             
 
             case ADD_FOUNDS:
                 return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}

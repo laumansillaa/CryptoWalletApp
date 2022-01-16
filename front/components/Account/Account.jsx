@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Text, Button } from 'react-native';
-import { Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Logout } from '../../redux/actions';
 import AsyncStorage from "@react-native-async-storage/async-storage";

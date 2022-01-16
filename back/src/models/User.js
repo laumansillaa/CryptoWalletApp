@@ -35,6 +35,14 @@ module.exports = (sequelize) => {
             validate: {
                 is: /^\d{6}$/,
             }
+        },
+        publicKey: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        secretKey: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     })
 }

@@ -14,6 +14,7 @@ import UserPin from "./components/Login/UserPin"
 
 import Footer from '../front/components/Footer/Footer'
 
+import TabNavFooter from './components/TabNavFooter/TabNavFooter'
 const Stack = createNativeStackNavigator();
 
 export default function Index() {
@@ -81,10 +82,22 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="Register" component={Register}/>
                    </Stack.Navigator>
     : 
-                   <Footer />
-      }</NavigationContainer>
-  );
+                   <TabNavFooter/>}
+      </NavigationContainer>
+  )
 }
+//   return (
+
+//     <NavigationContainer>
+//       {!logged ? <Stack.Navigator initialRouteName='Login'>
+//         <Stack.Screen name="Login" component={Login} />
+//         <Stack.Screen name="Register" component={Register} />
+//       </Stack.Navigator>
+//         : 
+        
+//       }</NavigationContainer>
+//   );
+// }
 
 
 

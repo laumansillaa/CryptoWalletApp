@@ -46,9 +46,7 @@ const AccountMovement = require ('./models/AccountMovements.js')
 AccountMovement(sequelize);
 
 
-const {User} = sequelize.models
-
-
+const { User, Transactions } = sequelize.models;
 require('./models')(sequelize)
 
 
@@ -56,7 +54,6 @@ require('./models')(sequelize)
 // const { Recipe, Diet } = sequelize.models;
 // Recipe.belongsToMany(Diet, {as: 'diets', through: 'RecipesDiets', foreignKey: 'recipeId'});
 // Diet.belongsToMany(Recipe, {as: 'recipes', through: 'RecipesDiets', foreignKey: 'dietId'});
-const { User, Transactions } = sequelize.models;
 
 // Transactions.belongsTo(User, {foreignKey: "publicKey"});
 // User.hasMany(Transactions, {foreignKey: "from"});

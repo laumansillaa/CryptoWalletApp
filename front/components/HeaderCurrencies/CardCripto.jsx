@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
+import {useFocusEffect } from '@react-navigation/native';
 import {
 
   Box,
@@ -14,40 +15,59 @@ import { getTokens } from '../../redux/actions';
 
 export default function CardCripto({route, navigation}) {
         const {token} = route.params;
-        const [so, setSo] = useState({});
+        /* const [so, setSo] = useState({}); */
        const dispatch = useDispatch();
         const [state, setState] = useState()
         const stateToken = useSelector((state)=> state.tokens)
 
+
         React.useEffect(async ()=>{
            
-            try{
-                setSo(io("http://192.168.1.8:3001"))
-            }catch(e){
-                console.log("failed to disconnect")
-            }},[]) 
+           },[]) 
 
+
+
+        useFocusEffect(
+            React.useCallback(() => {
+
+                let so;
+              console.log('Screen was focused');
+              try{
+                so = (io("http://192.168.1.8:3001"))
+                so.on(token, msg =>{
+                    dispatch(getTokens({name:token, price:msg}))}) 
+
+            }catch(e){
+                console.log("failed to connect")
+            }
+              // Do something when the screen is focused
+              return () => {
+                console.log('Screen was unfocused');
+                so.disconnect(true);
+
+                // Do something when the screen is unfocused
+                // Useful for cleanup functions
+              };
+            }, []));
+
+
+
+
+        /* 
+       
         React.useEffect(()=>{
             try{
                 so.on(token, msg =>{
                     dispatch(getTokens({name:token, price:msg}))}) 
             }catch(e){
-                console.log("failed to connect")}},[so])
+                console.log("failed to info")}}
+                
+                
+                
+                ,[so]) */
 
-
-        function disconnect (){
-             
-            try{
-           
-             so.disconnect(true);
-            }
-            catch(e){
-                console.log("failed to disconnect")
-            }
-    
           
-            navigation.goBack()
-        }
+      
     return (
         
    
@@ -68,7 +88,7 @@ export default function CardCripto({route, navigation}) {
         >
             <Text color="#000000">{stateToken.name}</Text>
             <Text color="#000000">{stateToken.price}</Text>
-            <Button onPress={()=> disconnect()}> back</Button>
+            <Button onPress={()=> navigation.goBack()}> back</Button>
         </Box>  
       
   

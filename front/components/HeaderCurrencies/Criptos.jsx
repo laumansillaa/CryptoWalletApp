@@ -22,7 +22,7 @@ return (
     token
    })}>
         <Box 
-         bg="indigo.600"
+         bg="darkBlue.900"
          
          py="5"
          px="3"

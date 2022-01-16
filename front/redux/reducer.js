@@ -16,13 +16,12 @@ const initialState={
     pin: "",
     transactions:[],
   
-    balance:"0"
+    balance:"0",
+
+    //cvu:"0000034567800000123455"
     },
     tokens:{
-    }
-   
-
-
+         }
 }
 
 const rootReducer = (state = initialState, action)=>{
@@ -65,14 +64,12 @@ const rootReducer = (state = initialState, action)=>{
                                     password:password,
                                     phone:phone,
                                     balance: state.userData.balance,
-                                    transactions: state.userData.transactions
+                                    transactions: state.userData.transactions,
+                                    //cvu: state.userData.cvu
                                     }}
 
             case GET_TOKENS:
-            
-            
                 return {...state, tokens:action.payload};
-                             
 
             case ADD_FOUNDS:
                 return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}

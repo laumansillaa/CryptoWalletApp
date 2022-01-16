@@ -4,6 +4,7 @@ import HeaderCurrencies from '../HeaderCurrencies/HeaderCurrencies';
 import HomeIndex from '../Home/HomeIndex';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { Icon } from 'native-base';
+import CurrenciesIndex from '../HeaderCurrencies/CurrenciesIndex';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -30,7 +31,7 @@ export default function TabNav() {
             />
             <Tab.Screen
                 name="Currencies"
-                component={HeaderCurrencies}
+                component={CurrenciesIndex}
                 options={{ tabBarIcon: ()=>(<Icon as={MaterialCommunityIcons} name='wallet' color='#1f2937' size={8} />) }}
             />
             <Tab.Screen

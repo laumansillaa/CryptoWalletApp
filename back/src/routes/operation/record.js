@@ -3,15 +3,11 @@ const { Operation, UserOperation } = require("../../db.js").models;
 
 module.exports = async function(req, res, next) {
     try {
-        const operationsIndexes = await UserOperation.findAll({
+        const operationsIndexes = (await UserOperation.findAll({
             where: {
                 userId: req.user.id
             },
-            attributes: ['userId'],
-            through: { attributes: [] }
-        });
-
-        console.log(operationsIndexes);
+        })).map(operationIndex => operationIndex.operationId);
 
         const operations = await Operation.findAll({
             where: {
@@ -19,7 +15,7 @@ module.exports = async function(req, res, next) {
                     [Op.in]: operationsIndexes
                 }
             }
-        })
+        });
 
         res.status(200).send(operations);
     } catch(error) { next(error) }

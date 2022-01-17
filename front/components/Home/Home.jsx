@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useDispatch, useSelector } from "react-redux"
-import { addFounds, depositTransaction, getDataUser, getTokernsHard } from '../../redux/actions';
+import { addFounds, depositTransaction, getBalance, getDataUser, getTokernsHard } from '../../redux/actions';
 import { useState, useEffect } from 'react';
 import {
   Button,
@@ -31,17 +31,26 @@ export default function Home({ navigation }) {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)
   const [showModal, setShowModal] = useState(false)
-  const [showModalConfirm, setShowModalConfirm] = useState(false);
+  const [balanceUSD, setBalanceUsd] = useState("");
   const [founds, setFounds] = useState("");
-
-
-  React.useEffect(async () => {
-    dispatch(getDataUser())
-  }, [])
-
   const [loadingState, setLoadingState] = useState(false)
 
-  React.useEffect(() => {
+  React.useEffect( () => {
+    dispatch(getDataUser())
+    dispatch(getBalance())
+},[])
+ 
+  React.useEffect( () => {
+    let usd
+  if(userData.balance) usd = userData.balance.stellar.usd
+   if(usd) usd = parseFloat(usd).toFixed(2);
+   setBalanceUsd(usd)
+  },[userData.balance])
+ 
+
+  
+
+  useEffect(() => {
     setTimeout(() => {
       setLoadingState(false)
       setShowModal(false)
@@ -51,16 +60,15 @@ export default function Home({ navigation }) {
 
   return (<>
 
-    <SafeAreaView style={{ flex: 1 }}>
-      <View>
+    
         <Spinner
           visible={loadingState}
-          color='#008080'
         />
 
 
         {/* Componenente balance */}
         <Pressable
+        mt="50px"
           onPress={() => {
             navigation.navigate("UserCriptos")
           }}
@@ -83,7 +91,7 @@ export default function Home({ navigation }) {
                     Hello, {userData.firstname}
                   </Text>
                   <Text color="white" fontSize="lg" pb="1">
-                    Your balance ${userData.balance}
+                    Your balance $ {(balanceUSD)?balanceUSD: ""}
                   </Text>
                 </VStack>
 
@@ -104,6 +112,7 @@ export default function Home({ navigation }) {
 
           </Box>
         </Pressable>
+      
 
         {/*componente transactions */}
         <Box
@@ -120,10 +129,11 @@ export default function Home({ navigation }) {
           maxWidth="100%"
           maxHeight="100%"
         >
-          <Text color="white" fontSize="lg" pb="1">
+          <Text color="white" fontWeight="bold" fontSize="lg" pb="1">
             Transactions
           </Text>
         </Box>
+     
         <ScrollView>
           <VStack>
 
@@ -141,7 +151,7 @@ export default function Home({ navigation }) {
           </VStack>
 
         </ScrollView>
-
+    
 
         {/*Ventana que se abren */}
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -185,11 +195,11 @@ export default function Home({ navigation }) {
                 </Button>
                 <Button
                   onPress={() => {
-                    dispatch(addFounds(founds))
+                    
                     let d = new Date();
                     d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
                     dispatch(depositTransaction({ action: "Deposit", money: "USD", mont: founds, date: d }))
-                    setShowModalConfirm(true)
+                   
                     //setShowModal(false)
                     setLoadingState(true)
                   }}
@@ -201,24 +211,7 @@ export default function Home({ navigation }) {
           </Modal.Content>
         </Modal>
 
-
-        {/*  <Modal isOpen={showModalConfirm} onClose={() => setShowModalConfirm(false)}>
-      <Modal.Content maxWidth="500px">
-        <Modal.CloseButton />
-        <Modal.Header>Confirm </Modal.Header>
-        <Modal.Body>
-          <HStack space={2}>
-            <CheckIcon size="5" mt="0.5" color="emerald.500" />
-            <Text color="emerald.500" fontSize="md">
-              Amount added correctly
-            </Text>
-          </HStack>
-        </Modal.Body>
-
-      </Modal.Content>
-    </Modal> */}
-      </View>
-    </SafeAreaView>
+     
   </>
 
   );

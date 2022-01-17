@@ -9,7 +9,9 @@ import {
   VStack,
   Text,
  
-  Avatar
+  Avatar,
+  Button,
+  ZStack
 } from 'native-base';
 import { Pressable } from 'react-native';
 
@@ -22,34 +24,37 @@ return (
     token
    })}>
         <Box 
-         bg="indigo.600"
-         
-         py="5"
-         px="3"
-         mb="01"
+         bg="darkBlue.900"
+         mt="1"
+         pl="3"
+         mb="2"
         shadow={9}
          rounded="md"
-        
+        height={55}
          alignSelf="center"
-         width={350}
+         width={300}
          
          maxWidth="100%"
          maxHeight="100%"
         >
+          <ZStack>
         <Stack direction="row" >
             <Box aligSelf="center" >
-            <Avatar bg="#ffffff" size="lg"  alignSelf="center">
-                <Text color="#000000" fontWeight="bold"fontSize="4xl">{token.charAt(0)}</Text>
+            <Avatar shadow={5} mt="4" bg="#ffffff" size="md" borderWidth="2" borderColor="darkBlue.900" alignSelf="center">
+                <Text color="#000000" fontWeight="bold"fontSize="xl">{token.charAt(0)}</Text>
             </Avatar>
             </Box>
             <VStack>
-            <Text px="5" fontWeight="bold" fontSize="lg"color="#ffffff">{token}</Text>
+            <Text px="5" mt="4" fontWeight="bold" fontSize="lg"color="#ffffff">{token}</Text>
             
             </VStack>
-            
+          
 
         </Stack>
-            
+        <Button bg="indigo.600" fontWeight="bold" ml="241px" onPress={()=> nav.navigate("CardCripto", {
+    token
+   })}>Buy</Button>
+        </ZStack>   
         </Box>  
         </Pressable>
   

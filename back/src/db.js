@@ -28,11 +28,11 @@ const sequelize = process.env.NODE_ENV === 'production'
     })
   : new Sequelize( `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { 
       logging: false,
-      native: false,
-      define: { timestamps: false }
+      native: false
     });
 
 // Connect models to sequelize.
+<<<<<<< HEAD
 
 // const RecipeModelCreator = require('./models/Recipe.js')
 // const DietModelCreator = require('./models/Diet')
@@ -47,10 +47,12 @@ AccountMovement(sequelize);
 
 
 const { User, Transactions } = sequelize.models;
+=======
+>>>>>>> 87286c9f8bfca62d0dfcb02d33ae3cbf8f626b76
 require('./models')(sequelize)
 
-
 // Associations.
+<<<<<<< HEAD
 // const { Recipe, Diet } = sequelize.models;
 // Recipe.belongsToMany(Diet, {as: 'diets', through: 'RecipesDiets', foreignKey: 'recipeId'});
 // Diet.belongsToMany(Recipe, {as: 'recipes', through: 'RecipesDiets', foreignKey: 'dietId'});
@@ -58,5 +60,11 @@ require('./models')(sequelize)
 // Transactions.belongsTo(User, {foreignKey: "publicKey"});
 // User.hasMany(Transactions, {foreignKey: "from"});
 
+=======
+const { User, Operation, Key } = sequelize.models;
+Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
+User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
+User.hasOne(Key, {as: 'key', foreignKey: 'user'})
+>>>>>>> 87286c9f8bfca62d0dfcb02d33ae3cbf8f626b76
 
 module.exports = sequelize;

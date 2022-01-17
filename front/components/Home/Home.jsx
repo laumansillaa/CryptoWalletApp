@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useDispatch, useSelector } from "react-redux"
-import { addFounds, depositTransaction, getBalance, getDataUser, getTokernsHard } from '../../redux/actions';
+import { addFounds, depositTransaction, getBalance, getDataUser, geTransactionUser, getTokernsHard } from '../../redux/actions';
 import { useState, useEffect } from 'react';
 import {
   Button,
@@ -26,7 +26,7 @@ import Transaction from './components/Transaction';
 
 import { SafeAreaView, View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import {useFocusEffect } from '@react-navigation/native';
 export default function Home({ navigation }) {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)
@@ -38,6 +38,7 @@ export default function Home({ navigation }) {
   React.useEffect( () => {
     dispatch(getDataUser())
     dispatch(getBalance())
+    dispatch(geTransactionUser())
 },[])
  
   React.useEffect( () => {
@@ -47,7 +48,18 @@ export default function Home({ navigation }) {
    setBalanceUsd(usd)
   },[userData.balance])
  
-
+  useFocusEffect(
+    React.useCallback(() => {
+      try{
+      dispatch(getBalance())
+  
+    }catch(e){
+      console.log("fail balance")
+    }
+    
+      return  () => {
+   };
+    }, []));
   
 
   useEffect(() => {
@@ -137,12 +149,14 @@ export default function Home({ navigation }) {
         <ScrollView>
           <VStack>
 
-            {userData.transactions?.map((element, index) => {
+            {userData.transactionCurren?.map((element, index) => {
+              let d = new Date();
+              d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
               return (<Transaction key={index}
-                action={element.action}
-                mont={element.mont}
-                money={element.money}
-                date={element.date}
+                action={element.operationType}
+                mont={element.purchasedAmount}
+                money={element.purchasedCurrency}
+                date={d}
 
               />)
 

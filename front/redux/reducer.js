@@ -1,5 +1,5 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER} from "./actions"
 
 const initialState={
    Log: false,
@@ -81,6 +81,13 @@ const rootReducer = (state = initialState, action)=>{
             case GET_BALANCE:
 
             return{...state, userData:{...state.userData, balance: action.payload}};
+
+            case GET_TRANSACTION_USER:
+
+            return {...state, userData:{...state.userData, transactionCurren: action.payload}}
+
+
+
        default: return state 
     }
 

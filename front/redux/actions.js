@@ -11,6 +11,7 @@ export const ADD_FOUNDS = "ADD_FOUNDS";
 export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
 export const GET_TOKENS ="GET_TOKENS";
 export const GET_BALANCE = "GET_BALANCE"
+export const GET_TRANSACTION_USER = "GET_TRANSACTION_USER";
 
 export function Log (payload) {
     return {
@@ -58,6 +59,26 @@ export const getDataUser = ()=> async dispatch =>{
     }
 
 }
+
+export const geTransactionUser = ()=> async dispatch =>{
+    try{
+    
+        // let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
+        const response = await axios({
+              method: "get",
+              withCredentials: true,
+              url: `http://${IP_HOST}:3001/operation/record`,
+            })
+        
+        const dataUser =  response.data;
+        
+        dispatch({type:GET_TRANSACTION_USER, payload: dataUser})
+    }catch(e){
+        console.log("Error al consultar")
+    }
+
+}
+
 
 
 export const addFounds = (founds)=>{

@@ -17,9 +17,9 @@ module.exports = async function(req, res, next) {
             const transaction = {
                 nonce:    web3.utils.toHex(transactionCount),
                 to:       keys.ethereum[0],
-                value:    web3.utils.toHex(web3.utils.toWei(purchaseAmount.toString(), 'ether')),
+                value:    web3.utils.toHex(web3.utils.toWei(purchaseAmount.toString(), "ether")),
                 gasLimit: web3.utils.toHex(21000),
-                gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei'))
+                gasPrice: web3.utils.toHex(web3.utils.toWei("10", "gwei"))
             };
             const signedTransaction = await web3.eth.accounts.signTransaction(transaction, GANACHE_PRIVATE_KEY);
             await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);

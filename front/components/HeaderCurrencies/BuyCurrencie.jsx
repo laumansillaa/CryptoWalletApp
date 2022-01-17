@@ -47,6 +47,8 @@ export default function BuyCurrencie({route, navigation}) {
             });
             dispatch(geTransactionUser())
             setMes(response.data)
+            setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
+
           } catch (error) {
             setMes("Failed buy")
             console.error(error);

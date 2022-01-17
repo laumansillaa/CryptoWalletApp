@@ -25,8 +25,6 @@ module.exports = function(passport, User) {
             firstname,
             lastname,
             email,
-            password: 'password123',
-            phone: '1111111111',
             pin: '000000'
           });
 

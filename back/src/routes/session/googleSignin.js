@@ -1,7 +1,7 @@
 const passport = require('../../passport');
 
 module.exports = function(req, res, next) {
-    console.log('---------- ROUTE GOOGLE SIGN IN ----------')
+    console.log('---------- GOOGLE SIGN IN ROUTE ----------')
     passport.authenticate('google', (err, user) => {
         if (err) next(err);
         else if (!user) return res.status(401).send('Sign in failed: bad credentials.');

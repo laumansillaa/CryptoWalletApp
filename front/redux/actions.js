@@ -10,6 +10,7 @@ export const TOKENS_HARD = "TOKENS_HARD";
 export const ADD_FOUNDS = "ADD_FOUNDS";
 export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
 export const GET_TOKENS ="GET_TOKENS";
+export const GET_BALANCE = "GET_BALANCE"
 
 export function Log (payload) {
     return {
@@ -70,5 +71,28 @@ export const depositTransaction = (transaction)=>{
 export const getTokens = (data) =>{
    
     return({type:GET_TOKENS, payload:data})
+
+}
+
+export const getBalance = (publicKey)=> async dispatch =>{
+    try{
+    
+        // let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
+        
+            const response = await axios({
+                method: "get",
+                withCredentials: true,
+                url: `http://${IP_HOST}:3001/balance/${publicKey}`,
+              })
+          
+          const dataUser =  response.data;
+          
+          dispatch({type:GET_BALANCE, payload: dataUser})
+        
+       
+   
+    }catch(e){
+        console.log("Error al consultar")
+    }
 
 }

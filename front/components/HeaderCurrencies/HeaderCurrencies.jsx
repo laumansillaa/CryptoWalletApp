@@ -30,7 +30,7 @@ const [aux, setAux] = useState([
   "XLMUSDT",
   "NEARUSDT",
   "ATOMUSDT",
-  "HENRY"
+  
   ])
 
 
@@ -76,7 +76,7 @@ const [aux, setAux] = useState([
             alignItems="center"
           >
 
-          <Text fontSize="4xl" mt="8px" fontWeight="bold" color="#ffffff">TOKENS</Text>
+          <Text fontSize="4xl" mt="8px" fontWeight="bold" color="#ffffff">CURRENCIES</Text>
           </Box>
         </ZStack>
       </Box>

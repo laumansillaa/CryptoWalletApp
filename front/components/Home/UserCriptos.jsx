@@ -28,7 +28,7 @@ export default function UserCriptos({navigation}) {
  React.useEffect( () => {
   let usd= balance?.find(element => element.Currency === "USD")
   usd.Amount = parseFloat(usd.Amount).toFixed(2)
-  console.log(usd.amount)
+  
   setBalanceUsd(usd)
  },[balance])
 
@@ -44,12 +44,6 @@ export default function UserCriptos({navigation}) {
     return  () => {
  };
   }, []));
-/* 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() =>   );
-  }, []);
- */
 
 
 

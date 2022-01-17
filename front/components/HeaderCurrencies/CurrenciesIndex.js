@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import HeaderCurrencies from './HeaderCurrencies';
 import CardCripto from "./CardCripto"
+import BuyCurrencie from './BuyCurrencie';
 const Stack = createNativeStackNavigator();
 
 export default function CurrenciesIndex() {
@@ -13,6 +14,7 @@ export default function CurrenciesIndex() {
     }}>
       <Stack.Screen name="CurrenciesIndex" component={HeaderCurrencies} />
       <Stack.Screen name="CardCripto" component={CardCripto} />
+      <Stack.Screen name="BuyCurrencie" component={BuyCurrencie} />
     </Stack.Navigator>
   );
 }

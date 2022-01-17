@@ -128,7 +128,7 @@ export default function Home({ navigation }) {
           maxWidth="100%"
           maxHeight="100%"
         >
-          <Text color="white" fontSize="lg" pb="1">
+          <Text color="white" fontWeight="bold" fontSize="lg" pb="1">
             Transactions
           </Text>
         </Box>

@@ -1,8 +1,11 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION} from "./actions"
+
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS} from "./actions"
 
 const initialState={
    Log: false,
+   isLoading: true,
+   userToken: null,
    userData:{
         
     firstname: "",
@@ -13,12 +16,12 @@ const initialState={
     pin: "",
     transactions:[],
   
-    balance:"0"
+    balance:"0",
+
+    //cvu:"0000034567800000123455"
     },
-    tokensHard:[]
-   
-
-
+    tokens:{
+         }
 }
 
 const rootReducer = (state = initialState, action)=>{
@@ -27,12 +30,27 @@ const rootReducer = (state = initialState, action)=>{
        case LOG:
            return {
                ...state,
+               userToken: action.payload,
+               isLoading: false,
                Log: true,
            }
         case LOGOUT:
             return {
                 ...state,
+                isLoading:false,
+                userToken: null,
                 Log: false,
+            }
+        case RETRIEVE_TOKEN:
+            return {
+                ...state,
+                userToken: action.payload,
+                isLoading: false,
+            }
+        case LOADING_FALSE:
+            return {
+                ...state,
+                isLoading:false,
             }
 
             case GET_DATA_USER:
@@ -46,11 +64,12 @@ const rootReducer = (state = initialState, action)=>{
                                     password:password,
                                     phone:phone,
                                     balance: state.userData.balance,
-                                    transactions: state.userData.transactions
+                                    transactions: state.userData.transactions,
+                                    //cvu: state.userData.cvu
                                     }}
 
-            case TOKENS_HARD:
-                return {...state, tokensHard: action.payload}
+            case GET_TOKENS:
+                return {...state, tokens:action.payload};
 
             case ADD_FOUNDS:
                 return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}

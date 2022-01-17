@@ -1,7 +1,7 @@
 
 import { StyleSheet, } from 'react-native';
 
-import {  ScrollView, NativeBaseProvider, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button } from 'native-base';
+import {  ScrollView, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button } from 'native-base';
 
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';

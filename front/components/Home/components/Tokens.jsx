@@ -42,7 +42,7 @@ return (
             
             </VStack>
             <VStack alignItems="center" >
-            <Text px="1" mt="1" ml="70px" color="tertiary.400">{amount}{currency}</Text>
+            <Text px="1" mt="1" ml="70px" color="tertiary.400">{parseFloat(amount).toFixed(5)}{currency}</Text>
            
             </VStack>
 

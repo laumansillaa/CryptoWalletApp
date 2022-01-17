@@ -22,12 +22,14 @@ import { Pressable} from 'react-native';
 
 
 import { useDispatch, useSelector } from 'react-redux';
+import { geTransactionUser } from '../../redux/actions';
 
 
 
 export default function BuyCurrencie({route, navigation}) {
     const {token, price} = route.params;
     const [founds, setFounds] = useState("");
+    const dispatch = useDispatch()
     const [mes, setMes] = useState("")
     const [state, setState] = useState({});
     async  function  buyToken(){
@@ -43,8 +45,10 @@ export default function BuyCurrencie({route, navigation}) {
               withCredentials: true,
               url: `http://${IP_HOST}:3001/operation/stellar/purchase`,
             });
-           
+            dispatch(geTransactionUser())
             setMes(response.data)
+            setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
+
           } catch (error) {
             setMes("Failed buy")
             console.error(error);
@@ -102,7 +106,7 @@ export default function BuyCurrencie({route, navigation}) {
                  >
                    <InputLeftAddon color="black" children={"$"} />
                    <Input
-
+                    color="black"
                     width="250"
                      placeholder="Amount"
                      onChangeText={setFounds}
@@ -114,7 +118,7 @@ export default function BuyCurrencie({route, navigation}) {
         <Button onPress={()=> buyToken()}>
             Buy
             </Button>
-            <Text color="back" mt="2" fontWeight="bold" fontSize="lg" pb="1">
+            <Text color="black" mt="2" fontWeight="bold" fontSize="lg" pb="1">
              {(mes)?mes:""}
             </Text>
           </Box>

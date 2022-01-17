@@ -8,7 +8,7 @@ import CurrenciesIndex from '../HeaderCurrencies/CurrenciesIndex';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function TabNav() {
+export default function TabNavFooter() {
 
     return (
         <Tab.Navigator

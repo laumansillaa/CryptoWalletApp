@@ -41,7 +41,7 @@ export default function Home({ navigation }) {
 
   const [loadingState, setLoadingState] = useState(false)
 
-  useEffect(() => {
+  React.useEffect(() => {
     setTimeout(() => {
       setLoadingState(false)
       setShowModal(false)
@@ -55,6 +55,7 @@ export default function Home({ navigation }) {
       <View>
         <Spinner
           visible={loadingState}
+          color='#008080'
         />
 
 

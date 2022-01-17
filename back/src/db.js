@@ -28,20 +28,16 @@ const sequelize = process.env.NODE_ENV === 'production'
     })
   : new Sequelize( `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { 
       logging: false,
-      native: false,
-      define: { timestamps: false }
+      native: false
     });
 
 // Connect models to sequelize.
 require('./models')(sequelize)
 
 // Associations.
-// const { Recipe, Diet } = sequelize.models;
-// Recipe.belongsToMany(Diet, {as: 'diets', through: 'RecipesDiets', foreignKey: 'recipeId'});
-// Diet.belongsToMany(Recipe, {as: 'recipes', through: 'RecipesDiets', foreignKey: 'dietId'});
-const { User, Transactions } = sequelize.models;
-
-// Transactions.belongsTo(User, {foreignKey: "publicKey"});
-// User.hasMany(Transactions, {foreignKey: "from"});
+const { User, Operation, Key } = sequelize.models;
+Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
+User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
+User.hasOne(Key, {as: 'key', foreignKey: 'user'})
 
 module.exports = sequelize;

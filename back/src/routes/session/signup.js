@@ -1,36 +1,48 @@
-const User = require('../../db').models.User;
-const userDataValidator = require('../../utils/userDataValidator.js');
-const StellarSDK = require("stellar-sdk");
 const axios = require("axios");
+const Web3 = require("web3")
+const web3 = new Web3("HTTP://127.0.0.1:7545");
+const StellarSDK = require("stellar-sdk");
+const { User, Key } = require("../../db").models;
+const userDataValidator = require("../../utils/userDataValidator.js");
 
 module.exports = async function(req, res, next) {
-    console.log('---------- ROUTE SESSION SIGN UP ----------')
+    console.log("---------- SESSION SIGN UP ROUTE ----------")
     const { availableEmail, validValues } = await userDataValidator(User, req.body)
+
     if (availableEmail && validValues) {
         try {
             const { firstname, lastname, email, password, phone, pin } = req.body;
-            const keyPair = StellarSDK.Keypair.random();
 
-            await User.create({
+            const createUserPromise = User.create({
                 firstname: firstname,
                 lastname: lastname,
+                sessionType: "email",
                 email: email,
                 password: password,
                 phone: phone,
                 pin: pin,
-                publicKey: keyPair.publicKey(),
-                secretKey: keyPair.secret()
-            })
+            });
 
-            await axios.get(`https://friendbot.stellar.org?addr=${keyPair.publicKey()}`);
+            
+            const ethereumPromise = web3.eth.accounts.create();
+            const stellarKeyPair = StellarSDK.Keypair.random();
+            const stellarPromise = axios.get(`https://friendbot.stellar.org?addr=${stellarKeyPair.publicKey()}`);
+            const [ethereumKeyPair] = await Promise.all([ethereumPromise, stellarPromise]);
 
-            return res.status(200).send('Sign up succeeded.');
-        } catch(error) {
-            next(error) 
-        }
+            const createKeyPromise = Key.create({
+                ethereum: [ethereumKeyPair.address, ethereumKeyPair.privateKey],
+                stellar: [stellarKeyPair.publicKey(), stellarKeyPair.secret()]
+            });
+
+            const [createdUser, createdKey] = await Promise.all([createUserPromise, createKeyPromise]);
+    
+            await createdUser.setKey(createdKey);
+
+            return res.status(200).send("Sign up succeeded.");
+        } catch(error) { next(error) }
     } else if (!availableEmail){
-        return res.status(400).send('Sign up failed: email not available.');
+        return res.status(400).send("Sign up failed: email not available.");
     } else if (!validValues) {
-        return res.status(400).send('Sign up failed: invalid values.');
+        return res.status(400).send("Sign up failed: invalid values.");
     }
 };

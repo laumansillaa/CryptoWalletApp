@@ -12,9 +12,9 @@ require('./routes')(app);
 
 // Error catching endware.
 app.use((err, req, res, next) => { 
+  console.log('---------- ERROR CATCHING ENDWARE ----------')
   const status = err.status || 500;
   const message = err.message || err;
-  console.log('---------- ERROR CATCHING ENDWARE ----------')
   console.error(err);
   return res.status(status).send(message);
 });

@@ -6,8 +6,11 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        publicKey: {
-            type: DataTypes.STRING,
+        ethereumPublicKey: {
+            type: DataTypes.STRING
+        },
+        stellarPublicKey: {
+            type: DataTypes.STRING
         }
     },
     {

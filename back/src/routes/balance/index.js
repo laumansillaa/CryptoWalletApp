@@ -1,5 +1,5 @@
 const router = require('express').Router();
 
-router.get("/:pk", require("./balance.js"));
+router.get("/data", require("./data.js"));
 
 module.exports = router;

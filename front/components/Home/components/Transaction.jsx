@@ -19,7 +19,7 @@ return (
         <Box 
          bg="#ffffff"
          py="5"
-         px="3"
+         
          mb="01"
         shadow={9}
          rounded="md"
@@ -36,13 +36,13 @@ return (
                 <Text fontSize="4xl">{money.charAt(0)}</Text>
             </Avatar>
             </Box>
-            <VStack>
-            <Text px="5"  fontSize="lg"color="#000000">{action} de {money}</Text>
-            <Text px="5" fontSize="xs"color="#000000">{date}</Text>
+            <VStack ml="10px">
+            <Text   fontSize="lg"color="#000000">{action} de {money}</Text>
+            <Text  fontSize="xs"color="#000000">{date}</Text>
             </VStack>
-            <VStack alignItems="center" >
-            <Text px="12" mt="0.5"color="tertiary.400">${money}</Text>
-            <Text px="10" fontSize="xl" color="tertiary.400">+{mont}</Text>
+            <VStack ml="50px" >
+            <Text ml="50px" mt="0.5"color="tertiary.400">{money}</Text>
+            <Text fontSize="xl" color="tertiary.400">+{parseFloat(mont).toFixed(5)}</Text>
             </VStack>
 
         </Stack>

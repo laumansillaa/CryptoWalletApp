@@ -1,8 +1,10 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER} from "./actions"
 
 const initialState={
    Log: false,
+   isLoading: true,
+   userToken: null,
    userData:{
         
     firstname: "",
@@ -12,13 +14,13 @@ const initialState={
     phone: "",
     pin: "",
     transactions:[],
-  
-    balance:"0"
+    publicKey:"",
+    
+
+    //cvu:"0000034567800000123455"
     },
-    tokensHard:[]
-   
-
-
+    tokens:{
+         }
 }
 
 const rootReducer = (state = initialState, action)=>{
@@ -27,17 +29,32 @@ const rootReducer = (state = initialState, action)=>{
        case LOG:
            return {
                ...state,
+               userToken: action.payload,
+               isLoading: false,
                Log: true,
            }
         case LOGOUT:
             return {
                 ...state,
+                isLoading:false,
+                userToken: null,
                 Log: false,
+            }
+        case RETRIEVE_TOKEN:
+            return {
+                ...state,
+                userToken: action.payload,
+                isLoading: false,
+            }
+        case LOADING_FALSE:
+            return {
+                ...state,
+                isLoading:false,
             }
 
             case GET_DATA_USER:
 
-                const {firstname,lastname,email,pin,password,phone} = action.payload
+                const {firstname,lastname,email,pin,password,phone, publicKey} = action.payload
                 return {...state, userData: {
                                     firstname: firstname,
                                     lastname: lastname,
@@ -45,12 +62,13 @@ const rootReducer = (state = initialState, action)=>{
                                     pin: pin,
                                     password:password,
                                     phone:phone,
-                                    balance: state.userData.balance,
-                                    transactions: state.userData.transactions
+                                    publicKey:publicKey,
+                                    transactions: state.userData.transactions,
+                                    //cvu: state.userData.cvu
                                     }}
 
-            case TOKENS_HARD:
-                return {...state, tokensHard: action.payload}
+            case GET_TOKENS:
+                return {...state, tokens:action.payload};
 
             case ADD_FOUNDS:
                 return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}
@@ -59,6 +77,17 @@ const rootReducer = (state = initialState, action)=>{
              let aux = state.userData.transactions;
              aux.unshift(action.payload)
                return {...state, userData:{...state.userData, transactions: aux}}
+
+            case GET_BALANCE:
+
+            return{...state, userData:{...state.userData, balance: action.payload}};
+
+            case GET_TRANSACTION_USER:
+
+            return {...state, userData:{...state.userData, transactionCurren: action.payload}}
+
+
+
        default: return state 
     }
 

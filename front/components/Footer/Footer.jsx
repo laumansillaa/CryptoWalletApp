@@ -11,7 +11,6 @@ import { NativeBaseProvider, Box, Icon, Center } from 'native-base';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import HomeIndex from '../Home/HomeIndex';
 import HeaderCurrencies from '../HeaderCurrencies/HeaderCurrencies';
-import AccountIndex from '../Account/AccountIndex';
 import Account from '../Account/Account';
 
 const FirstRoute = () => <HomeIndex />;
@@ -71,8 +70,7 @@ export default function Footer() {
                             borderColor={borderColor}
                             flex={1}
                             alignItems="center"
-                            p="3"
-                            cursor="pointer">
+                            p="3">
                             <Pressable
                                 onPress={() => {
                                     console.log(i);

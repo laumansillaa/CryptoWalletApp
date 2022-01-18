@@ -1,20 +1,20 @@
-const app = require('express')();
+const app = require("express")();
 
 // Configuration.
-app.name = 'SERVER';
-app.set('port', process.env.PORT || 3001);
+app.name = "SERVER";
+app.set("port", process.env.PORT || 3001);
 
 // Middlewares.
-require('./middlewares')(app);
+require("./middlewares")(app);
 
 // Routes middleware.
-require('./routes')(app);
+require("./routes")(app);
 
 // Error catching endware.
 app.use((err, req, res, next) => { 
+  console.log("---------- ERROR CATCHING ENDWARE ----------")
   const status = err.status || 500;
   const message = err.message || err;
-  console.log('---------- ERROR CATCHING ENDWARE ----------')
   console.error(err);
   return res.status(status).send(message);
 });

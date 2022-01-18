@@ -1,48 +1,113 @@
-import { Box, Button, Input, ScrollView } from 'native-base';
+import { Box, Input, ScrollView, VStack,Text,ZStack, Button } from 'native-base';
 import * as React from 'react';
 import { useState } from 'react';
-import { Text, View} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTokernsHard } from '../../redux/actions';
-import Criptos from '../Home/components/Criptos';
 
-export default function HeaderCurrencies() {
-const dispatch = useDispatch();
+import Criptos from './Criptos';
+import { FontAwesome5 } from '@expo/vector-icons'; 
+import { Pressable } from 'react-native';
 
-function petition(){
-  dispatch(getTokernsHard())
-}
-const [pet, setPet] = useState(0);
-const state = useSelector(state => state.tokensHard)
-let p 
+export default function HeaderCurrencies({navigation}) {
 
-  React.useEffect(()=>{
-   p = setInterval(petition,20000)
-  setPet(p)
-   
-},[])
-  return (
-    <Box>
-       
-        <Input placeholder='Buscar token'></Input>
+
+
+
+const [aux, setAux] = useState([
+  "BTCUSDT",
+  "ETHUSDT",
+  "BNBUSDT",
+  "SOLUSDT",
+  "ADAUSDT",
+  "XRPUSDT",
+  "LUNAUSDT",
+  "DOTUSDT",
+  "AVAXUSDT",
+  "DOGEUSDT",
+  "1000SHIBUSDT",
+  "MATICUSDT",
+  "LINKUSDT",
+  "LTCUSDT",
+  "ALGOUSDT",
+  "XLMUSDT",
+  "NEARUSDT",
+  "ATOMUSDT",
   
-        
-        <Button onPress={()=>clearInterval(pet)
-         }>Detener</Button>
-         <Box
-            height={600}
-            maxHeight="100%"
-            
-            >
-         <ScrollView>
-           
-        {state?.map((element, index)=>{
-          return (<Criptos  token={element[0]} price={element[1]} />)
+  ])
 
-        })}
-        
-      </ScrollView>
+
+
+  return (<>
+    <Box mt="20px"
+    width={375}
+    maxWidth="100%"
+    alignSelf="center"
+    
+    >   
+
+
+        <Box h="40" mb="-5" >
+        <ZStack mt="2.5"  >
+         <Box
+            bg="indigo.600"
+            mt="5"
+            size="20"
+            width={350}
+            rounded="md"
+            shadow={5}
+          />
+          <Box
+            bg="#FFEC00"
+            mt="7"
+            ml="3"
+           
+            size="20"
+            width={350}
+            rounded="md"
+            shadow={7}
+          />
+          
+          <Box
+            bg="darkBlue.900"
+            mt="9"
+            ml="5"
+            size="20"
+            width={350}
+            rounded="md"
+            shadow={9}
+            alignItems="center"
+          >
+
+          <Text fontSize="4xl" mt="8px" fontWeight="bold" color="#ffffff">CURRENCIES</Text>
+          </Box>
+        </ZStack>
       </Box>
-    </Box>
+
+      <Box mb="3"width={300} alignSelf="center">
+      <Input
+      color="black"
+      variant="underlined"
+      px="5"
+      
+        InputRightElement={
+          <FontAwesome5 mx="5" name="search-dollar" size={24} color="#D5D5D5" />
+            
+        }
+        placeholder="Search Token"
+      />
+
+      </Box>
+        
+      
+
+    </Box> 
+         
+         <ScrollView >
+        <VStack mb="15">
+         {aux?.map((element, index)=>{
+          return <Criptos key ={index} token={element}  nav={navigation} />
+        })} 
+        </VStack>
+      </ScrollView>
+      
+      </>
   );
 }

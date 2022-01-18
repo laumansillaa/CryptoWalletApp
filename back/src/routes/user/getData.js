@@ -17,7 +17,7 @@ module.exports = async function(req, res, next) {
 
         return res.status(200).send({
             ...req.user.dataValues,
-            contacts,
+            contacts: contacts.map(contact => { return { name: contact.name, publicKey: contact.publicKey } }),
             publicKeys: {
                 ethereum: keys.ethereum[0],
                 stellar: keys.stellar[0]

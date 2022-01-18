@@ -39,7 +39,7 @@ module.exports = async function(req, res, next) {
             operationType: "purchase",
             blockchain: "stellar",
             from: keys.stellar[0],
-            to: "bank",
+            to: "admin",
             currency: currency,
             amount: amount,
             purchasedCurrency: purchaseCurrency,

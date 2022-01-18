@@ -1,8 +1,8 @@
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 // Initialize data base.
-const { Sequelize } = require('sequelize');
-const sequelize = process.env.NODE_ENV === 'production'
+const { Sequelize } = require("sequelize");
+const sequelize = process.env.NODE_ENV === "production"
   ? new Sequelize({
       database: DB_NAME,
       dialect: "postgres",
@@ -32,12 +32,12 @@ const sequelize = process.env.NODE_ENV === 'production'
     });
 
 // Connect models to sequelize.
-require('./models')(sequelize)
+require("./models")(sequelize)
 
 // Associations.
 const { User, Operation, Key } = sequelize.models;
-Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
-User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
-User.hasOne(Key, {as: 'key', foreignKey: 'user'})
+Operation.belongsToMany(User, {as: "users", through: "UserOperation", foreignKey: "operationId"});
+User.belongsToMany(Operation, { as: "operations", through: "UserOperation", foreignKey: "userId"})
+User.hasOne(Key, {as: "key", foreignKey: "user"})
 
 module.exports = sequelize;

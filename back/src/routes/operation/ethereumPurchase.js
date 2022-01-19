@@ -9,7 +9,7 @@ module.exports = async function(req, res, next) {
     console.log("---------- OPERATION ETHER PURCHASE ROUTE ----------")
     try {
         const { currency, amount, purchaseCurrency } = req.body;
-        const keys = await Key.findOne({ where: { user: req.user.id } });
+        const keys = await Key.findOne({ where: { userId: req.user.id } });
         const prices = await binance.futuresPrices();
         const purchaseAmount = await amount / prices[`${purchaseCurrency}${currency}`];
 

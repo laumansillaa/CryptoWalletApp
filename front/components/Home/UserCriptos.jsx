@@ -24,14 +24,27 @@ export default function UserCriptos({navigation}) {
   const dispatch = useDispatch();
  const balance = useSelector(state => state.userData.balance)
  const [balanceUSD, setBalanceUsd] = useState("");
+ const [currencies, setCurrencies] = useState([])
  const [refreshing, setRefreshing] = useState(false);
+ const blockChain = useSelector(state => state.blockChain);
+ 
  React.useEffect( () => {
-  let usd
-  if(balance) usd = balance.stellar.usd
-  if(usd) usd = parseFloat(usd).toFixed(2);
-  
-  setBalanceUsd(usd)
- },[balance])
+
+  if(blockChain === "stellar"){
+    let usd
+    if(balance.stellar) usd = balance.stellar.balanceUsd
+    if(usd) usd = parseFloat(usd).toFixed(2);
+    setBalanceUsd(usd)
+    setCurrencies(balance.stellar.currencies)
+  }else if ("ethereum"){
+    let usd
+    if(balance.ethereum) usd = balance.ethereum.balanceUsd
+    if(usd) usd = parseFloat(usd).toFixed(2);
+    setCurrencies(balance.ethereum.currencies)
+    setBalanceUsd(usd)
+}},[balance,blockChain])
+
+
 
  useFocusEffect(
   React.useCallback(() => {
@@ -94,14 +107,14 @@ return (
              maxHeight="100%"
           >
             <Text color="white" fontWeight="bold" fontSize="lg" pb="1">
-            Tokens
+            Currencies:
             </Text>
       </Box>
           </Box>
           
          <ScrollView mt="5">
-           {balance.stellar.currencies?.map((element, index)=>{
-             return ( <Tokens key={index} currency={element.currency} amount={element.amount}/>)
+           {currencies?.map((element, index)=>{
+             return ( <Tokens key={index} currency={element.currency} amount={element.amount} nav={navigation}/>)
 
            })}
            

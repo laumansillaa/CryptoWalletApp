@@ -34,6 +34,7 @@ export default function Home({ navigation }) {
   const [balanceUSD, setBalanceUsd] = useState("");
   const [founds, setFounds] = useState("");
   const [loadingState, setLoadingState] = useState(false)
+  const blockChain = useSelector(state => state.blockChain);
 
   React.useEffect( () => {
     dispatch(getDataUser())
@@ -42,10 +43,22 @@ export default function Home({ navigation }) {
 },[])
  
   React.useEffect( () => {
+
+
+   if(blockChain === "stellar"){
     let usd
-  if(userData.balance) usd = userData.balance.stellar.usd
-   if(usd) usd = parseFloat(usd).toFixed(2);
-   setBalanceUsd(usd)
+    if(userData.balance) usd = userData.balance.stellar.balanceUsd
+    if(usd) usd = parseFloat(usd).toFixed(2);
+    setBalanceUsd(usd)
+
+  }else if ("ethereum"){
+    let usd
+    if(userData.balance) usd = userData.balance.ethereum.balanceUsd
+    if(usd) usd = parseFloat(usd).toFixed(2);
+    
+    setBalanceUsd(usd)
+  }
+
   },[userData.balance])
  
   useFocusEffect(

@@ -1,39 +1,69 @@
-import { Box, Input, ScrollView, VStack,Text,ZStack, Button } from 'native-base';
+import { Box, Input, ScrollView, VStack,HStack,Text,ZStack, Button,Heading,Switch } from 'native-base';
 import * as React from 'react';
 import { useState } from 'react';
 
 import Criptos from './Criptos';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { Pressable } from 'react-native';
+import { getBlockChain } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 export default function HeaderCurrencies({navigation}) {
 
+const dispatch = useDispatch();
+const blockChain = useSelector(state => state.blockChain);
+const stellar =[  "BTCUSDT",
+"ETHUSDT",
+"BNBUSDT",
+"SOLUSDT",
+"ADAUSDT",
+"XRPUSDT",
+"LUNAUSDT",
+"DOTUSDT",
+"AVAXUSDT",
+"DOGEUSDT",
+"1000SHIBUSDT",
+"MATICUSDT",
+"LINKUSDT",
+"LTCUSDT",
+"ALGOUSDT",
+"XLMUSDT",
+"NEARUSDT",
+"ATOMUSDT",]
 
+const ethereum = ["ETHUSDT"]
 
 
 const [aux, setAux] = useState([
-  "BTCUSDT",
-  "ETHUSDT",
-  "BNBUSDT",
-  "SOLUSDT",
-  "ADAUSDT",
-  "XRPUSDT",
-  "LUNAUSDT",
-  "DOTUSDT",
-  "AVAXUSDT",
-  "DOGEUSDT",
-  "1000SHIBUSDT",
-  "MATICUSDT",
-  "LINKUSDT",
-  "LTCUSDT",
-  "ALGOUSDT",
-  "XLMUSDT",
-  "NEARUSDT",
-  "ATOMUSDT",
+
   
   ])
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  React.useEffect(()=>{
+    if(!isEnabled){
+      dispatch(getBlockChain("stellar"))
+
+    }else{
+      dispatch(getBlockChain("ethereum"))
+    }
 
 
+  },[isEnabled])
+
+
+  React.useEffect(()=>{
+    if(blockChain === "stellar"){
+      setAux(stellar)
+
+    }else{
+      setAux(ethereum)
+    }
+
+
+  },[blockChain])
 
   return (<>
     <Box mt="20px"
@@ -82,6 +112,18 @@ const [aux, setAux] = useState([
       </Box>
 
       <Box mb="3"width={300} alignSelf="center">
+    <HStack>
+    <Heading textAlign="center" mb="10">
+        <Text color="black">BlockChain: {isEnabled?"Ethereum": "Stellar"}</Text>
+      </Heading>
+      <Switch 
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}/>
+    </HStack>
+     
       <Input
       color="black"
       variant="underlined"
@@ -111,3 +153,5 @@ const [aux, setAux] = useState([
       </>
   );
 }
+
+

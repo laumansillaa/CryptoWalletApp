@@ -35,9 +35,11 @@ const sequelize = process.env.NODE_ENV === 'production'
 require('./models')(sequelize)
 
 // Associations.
-const { User, Operation, Key } = sequelize.models;
+const { User, Operation, Key, RecoveryToken } = sequelize.models;
 Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
 User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
 User.hasOne(Key, {as: 'key', foreignKey: 'user'})
+User.hasOne(RecoveryToken)
+
 
 module.exports = sequelize;

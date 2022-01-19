@@ -23,12 +23,32 @@ module.exports = async function() {
 
         const createKeyPromise = Key.create({
             ethereum: [ethereumKeyPair.address, ethereumKeyPair.privateKey],
-            stellar: [stellarKeyPair.publicKey(), stellarKeyPair.secret()]
+            //stellar: [stellarKeyPair.publicKey(), stellarKeyPair.secret()]
+            stellar: ["GDZEM3JQ5ZWAGQ7A6IFT5ZOFJYTHG3ZRDI4SIJKIPX2B6Z4MNNSE3GA4", "SDM3MAX4FFCQXSAF2ZIR3GAIWGQ3XXWKFX5XSBHQRK2QDFSXXMMBNLXA"]
         });
 
         const [createdUser, createdKey] = await Promise.all([createUserPromise, createKeyPromise]);
 
+        const createUserPromise2 = User.create({
+            firstname: "default2",
+            lastname: "user2",
+            sessionType: "email",
+            email: "default2@user.com",
+            password: "Password01",
+            phone: "1100000001",
+            pin: "000001",
+        });
+
+        const createKeyPromise2 = Key.create({
+            ethereum: [ethereumKeyPair.address, ethereumKeyPair.privateKey],
+            //stellar: [stellarKeyPair.publicKey(), stellarKeyPair.secret()]
+            stellar: ["GCHENQKEFJN5MXPYH3QWDMTN6WOY2H2SFE2HICL2UVZVZ6IGLJJ4ZTRH", "SCNK7VIHA6GCNTLPD3A2WZNT7ULDXHTGZGKBBZIIPBPMBPEVAAHRYAGP"]
+        });
+
+        const [createdUser2, createdKey2] = await Promise.all([createUserPromise2, createKeyPromise2]);
+
         await createdUser.setKey(createdKey);
+        await createdUser2.setKey(createdKey2);
     } catch(error) { console.error(error) }
     
 }

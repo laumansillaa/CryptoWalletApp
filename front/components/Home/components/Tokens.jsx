@@ -11,13 +11,16 @@ import {
   Button,
  
   Avatar,
-  ZStack
+  ZStack,
+  Pressable
 } from 'native-base';
 
 export default function Tokens({currency, amount, nav}) {
 return (
 
-   
+    <Pressable 
+    onPress={()=>{nav.navigate("OperationCurrencies",{currency})}}
+      >
         <Box 
          bg="black"
          
@@ -52,14 +55,14 @@ return (
            
           
         </Stack>
-        <Button mt="9"  ml="250px" bg="indigo.600" borderColor="#171717" fontWeight="bold" borderWidth="2" 
+       {/*  <Button mt="9"  ml="250px" bg="indigo.600" borderColor="#171717" fontWeight="bold" borderWidth="2" 
         onPress={()=>nav.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Transfer</Button>
              
              <Button mt="9"  ml="180px" bg="indigo.600" borderColor="#171717" fontWeight="bold" borderWidth="2" 
-        onPress={()=>nav.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>     
+        onPress={()=>nav.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>  */}    
         </ZStack>
         </Box>  
-      
+        </Pressable>
   
  
   );

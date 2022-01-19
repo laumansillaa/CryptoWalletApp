@@ -14,6 +14,7 @@ module.exports = function (sequelize) {
         stellar: {
             type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: false,
+            defaultValue: [],
             validate: {
                 checkLength(value) {
                     if (this.ethereum.length !== 2) throw new Error("You must provide one public key and one private key.")

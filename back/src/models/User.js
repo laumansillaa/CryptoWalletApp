@@ -49,7 +49,7 @@ module.exports = function (sequelize) {
             validate: {
                 is: /^\d{6}$/,
             }
-        }
+        },
     },
     {
       timestamps: false,

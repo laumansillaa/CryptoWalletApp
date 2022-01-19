@@ -9,10 +9,10 @@ const { Key, Operation } = require("../../db").models;
 module.exports = async function(req, res, next) {
     console.log("---------- OPERATION STELLAR TRANSFER ROUTE ----------")
     try {
-        const { transferCurrency, transferAmount, publicKey } = req.body;
+        const { transferCurrency, transferAmount, pKey } = req.body;
 
 
-        const trusterKeys = await Key.findOne({where:{stellar:{[Op.contains]:[publicKey]}}});
+        const trusterKeys = await Key.findOne({where:{stellar:{[Op.contains]:[pKey]}}});
         
         const trusterKey = StellarSDK.Keypair.fromSecret(trusterKeys.stellar[1]);
         const trusterAccount = await server.loadAccount(trusterKeys.stellar[0]);

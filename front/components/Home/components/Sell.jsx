@@ -29,15 +29,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 
-export default function Transfer({route, navigation}) {
+export default function Sell({route, navigation}) {
       const {currency, amount} = route.params
       const [disabledButton, setDisableButton] = useState(true)
       const [showModal, setShowModal] = useState(false)
       const blockChain = useSelector(state => state.blockChain);
       const [urlBlockChain, setUrlBlockChain]= useState("");
       const [founds, setFounds] = useState("0.00");
-      const [publicKey, setPublicKey] = useState("")
+    
       const [mes, setMes] = useState("")
+      
       React.useEffect(()=>{
 
         if(blockChain === "stellar"){
@@ -54,17 +55,21 @@ export default function Transfer({route, navigation}) {
 
 
 async function transferUser (){
+
+
+    if(blockChain === "stellar"){
+        
   try {
     setMes("loading...")
     const response = await axios({
       method: "post",
       data: {
-        transferCurrency: currency,
-        transferAmount:founds,
-        pKey: publicKey
+        sellCurrency:currency,
+        sellAmount: founds
+  
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/transfer`,
+      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
     });
 
     setMes(response.data)
@@ -74,6 +79,38 @@ async function transferUser (){
     setMes("Failed Transfer")
     console.error(error);
   } 
+
+
+      }
+      else if(blockChain === "ethereum"){
+        
+  try {
+    setMes("loading...")
+    const response = await axios({
+      method: "post",
+      data: {
+        currency: currency,
+         amount: founds,                                              
+        purchaseCurrency: "USDT"
+  
+      },
+      withCredentials: true,
+      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
+    });
+
+    setMes(response.data)
+    setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
+
+  } catch (error) {
+    setMes("Failed Transfer")
+    console.error(error);
+  } 
+        
+      }
+
+
+
+
 
 
 }
@@ -122,22 +159,6 @@ async function transferUser (){
           <Box alignSelf="center" alignItems="center" >
           
 
-
-          {/* <Box
-             bg="black"
-             
-             
-            shadow={9}
-             rounded="md"
-             alignSelf="center"
-             width={300}
-             height={50}
-             alignItems="center"
-             maxWidth="100%"
-             maxHeight="100%"
-          >
-           
-          </Box> */}
          
           <Box
           mt="20px"
@@ -155,18 +176,10 @@ async function transferUser (){
           >
 
           <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
-            Amount to transfer from {currency}:
+            Amount to sell of {currency}:
             </Text>
           <Text color="#ffffff" fontWeight="bold" fontSize="6xl"> {founds} </Text>
-          <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
-              To the wallet:
-            </Text>
-            <Box >
-            <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="sm" pb="1">
-             {publicKey}
-            </Text>
-            </Box>
-            
+          
       </Box>
 
       <Box
@@ -207,11 +220,11 @@ async function transferUser (){
           <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
           <Modal.Content maxWidth="500px">
             <Modal.CloseButton />
-            <Modal.Header>Amount to transfer</Modal.Header>
+            <Modal.Header>Amount to sell</Modal.Header>
             <Modal.Body>
               <FormControl>
-                <FormControl.Label>How much {currency} do you want to transfer?</FormControl.Label>
-                <VStack alignItems="center">
+                <FormControl.Label>How much {currency} do you want to sell?</FormControl.Label>
+                
                 <InputGroup
                   w={{
                     base: "70%",
@@ -230,16 +243,8 @@ async function transferUser (){
                   
 
                 </InputGroup>
-                <Input
-                  mt="5"
-                    w={{
-                      base: "70%",
-                      md: "100%",
-                    }}
-                    placeholder="Public Key.."
-                    onChangeText={setPublicKey}
-                  />
-                  </VStack>
+                
+               
               </FormControl>
 
             </Modal.Body>

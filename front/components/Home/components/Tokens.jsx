@@ -54,7 +54,10 @@ return (
         </Stack>
         <Button mt="9"  ml="250px" bg="indigo.600" borderColor="#171717" fontWeight="bold" borderWidth="2" 
         onPress={()=>nav.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Transfer</Button>
-             </ZStack>
+             
+             <Button mt="9"  ml="180px" bg="indigo.600" borderColor="#171717" fontWeight="bold" borderWidth="2" 
+        onPress={()=>nav.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>     
+        </ZStack>
         </Box>  
       
   

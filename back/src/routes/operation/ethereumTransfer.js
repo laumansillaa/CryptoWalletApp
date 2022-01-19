@@ -8,16 +8,16 @@ module.exports = async function(req, res, next) {
     try {
         // We get te user public and private keys from data base. User is the one executing the transfer operation.
         // The person who will receive the crypto currency comes from <to> variable through the request body. 
-        const { to, currency, amount } = req.body;
-        if (currency !== "ETH") return res.status(400).send("Currency variable must be 'ETH'");
+        const { pKey, transferCurrency, transferAmount } = req.body;
+        if (transferCurrency !== "ETH") return res.status(400).send("Currency variable must be 'ETH'");
         const [publicKey, privateKey] = (await Key.findOne({ where: { userId: req.user.id } })).ethereum
 
         const transactionCount = await web3.eth.getTransactionCount(publicKey);
         const transaction = {
             nonce: web3.utils.toHex(transactionCount),
-            to: to,
-            value: web3.utils.toHex(web3.utils.toWei(amount.toString(), "ether")),
-            gasLimit: web3.utils.toHex(21000),
+            to: pKey,
+            value: web3.utils.toHex(web3.utils.toWei(transferAmount.toString(), "ether")),
+            gasLimit: web3.utils.toHex(53000),
             gasPrice: web3.utils.toHex(web3.utils.toWei("10", "gwei"))
         };
         const signedTransaction = await web3.eth.accounts.signTransaction(transaction, privateKey);
@@ -27,9 +27,9 @@ module.exports = async function(req, res, next) {
             operationType: "transfer",
             blockchain: "ethereum",
             from: publicKey,
-            to: to,
-            currency: currency,
-            amount: amount,
+            to: pKey,
+            currency: transferCurrency,
+            amount: transferAmount,
             purchasedCurrency: null,
             purchasedAmount: null
         });

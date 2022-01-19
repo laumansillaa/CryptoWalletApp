@@ -1,11 +1,11 @@
 
-
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN} from "./actions"
 
 const initialState={
    Log: false,
    isLoading: true,
    userToken: null,
+   blockChain:"stellar",
    userData:{
         
     firstname: "",
@@ -15,8 +15,9 @@ const initialState={
     phone: "",
     pin: "",
     transactions:[],
+    publicKey:"",
   
-    balance:"0",
+    
 
     //cvu:"0000034567800000123455"
     },
@@ -55,7 +56,7 @@ const rootReducer = (state = initialState, action)=>{
 
             case GET_DATA_USER:
 
-                const {firstname,lastname,email,pin,password,phone} = action.payload
+                const {firstname,lastname,email,pin,password,phone, publicKey} = action.payload
                 return {...state, userData: {
                                     firstname: firstname,
                                     lastname: lastname,
@@ -63,7 +64,7 @@ const rootReducer = (state = initialState, action)=>{
                                     pin: pin,
                                     password:password,
                                     phone:phone,
-                                    balance: state.userData.balance,
+                                    publicKey:publicKey,
                                     transactions: state.userData.transactions,
                                     //cvu: state.userData.cvu
                                     }}
@@ -78,6 +79,18 @@ const rootReducer = (state = initialState, action)=>{
              let aux = state.userData.transactions;
              aux.unshift(action.payload)
                return {...state, userData:{...state.userData, transactions: aux}}
+
+            case GET_BALANCE:
+
+            return{...state, userData:{...state.userData, balance: action.payload}};
+
+            case GET_TRANSACTION_USER:
+
+            return {...state, userData:{...state.userData, transactionCurren: action.payload}}
+
+            case GET_BLOCKCHAIN:
+                return {...state, blockChain: action.payload}
+
        default: return state 
     }
 

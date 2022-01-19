@@ -34,11 +34,14 @@ module.exports = function (sequelize) {
                 checkSessionType(value) {
                     if (this.sessionType !== "google" && value === null) {
                         throw new Error("Password can't be null when not signing in to Google.") 
-                    } else if (this.sessionType === 'google' && value !== null) {
+                    } else if (this.sessionType === "google" && value !== null) {
                         throw new Error("Password must be null when signing in to Google.") 
                     }
                 }
             }
+        },
+        usd: {
+            type: DataTypes.STRING
         },
         phone: {
             type: DataTypes.STRING,    
@@ -49,7 +52,7 @@ module.exports = function (sequelize) {
             validate: {
                 is: /^\d{6}$/,
             }
-        }
+        },
     },
     {
       timestamps: false,

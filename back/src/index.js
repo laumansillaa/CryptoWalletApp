@@ -18,34 +18,26 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-require('dotenv').config();
-const app = require('./app.js');
-const db = require('./db.js');
-const Binance = require('node-binance-api');
-const binance = new Binance()
+require("dotenv").config();
+const { PORT, IP_HOST } = process.env;
+const app = require("./app.js");
+const db = require("./db.js");
 const { createServer } = require("http");
 const httpServer = createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(httpServer, { cors: {
-  origin: "http://192.168.1.8:19006",
-  credentials:true
-}});
 
 // Server initialization.
 (async function() {
   try {
     await db.sync({ force: true })
-    console.log('Data base created.');
-    httpServer.listen(app.get('port'), () => {
-      console.log(`Server listening at port ${process.env.PORT}.`);
-    });
-    io.on("connection", socket => {
-      socket.on("token client", token => {
-        binance.futuresMiniTickerStream(token, element => {
-          io.emit(token, element.close)});
-      })
-      console.log("Front connected.")
-    })
+    console.log("Data base created.");
+
+    await require("./utils/defaultUserCreator.js")();
+    console.log("Default user created."); 
+    await require("./utils/binanceConnectionCreator.js")(httpServer);
+    console.log("Client socket connected.");
+
+    await httpServer.listen(app.get("port"));
+    console.log(`Server listening at port ${PORT}.`);
   } catch(error) { console.error(error) }
 })()
 

@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 const { Operation, UserOperation } = require("../../db.js").models;
 
 module.exports = async function(req, res, next) {

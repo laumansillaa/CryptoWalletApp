@@ -12,6 +12,11 @@ module.exports = async function(req, res, next) {
     if (availableEmail && validValues) {
         try {
             const { firstname, lastname, email, password, phone, pin } = req.body;
+            
+            const ethereumPromise = web3.eth.accounts.create();
+            const stellarKeyPair = StellarSDK.Keypair.random();
+            const stellarPromise = axios.get(`https://friendbot.stellar.org?addr=${stellarKeyPair.publicKey()}`);
+            const [ethereumKeyPair] = await Promise.all([ethereumPromise, stellarPromise]);
 
             const createUserPromise = User.create({
                 firstname: firstname,
@@ -22,12 +27,6 @@ module.exports = async function(req, res, next) {
                 phone: phone,
                 pin: pin,
             });
-
-            
-            const ethereumPromise = web3.eth.accounts.create();
-            const stellarKeyPair = StellarSDK.Keypair.random();
-            const stellarPromise = axios.get(`https://friendbot.stellar.org?addr=${stellarKeyPair.publicKey()}`);
-            const [ethereumKeyPair] = await Promise.all([ethereumPromise, stellarPromise]);
 
             const createKeyPromise = Key.create({
                 ethereum: [ethereumKeyPair.address, ethereumKeyPair.privateKey],

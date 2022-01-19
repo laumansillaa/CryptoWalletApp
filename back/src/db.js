@@ -1,8 +1,8 @@
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 // Initialize data base.
-const { Sequelize } = require('sequelize');
-const sequelize = process.env.NODE_ENV === 'production'
+const { Sequelize } = require("sequelize");
+const sequelize = process.env.NODE_ENV === "production"
   ? new Sequelize({
       database: DB_NAME,
       dialect: "postgres",
@@ -31,6 +31,7 @@ const sequelize = process.env.NODE_ENV === 'production'
       native: false
     });
 
+<<<<<<< HEAD
 // Connect models to sequelize.
 
 // const RecipeModelCreator = require('./models/Recipe.js')
@@ -60,5 +61,9 @@ const { User, Operation, Key } = sequelize.models;
 Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
 User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
 User.hasOne(Key, {as: 'key', foreignKey: 'user'})
+=======
+// Connection and association of data base models.
+require("./models")(sequelize)
+>>>>>>> e5e4af06c74bacbee4f5ea65d6f993fafa88d51b
 
 module.exports = sequelize;

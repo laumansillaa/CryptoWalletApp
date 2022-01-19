@@ -9,7 +9,7 @@ const { Key } = require("../../db.js").models;
 
 module.exports = async function(req, res, next) {
     try {
-        const keys = await Key.findOne({ where: { user: req.user.id } });
+        const keys = await Key.findOne({ where: { userId: req.user.id } });
         const prices = await binance.futuresPrices();
 
         const ethereumEtherInGwei = await web3.eth.getBalance(keys.ethereum[0]);
@@ -17,7 +17,7 @@ module.exports = async function(req, res, next) {
         const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
         let ethereumUsd = 0;
         for (let i = 0; i < ethereumCurrencies.length; i++) {
-            ethereumUsd =+ ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
+            ethereumUsd += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
         }
 
         const stellarAccount = await server.loadAccount(keys.stellar[0]);
@@ -26,16 +26,20 @@ module.exports = async function(req, res, next) {
             .map(currency => { return { currency: currency.asset_code, amount: currency.balance } });
         let stellarUsd = 0;
         for (let i = 0; i < stellarCurrencies.length; i++) {
-            stellarUsd =+ stellarCurrencies[i].amount * prices[`${stellarCurrencies[i].currency}USDT`];
+            if(stellarCurrencies[i].currency === "USD") {
+                stellarUsd += parseInt(stellarCurrencies[i].amount);
+            } else {
+                stellarUsd += stellarCurrencies[i].amount * prices[`${stellarCurrencies[i].currency}USDT`];
+            }
         }
 
         return res.status(200).send({
             ethereum: {
-                usd: ethereumUsd.toString(),
+                balanceUsd: ethereumUsd.toString(),
                 currencies: ethereumCurrencies
             },
             stellar: {
-                usd: stellarUsd.toString(),
+                balanceUsd: stellarUsd.toString(),
                 currencies: stellarCurrencies
             }
         });

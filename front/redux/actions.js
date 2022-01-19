@@ -12,6 +12,7 @@ export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
 export const GET_TOKENS ="GET_TOKENS";
 export const GET_BALANCE = "GET_BALANCE"
 export const GET_TRANSACTION_USER = "GET_TRANSACTION_USER";
+export const GET_BLOCKCHAIN =  "GET_BLOCKCHAIN";
 
 export function Log (payload) {
     return {
@@ -116,4 +117,8 @@ export const getBalance = ()=> async dispatch =>{
         console.log("Error al consultar")
     }
 
+}
+
+export const getBlockChain =(data)=>{
+    return{type:GET_BLOCKCHAIN, payload:data}
 }

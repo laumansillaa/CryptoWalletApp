@@ -1,19 +1,19 @@
-const { DataTypes } = require ('sequelize'); 
+const { DataTypes } = require ("sequelize"); 
 
 module.exports = function (sequelize) {
-    sequelize.define('Operation', {
+    sequelize.define("Operation", {
         operationType: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isIn: [['purchase', 'transaction', 'swap']]
+                isIn: [["purchase", "sell", "transfer", "swap"]]
             }
         },
         blockchain: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isIn: [['ethereum', 'stellar']]
+                isIn: [["ethereum", "stellar"]]
             }
         },
         from: {
@@ -37,10 +37,10 @@ module.exports = function (sequelize) {
             allowNull: true,
             validate: {
                 checkOperationType(value) {
-                    if (this.operationType === "purchase" && value === null) {
-                        throw new Error("Purchased currency can't be null when the operation type is 'purchase'.") 
-                    } else if (this.operationType !== 'purchase' && value !== null) {
-                        throw new Error("Purchased currency must be null when the operation type isn't 'purchase'.") 
+                    if ((this.operationType === "purchase" || this.operationType === "sell") && value === null) {
+                        throw new Error("Purchased currency can't be null when the operation type is 'purchase' or 'sell'.") 
+                    } else if (this.operationType !== "purchase" && this.operationType !== "sell" && value !== null) {
+                        throw new Error("Purchased currency must be null when the operation type isn't 'purchase' or 'sell'.") 
                     }
                 }
 
@@ -51,10 +51,10 @@ module.exports = function (sequelize) {
             allowNull: true,
             validate: {
                 checkOperationType(value) {
-                    if (this.operationType === "purchase" && value === null) {
-                        throw new Error("Purchased amount can't be null when the operation type is 'purchase'.") 
-                    } else if (this.operationType !== 'purchase' && value !== null) {
-                        throw new Error("Purchased amount must be null when the operation type isn't 'purchase'.") 
+                    if ((this.operationType === "purchase" || this.operationType === "sell") && value === null) {
+                        throw new Error("Purchased amount can't be null when the operation type is 'purchase' or 'sell'.") 
+                    } else if (this.operationType !== "purchase" && this.operationType !== "sell" && value !== null) {
+                        throw new Error("Purchased amount must be null when the operation type isn't 'purchase' or 'sell'.") 
                     }
                 }
 

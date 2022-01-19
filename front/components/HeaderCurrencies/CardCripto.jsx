@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
+import {IP_HOST} from "@env"
 import {
 
   Box,
@@ -45,7 +46,7 @@ export default function CardCripto({route, navigation}) {
                 let so;
             
               try{
-                so =  (io("http://192.168.1.8:3001"))
+                so =  (io(`http://${IP_HOST}:3001`))
 
                 so.emit("token client", token);
                 so.on(token, msg =>{
@@ -89,7 +90,7 @@ export default function CardCripto({route, navigation}) {
           </Box>
           
           <Box alignSelf="center" alignItems="center" >
-          <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${state?.price} </Text>
+          <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${state?state.price:""} </Text>
   {/*         <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${stateToken?.price} </Text> */}
           <Box
              bg="darkBlue.900"

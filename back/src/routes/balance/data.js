@@ -9,7 +9,7 @@ const { Key } = require("../../db.js").models;
 
 module.exports = async function(req, res, next) {
     try {
-        const keys = await Key.findOne({ where: { user: req.user.id } });
+        const keys = await Key.findOne({ where: { userId: req.user.id } });
         const prices = await binance.futuresPrices();
 
         const ethereumEtherInGwei = await web3.eth.getBalance(keys.ethereum[0]);

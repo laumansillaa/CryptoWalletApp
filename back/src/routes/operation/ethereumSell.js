@@ -6,7 +6,7 @@ const { Key, Operation } = require("../../db").models;
 const { ADMIN_ETHEREUM_PUBLIC_KEY, ADMIN_ETHEREUM_PRIVATE_KEY } = process.env;
 
 module.exports = async function(req, res, next) {
-    console.log("---------- OPERATION ETHER PURCHASE ROUTE ----------")
+    console.log("---------- OPERATION ETHER SELL ROUTE ----------")
     try {
         // We get the user public key from data base. User is the one purchasing the crypto currency, which will
         // be extracted from the admin's account (<ADMIN_ETHEREUM_PUBLIC_KEY> and <ADMIN_ETHEREUM_PRIVATE_KEY>). 

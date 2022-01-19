@@ -31,13 +31,7 @@ const sequelize = process.env.NODE_ENV === "production"
       native: false
     });
 
-// Connect models to sequelize.
+// Connection and association of data base models.
 require("./models")(sequelize)
-
-// Associations.
-const { User, Operation, Key } = sequelize.models;
-Operation.belongsToMany(User, {as: "users", through: "UserOperation", foreignKey: "operationId"});
-User.belongsToMany(Operation, { as: "operations", through: "UserOperation", foreignKey: "userId"})
-User.hasOne(Key, {as: "key", foreignKey: "user"})
 
 module.exports = sequelize;

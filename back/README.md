@@ -210,6 +210,50 @@ The possible respnses are:
 - "Ethereum purchase succeeded." (status 200).
 - An error in case something went wrong.
 
+### Transfer an Ethereum token:
+
+- Method: post 
+- Route: /operation/ethereum/transfer
+
+You must send through __body__ the transfer parameters. For example:
+``` 
+  {
+    to: "0x1B9fb7381145895c5086c648Cd7bF31249158a95"
+    currency: "ETH",
+    amount: "0.2",                                              
+  }
+``` 
+All the values must be of type string and verify the following restrictions:
+- `to` must be a valid public address.
+- `currency` must be "ETH".
+- `amount` must be any digit lower than the user's balance for that currency. 
+
+The possible respnses are:
+- "Ethereum transfer succeeded." (status 200).
+- An error in case something went wrong.
+
+### Sell an Ethereum token:
+
+- Method: post 
+- Route: /operation/ethereum/sell
+
+You must send through __body__ the transfer parameters. For example:
+``` 
+  {
+    currency: "ETH",
+    amount: "0.2",                                              
+    purchaseCurrency: "USDT"
+  }
+``` 
+All the values must be of type string and verify the following restrictions:
+- `currency` must be "ETH".
+- `amount` must be any digit lower than the user's balance for that currency. 
+- `purchaseCurrency` must be "USDT".
+
+The possible respnses are:
+- "Ethereum transfer succeeded." (status 200).
+- An error in case something went wrong.
+
 ### Purchase an Stellar token:
 
 - Method: post 

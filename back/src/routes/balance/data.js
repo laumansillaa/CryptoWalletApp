@@ -35,11 +35,11 @@ module.exports = async function(req, res, next) {
 
         return res.status(200).send({
             ethereum: {
-                balance: ethereumUsd.toString(),
+                balanceUsd: ethereumUsd.toString(),
                 currencies: ethereumCurrencies
             },
             stellar: {
-                balance: stellarUsd.toString(),
+                balanceUsd: stellarUsd.toString(),
                 currencies: stellarCurrencies
             }
         });

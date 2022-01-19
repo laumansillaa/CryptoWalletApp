@@ -12,13 +12,13 @@ module.exports = async function(req, res, next) {
         const keys = await Key.findOne({ where: { user: req.user.id } });
         const prices = await binance.futuresPrices();
 
-        // const ethereumEtherInGwei = await web3.eth.getBalance(keys.ethereum[0]);
-        // const ethereumEther = await web3.utils.fromWei(ethereumEtherInGwei, "ether")
-        // const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
-        // let ethereumUsd = 0;
-        // for (let i = 0; i < ethereumCurrencies.length; i++) {
-        //     ethereumUsd += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
-        // }
+        const ethereumEtherInGwei = await web3.eth.getBalance(keys.ethereum[0]);
+        const ethereumEther = await web3.utils.fromWei(ethereumEtherInGwei, "ether")
+        const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
+        let ethereumUsd = 0;
+        for (let i = 0; i < ethereumCurrencies.length; i++) {
+            ethereumUsd += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
+        }
 
         const stellarAccount = await server.loadAccount(keys.stellar[0]);
         const stellarCurrencies = stellarAccount.balances
@@ -34,10 +34,10 @@ module.exports = async function(req, res, next) {
         }
 
         return res.status(200).send({
-            // ethereum: {
-            //     usd: ethereumUsd.toString(),
-            //     currencies: ethereumCurrencies
-            // },
+            ethereum: {
+                balance: ethereumUsd.toString(),
+                currencies: ethereumCurrencies
+            },
             stellar: {
                 balance: stellarUsd.toString(),
                 currencies: stellarCurrencies

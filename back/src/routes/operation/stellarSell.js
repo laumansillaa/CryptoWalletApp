@@ -8,7 +8,7 @@ const { Key, Operation } = require("../../db").models;
 module.exports = async function(req, res, next) {
     console.log("---------- OPERATION STELLAR SELL ROUTE ----------")
     try {
-        const { sellCurrency, sellAmount, purchaseCurrency } = req.body;
+        const { sellCurrency, sellAmount } = req.body;
         const keys = await Key.findOne({ where: { user: req.user.id } });
         const prices = await binance.futuresPrices();
         const purchaseAmount = await sellAmount * prices[`${sellCurrency}USDT`];
@@ -20,12 +20,12 @@ module.exports = async function(req, res, next) {
             networkPassphrase: StellarSDK.Networks.TESTNET
         })
             .addOperation(StellarSDK.Operation.changeTrust({
-                asset: new StellarSDK.Asset(purchaseCurrency, "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
+                asset: new StellarSDK.Asset("USD", "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
                 limit: "10000"
             }))
             .addOperation(StellarSDK.Operation.manageBuyOffer({
                 selling: StellarSDK.Asset.native(),
-                buying: new StellarSDK.Asset(purchaseCurrency, "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
+                buying: new StellarSDK.Asset("USD", "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
                 buyAmount: purchaseAmount.toString().slice(0, 6),
                 price: "0.1"
             }))
@@ -34,7 +34,7 @@ module.exports = async function(req, res, next) {
                 asset: new StellarSDK.Asset(sellCurrency, "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
                 amount: sellAmount.toString()
             }))
-            .setTimeout(300).build();
+            .setTimeout(100).build();
 
         operation.sign(stellarKeyPair);
 
@@ -47,7 +47,7 @@ module.exports = async function(req, res, next) {
             to: "admin",
             currency: sellCurrency,
             amount: sellAmount,
-            purchasedCurrency: purchaseCurrency,
+            purchasedCurrency: "USD",
             purchasedAmount: purchaseAmount
         });
 

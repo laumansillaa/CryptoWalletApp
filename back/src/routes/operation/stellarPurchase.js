@@ -29,7 +29,7 @@ module.exports = async function(req, res, next) {
                 buyAmount: purchaseAmount.toString().slice(0, 6),
                 price: amount
             }))
-            .setTimeout(300).build();
+            .setTimeout(100).build();
 
         operation.sign(stellarKeyPair);
 

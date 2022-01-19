@@ -12,13 +12,13 @@ module.exports = async function(req, res, next) {
         const keys = await Key.findOne({ where: { user: req.user.id } });
         const prices = await binance.futuresPrices();
 
-        const ethereumEtherInGwei = await web3.eth.getBalance(keys.ethereum[0]);
-        const ethereumEther = await web3.utils.fromWei(ethereumEtherInGwei, "ether")
-        const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
-        let ethereumUsd = 0;
-        for (let i = 0; i < ethereumCurrencies.length; i++) {
-            ethereumUsd += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
-        }
+        // const ethereumEtherInGwei = await web3.eth.getBalance(keys.ethereum[0]);
+        // const ethereumEther = await web3.utils.fromWei(ethereumEtherInGwei, "ether")
+        // const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
+        // let ethereumUsd = 0;
+        // for (let i = 0; i < ethereumCurrencies.length; i++) {
+        //     ethereumUsd += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
+        // }
 
         const stellarAccount = await server.loadAccount(keys.stellar[0]);
         const stellarCurrencies = stellarAccount.balances
@@ -26,16 +26,20 @@ module.exports = async function(req, res, next) {
             .map(currency => { return { currency: currency.asset_code, amount: currency.balance } });
         let stellarUsd = 0;
         for (let i = 0; i < stellarCurrencies.length; i++) {
-            stellarUsd += stellarCurrencies[i].amount * prices[`${stellarCurrencies[i].currency}USDT`];
+            if(stellarCurrencies[i].currency === "USD") {
+                stellarUsd += parseInt(stellarCurrencies[i].amount);
+            } else {
+                stellarUsd += stellarCurrencies[i].amount * prices[`${stellarCurrencies[i].currency}USDT`];
+            }
         }
 
         return res.status(200).send({
-            ethereum: {
-                usd: ethereumUsd.toString(),
-                currencies: ethereumCurrencies
-            },
+            // ethereum: {
+            //     usd: ethereumUsd.toString(),
+            //     currencies: ethereumCurrencies
+            // },
             stellar: {
-                usd: stellarUsd.toString(),
+                balance: stellarUsd.toString(),
                 currencies: stellarCurrencies
             }
         });

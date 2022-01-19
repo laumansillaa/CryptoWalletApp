@@ -6,7 +6,27 @@ const { Key, Operation } = require("../../db").models;
 module.exports = async function(req, res, next) {
     console.log("---------- OPERATION STELLAR TRANSFER ROUTE ----------")
     try {
-        const { transferCurrency, transferAmount, to } = req.body;
+        const { transferCurrency, transferAmount, toId } = req.body;
+
+        const trusterKeys = await Key.findOne({ where: { user: toId } });
+        
+        const trusterKey = StellarSDK.Keypair.fromSecret(trusterKeys.stellar[1]);
+        const trusterAccount = await server.loadAccount(trusterKeys.stellar[0]);
+
+        const trustTransaction = new StellarSDK.TransactionBuilder(trusterAccount, {
+            fee: StellarSDK.BASE_FEE,
+            networkPassphrase: StellarSDK.Networks.TESTNET
+        })
+            .addOperation(StellarSDK.Operation.changeTrust({
+            asset: new StellarSDK.Asset(transferCurrency, "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
+            limit: "100000"
+        }))
+            .setTimeout(100).build();
+
+        trustTransaction.sign(trusterKey);
+
+        await server.submitTransaction(trustTransaction);
+
         const keys = await Key.findOne({ where: { user: req.user.id } });
 
         const stellarAccount = await server.loadAccount(keys.stellar[0]);
@@ -16,11 +36,11 @@ module.exports = async function(req, res, next) {
             networkPassphrase: StellarSDK.Networks.TESTNET
         })
             .addOperation(StellarSDK.Operation.payment({
-                destination: to,
+                destination: trusterKeys.stellar[0],
                 asset: new StellarSDK.Asset(transferCurrency, "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
                 amount: transferAmount.toString()
             }))
-            .setTimeout(300).build();
+            .setTimeout(100).build();
 
         operation.sign(stellarKeyPair);
 
@@ -30,9 +50,11 @@ module.exports = async function(req, res, next) {
             operationType: "transfer",
             blockchain: "stellar",
             from: keys.stellar[0],
-            to: to,
+            to: trusterKeys.stellar[0],
             currency: transferCurrency,
-            amount: transferAmount
+            amount: transferAmount,
+            purchasedCurrency: null,
+            purchasedAmount: null
         });
 
         await req.user.addOperation(dbOperation);

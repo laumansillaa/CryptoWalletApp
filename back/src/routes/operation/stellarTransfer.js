@@ -1,4 +1,3 @@
-
 const { Op } = require("sequelize");
 const axios = require("axios");
 const StellarSDK = require("stellar-sdk");
@@ -10,7 +9,6 @@ module.exports = async function(req, res, next) {
     console.log("---------- OPERATION STELLAR TRANSFER ROUTE ----------")
     try {
         const { transferCurrency, transferAmount, pKey } = req.body;
-
 
         const trusterKeys = await Key.findOne({where:{stellar:{[Op.contains]:[pKey]}}});
         

@@ -5,7 +5,7 @@ const StellarSDK = require("stellar-sdk");
 const server = new StellarSDK.Server("https://horizon-testnet.stellar.org");
 const Binance = require("node-binance-api");
 const binance = new Binance();
-const { Key } = require("../../db.js").models;
+const { Key, Staking } = require("../../db.js").models;
 
 module.exports = async function(req, res, next) {
     try {
@@ -24,12 +24,19 @@ module.exports = async function(req, res, next) {
         const stellarCurrencies = stellarAccount.balances
             .filter(currency => currency.asset_code !== undefined && currency.balance > 0)
             .map(currency => { return { currency: currency.asset_code, amount: currency.balance } });
+        const stellarStake = await Staking.findAll({ where: { publicKey: keys.stellar[0]}})
         let stellarUsd = 0;
         for (let i = 0; i < stellarCurrencies.length; i++) {
             if(stellarCurrencies[i].currency === "USD") {
-                stellarUsd += parseInt(stellarCurrencies[i].amount);
+                stellarUsd += parseFloat(stellarCurrencies[i].amount);
             } else {
                 stellarUsd += stellarCurrencies[i].amount * prices[`${stellarCurrencies[i].currency}USDT`];
+                stellarStake.forEach(data => {
+                    if(data.currency === stellarCurrencies[i].currency) {
+                        stellarCurrencies[i].staking = data.amount;
+                        stellarUsd += parseFloat(data.amount) * prices[`${stellarCurrencies[i].currency}USDT`];
+                    }
+                })
             }
         }
 

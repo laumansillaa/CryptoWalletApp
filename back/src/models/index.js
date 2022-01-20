@@ -14,4 +14,5 @@ module.exports = function(sequelize) {
     User.hasMany(Contact, {foreignKey: "userId"});
     Staking.belongsToMany(User, {as: "users", through: "UserStaking", foreignKey: "stakingId"});
     User.belongsToMany(Staking, { as: "stakings", through: "UserStaking", foreignKey: "userId"});
+    
 }

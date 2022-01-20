@@ -7,7 +7,7 @@ import Login from './components/Login/Login';
 import Register from "./components/Register/Register"
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import Loading from './components/LOADING/LOADING';
-import { LoadingFalse, RetrieveToken } from './redux/actions';
+import { LoadingFalse, RetrieveToken, TokenLog, TOKEN_LOG } from './redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserPin from "./components/Login/UserPin"
 
@@ -24,7 +24,7 @@ const dispatch = useDispatch();
 let userToken =useSelector(state => state.userToken);
 
   const [logged, setLogged] = useState(false);
-  const [tokenLogged, setTokenLogged] = useState(false);
+  const tokenLogged = useSelector(state => state.tokenLogged);
   const log = useSelector(state => state.Log);
   let isLoading = useSelector(state => state.isLoading);
  
@@ -47,7 +47,7 @@ let userToken =useSelector(state => state.userToken);
         userToken = await AsyncStorage.getItem('userToken');
         console.log(userToken);
         if (userToken !== null) {
-          setTokenLogged(true);
+          dispatch(TokenLog());
           dispatch(LoadingFalse());
         } else {
           dispatch(RetrieveToken(userToken));
@@ -66,13 +66,13 @@ let userToken =useSelector(state => state.userToken);
   )
   }
 
-  // if(tokenLogged === true) {
-  //   return (
-  //     <>
-  //     <UserPin/>
-  //     </>
-  //   )
-  // }
+  if(tokenLogged === true) {
+    return (
+      <>
+      <UserPin/>
+      </>
+    )
+  }
 
   return ( 
    

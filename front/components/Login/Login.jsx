@@ -55,6 +55,8 @@ export default function Login ({ navigation }) {
                     withCredentials: true,
                     url: `http://${IP_HOST}:3001/session/localSignin`,
                   });
+                  // let user = await axios.get(`http://${IP_HOST}:3001/user/getData`); 
+                  // console.log(user);
                   userToken = "loggety logged";     
                   await AsyncStorage.setItem('userToken', userToken);
                   dispatch(Log(userToken));  

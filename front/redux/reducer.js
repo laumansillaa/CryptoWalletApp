@@ -1,9 +1,10 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN, TOKEN_LOG, TOKEN_LOGOUT} from "./actions"
 
 const initialState={
    Log: false,
    isLoading: true,
+   tokenLogged: false,
    userToken: null,
    blockChain:"stellar",
    userData:{
@@ -53,6 +54,18 @@ const rootReducer = (state = initialState, action)=>{
                 ...state,
                 isLoading:false,
             }
+        case TOKEN_LOG: {
+            return {
+                ...state,
+                tokenLogged: true,
+            }
+        }
+        case TOKEN_LOGOUT: {
+            return {
+                ...state,
+                tokenLogged:false,
+            }
+        }
 
             case GET_DATA_USER:
 

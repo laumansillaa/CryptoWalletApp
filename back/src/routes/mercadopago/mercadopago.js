@@ -9,16 +9,18 @@ module.exports = (req, res, next) => {
         let preference = {
             items: [
                 {
-                    title: req.body.title,
+                    
+                    title: "Payment process",
                     unit_price: Number(req.body.unit_price),
-                    quantity: Number(req.body.quantity)
+                    quantity: 1                
                 }
             ],
             back_urls: {
                 "success": "http://localhost:3001/payment/feedback",
                 "failure": "http://localhost:3001/payment/feedback",
                 "pending": "http://localhost:3001/payment/feedback"
-            },
+            },            
+            marketplace: "Henry Wallet",
             auto_return: "approved",
                  
         }

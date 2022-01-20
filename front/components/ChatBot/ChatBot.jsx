@@ -28,7 +28,7 @@ export default function ChatBot() {
     }, []);
 
     function onSend () {
-        const socket = io("http://192.168.0.141:19000")
+        const socket = io();
         socket.emit("userMessage", userMessage);
         setUserMessage("");
     }

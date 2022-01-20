@@ -60,7 +60,20 @@ const sequelize = process.env.NODE_ENV === "production"
 // Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
 // User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
 // User.hasOne(Key, {as: 'key', foreignKey: 'user'})
+
+// Connect models to sequelize.
+//require('./models')(sequelize)
+
+// Associations.
+// const { User, Operation, Key, RecoveryToken } = sequelize.models;
+// Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
+// User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
+// User.hasOne(Key, {as: 'key', foreignKey: 'user'})
+// User.hasOne(RecoveryToken)
+
+
 // Connection and association of data base models.
-require("./models")(sequelize)
+//require("./models")(sequelize)
+
 
 module.exports = sequelize;

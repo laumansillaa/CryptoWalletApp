@@ -24,6 +24,7 @@ module.exports = async function(req, res, next) {
                 sessionType: "email",
                 email: email,
                 password: password,
+                usd: "0",
                 phone: phone,
                 pin: pin,
             });

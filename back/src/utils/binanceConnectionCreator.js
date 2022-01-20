@@ -4,7 +4,7 @@ const { Server } = require("socket.io");
 
 module.exports = async function(httpServer) {
     const io = new Server(httpServer, { cors: {
-      origin: `http://${process.env.IP_HOST}:19006`,
+      origin: `http://${process.env.IP_HOST}:19000`,
       credentials:true
     }});
 
@@ -13,5 +13,6 @@ module.exports = async function(httpServer) {
             binance.futuresMiniTickerStream(token, async element => {
                 await io.emit(token, element.close)});
         })
-    })
+    });
+    io.on("userMessage", msg => console.log(msg));
 }

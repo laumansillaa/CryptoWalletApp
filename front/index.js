@@ -15,6 +15,7 @@ import UserPin from "./components/Login/UserPin"
 import Footer from '../front/components/Footer/Footer'
 
 import TabNavFooter from './components/TabNavFooter/TabNavFooter'
+import ButtonChatBot from './components/ChatBot/ButtonChatBot';
 const Stack = createNativeStackNavigator();
 
 export default function Index() {
@@ -46,8 +47,8 @@ let userToken =useSelector(state => state.userToken);
         userToken = await AsyncStorage.getItem('userToken');
         console.log(userToken);
         if (userToken !== null) {
-          dispatch(LoadingFalse());
           setTokenLogged(true);
+          dispatch(LoadingFalse());
         } else {
           dispatch(RetrieveToken(userToken));
         }
@@ -65,7 +66,7 @@ let userToken =useSelector(state => state.userToken);
   )
   }
 
-  // if(userToken !== null && tokenLogged === true) {
+  // if(tokenLogged === true) {
   //   return (
   //     <>
   //     <UserPin/>
@@ -82,7 +83,8 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="Register" component={Register}/>
                    </Stack.Navigator>
     : 
-                   <TabNavFooter/>}
+                   <TabNavFooter/>
+                   }
       </NavigationContainer>
   )
 }

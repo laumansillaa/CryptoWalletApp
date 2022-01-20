@@ -31,49 +31,7 @@ const sequelize = process.env.NODE_ENV === "production"
       native: false
     });
 
-// Connect models to sequelize.
-
-// const RecipeModelCreator = require('./models/Recipe.js')
-// const DietModelCreator = require('./models/Diet')
-// RecipeModelCreator(sequelize);
-// DietModelCreator(sequelize);
-// const UserModel = require ('./models/User.js')
-// UserModel(sequelize);
-// const Transaction = require ('./models/Transaction.js')
-// Transaction(sequelize);
-// const AccountMovement = require ('./models/AccountMovements.js')
-// AccountMovement(sequelize);
-
-
-// // const { User, Transactions } = sequelize.models;
-// require('./models')(sequelize)
-
-// // Associations.
-// // const { Recipe, Diet } = sequelize.models;
-// // Recipe.belongsToMany(Diet, {as: 'diets', through: 'RecipesDiets', foreignKey: 'recipeId'});
-// // Diet.belongsToMany(Recipe, {as: 'recipes', through: 'RecipesDiets', foreignKey: 'dietId'});
-
-// // Transactions.belongsTo(User, {foreignKey: "publicKey"});
-// // User.hasMany(Transactions, {foreignKey: "from"});
-
-// const { User, Operation, Key } = sequelize.models;
-// Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
-// User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
-// User.hasOne(Key, {as: 'key', foreignKey: 'user'})
-
-// Connect models to sequelize.
+// Connect and associate data base models.
 require('./models')(sequelize)
-
-// Associations.
-// const { User, Operation, Key, RecoveryToken } = sequelize.models;
-// Operation.belongsToMany(User, {as: 'users', through: 'UserOperation', foreignKey: 'operationId'});
-// User.belongsToMany(Operation, { as: 'operations', through: 'UserOperation', foreignKey: 'userId'})
-// User.hasOne(Key, {as: 'key', foreignKey: 'user'})
-// User.hasOne(RecoveryToken)
-
-
-// Connection and association of data base models.
-//require("./models")(sequelize)
-
 
 module.exports = sequelize;

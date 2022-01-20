@@ -19,7 +19,11 @@ module.exports = function (sequelize) {
         },
         currency: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: {
+                args: "currency",
+                msg: "This currency is already staked"
+             }
         },
         amount: {
             type: DataTypes.STRING,

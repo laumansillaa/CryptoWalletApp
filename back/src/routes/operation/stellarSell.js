@@ -47,11 +47,16 @@ module.exports = async function(req, res, next) {
             to: "admin",
             currency: sellCurrency,
             amount: sellAmount,
-            purchasedCurrency: "USD",
+            purchasedCurrency: "USDT",
             purchasedAmount: purchaseAmount
         });
 
         await req.user.addOperation(dbOperation);
+
+        const updatedUsdValue = Number(req.user.usd) + Number(purchaseAmount);
+        await req.user.update({
+            usd: updatedUsdValue.toString()
+        });
 
         return res.status(200).send("Stellar sell succeeded.");
     } catch(error) { next(error) }

@@ -7,5 +7,7 @@ router.post("/ethereum/sell", require("./ethereumSell.js"));
 router.post("/stellar/purchase", require("./stellarPurchase.js"));
 router.post("/stellar/sell", require("./stellarSell.js"));
 router.post("/stellar/transfer", require("./stellarTransfer.js"));
+router.post("/stellar/stake", require("./stellarPutStake.js"));
+router.post("/stellar/takestake", require("./stellarTakeStake.js"));
 
 module.exports = router;

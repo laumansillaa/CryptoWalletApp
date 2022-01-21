@@ -48,6 +48,11 @@ module.exports = async function(req, res, next) {
 
         await req.user.addOperation(dbOperation);
 
+        const updatedUsdValue = Number(req.user.usd) - Number(amount);
+        await req.user.update({
+            usd: updatedUsdValue.toString()
+        });
+
         return res.status(200).send("Stellar purchase succeeded.");
     } catch(error) { next(error) }
 };

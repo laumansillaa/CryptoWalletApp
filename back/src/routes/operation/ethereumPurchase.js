@@ -43,6 +43,7 @@ module.exports = async function(req, res, next) {
         await req.user.update({
             usd: updatedUsdValue.toString()
         });
+        
         return res.status(200).send("Ethereum purchase succeeded.");
     } catch(error) { next(error) }
 };

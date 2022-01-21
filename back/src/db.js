@@ -33,5 +33,7 @@ const sequelize = process.env.NODE_ENV === "production"
 
  
 
+// Connect and associate data base models.
+require('./models')(sequelize)
 
 module.exports = sequelize;

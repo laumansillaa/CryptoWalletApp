@@ -1,20 +1,24 @@
-import { Button, Center, Container, FormControl, Icon, Input, Stack, Text } from "native-base";
+import { Box, Button, Center, Container, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons"
-import { validateEmail, validatePassword } from "../Utils/Utils";
+import { validateEmail } from "../Utils/Utils";
+import axios from "axios";
 
 
-export default function PasswordRecovery() {
+export default function PasswordRecovery({ navigation }) {
     
     const [email, setEmail] = useState("");
     const [error, setError] = useState({
         email:""
         });
+    const [emailSent, setEmailSent] = useState(false);
     const [message, setMessage] = useState("");
+    const [messageSubmit, setMessageSubmit] = useState("");
+
     const [password, setPassword] = useState("");
-    const [tokenEmail, setTokenEmail] = useState("");
     const [tokenPassword, setTokenPassword] = useState("");
+    const [tokenValidate, setTokenValidate] = useState(false);
 
     
     function validateData (arg){
@@ -29,8 +33,19 @@ export default function PasswordRecovery() {
 
     const generateToken = async () => {
         setMessage("Loading...");
-        // /password/tokenrequest
+        try {
+            // await axios.post(`http://${IP_HOST}:3001/password/tokenrequest`, {email: email});
+            setEmailSent(true);
+        } catch (e) {console.log(e)};
 
+    }
+
+    const submitToken = async () => {
+        setMessageSubmit("Loading...");
+        try {
+            // await axios.post(`http://${IP_HOST}:3001/password/tokenrequest`, {email: email});
+            setTokenValidate(true);
+        } catch (e) {console.log(e)};
     }
     
     return (
@@ -42,13 +57,24 @@ export default function PasswordRecovery() {
                     <Text>Put your email for generate a Token</Text>
                     <Input placeholder="email" value={email} onChangeText={setEmail} InputLeftElement={
                         <Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />} />
-                    <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>
+                    {error.email !== "Please enter a valid email" && email !== "" ? 
+                    <Button onPress={generateToken} size="sm">Generate a Token</Button> :
+                    <FormControl.HelperText>
                     {error.email}
-                    </FormControl.ErrorMessage>  
-                    <Button onPress={generateToken} size="sm">Generate a Token</Button>
+                    </FormControl.HelperText>}
+                    <FormControl.HelperText>
+                    {message}
+                    </FormControl.HelperText>
                     <Text>Insert the Token</Text>
-                    <Input placeholder="Token" value={tokenPassword}/>
-                    <Button onPress={submitToken} size="sm">Submit</Button> 
+                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword}/>
+                    <Button onPress={submitToken} size="sm">Submit</Button>
+                    <FormControl.HelperText>
+                    {messageSubmit}
+                    </FormControl.HelperText>
+                    { tokenValidate ? 
+                     <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" >Reset Password</Button>
+                     : <Text>Validate the token</Text>}
+                    
                 </Stack>
                 </FormControl>
             </Center>

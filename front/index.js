@@ -13,6 +13,7 @@ import UserPin from "./components/Login/UserPin"
 
 import TabNavFooter from './components/TabNavFooter/TabNavFooter'
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
+import PasswordReset from './components/PasswordRecovery/PasswordReset';
 const Stack = createNativeStackNavigator();
 
 export default function Index() {
@@ -78,6 +79,7 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="Login" component={Login}/>
                       <Stack.Screen name="Register" component={Register}/>
                       <Stack.Screen name="PasswordRecovery" component={PasswordRecovery}/>
+                      <Stack.Screen name="PasswordReset" component={PasswordReset}/>
                    </Stack.Navigator>
     : 
                    <TabNavFooter/>

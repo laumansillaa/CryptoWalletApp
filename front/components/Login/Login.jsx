@@ -96,7 +96,8 @@ export default function Login ({ navigation }) {
           {error.email}
         </FormControl.ErrorMessage>  
             <Input placeholder="password"  value={password} onChangeText={setPassword} type="password" 
-            InputRightElement={<Icon as={<MaterialIcons name="visibility-off" />} size={5} mr="2" color="muted.400" />} />
+            // InputRightElement={<Icon as={<MaterialIcons name="visibility-off" />} size={5} mr="2" color="muted.400" />} 
+            />
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>
           {error.password}
         </FormControl.ErrorMessage > 

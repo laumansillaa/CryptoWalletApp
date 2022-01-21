@@ -47,13 +47,13 @@ export default function Home({ navigation }) {
 
    if(blockChain === "stellar"){
     let usd
-    if(userData.balance) usd = userData.balance.stellar.balanceUsd
+    if(userData.balance) usd = userData.balance.stellar.cryptoBalance
     if(usd) usd = parseFloat(usd).toFixed(2);
     setBalanceUsd(usd)
 
   }else if ("ethereum"){
     let usd
-    if(userData.balance) usd = userData.balance.ethereum.balanceUsd
+    if(userData.balance) usd = userData.balance.ethereum.cryptoBalance
     if(usd) usd = parseFloat(usd).toFixed(2);
     
     setBalanceUsd(usd)

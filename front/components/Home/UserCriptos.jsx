@@ -37,13 +37,13 @@ export default function UserCriptos({navigation}) {
 
   if(blockChain === "stellar"){
     let usd
-    if(balance.stellar) usd = balance.stellar.balanceUsd
+    if(balance.stellar) usd = balance.stellar.cryptoBalance
     if(usd) usd = parseFloat(usd).toFixed(2);
     setBalanceUsd(usd)
     setCurrencies(balance.stellar.currencies)
   }else if ("ethereum"){
     let usd
-    if(balance.ethereum) usd = balance.ethereum.balanceUsd
+    if(balance.ethereum) usd = balance.ethereum.cryptoBalance
     if(usd) usd = parseFloat(usd).toFixed(2);
     setCurrencies(balance.ethereum.currencies)
     setBalanceUsd(usd)

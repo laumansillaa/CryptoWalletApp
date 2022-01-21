@@ -95,7 +95,7 @@ export default function Home({ navigation }) {
         <Pressable
         mt="50px"
           onPress={() => {
-            navigation.navigate("UserCriptos")
+            navigation.navigate("BalanceUser")
           }}
 
         >

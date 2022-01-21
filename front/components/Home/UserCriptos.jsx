@@ -9,15 +9,20 @@ import {
   Stack,Text,
   ChevronLeftIcon,
   Center,
+  Popover,
+  Flex,
+  Divider,
   ScrollView,
   
 } from 'native-base';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useSelector, useDispatch} from 'react-redux';
 import Tokens from './components/Tokens';
 import { useState, useEffect } from 'react';
 import { Pressable, RefreshControl } from 'react-native';
 import {useFocusEffect } from '@react-navigation/native';
 import { getBalance } from '../../redux/actions';
+import OperationCurrencies from '../HeaderCurrencies/OperationCurrencies';
 
 
 export default function UserCriptos({navigation}) {
@@ -27,7 +32,7 @@ export default function UserCriptos({navigation}) {
  const [currencies, setCurrencies] = useState([])
  const [refreshing, setRefreshing] = useState(false);
  const blockChain = useSelector(state => state.blockChain);
- 
+ const Tab = createMaterialTopTabNavigator();
  React.useEffect( () => {
 
   if(blockChain === "stellar"){
@@ -63,6 +68,7 @@ export default function UserCriptos({navigation}) {
 
 return (
 <>    
+ 
       <ScrollView
         refreshControl={
           <RefreshControl
@@ -71,7 +77,7 @@ return (
           />}
         
       >
-           <Box
+         {/*   <Box
           mt="50px"
           py="1"
           
@@ -86,9 +92,16 @@ return (
           <Pressable   onPress={()=> navigation.goBack()}>
           <ChevronLeftIcon color="darkBlue.900" size="9"/>
           </Pressable>
-             <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" > YOUR BALANCE </Text> 
+             <Text  fontSize="xl" color="darkBlue.900" fontWeight="bold" > YOUR BALANCE </Text> 
+             <Divider bg="indigo.500" thickness="2" mx="2" orientation="vertical" />
+             <Pressable onPress={()=> navigation.navigate("StakingUser")} >
+             <Text  fontSize="xl" color="darkBlue.700" fontWeight="bold" > STAKING </Text> 
+
+
+             </Pressable>
+             
           </Stack>
-          </Box>
+          </Box> */}
           
           <Box alignSelf="center" alignItems="center" >
           <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${balanceUSD} </Text>
@@ -123,6 +136,7 @@ return (
 
         
        </ScrollView>
+      
       </>
  
   );

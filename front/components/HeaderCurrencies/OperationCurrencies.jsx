@@ -20,7 +20,7 @@ import { useState } from 'react';
 
 export default function OperationCurrencies({route, navigation }) {
 
-       const{currency} = route.params
+       const{currency} = route.params 
         const balance = useSelector(state=> state.userData.balance)
         const [amount, setAmount] = useState("")
     const blockChain = useSelector(state=> state.blockChain)

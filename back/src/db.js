@@ -33,7 +33,7 @@ const sequelize = process.env.NODE_ENV === "production"
 
 
 // Connect models to sequelize.
-//require('./models')(sequelize)
+require('./models')(sequelize)
 
 // Associations.
 // const { User, Operation, Key, RecoveryToken } = sequelize.models;

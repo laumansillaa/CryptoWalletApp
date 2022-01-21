@@ -31,7 +31,7 @@ const sequelize = process.env.NODE_ENV === "production"
       native: false
     });
 
-    require('./models')(sequelize)
+ 
 
 
 module.exports = sequelize;

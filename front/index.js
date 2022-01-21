@@ -16,6 +16,7 @@ import Footer from '../front/components/Footer/Footer'
 
 import TabNavFooter from './components/TabNavFooter/TabNavFooter'
 import ButtonChatBot from './components/ChatBot/ButtonChatBot';
+import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 const Stack = createNativeStackNavigator();
 
 export default function Index() {
@@ -45,7 +46,6 @@ let userToken =useSelector(state => state.userToken);
       userToken= null;
       try {
         userToken = await AsyncStorage.getItem('userToken');
-        console.log(userToken);
         if (userToken !== null) {
           dispatch(TokenLog());
           dispatch(LoadingFalse());
@@ -81,6 +81,7 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="SplashScreen" component={SplashScreen}/>
                       <Stack.Screen name="Login" component={Login}/>
                       <Stack.Screen name="Register" component={Register}/>
+                      {/* <Stack.Screen name="PasswordRecovery" component={PasswordRecovery}/> */}
                    </Stack.Navigator>
     : 
                    <TabNavFooter/>

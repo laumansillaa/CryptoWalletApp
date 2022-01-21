@@ -40,13 +40,13 @@ module.exports = function (sequelize) {
                 }
             }
         },
-        // usd: {
-        //     type: DataTypes.STRING,
-        //     allowNull: false,
-        //     validate: {
-        //         is: /^[1-9]\d*(\.\d+)?$/
-        //     }
-        // },
+        usd: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                is: /^[1-9]\d*(\.\d+)?$/
+            }
+        },
         phone: {
             type: DataTypes.STRING,    
         },

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = function (sequelize) {
-    sequelize.define('RecoveryToken', {
+    sequelize.define('SegurityToken', {
         token: {
             type: DataTypes.STRING,
             allowNull: true

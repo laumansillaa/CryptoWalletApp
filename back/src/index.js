@@ -35,7 +35,7 @@ const httpServer = createServer(app);
     console.log("Default user created."); 
     await require("./utils/binanceConnectionCreator.js")(httpServer);
     console.log("Client socket connected.");
-    await require("./solidity")();
+    await require("./solidity")(db);
     console.log("Ethereum contracts stored.")
 
     await httpServer.listen(app.get("port"));

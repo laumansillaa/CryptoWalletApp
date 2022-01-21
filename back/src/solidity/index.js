@@ -8,11 +8,17 @@ const HenryContractJSON = require("./build/contracts/Henry.json");
 const contracts = [TetherContractJSON, BinanceContractJSON, HenryContractJSON].map(contract => TruffleContract(contract));
 contracts.forEach(contract => contract.setProvider(web3Provider));
 
-module.exports = async function () {
+module.exports = async function (db) {
   const deployed = await Promise.all(contracts.map(contract => contract.deployed()));
-  deployed.forEach(async contract => {
+  const { EthereumToken } = db.models;
+  const dbContractsPromises = deployed.map(async contract => {
     const name = await contract.name()
     const symbol = await contract.symbol()
-    console.log(name, symbol, contract.address);
+    return EthereumToken.create({
+      name,
+      symbol,
+      address: contract.address
+    }) 
   });
+  return Promise.all([dbContractsPromises])
 };

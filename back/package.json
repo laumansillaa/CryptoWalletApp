@@ -26,6 +26,7 @@
     "generate-password": "^1.7.0",
     "ioredis": "^4.19.2",
     "jsonwebtoken": "^8.5.1",
+    "lightweight-charts": "^3.7.0",
     "mercadopago": "^1.5.11",
     "morgan": "^1.10.0",
     "node-binance-api": "^0.13.1",

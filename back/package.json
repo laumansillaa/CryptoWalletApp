@@ -26,6 +26,7 @@
     "generate-password": "^1.7.0",
     "ioredis": "^4.19.2",
     "jsonwebtoken": "^8.5.1",
+    "lightweight-charts": "^3.7.0",
     "mercadopago": "^1.5.11",
     "morgan": "^1.10.0",
     "node-binance-api": "^0.13.1",
@@ -38,7 +39,7 @@
     "sequelize": "^6.3.5",
     "socket.io": "^4.4.1",
     "stellar-sdk": "^10.0.0",
-    "web3": "^1.6.1"
+    "web3": "^1.7.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

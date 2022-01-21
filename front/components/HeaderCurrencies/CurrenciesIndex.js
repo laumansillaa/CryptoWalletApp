@@ -8,6 +8,7 @@ import BuyCurrencie from './BuyCurrencie';
 import ChatBot from '../ChatBot/ChatBot';
 import { Box } from 'native-base';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
+import OperationCurrencies from './OperationCurrencies';
 const Stack = createNativeStackNavigator();
 
 export default function CurrenciesIndex() {
@@ -19,6 +20,7 @@ export default function CurrenciesIndex() {
       <Stack.Screen name="CurrenciesIndex" component={HeaderCurrencies} />
       <Stack.Screen name="CardCripto" component={CardCripto} />
       <Stack.Screen name="BuyCurrencie" component={BuyCurrencie} />
+      <Stack.Screen name="OperationCurrencies" component={OperationCurrencies} />
     </Stack.Navigator>
   );
 }

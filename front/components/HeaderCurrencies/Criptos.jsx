@@ -21,8 +21,8 @@ export default function Criptos({token, nav}) {
 
 return (
 
-   <Pressable onPress={()=> nav.navigate("CardCripto", {
-    token
+   <Pressable onPress={()=> nav.navigate("OperationCurrencies", {
+    currency:token
    })}>
         <Box 
          bg="darkBlue.900"
@@ -52,9 +52,9 @@ return (
           
 
         </Stack>
-        <Button bg="indigo.600" fontWeight="bold" ml="241px" onPress={()=> nav.navigate("CardCripto", {
+        {/* <Button bg="indigo.600" fontWeight="bold" ml="241px" onPress={()=> nav.navigate("CardCripto", {
     token
-   })}>Buy</Button>
+   })}>Buy</Button> */}
         </ZStack>   
         </Box>  
         </Pressable>

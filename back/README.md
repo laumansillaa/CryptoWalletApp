@@ -264,7 +264,7 @@ You must send through __body__ the the purchase parameters. For example
   {
     currency: "USDT",
     amount: "200",                                              
-    purchaseCurrency: "ETH"
+    purchaseCurrency: "BTC"
   }
 ``` 
 All the values must be of type string and verify the following restrictions:
@@ -275,6 +275,86 @@ All the values must be of type string and verify the following restrictions:
 
 The possible respnses are:
 - "Stellar purchase succeeded." (status 200).
+- An error in case something went wrong.
+
+### Transfer an Stellar token:
+
+- Method: post 
+- Route: /operation/stellar/transfer
+
+You must send through __body__ the transfer parameters. For example:
+``` 
+  {
+    transferCurrency: "BTC",
+    transferAmount: "0.02",
+    pKey: "GCHENQKEFJN5MXPYH3QWDMTN6WOY2H2SFE2HICL2UVZVZ6IGLJJ4ZTRH"                                             
+  }
+``` 
+All the values must be of type string and verify the following restrictions:
+- `transferCurrency` must be an available currency.
+- `transferAmount` must be any digit lower than the user's balance for that currency
+- `pKey` must be a valid public address.
+
+The possible respnses are:
+- "Stellar transfer succeeded." (status 200).
+- An error in case something went wrong.
+
+### Sell an Stellar token:
+
+- Method: post 
+- Route: /operation/stellar/sell
+
+You must send through __body__ the transfer parameters. For example:
+``` 
+  {
+    sellCurrency: "BTC",
+    sellAmount: "0.02"
+  }
+``` 
+All the values must be of type string and verify the following restrictions:
+- `sellCurrency` must be an available currency.
+- `sellAmount` must be any digit lower than the user's balance for that currency.
+
+The possible respnses are:
+- "Stellar sell succeeded." (status 200).
+- An error in case something went wrong.
+
+### Stake an Stellar token:
+
+- Method: post 
+- Route: /operation/stellar/stake
+
+You must send through __body__ the transfer parameters. For example:
+``` 
+  {
+    stakingCurrency: "BTC",
+    stakingAmount: "0.02"
+  }
+``` 
+All the values must be of type string and verify the following restrictions:
+- `stakingCurrency` must be an available currency.
+- `stakingAmount` must be any digit lower than the user's balance for that currency.
+
+The possible responses are:
+- "Stellar transfer succeeded." (status 200).
+- An error in case something went wrong.
+
+### Take-stake of an Stellar token:
+
+- Method: post 
+- Route: /operation/stellar/takestake
+
+You must send through __body__ the transfer parameters. For example:
+``` 
+  {
+    stakingCurrency: "BTC"
+  }
+``` 
+All the values must be of type string and verify the following restrictions:
+- `stakingCurrency` must be an staked currency.
+
+The possible responses are:
+- "Stellar take-stake succeeded." (status 200).
 - An error in case something went wrong.
 
 ### Get user operations record:

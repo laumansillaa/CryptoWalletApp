@@ -35,5 +35,10 @@ module.exports = (req, res, next) => {
             
         })
 
+        // const updatedUsdValue = Number(req.user.usd) + Number(req.body.unit_price);
+        // await req.user.update({
+        //     usd: updatedUsdValue.toString()
+        // });
+
     }catch(error){next(error)}
 }

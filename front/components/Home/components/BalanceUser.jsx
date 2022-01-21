@@ -31,11 +31,11 @@ export default function BalanceUser({navigation}) {
     
         
         if(screen === "balance"){
-           screenRender = <UserCriptos/>
+           screenRender = <UserCriptos navigation={navigation}/>
 
         }else if(screen === "staking"){
 
-            screenRender = <StakingUser/>
+            screenRender = <StakingUser navigation={navigation}/>
 
         }
 

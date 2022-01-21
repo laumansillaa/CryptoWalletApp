@@ -10,7 +10,9 @@ module.exports = async function(httpServer) {
 
     io.on("connection", socket => {
         socket.on("token client", token => {
-            binance.futuresMiniTickerStream(token, async element => {
+
+            binance.futuresMiniTickerStream(`${token}USDT`, async element => {
+                
                 await io.emit(token, element.close)});
         })
     })

@@ -7,15 +7,11 @@ import Login from './components/Login/Login';
 import Register from "./components/Register/Register"
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import Loading from './components/LOADING/LOADING';
-import { LoadingFalse, RetrieveToken, TokenLog, TOKEN_LOG } from './redux/actions';
+import { LoadingFalse, RetrieveToken, TokenLog} from './redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserPin from "./components/Login/UserPin"
 
-
-import Footer from '../front/components/Footer/Footer'
-
 import TabNavFooter from './components/TabNavFooter/TabNavFooter'
-import ButtonChatBot from './components/ChatBot/ButtonChatBot';
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 const Stack = createNativeStackNavigator();
 
@@ -81,7 +77,7 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="SplashScreen" component={SplashScreen}/>
                       <Stack.Screen name="Login" component={Login}/>
                       <Stack.Screen name="Register" component={Register}/>
-                      {/* <Stack.Screen name="PasswordRecovery" component={PasswordRecovery}/> */}
+                      <Stack.Screen name="PasswordRecovery" component={PasswordRecovery}/>
                    </Stack.Navigator>
     : 
                    <TabNavFooter/>
@@ -89,18 +85,7 @@ let userToken =useSelector(state => state.userToken);
       </NavigationContainer>
   )
 }
-//   return (
 
-//     <NavigationContainer>
-//       {!logged ? <Stack.Navigator initialRouteName='Login'>
-//         <Stack.Screen name="Login" component={Login} />
-//         <Stack.Screen name="Register" component={Register} />
-//       </Stack.Navigator>
-//         : 
-        
-//       }</NavigationContainer>
-//   );
-// }
 
 
 

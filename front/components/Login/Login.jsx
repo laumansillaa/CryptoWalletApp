@@ -105,7 +105,8 @@ export default function Login ({ navigation }) {
             {message}
           </FormControl.HelperText>
             <Button  onPress={onGoogleLogin} size="sm">Log in with Google</Button>
-            <Button onPress={() => navigation.navigate("Register")} size="sm">Create a new account</Button>       
+            <Button onPress={() => navigation.navigate("Register")} size="sm">Create a new account</Button>
+            <Button onPress={() => navigation.navigate("PasswordRecovery")} size="sm">i do not remember my password</Button>       
           </Stack>
           </FormControl>           
            )

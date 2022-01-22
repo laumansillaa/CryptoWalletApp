@@ -5,6 +5,7 @@ import HomeIndex from '../Home/HomeIndex';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { Icon } from 'native-base';
 import CurrenciesIndex from '../HeaderCurrencies/CurrenciesIndex';
+import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 const Tab = createMaterialTopTabNavigator();
 

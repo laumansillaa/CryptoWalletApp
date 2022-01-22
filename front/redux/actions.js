@@ -6,6 +6,8 @@ export const LOG = "LOG";
 export const LOGOUT = "LOGOUT";
 export const RETRIEVE_TOKEN = "RETRIEVE_TOKEN";
 export const LOADING_FALSE = "LOADING_FALSE";
+export const TOKEN_LOG = "TOKEN_LOG";
+export const TOKEN_LOGOUT = "TOKEN_LOGOUT";
 export const TOKENS_HARD = "TOKENS_HARD";
 export const ADD_FOUNDS = "ADD_FOUNDS";
 export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
@@ -39,6 +41,20 @@ export function RetrieveToken (payload) {
 export function LoadingFalse () {
     return {
         type: LOADING_FALSE,
+        payload: null,
+    }
+}
+
+export function TokenLog () {
+    return {
+        type: TOKEN_LOG,
+        payload: null,
+    }
+}
+
+export function TokenLogOut () {
+    return {
+        type: TOKEN_LOGOUT,
         payload: null,
     }
 }

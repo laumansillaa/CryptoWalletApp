@@ -55,7 +55,7 @@ export default function Login ({ navigation }) {
                     withCredentials: true,
                     url: `http://${IP_HOST}:3001/session/localSignin`,
                   });
-                  userToken = "loggety logged";     
+                  userToken = email;     
                   await AsyncStorage.setItem('userToken', userToken);
                   dispatch(Log(userToken));  
                   setMessage("Log in succeeded.");
@@ -96,7 +96,8 @@ export default function Login ({ navigation }) {
           {error.email}
         </FormControl.ErrorMessage>  
             <Input placeholder="password"  value={password} onChangeText={setPassword} type="password" 
-            InputRightElement={<Icon as={<MaterialIcons name="visibility-off" />} size={5} mr="2" color="muted.400" />} />
+            // InputRightElement={<Icon as={<MaterialIcons name="visibility-off" />} size={5} mr="2" color="muted.400" />} 
+            />
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>
           {error.password}
         </FormControl.ErrorMessage > 
@@ -105,7 +106,8 @@ export default function Login ({ navigation }) {
             {message}
           </FormControl.HelperText>
             <Button  onPress={onGoogleLogin} size="sm">Log in with Google</Button>
-            <Button onPress={() => navigation.navigate("Register")} size="sm">Create a new account</Button>       
+            <Button onPress={() => navigation.navigate("Register")} size="sm">Create a new account</Button>
+            <Button onPress={() => navigation.navigate("PasswordRecovery")} size="sm">i do not remember my password</Button>       
           </Stack>
           </FormControl>           
            )

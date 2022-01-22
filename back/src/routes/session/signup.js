@@ -81,7 +81,7 @@ module.exports = async function(req, res, next) {
     
             await createdUser.setKey(createdKey);
 
-            return res.status(200).send("Sign up succeeded.");
+            return res.status(200).send(`"Sign up succeeded.", ${token}`);
         } catch(error) { next(error) }
     } else if (!availableEmail){
         return res.status(400).send("Sign up failed: email not available.");

@@ -27,18 +27,18 @@ module.exports = (req, res, next) => {
     
         mercadopago.preferences.create(preference)
 
-        .then((response) => {
+        .then(async (response) => {
             console.log("PROCESS PAYMENT", response)
+            if(response === "success") {
+                const updatedUsdValue = Number(req.user.usd) + Number(req.body.unit_price);
+                await req.user.update({
+                    usd: updatedUsdValue.toString()
+                });
+            }
             res.json({
                 id: response.body.id   
             })
-            
         })
-
-        // const updatedUsdValue = Number(req.user.usd) + Number(req.body.unit_price);
-        // await req.user.update({
-        //     usd: updatedUsdValue.toString()
-        // });
 
     }catch(error){next(error)}
 }

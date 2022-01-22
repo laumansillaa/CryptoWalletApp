@@ -20,7 +20,7 @@ module.exports = async function() {
             usd: "100000",
             phone: "1100000000",
             pin: "000000",
-            verifieldUser: true,
+            verifieldUser: true
         });
 
         const createKeyPromise = Key.create({
@@ -49,5 +49,5 @@ module.exports = async function() {
 
         await Promise.all([createdUser.setKey(createdKey), createdUser2.setKey(createdKey2)]);
     } catch(error) { console.error(error) }
-    
+
 }

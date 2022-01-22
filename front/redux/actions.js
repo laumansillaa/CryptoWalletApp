@@ -6,12 +6,16 @@ export const LOG = "LOG";
 export const LOGOUT = "LOGOUT";
 export const RETRIEVE_TOKEN = "RETRIEVE_TOKEN";
 export const LOADING_FALSE = "LOADING_FALSE";
+export const TOKEN_LOG = "TOKEN_LOG";
+export const TOKEN_LOGOUT = "TOKEN_LOGOUT";
 export const TOKENS_HARD = "TOKENS_HARD";
 export const ADD_FOUNDS = "ADD_FOUNDS";
 export const DEPOSIT_TRANSACTION = "DEPOSIT_TRANSACTION"
 export const GET_TOKENS ="GET_TOKENS";
 export const GET_BALANCE = "GET_BALANCE"
 export const GET_TRANSACTION_USER = "GET_TRANSACTION_USER";
+export const GET_BLOCKCHAIN =  "GET_BLOCKCHAIN";
+export const GET_CRYPTO_CHART = "GET_CRYPTO_CHART";
 
 export function Log (payload) {
     return {
@@ -37,6 +41,20 @@ export function RetrieveToken (payload) {
 export function LoadingFalse () {
     return {
         type: LOADING_FALSE,
+        payload: null,
+    }
+}
+
+export function TokenLog () {
+    return {
+        type: TOKEN_LOG,
+        payload: null,
+    }
+}
+
+export function TokenLogOut () {
+    return {
+        type: TOKEN_LOGOUT,
         payload: null,
     }
 }
@@ -116,4 +134,40 @@ export const getBalance = ()=> async dispatch =>{
         console.log("Error al consultar")
     }
 
+}
+
+export const getBlockChain =(data)=>{
+    return{type:GET_BLOCKCHAIN, payload:data}
+}
+
+// export function getCryptoChart(crypto) {
+//     async (dispatch) => {
+//         try {
+//             var json = await axios({
+//                 method: "get",
+//                 data: crypto,
+//                 url: `http://${IP_HOST}:3001/charts`
+//             })
+//             dispatch({
+//                 type: GET_CRYPTO_CHART,
+//                 payload: json.data
+//             })
+//         } catch(err) {
+//             console.log("Error al consultar");
+//         }
+//     }
+// }
+
+export const getCryptoChart = (crypto) => async dispatch =>{
+    try{
+        const response = await axios({
+            method: "get",
+            withCredentials: true,
+            url: `http://${IP_HOST}:3001/charts/${crypto}`,
+            })
+        const dataUser =  response.data;
+        dispatch({type: GET_CRYPTO_CHART, payload: dataUser})
+    }catch(e){
+        console.log("Error al consultar")
+    }
 }

@@ -3,6 +3,8 @@ import { Text, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Logout } from '../../redux/actions';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ButtonChatBot from '../ChatBot/ButtonChatBot';
+import { Box, Container, View } from 'native-base';
 
 export default function Account({ navigation }) {
 
@@ -19,6 +21,7 @@ export default function Account({ navigation }) {
 
   return (
     <>
+    <Box>
       <Button title='My Data' onPress={() => navigation.navigate("MyData")} />
       <Button title="My tags" onPress={() => navigation.navigate("MyTags")} />
       <Button title="Security" onPress={() => navigation.navigate("Security")} />
@@ -26,6 +29,8 @@ export default function Account({ navigation }) {
       <Button title="Help" onPress={() => navigation.navigate("Help")} />
       <Button title="Contacts" onPress={() => navigation.navigate("ContactsIndex")} />
       <Button title="Log out" onPress={onLogout} /> 
+    </Box>
+
     </>
   );
 }

@@ -90,7 +90,7 @@ export default function CardCripto({route, navigation}) {
           </Box>
           
           <Box alignSelf="center" alignItems="center" >
-          <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${state?.price} </Text>
+          <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${state?state.price:""} </Text>
   {/*         <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${stateToken?.price} </Text> */}
           <Box
              bg="darkBlue.900"

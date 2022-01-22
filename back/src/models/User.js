@@ -41,7 +41,11 @@ module.exports = function (sequelize) {
             }
         },
         usd: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                is: /^\d+(\.\d+)?$/
+            }
         },
         phone: {
             type: DataTypes.STRING,    
@@ -53,6 +57,9 @@ module.exports = function (sequelize) {
                 is: /^\d{6}$/,
             }
         },
+        verifieldUser: {
+            type: DataTypes.BOOLEAN
+        }
     },
     {
       timestamps: false,

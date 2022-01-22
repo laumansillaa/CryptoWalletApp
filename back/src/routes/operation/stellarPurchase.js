@@ -9,7 +9,7 @@ module.exports = async function(req, res, next) {
     console.log("---------- OPERATION STELLAR PURCHASE ROUTE ----------")
     try {
         const { currency, amount, purchaseCurrency } = req.body;
-        const keys = await Key.findOne({ where: { user: req.user.id } });
+        const keys = await Key.findOne({ where: { userId: req.user.id } });
         const prices = await binance.futuresPrices();
         const purchaseAmount = await amount / prices[`${purchaseCurrency}${currency}`];
 
@@ -47,6 +47,11 @@ module.exports = async function(req, res, next) {
         });
 
         await req.user.addOperation(dbOperation);
+
+        const updatedUsdValue = Number(req.user.usd) - Number(amount);
+        await req.user.update({
+            usd: updatedUsdValue.toString()
+        });
 
         return res.status(200).send("Stellar purchase succeeded.");
     } catch(error) { next(error) }

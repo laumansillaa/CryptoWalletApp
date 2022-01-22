@@ -32,6 +32,22 @@ export default function BuyCurrencie({route, navigation}) {
     const dispatch = useDispatch()
     const [mes, setMes] = useState("")
     const [state, setState] = useState({});
+    const blockChain = useSelector(state => state.blockChain);
+    const [urlBlockChain, setUrlBlockChain]= useState("");
+
+    React.useEffect(()=>{
+
+      if(blockChain === "stellar"){
+        setUrlBlockChain("stellar")
+      }
+      else if(blockChain === "ethereum"){
+
+        setUrlBlockChain("ethereum");
+      }
+
+
+    },[blockChain])
+
     async  function  buyToken(){
        try {
             setMes("loading...")
@@ -40,10 +56,10 @@ export default function BuyCurrencie({route, navigation}) {
               data: {
                 amount: founds,
                 currency: "USDT",
-                purchaseCurrency: token.slice(0, -4)
+                purchaseCurrency: token
               },
               withCredentials: true,
-              url: `http://${IP_HOST}:3001/operation/stellar/purchase`,
+              url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/purchase`,
             });
             dispatch(geTransactionUser())
             setMes(response.data)

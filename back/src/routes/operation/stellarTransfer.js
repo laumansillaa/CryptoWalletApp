@@ -1,14 +1,16 @@
+const { Op } = require("sequelize");
 const axios = require("axios");
 const StellarSDK = require("stellar-sdk");
 const server = new StellarSDK.Server("https://horizon-testnet.stellar.org");
 const { Key, Operation } = require("../../db").models;
 
+
 module.exports = async function(req, res, next) {
     console.log("---------- OPERATION STELLAR TRANSFER ROUTE ----------")
     try {
-        const { transferCurrency, transferAmount, toId } = req.body;
+        const { transferCurrency, transferAmount, pKey } = req.body;
 
-        const trusterKeys = await Key.findOne({ where: { user: toId } });
+        const trusterKeys = await Key.findOne({where:{stellar:{[Op.contains]:[pKey]}}});
         
         const trusterKey = StellarSDK.Keypair.fromSecret(trusterKeys.stellar[1]);
         const trusterAccount = await server.loadAccount(trusterKeys.stellar[0]);
@@ -27,7 +29,7 @@ module.exports = async function(req, res, next) {
 
         await server.submitTransaction(trustTransaction);
 
-        const keys = await Key.findOne({ where: { user: req.user.id } });
+        const keys = await Key.findOne({ where: { userId: req.user.id } });
 
         const stellarAccount = await server.loadAccount(keys.stellar[0]);
         const stellarKeyPair = StellarSDK.Keypair.fromSecret(keys.stellar[1]);

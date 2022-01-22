@@ -57,6 +57,9 @@ module.exports = function (sequelize) {
                 is: /^\d{6}$/,
             }
         },
+        verifieldUser: {
+            type: DataTypes.BOOLEAN
+        }
     },
     {
       timestamps: false,

@@ -1,5 +1,5 @@
 const  User  = require ('../../db').models.User;
-const RecoveryToken = require('../../db').models.RecoveryToken;
+const SegurityToken = require('../../db').models.SegurityToken;
 const nodemailer = require('nodemailer');
 const axios = require('axios');
 const pgenerator = require('generate-password')
@@ -37,7 +37,7 @@ module.exports = async function (req, res, next) {
             numbers: true
         })
 
-        const tokenUser = await RecoveryToken.create({
+        const tokenUser = await SegurityToken.create({
             token,
             email
         })        

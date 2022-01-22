@@ -1,12 +1,12 @@
 const  User  = require ('../../db').models.User;
-const RecoveryToken = require('../../db').models.RecoveryToken;
+const SegurityToken = require('../../db').models.SegurityToken;
 
 
 module.exports = async function (req, res, next) {
     
     try{
                 
-        const {token, email, password } = req.body
+        const {token, password, confirmPassword} = req.body
     
         if(!token){
             res.status(400).send({
@@ -14,10 +14,9 @@ module.exports = async function (req, res, next) {
             })
         }
 
-        const resetPassword = await RecoveryToken.findOne({
+        const resetPassword = await SegurityToken.findOne({
             where: {
-                token: token,
-                email: email
+                token: token       
             }
         })
 
@@ -28,34 +27,38 @@ module.exports = async function (req, res, next) {
 
         } else {
 
-            if(!email) {
+            if(!password){
                 res.status(400).send({
-                    message: "A email is required"
+                    message: "A password is required"
                 })
-
+            }
+            if (!confirmPassword){
+                res.status(400).send({
+                    message: "A confirm password is required"
+                })
+            }
+            if (password !== confirmPassword){
+                res.status(400).send({
+                    message: "Passwords do not match"
+                })
             } else {
-                if(!password){
-                    res.status(400).send({
-                        message: "A password is required"
-                    })
-                }
+                const userDb = resetPassword.email
                 const dbUser = await User.update({
                     password: password
                 }, {
                     where: {
-                        email: email
+                        email: userDb
                     }
                 })
-
                 res.status(200).send("Password update succeded")
+                
+                await SegurityToken.destroy({
+                    where: {
+                        token: token
+                    }
+                })
             }
-            
-            await RecoveryToken.destroy({
-                where: {
-                    token: token
-                }
-            })
-        }
+        }   
 
     } catch (error) {
         next(error)

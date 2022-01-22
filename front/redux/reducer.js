@@ -1,13 +1,14 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN, GET_CRYPTO_CHART, TOKEN_LOG, TOKEN_LOGOUT} from "./actions"
 
 const initialState={
    Log: false,
    isLoading: true,
+   tokenLogged: false,
    userToken: null,
    blockChain:"stellar",
    userData:{
-        
+
     firstname: "",
     lastname: "",
     email: "",
@@ -16,13 +17,14 @@ const initialState={
     pin: "",
     transactions:[],
     publicKey:"",
-  
-    
+
+
 
     //cvu:"0000034567800000123455"
     },
     tokens:{
-         }
+         },
+    monthPrices: []
 }
 
 const rootReducer = (state = initialState, action)=>{
@@ -53,6 +55,18 @@ const rootReducer = (state = initialState, action)=>{
                 ...state,
                 isLoading:false,
             }
+        case TOKEN_LOG: {
+            return {
+                ...state,
+                tokenLogged: true,
+            }
+        }
+        case TOKEN_LOGOUT: {
+            return {
+                ...state,
+                tokenLogged:false,
+            }
+        }
 
             case GET_DATA_USER:
 
@@ -74,7 +88,7 @@ const rootReducer = (state = initialState, action)=>{
 
             case ADD_FOUNDS:
                 return{...state, userData:{...state.userData, balance: parseInt(state.userData.balance) + parseInt(action.payload)}}
-      
+
            case DEPOSIT_TRANSACTION:
              let aux = state.userData.transactions;
              aux.unshift(action.payload)
@@ -91,7 +105,10 @@ const rootReducer = (state = initialState, action)=>{
             case GET_BLOCKCHAIN:
                 return {...state, blockChain: action.payload}
 
-       default: return state 
+            case GET_CRYPTO_CHART:
+                return {...state, monthPrices: action.payload}
+
+       default: return state
     }
 
 };

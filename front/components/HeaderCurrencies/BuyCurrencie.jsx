@@ -56,7 +56,7 @@ export default function BuyCurrencie({route, navigation}) {
               data: {
                 amount: founds,
                 currency: "USDT",
-                purchaseCurrency: token.slice(0, -4)
+                purchaseCurrency: token
               },
               withCredentials: true,
               url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/purchase`,

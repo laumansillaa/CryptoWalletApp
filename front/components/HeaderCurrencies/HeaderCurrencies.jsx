@@ -5,8 +5,9 @@ import { useState } from 'react';
 import Criptos from './Criptos';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { Pressable } from 'react-native';
-import { getBlockChain } from '../../redux/actions';
+import { getBalance, getBlockChain } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import {useFocusEffect } from '@react-navigation/native';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 
@@ -40,19 +41,16 @@ const [aux, setAux] = useState([
 
   
   ])
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
-  React.useEffect(()=>{
-    if(!isEnabled){
-      dispatch(getBlockChain("stellar"))
-
-    }else{
-      dispatch(getBlockChain("ethereum"))
-    }
-
-
-  },[isEnabled])
+ 
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(getBalance())
+    
+      return  () => {
+     
+      
+      };
+    }, []));
 
 
   React.useEffect(()=>{
@@ -115,14 +113,9 @@ const [aux, setAux] = useState([
       <Box mb="3"width={300} alignSelf="center">
     <HStack>
     <Heading textAlign="center" mb="10">
-        <Text color="black">BlockChain: {isEnabled?"Ethereum": "Stellar"}</Text>
+        <Text color="black">BlockChain: {blockChain}</Text>
       </Heading>
-      <Switch 
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}/>
+      
     </HStack>
      
       <Input

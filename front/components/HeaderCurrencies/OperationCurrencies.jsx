@@ -93,31 +93,11 @@ export default function OperationCurrencies({route, navigation }) {
               <Button mt="9" ml="2" bg="indigo.600"  fontWeight="bold" 
           onPress={()=>navigation.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>     
                   <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("CardCripto", {token:currency})}>Buy</Button>
-              
+                  <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("StakingCurrencie", {
+                   amount:parseFloat(amount).toFixed(4), currency:currency,})}>Staking</Button>
               </HStack>
               </Box>
-              <Box
              
-              width={375}
-              py="5"
-              rounded="xl"
-              alignSelf="center"
-              alignItems="center"
-              >
-            <HStack ml="2"alignItems="center">
-            
-            <Button mt="9"  ml="2" bg="indigo.600"  fontWeight="bold" 
-        onPress={()=>navigation.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Transfer</Button>
-             
-             <Button mt="9" ml="2" bg="indigo.600"  fontWeight="bold" 
-        onPress={()=>navigation.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>     
-                 <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("CardCripto", {token:currency})}>Buy</Button>
-                 <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("StakingCurrencie", {
-                   amount:parseFloat(amount).toFixed(4), currency:currency,})}>Staking</Button>
-              
-            
-            </HStack>
-            </Box>
             <SegmentChartGrandient />
           </VStack>
           

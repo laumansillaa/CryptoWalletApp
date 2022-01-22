@@ -1,6 +1,6 @@
 pragma solidity ^0.5.0;
 
-contract Tether {
+contract Henry {
 
   string public name;
   string public symbol;
@@ -22,8 +22,8 @@ contract Tether {
   );
 
   constructor(uint256 _initialSupply) public {
-    name = "Tether";
-    symbol = "USDT";
+    name = "Henry";
+    symbol = "HNR";
     decimals = 4;
     totalSupply = _initialSupply * 10**decimals;
     balanceOf[msg.sender] = _initialSupply * 10**decimals;

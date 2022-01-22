@@ -1,6 +1,6 @@
 const axios = require("axios");
 const Web3 = require("web3")
-const web3 = new Web3("HTTP://127.0.0.1:7545");
+const web3 = new Web3(process.env.INFURA_URL);
 const StellarSDK = require("stellar-sdk");
 const { User, Key } = require("../db").models;
 
@@ -10,7 +10,6 @@ module.exports = async function() {
         const ethereumPromise2 = web3.eth.accounts.create();
         const [ethereumKeyPair, ethereumKeyPair2] = await Promise.all([ethereumPromise, ethereumPromise2]);
 
-        console.log(User);
         const createUserPromise = User.create({
             firstname: "default",
             lastname: "user",

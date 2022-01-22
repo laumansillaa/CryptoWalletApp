@@ -15,7 +15,7 @@ const initialState={
     pin: "",
     transactions:[],
     publicKey:"",
-    
+    contacts: [],
 
     //cvu:"0000034567800000123455"
     },
@@ -54,7 +54,7 @@ const rootReducer = (state = initialState, action)=>{
 
             case GET_DATA_USER:
 
-                const {firstname,lastname,email,pin,password,phone, publicKey} = action.payload
+                const {firstname,lastname,email,pin,password,phone, publicKey, contacts, /* cvu */} = action.payload
                 return {...state, userData: {
                                     firstname: firstname,
                                     lastname: lastname,
@@ -64,7 +64,8 @@ const rootReducer = (state = initialState, action)=>{
                                     phone:phone,
                                     publicKey:publicKey,
                                     transactions: state.userData.transactions,
-                                    //cvu: state.userData.cvu
+                                    contacts: contacts,
+                                    //cvu: cvu
                                     }}
 
             case GET_TOKENS:

@@ -4,7 +4,7 @@ const { Server } = require("socket.io");
 
 module.exports = async function(httpServer) {
     const io = new Server(httpServer, { cors: {
-      origin: `http://${process.env.IP_HOST}:19000`,
+      origin: `http://${process.env.IP_HOST}:19006`,
       credentials:true
     }});
 

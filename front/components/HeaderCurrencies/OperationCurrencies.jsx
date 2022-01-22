@@ -19,10 +19,11 @@ import { useState } from 'react';
 import { getBalance } from '../../redux/actions';
 import SegmentChartGrandient from './Chart/Chart';
 import { getCryptoChart } from '../../redux/actions';
+import Chart2 from './Chart/Chart2';
 
 
 export default function OperationCurrencies({route, navigation }) {
-
+  const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
        const{currency} = route.params 
         const balance = useSelector(state=> state.userData.balance)
         const [amount, setAmount] = useState("")
@@ -97,8 +98,11 @@ export default function OperationCurrencies({route, navigation }) {
                    amount:parseFloat(amount).toFixed(4), currency:currency,})}>Staking</Button>
               </HStack>
               </Box>
-             
-            <SegmentChartGrandient />
+             <Text>
+             <Chart2 /> 
+             </Text>
+          <Chart2/>
+     
           </VStack>
           
         

@@ -4,11 +4,9 @@ module.exports = function(sequelize) {
     require("./Key.js")(sequelize);
     require("./Operation.js")(sequelize);
     require("./Contact.js")(sequelize);
-    require("./RecoveryToken.js")(sequelize);
+    require("./SecurityToken.js")(sequelize);
     require("./Staking.js")(sequelize);
-    require("./SecurityToken")(sequelize);
-    require("./Staking")(sequelize);
-    require("./PaymentRequest")(sequelize)
+    require("./PaymentRequest.js")(sequelize)
 
     // Associations.
     const { User, Operation, Key, Contact, SegurityToken, Staking, PaymentRequest } = sequelize.models;

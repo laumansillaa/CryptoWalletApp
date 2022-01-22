@@ -14,6 +14,7 @@ import {
   ZStack
 } from 'native-base';
 import { Pressable } from 'react-native';
+import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 export default function Criptos({token, nav}) {
    
@@ -57,6 +58,7 @@ return (
         </ZStack>   
         </Box>  
         </Pressable>
+        
   
  
   );

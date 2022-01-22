@@ -27,6 +27,7 @@ import Transaction from './components/Transaction';
 import { SafeAreaView, View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useFocusEffect } from '@react-navigation/native';
+import ButtonChatBot from '../ChatBot/ButtonChatBot';
 export default function Home({ navigation }) {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)

@@ -1,65 +1,14 @@
-// const Token = artifacts.require("Token");
+var Tether = artifacts.require("Tether");
 
-// contract("Token", (accounts) => {
-//   describe("Sets the initial values properly.", () => {
-//     it("Sets the initial name.", async () => {
-//       const tokenInstance = await Token.deployed();
-//       const name = await tokenInstance.name();
-//       assert.equal(name, "Binance", "Name should be Binance.");
-//     })
-//     it("Sets the initial symbol.", async () => {
-//       const tokenInstance = await Token.deployed();
-//       const symbol = await tokenInstance.symbol();
-//       assert.equal(symbol, "USDT", "Symbol should be USDT.");
-//     })
-//     it("Sets the initial supply.", async () => {
-//       const tokenInstance = await Token.deployed();
-//       const totalSupply = await tokenInstance.totalSupply();
-//       assert.equal(totalSupply.toNumber(), 1000000, "Total supply should be 1000000.");
-//     })
-//     it("Sets the initial owner's balance.", async () => {
-//       const tokenInstance = await Token.deployed();
-//       const ownerBalance = await tokenInstance.balanceOf(accounts[0]);
-//       assert.equal(ownerBalance.toNumber(), 1000000, "Owner's balance should be 1000000.");
-//     })
-//   })
-
-//   describe("Sets the initial values properly.", () => {
-//     it("Sets the initial name.", async () => {
-//       const tokenInstance = await Token.deployed();
-//       const name = await tokenInstance.name();
-//       assert.equal(name, "Binance", "Name should be Binance.");
-//     })
-//     it("Sets the initial symbol.", async () => {
-//       const tokenInstance = await Token.deployed();
-//       const symbol = await tokenInstance.symbol();
-//       assert.equal(symbol, "USDT", "Symbol should be USDT.");
-//     })
-//     it("Sets the initial supply.", async () => {
-//       const tokenInstance = await Token.deployed();
-//       const totalSupply = await tokenInstance.totalSupply();
-//       assert.equal(totalSupply.toNumber(), 1000000, "Total supply should be 1000000.");
-//     })
-//     it("Sets the initial owner's balance.", async () => {
-//       const tokenInstance = await Token.deployed();
-//       const ownerBalance = await tokenInstance.balanceOf(accounts[0]);
-//       assert.equal(ownerBalance.toNumber(), 1000000, "Owner's balance should be 1000000.");
-//     })
-//   })
-// }) 
-
-
-var Binance = artifacts.require("Binance");
-
-contract('Binance', function(accounts) {
+contract('Tether', function(accounts) {
   var tokenInstance;
 
   it('initializes the contract with the correct values', function() {
-    return Binance.deployed().then(function(instance) {
+    return Tether.deployed().then(function(instance) {
       tokenInstance = instance;
       return tokenInstance.name();
     }).then(function(name) {
-      assert.equal(name, 'Binance', 'has the correct name');
+      assert.equal(name, 'Tether', 'has the correct name');
       return tokenInstance.symbol();
     }).then(function(symbol) {
       assert.equal(symbol, 'USDT', 'has the correct symbol');
@@ -67,7 +16,7 @@ contract('Binance', function(accounts) {
   })
 
   it('allocates the initial supply upon deployment', function() {
-    return Binance.deployed().then(function(instance) {
+    return Tether.deployed().then(function(instance) {
       tokenInstance = instance;
       return tokenInstance.totalSupply();
     }).then(function(totalSupply) {
@@ -79,12 +28,8 @@ contract('Binance', function(accounts) {
   });
 
   it('transfers token ownership', function() {
-    return Binance.deployed().then(function(instance) {
+    return Tether.deployed().then(function(instance) {
       tokenInstance = instance;
-      // Test `require` statement first by transferring something larger than the sender's balance
-      // return tokenInstance.transfer.call(accounts[1], 99999999999999999999999);
-    // }).then(assert.fail).catch(function(error) {
-      // assert(error.message.indexOf('revert') >= 0, 'error message must contain revert');
       return tokenInstance.transfer.call(accounts[1], 250000, { from: accounts[0] });
     }).then(function(success) {
       assert.equal(success, true, 'it returns true');
@@ -105,7 +50,7 @@ contract('Binance', function(accounts) {
   });
 
   it('approves tokens for delegated transfer', function() {
-    return Binance.deployed().then(function(instance) {
+    return Tether.deployed().then(function(instance) {
       tokenInstance = instance;
       return tokenInstance.approve.call(accounts[1], 100);
     }).then(function(success) {
@@ -124,7 +69,7 @@ contract('Binance', function(accounts) {
   });
 
   it('handles delegated token transfers', function() {
-    return Binance.deployed().then(function(instance) {
+    return Tether.deployed().then(function(instance) {
       tokenInstance = instance;
       fromAccount = accounts[2];
       toAccount = accounts[3];

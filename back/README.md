@@ -21,7 +21,7 @@ and the database name (`DB_NAME`) can be whatever you prefer (you must create th
 Variable `IP_HOST` must be asigned to your computer ip host. You also must install Ganache (https://trufflesuite.com/ganache/)
 in order to set a local ethereum blockchain. Once installed, you can choose any of the 10 accounts available in the program
 to fill both `ADMIN_ETHEREUM_PUBLIC_KEY` and `ADMIN_ETHEREUM_PRIVATE_KEY` (to visualize them, you must press the button which
-says "Show Keys" and has a key symbol).
+says "Show Keys" and has a key symbol). Then, move to `/back/src/solidity` folder and execute `truffle migrate --reset`.
 
 Once this is done, you can start the server by executing `npm start` command inside `back` folder.
 

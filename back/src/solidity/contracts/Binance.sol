@@ -5,6 +5,7 @@ contract Binance {
   string public name;
   string public symbol;
   uint256 public totalSupply;
+  uint256 public decimals;
 
   mapping(address => uint256) public balanceOf;
   mapping(address => mapping(address => uint256)) public allowance;
@@ -23,8 +24,9 @@ contract Binance {
   constructor(uint256 _initialSupply) public {
     name = "Binance";
     symbol = "BNB";
-    totalSupply = _initialSupply;
-    balanceOf[msg.sender] = _initialSupply;
+    decimals = 4;
+    totalSupply = _initialSupply * 10**decimals;
+    balanceOf[msg.sender] = _initialSupply * 10**decimals;
   }
 
   function transfer(address _to, uint256 _value) public returns(bool _success) {

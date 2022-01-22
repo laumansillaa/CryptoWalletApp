@@ -14,6 +14,7 @@
     "npm": ">=6.14.6"
   },
   "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.1",
     "axios": "^0.24.0",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.19.0",
@@ -26,6 +27,7 @@
     "generate-password": "^1.7.0",
     "ioredis": "^4.19.2",
     "jsonwebtoken": "^8.5.1",
+    "lightweight-charts": "^3.7.0",
     "mercadopago": "^1.5.11",
     "morgan": "^1.10.0",
     "node-binance-api": "^0.13.1",
@@ -38,7 +40,9 @@
     "sequelize": "^6.3.5",
     "socket.io": "^4.4.1",
     "stellar-sdk": "^10.0.0",
+    "truffle": "^5.4.30",
     "truffle-contract": "^4.0.31",
+    "truffle-hdwallet-provider": "^1.0.17",
     "web3": "^1.7.0"
   },
   "devDependencies": {

@@ -27,8 +27,10 @@ export default function Account({ navigation }) {
       <Button title="Security" onPress={() => navigation.navigate("Security")} />
       <Button title="Settings" onPress={() => navigation.navigate("Settings")} />
       <Button title="Help" onPress={() => navigation.navigate("Help")} />
-      <Button title="Log out" onPress={onLogout} />
+      <Button title="Contacts" onPress={() => navigation.navigate("ContactsIndex")} />
+      <Button title="Log out" onPress={onLogout} /> 
     </Box>
+
     </>
   );
 }

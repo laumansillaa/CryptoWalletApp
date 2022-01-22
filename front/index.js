@@ -7,14 +7,13 @@ import Login from './components/Login/Login';
 import Register from "./components/Register/Register"
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import Loading from './components/LOADING/LOADING';
-import { LoadingFalse, RetrieveToken } from './redux/actions';
+import { LoadingFalse, RetrieveToken, TokenLog} from './redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserPin from "./components/Login/UserPin"
 
-
-import Footer from '../front/components/Footer/Footer'
-
 import TabNavFooter from './components/TabNavFooter/TabNavFooter'
+import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
+import PasswordReset from './components/PasswordRecovery/PasswordReset';
 const Stack = createNativeStackNavigator();
 
 export default function Index() {
@@ -23,7 +22,7 @@ const dispatch = useDispatch();
 let userToken =useSelector(state => state.userToken);
 
   const [logged, setLogged] = useState(false);
-  const [tokenLogged, setTokenLogged] = useState(false);
+  const tokenLogged = useSelector(state => state.tokenLogged);
   const log = useSelector(state => state.Log);
   let isLoading = useSelector(state => state.isLoading);
  
@@ -44,10 +43,9 @@ let userToken =useSelector(state => state.userToken);
       userToken= null;
       try {
         userToken = await AsyncStorage.getItem('userToken');
-        console.log(userToken);
         if (userToken !== null) {
+          dispatch(TokenLog());
           dispatch(LoadingFalse());
-          setTokenLogged(true);
         } else {
           dispatch(RetrieveToken(userToken));
         }
@@ -65,13 +63,13 @@ let userToken =useSelector(state => state.userToken);
   )
   }
 
-  // if(userToken !== null && tokenLogged === true) {
-  //   return (
-  //     <>
-  //     <UserPin/>
-  //     </>
-  //   )
-  // }
+  if(tokenLogged === true) {
+    return (
+      <>
+      <UserPin/>
+      </>
+    )
+  }
 
   return ( 
    
@@ -80,24 +78,16 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="SplashScreen" component={SplashScreen}/>
                       <Stack.Screen name="Login" component={Login}/>
                       <Stack.Screen name="Register" component={Register}/>
+                      <Stack.Screen name="PasswordRecovery" component={PasswordRecovery}/>
+                      <Stack.Screen name="PasswordReset" component={PasswordReset}/>
                    </Stack.Navigator>
     : 
-                   <TabNavFooter/>}
+                   <TabNavFooter/>
+                   }
       </NavigationContainer>
   )
 }
-//   return (
 
-//     <NavigationContainer>
-//       {!logged ? <Stack.Navigator initialRouteName='Login'>
-//         <Stack.Screen name="Login" component={Login} />
-//         <Stack.Screen name="Register" component={Register} />
-//       </Stack.Navigator>
-//         : 
-        
-//       }</NavigationContainer>
-//   );
-// }
 
 
 

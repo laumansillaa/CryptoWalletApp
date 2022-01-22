@@ -19,16 +19,16 @@ module.exports = async function(req, res, next) {
             fee: StellarSDK.BASE_FEE,
             networkPassphrase: StellarSDK.Networks.TESTNET
         })
-            .addOperation(StellarSDK.Operation.changeTrust({
-                asset: new StellarSDK.Asset("USD", "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
-                limit: "10000"
-            }))
-            .addOperation(StellarSDK.Operation.manageBuyOffer({
-                selling: StellarSDK.Asset.native(),
-                buying: new StellarSDK.Asset("USD", "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
-                buyAmount: purchaseAmount.toString().slice(0, 6),
-                price: "0.1"
-            }))
+            // .addOperation(StellarSDK.Operation.changeTrust({
+            //     asset: new StellarSDK.Asset("USD", "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
+            //     limit: "1000000"
+            // }))
+            // .addOperation(StellarSDK.Operation.manageBuyOffer({
+            //     selling: StellarSDK.Asset.native(),
+            //     buying: new StellarSDK.Asset("USD", "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
+            //     buyAmount: purchaseAmount.toString().slice(0, 6),
+            //     price: "0.1"
+            // }))
             .addOperation(StellarSDK.Operation.payment({
                 destination: "GBIL6YKN2NTZH66PZC7FXD4JTOIMLN2BTAT2WDKG4BWJ2HGADV4TYP6A",
                 asset: new StellarSDK.Asset(sellCurrency, "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),

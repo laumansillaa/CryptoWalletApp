@@ -10,7 +10,6 @@ module.exports = async function() {
         const ethereumPromise2 = web3.eth.accounts.create();
         const [ethereumKeyPair, ethereumKeyPair2] = await Promise.all([ethereumPromise, ethereumPromise2]);
 
-        console.log(User);
         const createUserPromise = User.create({
             firstname: "default",
             lastname: "user",

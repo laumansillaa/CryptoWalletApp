@@ -52,7 +52,7 @@ export default function ContactCard({ route, navigation }) {
 
           <Divider my="2" bg='emerald.600' />
 
-          <VStack alignItems="start" justifyContent="space-between">
+          <VStack alignItems="center" justifyContent="space-between">
 
             <HStack alignItems="center" space={3}>
             <Text color="dark">Ethereum public key</Text>
@@ -79,7 +79,7 @@ export default function ContactCard({ route, navigation }) {
           </VStack>
 
           <Divider my="2" bg='emerald.600' />
-          <VStack alignItems="start" justifyContent="space-between">
+          <VStack alignItems="center" justifyContent="space-between">
             <HStack alignItems="center" space={3}>
             <Text color="dark">Stellar public key</Text>
               <Button onPress={() => {

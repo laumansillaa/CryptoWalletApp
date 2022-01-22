@@ -37,7 +37,7 @@ export default function OperationCurrencies({route, navigation }) {
 
             
           
-          }else if ("ethereum"){
+          }else if (blockChain === "ethereum"){
             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
             (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
           }

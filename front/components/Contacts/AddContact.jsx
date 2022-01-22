@@ -105,21 +105,21 @@ export default function Contact({ navigation }) {
                 _text={{
                   color: "gray.700",
                 }}>Name</FormControl.Label>
-              <Input backgroundColor='rgb(255, 255, 255)' color='grey.800' fontFamily='bold' fontSize='17' placeholder="name" name='name' onChange={handleName} />
+              <Input /*  backgroundColor='rgb(255, 255, 255)'*/ color='gray.800'  fontWeight='bold' fontSize='17' placeholder="name" name='name' onTextChange={handleName} />
             </Box>
             <Box>
               <FormControl.Label
                 _text={{
                   color: "gray.700",
                 }}>Ethereum Public Key</FormControl.Label>
-              <Input backgroundColor='rgb(255, 255, 255)' color='grey.800' fontFamily='bold' fontSize='17' placeholder="Ethereum Public Key" name='ethereumPublicKey' onChange={handleEthereum} />
+              <Input /*  backgroundColor='rgb(255, 255, 255)' */ color='gray.800' fontWeight='bold' fontSize='17' placeholder="Ethereum Public Key" name='ethereumPublicKey' onTextChange={handleEthereum} />
             </Box>
             <Box>
               <FormControl.Label
                 _text={{
                   color: "gray.700",
                 }}>Stellar Public Key</FormControl.Label>
-              <Input backgroundColor='rgb(255, 255, 255)' color='grey.800' fontFamily='bold' fontSize='17' placeholder="Stellar Public Key" name='stellarPublicKey' onChange={handleStellar} />
+              <Input /* backgroundColor='rgb(255, 255, 255)' */ color='gray.800' fontWeight='bold' fontSize='17' placeholder="Stellar Public Key" name='stellarPublicKey' onTextChange={handleStellar} />
 
             </Box>
           </Stack>

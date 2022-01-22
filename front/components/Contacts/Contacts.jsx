@@ -52,8 +52,8 @@ export default function Contacts({ navigation }) {
       <VStack space={5} alignItems="center">
         <Center width="80%">
           <Input
-            color='grey.800'
-            fontFamily='bold'
+            color='gray.800'
+            fontWeight='bold'
             fontSize='19'
             onChange={(e) => {
               e.preventDefault()
@@ -81,9 +81,9 @@ export default function Contacts({ navigation }) {
             placeholderTextColor="gray.500"
             _hover={{ bg: 'gray.200', borderWidth: 0 }}
             borderWidth="0"
-            _web={{
+           /*  _web={{
               _focus: { style: { boxShadow: 'none' } },
-            }}
+            }} */
           />
         </Center>
       </VStack>

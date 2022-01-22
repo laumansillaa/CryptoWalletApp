@@ -1,5 +1,5 @@
 const router = require('express').Router();
 
-router.get("/charts", require("./charts.js"));
+router.get("/:crypto", require("./charts.js"));
 
 module.exports = router;

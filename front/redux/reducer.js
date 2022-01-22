@@ -1,5 +1,5 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN, GET_CRYPTO_CHART} from "./actions"
 
 const initialState={
    Log: false,
@@ -22,7 +22,8 @@ const initialState={
     //cvu:"0000034567800000123455"
     },
     tokens:{
-         }
+         },
+    monthPrices: []
 }
 
 const rootReducer = (state = initialState, action)=>{
@@ -90,6 +91,9 @@ const rootReducer = (state = initialState, action)=>{
 
             case GET_BLOCKCHAIN:
                 return {...state, blockChain: action.payload}
+
+            case GET_CRYPTO_CHART:
+                return {...state, monthPrices: action.payload}
 
        default: return state 
     }

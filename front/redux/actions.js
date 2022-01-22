@@ -13,6 +13,7 @@ export const GET_TOKENS ="GET_TOKENS";
 export const GET_BALANCE = "GET_BALANCE"
 export const GET_TRANSACTION_USER = "GET_TRANSACTION_USER";
 export const GET_BLOCKCHAIN =  "GET_BLOCKCHAIN";
+export const GET_CRYPTO_CHART = "GET_CRYPTO_CHART";
 
 export function Log (payload) {
     return {
@@ -121,4 +122,36 @@ export const getBalance = ()=> async dispatch =>{
 
 export const getBlockChain =(data)=>{
     return{type:GET_BLOCKCHAIN, payload:data}
+}
+
+// export function getCryptoChart(crypto) {
+//     async (dispatch) => {
+//         try {
+//             var json = await axios({
+//                 method: "get",
+//                 data: crypto,
+//                 url: `http://${IP_HOST}:3001/charts`
+//             })
+//             dispatch({
+//                 type: GET_CRYPTO_CHART,
+//                 payload: json.data
+//             })
+//         } catch(err) {
+//             console.log("Error al consultar");
+//         }
+//     }
+// }
+
+export const getCryptoChart = (crypto) => async dispatch =>{
+    try{
+        const response = await axios({
+            method: "get",
+            withCredentials: true,
+            url: `http://${IP_HOST}:3001/charts/${crypto}`,
+            })
+        const dataUser =  response.data;
+        dispatch({type: GET_CRYPTO_CHART, payload: dataUser})
+    }catch(e){
+        console.log("Error al consultar")
+    }
 }

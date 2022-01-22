@@ -4,10 +4,9 @@ import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
 import {IP_HOST} from "@env"
 import {
-
   Box,
-  
-  Stack,Text,
+  Stack,
+  Text,
   ChevronLeftIcon,
   InputGroup,
   Input,
@@ -17,10 +16,7 @@ import {
   ZStack,
   Modal,
   FormControl,
-  HStack
-
-  
-} from 'native-base';
+  HStack} from 'native-base';
 
 import { Pressable} from 'react-native';
 import axios from 'axios';
@@ -29,32 +25,54 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 
-export default function Sell({route, navigation}) {
-      const {currency, amount} = route.params
+export default function Staking({route, navigation}) {
+      const {currency, amount,staking} = route.params
       const [disabledButton, setDisableButton] = useState(true)
+      const [disableMount, setDisableMount] = useState(true);
+      const [disableTakeOut, setDisableTakeOut] = useState(true)
       const [showModal, setShowModal] = useState(false)
       const blockChain = useSelector(state => state.blockChain);
       const [urlBlockChain, setUrlBlockChain]= useState("");
+      const balance = useSelector(state => state.userData.balance)
       const [founds, setFounds] = useState("0.00");
-    
+        const [foundsStalking, setFoundsStalking] = useState("0.00")
       const [mes, setMes] = useState("")
       
       React.useEffect(()=>{
 
+         let aux 
         if(blockChain === "stellar"){
           setUrlBlockChain("stellar")
+        aux = balance.stellar.currencies.find(element => element.currency === currency) 
         }
         else if(blockChain === "ethereum"){
   
           setUrlBlockChain("ethereum");
         }
+        if(aux){
+            if(aux.hasOwnProperty("staking")){
+                setDisableTakeOut(false)
+                setFoundsStalking(aux.staking)
+    
+            }else{
+                setDisableMount(false)
+            }
+    
+        }
+
+        
   
-  
-      },[blockChain])
+   
+
+      },[blockChain, balance])
+
+ 
 
 
 
-async function transferUser (){
+
+
+async function stakingUser (){
 
 
     if(blockChain === "stellar"){
@@ -64,12 +82,13 @@ async function transferUser (){
     const response = await axios({
       method: "post",
       data: {
-        sellCurrency:currency,
-        sellAmount: founds
+        stakingCurrency: currency, 
+        stakingAmount: founds
+       
   
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
+      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/stake`,
     });
 
     setMes(response.data)
@@ -142,15 +161,15 @@ async function transferUser (){
           <ChevronLeftIcon color="darkBlue.900" size="9"/>
           </Pressable>
           <VStack>
-          <Text ml="70px" fontSize="xl" color="black" fontWeight="bold" >Amount available </Text> 
+          <Text ml="80px" fontSize="lg" color="black" fontWeight="bold" >Amount available </Text> 
              
           </VStack>
              
           </Stack>
           <VStack alignSelf="center">
           
-          <Text color="#ffffff" ml="24px" fontWeight="bold" mt="-5" fontSize="6xl"> {amount} </Text>
-          <Text ml="220px" mt="-5" fontSize="xl"  color="darkBlue.800" fontWeight="bold" >{currency} </Text> 
+          <Text color="#ffffff" ml="70px" fontWeight="bold" fontSize="2xl"> {amount} </Text>
+          <Text ml="170px" mt="-5" fontSize="xl"  color="darkBlue.800" fontWeight="bold" >{currency} </Text> 
           </VStack>
           
           </Box>
@@ -176,9 +195,9 @@ async function transferUser (){
           >
 
           <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
-            Amount to sell of {currency}:
+            Amount to staking of {currency}:
             </Text>
-          <Text color="#ffffff" fontWeight="bold" fontSize="6xl"> {founds} </Text>
+          <Text color="#ffffff" fontWeight="bold" fontSize="2xl"> {founds} </Text>
           
       </Box>
 
@@ -197,19 +216,41 @@ async function transferUser (){
           <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
             Your new {currency} amount will be: :
             </Text>
-          <Text color="#ffffff" fontWeight="bold" fontSize="6xl"> {(parseFloat(amount) - parseFloat(founds)).toFixed(4) } </Text>
+          <Text color="#ffffff" fontWeight="bold" fontSize="2xl"> {(parseFloat(amount) - parseFloat(founds)).toFixed(4) } </Text>
       
       </Box>
-      {(mes)?mes:""}
+      
+      <Box
+          mt="20px"
+          py="1"
+          mb="5"
+          alignItems="center"
+          rounded="xl"
+          alignSelf="center"
+          width={375}
+          maxWidth="100%"
+          bg="darkBlue.900"
+           >
+
+          <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
+          Your amount currently stalked : 
+            </Text>
+          <Text color="#ffffff" fontWeight="bold" fontSize="2xl"> {parseFloat(foundsStalking).toFixed(3) } </Text>
+      
+      </Box>
+      
+
       <Text ml="70px" fontSize="xl" color="black" fontWeight="bold" > {(mes)?mes:""} </Text> 
       <HStack alignSelf="center">
-      <Button rounded="lg" px="7" py="1" bg="darkBlue.900"onPress={() => setShowModal(true)}>
-        <Text color="#ffffff" fontSize="4xl" fontWeight="bold">Mont</Text></Button>
-        <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disabledButton} onPress={() => transferUser()}>
-        <Text color="#ffffff" fontSize="4xl" fontWeight="bold">Confirm</Text></Button>
+      <Button rounded="lg" px="7" py="1"  isDisabled={disableMount} bg="darkBlue.900"onPress={() => setShowModal(true)}>
+        <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
+        <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disabledButton} onPress={() => stakingUser()}>
+        <Text color="#ffffff" fontSize="2xl" >Confirm</Text></Button>
+        <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disableTakeOut} onPress={() => stakingUser()}>
+        <Text color="#ffffff" fontSize="2xl" >Withdraw currency</Text></Button>
       </HStack>
 
-      {(mes)?mes:""}
+  
 
           </Box>
       

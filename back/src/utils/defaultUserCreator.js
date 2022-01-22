@@ -19,6 +19,7 @@ module.exports = async function() {
             usd: "100000",
             phone: "1100000000",
             pin: "000000",
+            verifieldUser:true
         });
 
         const createKeyPromise = Key.create({
@@ -35,6 +36,7 @@ module.exports = async function() {
             usd: "100000",
             phone: "1100000001",
             pin: "000001",
+            verifieldUser:true
         });
 
         const createKeyPromise2 = Key.create({

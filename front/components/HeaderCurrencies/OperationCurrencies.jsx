@@ -14,8 +14,9 @@ import {
     HStack
     
   } from 'native-base';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { getBalance } from '../../redux/actions';
 
 
 export default function OperationCurrencies({route, navigation }) {
@@ -23,12 +24,16 @@ export default function OperationCurrencies({route, navigation }) {
        const{currency} = route.params 
         const balance = useSelector(state=> state.userData.balance)
         const [amount, setAmount] = useState("")
+        const dispatch = useDispatch()
     const blockChain = useSelector(state=> state.blockChain)
        React.useEffect(()=>{
         if(blockChain === "stellar"){
            let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
-            (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
-        
+
+           (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
+
+            
+          
           }else if ("ethereum"){
             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
 
@@ -36,7 +41,13 @@ export default function OperationCurrencies({route, navigation }) {
           }
 
 
-       },[])
+       },[blockChain ])
+       React.useEffect(()=>{
+          dispatch(getBalance())
+
+
+       },[ ])
+  
   
        
     
@@ -82,6 +93,9 @@ export default function OperationCurrencies({route, navigation }) {
              <Button mt="9" ml="2" bg="indigo.600"  fontWeight="bold" 
         onPress={()=>navigation.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>     
                  <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("CardCripto", {token:currency})}>Buy</Button>
+                 <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("StakingCurrencie", {
+                   amount:parseFloat(amount).toFixed(4), currency:currency,})}>Staking</Button>
+              
             
             </HStack>
             </Box>

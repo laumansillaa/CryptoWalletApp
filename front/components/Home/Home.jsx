@@ -27,6 +27,7 @@ import Transaction from './components/Transaction';
 import { SafeAreaView, View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useFocusEffect } from '@react-navigation/native';
+import ButtonChatBot from '../ChatBot/ButtonChatBot';
 export default function Home({ navigation }) {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)
@@ -47,13 +48,13 @@ export default function Home({ navigation }) {
 
    if(blockChain === "stellar"){
     let usd
-    if(userData.balance) usd = userData.balance.stellar.balanceUsd
+    if(userData.balance) usd = userData.balance.stellar.cryptoBalance
     if(usd) usd = parseFloat(usd).toFixed(2);
     setBalanceUsd(usd)
 
   }else if ("ethereum"){
     let usd
-    if(userData.balance) usd = userData.balance.ethereum.balanceUsd
+    if(userData.balance) usd = userData.balance.ethereum.cryptoBalance
     if(usd) usd = parseFloat(usd).toFixed(2);
     
     setBalanceUsd(usd)
@@ -95,7 +96,7 @@ export default function Home({ navigation }) {
         <Pressable
         mt="50px"
           onPress={() => {
-            navigation.navigate("UserCriptos")
+            navigation.navigate("BalanceUser")
           }}
 
         >

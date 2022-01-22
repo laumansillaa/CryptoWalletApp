@@ -27,6 +27,7 @@ module.exports = async (req, res, next) => {
     
         mercadopago.preferences.create(preference)
 
+
         .then((response) => {
             //console.log("PROCESS PAYMENT", response)
             const paymentReq = PaymentRequest.create({

@@ -11,48 +11,37 @@ import { validatePin } from '../Utils/Utils';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from 'react-redux';
+import { getDataUser, Log, TokenLogOut, TOKEN_LOGOUT } from '../../redux/actions';
+import axios from 'axios';
 
 
 export default function UserPin () {
     const dispatch = useDispatch();
     const [message, setMessage] = useState("");
-    const [pin,setPin] = useState({
-      pin: null
-    })
-    const [error, setError] = useState({
-      pin: null
-    });
+    const [pin,setPin] = useState("");
+    const [error, setError] = useState("");
+    const userToken = useSelector(state => state.userToken);
+    const userData = useSelector(state => state.userData); 
     
-    const handleChange = (e, atr)=>{
-        setPin({...pin, [atr]: e})
-    }
     
     useEffect(() => {
-        validatePin(pin)? setError({pin:""}) : setError({pin:"Please enter a 6-digit pin, only numbers are accepted"})
-    },[pin]) 
+        validatePin(pin)? setError("") : setError("Please enter a 6-digit pin, only numbers are accepted");
+        dispatch(getDataUser());
+    },[pin]);
     
-    async function handleSubmit(){
-        setMessage("Loading...")
-          if(error.pin === ""){
-            if(pin){
-                if (pin === 123456) {
-                    try {
-                        let userToken = await AsyncStorage.getItem('userToken');
+   function handleSubmit(){
+        setMessage("Loading...");
+          if(error === ""){
+            if(pin !== ""){
+                if (pin === userData?.pin) {
                         dispatch(Log(userToken));
                         setMessage("Sign in succeeded.");
-                    } catch (e) {
-                        setMessage("Registration failed, try again ")
+                        dispatch(TokenLogOut());                   
                     }
-                } else {
+                 else {
                     setMessage("Registration failed, try again")
-                }
-                // try {
-                // //    await axios.post(`http://${IP_HOST}:3001/session/signup`, state)
-                //   setMessage("Sign in succeeded.");
-                // } catch (error) {
-                //   setMessage("Registration failed, try again ")
-                // }
-              
+                }            
               }else{
                 setMessage("Please fill all fields");
               }
@@ -67,12 +56,17 @@ export default function UserPin () {
         <Center>
         <FormControl>
           <FormControl.Label>PIN</FormControl.Label>
-          <Input placeholder="Enter password" type='password' onChange={handleChange} />
+          <Input placeholder="Enter password" type='password' value={pin} onChangeText={setPin} />
           <FormControl.HelperText>
             Put your pin for security
           </FormControl.HelperText>
-          {error.length < 3 ? <FormControl.ErrorMessage>{error}</FormControl.ErrorMessage> : 
-          <Button onPress={handleSubmit}>Enter the app</Button>}
+          {<FormControl.HelperText>
+            {error}
+            </FormControl.HelperText>}
+          <Button onPress={handleSubmit}>Enter the app</Button>
+          {<FormControl.HelperText>
+            {message}
+            </FormControl.HelperText>}
 
         </FormControl>
       </Center>

@@ -7,32 +7,33 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
 import { getBlockChain } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 
 export default function HeaderCurrencies({navigation}) {
 
 const dispatch = useDispatch();
 const blockChain = useSelector(state => state.blockChain);
-const stellar =[  "BTCUSDT",
-"ETHUSDT",
-"BNBUSDT",
-"SOLUSDT",
-"ADAUSDT",
-"XRPUSDT",
-"LUNAUSDT",
-"DOTUSDT",
-"AVAXUSDT",
-"DOGEUSDT",
-"1000SHIBUSDT",
-"MATICUSDT",
-"LINKUSDT",
-"LTCUSDT",
-"ALGOUSDT",
-"XLMUSDT",
-"NEARUSDT",
-"ATOMUSDT",]
+const stellar =[  "BTC",
+"ETH",
+"BNB",
+"SOL",
+"ADA",
+"XRP",
+"LUNA",
+"DOT",
+"AVAX",
+"DOGE",
+"1000SHIB",
+"MATIC",
+"LINK",
+"LTC",
+"ALGO",
+"XLM",
+"NEAR",
+"ATOM",]
 
-const ethereum = ["ETHUSDT"]
+const ethereum = ["ETH"]
 
 
 const [aux, setAux] = useState([
@@ -149,6 +150,7 @@ const [aux, setAux] = useState([
         })} 
         </VStack>
       </ScrollView>
+      <ButtonChatBot nav={navigation}/>
       
       </>
   );

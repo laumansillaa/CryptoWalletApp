@@ -1,50 +1,77 @@
+const { ADMIN_ETHEREUM_PUBLIC_KEY, INFURA_URL } = process.env;
 const Web3 = require("web3");
-const web3 = new Web3("HTTP://127.0.0.1:7545");
+const web3 = new Web3(INFURA_URL);
 const Binance = require("node-binance-api");
 const binance = new Binance();
 const { Key, Operation } = require("../../db").models;
-const { ADMIN_ETHEREUM_PUBLIC_KEY } = process.env;
 
 module.exports = async function(req, res, next) {
-    console.log("---------- OPERATION ETHER SELL ROUTE ----------")
+    console.log("---------- OPERATION ETHEREUM PURCHASE ROUTE ----------")
     try {
-        // We get the user public key from data base. User is the one selling the crypto currency, which will
-        // be transfered to the admin's account (<ADMIN_ETHEREUM_PUBLIC_KEY> and <ADMIN_ETHEREUM_PRIVATE_KEY>). 
-        const { currency, amount, purchaseCurrency } = req.body;
-        if (currency !== "ETH" || purchaseCurrency !== "USDT") return res.status(400).send("Currency variable must be 'ETH' and purchase currency 'USDT'");
+        const { currency, amount } = req.body;
         const [publicKey, privateKey] = (await Key.findOne({ where: { userId: req.user.id } })).ethereum;
         const prices = await binance.futuresPrices();
-        const purchaseAmount = await Number(amount) * prices[`${currency}${purchaseCurrency}`];
+        const usdAmount = (currency === "USDT") 
+            ? amount * 1
+            : (currency === "HNR")
+            ? amount * 4000
+            : await amount * prices[`${currency}USDT`];
 
-        const transactionCount = await web3.eth.getTransactionCount(publicKey);
-        const transaction = {
-            nonce: web3.utils.toHex(transactionCount),
-            to: ADMIN_ETHEREUM_PUBLIC_KEY,
-            value: web3.utils.toHex(web3.utils.toWei(amount.toString(), "ether")),
-            gasLimit: web3.utils.toHex(21000),
-            gasPrice: web3.utils.toHex(web3.utils.toWei("10", "gwei"))
-        };
-        const signedTransaction = await web3.eth.accounts.signTransaction(transaction, privateKey);
-        await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+        if (currency === "ETH") {
+            const to = ADMIN_ETHEREUM_PUBLIC_KEY;
+            const value = (Math.floor(usdAmount*10**18)).toString();
+            const gasLimit = 21000;
+            const gasPrice = await web3.eth.getGasPrice();
+            const nonce = await web3.eth.getTransactionCount(publicKey);
+
+            const signedTransaction = await web3.eth.accounts.signTransaction({
+                to,
+                value, 
+                gasLimit,
+                gasPrice,
+                nonce
+            }, privateKey);
+
+            await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+        } else {
+            const tokenContract = await require("../../solidity")(currency);
+            const to = tokenContract.options.address;
+            const value = Math.floor(amount*10**4);
+            const transaction = tokenContract.methods.transfer(ADMIN_ETHEREUM_PUBLIC_KEY, value);
+            const data = transaction.encodeABI();
+            const gas = await transaction.estimateGas({ from: publicKey });
+            const gasPrice = await web3.eth.getGasPrice();
+            const nonce = await web3.eth.getTransactionCount(publicKey);
+
+            const signedTransaction = await web3.eth.accounts.signTransaction({
+                to, 
+                data, 
+                gas, 
+                gasPrice, 
+                nonce, 
+            }, privateKey);
+
+            await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+        }
 
         const dbOperation = await Operation.create({
             operationType: "sell",
             blockchain: "ethereum",
             from: publicKey,
             to: "admin",
-            currency: currency,
-            amount: amount,
-            purchasedCurrency: purchaseCurrency,
-            purchasedAmount: purchaseAmount.toString()
+            currency,
+            amount: amount.toString(),
+            purchasedCurrency: "usd",
+            purchasedAmount: usdAmount.toString()
         });
 
         await req.user.addOperation(dbOperation);
 
-        const updatedUsdValue = Number(req.user.usd) + Number(purchaseAmount);
+        const updatedUsdValue = Number(req.user.usd) + Number(usdAmount);
         await req.user.update({
             usd: updatedUsdValue.toString()
         });
-
-        return res.status(200).send("Ethereum purchase succeeded.");
+        
+        return res.status(200).send("Ethereum sell succeeded.");
     } catch(error) { next(error) }
 };

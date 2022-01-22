@@ -44,7 +44,7 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                is: /^[1-9]\d*(\.\d+)?$/
+                is: /^\d+(\.\d+)?$/
             }
         },
         phone: {

@@ -13,15 +13,16 @@ Then create an `.env` file, in which the following enviroment variables must be 
 
     ADMIN_ETHEREUM_PUBLIC_KEY = ""
     ADMIN_ETHEREUM_PRIVATE_KEY = ""
+    INFURA_URL=""
 
     TOKEN_MERCADOPAGO = "TEST-1256359479485533-011422-c43ac4c47ecf9be92a84de2708a6b79c-568635558"
 ```
 You must replace the first three values with your corresponding Postgres credentials,
 and the database name (`DB_NAME`) can be whatever you prefer (you must create that data base on your computer!).
-Variable `IP_HOST` must be asigned to your computer ip host. You also must install Ganache (https://trufflesuite.com/ganache/)
-in order to set a local ethereum blockchain. Once installed, you can choose any of the 10 accounts available in the program
-to fill both `ADMIN_ETHEREUM_PUBLIC_KEY` and `ADMIN_ETHEREUM_PRIVATE_KEY` (to visualize them, you must press the button which
-says "Show Keys" and has a key symbol).
+Variable `IP_HOST` must be asigned to your computer ip host. 
+You must also complete `ADMIN_ETHEREUM_PUBLIC_KEY` and `ADMIN_ETHEREUM_PRIVATE_KEY` with your Rinkeby network account credentials,
+and `INFURA_URL` must be set to your Infura Rinkeby URL provider.
+Then, move to `/back/src/solidity` folder and execute `truffle migrate --reset`.
 
 Once this is done, you can start the server by executing `npm start` command inside `back` folder.
 
@@ -196,15 +197,13 @@ The possible respnses are:
 You must send through __body__ the purchase parameters. For example:
 ``` 
   {
-    currency: "USDT",
     amount: "200",                                              
-    purchaseCurrency: "BTC"
+    purchaseCurrency: "HNR"
   }
 ``` 
 All the values must be of type string and verify the following restrictions:
-- `currency` must be "USDT".
 - `amount` must be any digit that you want. 
-- `purchaseCurrency` must be "ETH".
+- `purchaseCurrency` must be either "ETH", "USDT", "BNB" or "HNR".
 
 The possible respnses are:
 - "Ethereum purchase succeeded." (status 200).
@@ -225,7 +224,7 @@ You must send through __body__ the transfer parameters. For example:
 ``` 
 All the values must be of type string and verify the following restrictions:
 - `to` must be a valid public address.
-- `currency` must be "ETH".
+- `currency` must be either "ETH", "USDT", "BNB" or "HNR".
 - `amount` must be any digit lower than the user's balance for that currency. 
 
 The possible respnses are:
@@ -242,13 +241,11 @@ You must send through __body__ the transfer parameters. For example:
   {
     currency: "ETH",
     amount: "0.2",                                              
-    purchaseCurrency: "USDT"
   }
 ``` 
 All the values must be of type string and verify the following restrictions:
-- `currency` must be "ETH".
+- `currency` must be either "ETH", "USDT", "BNB" or "HNR".
 - `amount` must be any digit lower than the user's balance for that currency. 
-- `purchaseCurrency` must be "USDT".
 
 The possible respnses are:
 - "Ethereum transfer succeeded." (status 200).

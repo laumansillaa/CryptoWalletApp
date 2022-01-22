@@ -9,9 +9,9 @@ import ChatBot from '../ChatBot/ChatBot';
 import { Box } from 'native-base';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
 import OperationCurrencies from './OperationCurrencies';
-
-
 import Staking from '../Home/components/Staking';
+const Stack = createNativeStackNavigator();
+
 export default function CurrenciesIndex() {
   return (
     <Stack.Navigator initialRouteName='CurrenciesIndex' screenOptions={{

@@ -30,7 +30,7 @@ const httpServer = createServer(app);
   try {
     await db.sync({ force: true })
     console.log("Data base created.");
-
+    console.log(db.model.User);
     await require("./utils/defaultUserCreator.js")();
     console.log("Default user created."); 
     await require("./utils/binanceConnectionCreator.js")(httpServer);

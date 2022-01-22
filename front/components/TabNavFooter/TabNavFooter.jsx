@@ -12,6 +12,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getBalance, getBlockChain } from '../../redux/actions';
+import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 const Tab = createMaterialTopTabNavigator();
 

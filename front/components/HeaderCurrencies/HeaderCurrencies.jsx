@@ -8,6 +8,8 @@ import { Pressable } from 'react-native';
 import { getBalance, getBlockChain } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import {useFocusEffect } from '@react-navigation/native';
+import ButtonChatBot from '../ChatBot/ButtonChatBot';
+
 
 export default function HeaderCurrencies({navigation}) {
 
@@ -141,6 +143,7 @@ const [aux, setAux] = useState([
         })} 
         </VStack>
       </ScrollView>
+      <ButtonChatBot nav={navigation}/>
       
       </>
   );

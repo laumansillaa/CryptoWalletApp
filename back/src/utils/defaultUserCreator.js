@@ -10,6 +10,7 @@ module.exports = async function() {
         const ethereumPromise2 = web3.eth.accounts.create();
         const [ethereumKeyPair, ethereumKeyPair2] = await Promise.all([ethereumPromise, ethereumPromise2]);
 
+        console.log(User);
         const createUserPromise = User.create({
             firstname: "default",
             lastname: "user",
@@ -20,6 +21,7 @@ module.exports = async function() {
             phone: "1100000000",
             pin: "000000",
             verifieldUser:true
+            
         });
 
         const createKeyPromise = Key.create({
@@ -37,6 +39,7 @@ module.exports = async function() {
             phone: "1100000001",
             pin: "000001",
             verifieldUser:true
+           
         });
 
         const createKeyPromise2 = Key.create({
@@ -48,5 +51,5 @@ module.exports = async function() {
 
         await Promise.all([createdUser.setKey(createdKey), createdUser2.setKey(createdKey2)]);
     } catch(error) { console.error(error) }
-    
+
 }

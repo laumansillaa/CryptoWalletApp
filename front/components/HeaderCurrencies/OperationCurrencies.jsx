@@ -17,6 +17,8 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getBalance } from '../../redux/actions';
+import SegmentChartGrandient from './Chart/Chart';
+import { getCryptoChart } from '../../redux/actions';
 
 
 export default function OperationCurrencies({route, navigation }) {
@@ -36,15 +38,14 @@ export default function OperationCurrencies({route, navigation }) {
           
           }else if ("ethereum"){
             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
-
             (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
           }
-
+          
 
        },[blockChain ])
        React.useEffect(()=>{
           dispatch(getBalance())
-
+          dispatch(getCryptoChart(currency));
 
        },[ ])
   
@@ -55,27 +56,45 @@ export default function OperationCurrencies({route, navigation }) {
      
   
 
-
-  return (<>
-            <Stack  ml="5" mt="60"direction="row" alignItems="center">
-          <Pressable  onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="darkBlue.900" size="9"/>
-          </Pressable>
-          </Stack>
-          <VStack>
-              <Box
-              bg="blue.100"
-              width={375}
-              py="5"
-              rounded="xl"
-              alignSelf="center"
-              alignItems="center"
-              >
-              <Avatar bg="#ffffff" size="lg"  alignSelf="center">
-                <Text color="#000000" fontWeight="bold"fontSize="4xl">{currency.charAt(0)}</Text>
-            </Avatar>
-             <Text  fontSize="xl" color="darkBlue.900" fontWeight="bold" >{currency} </Text> 
-             <Text  fontSize="xl" color="darkBlue.900" fontWeight="bold" > {amount}</Text>
+    return (<>
+              <Stack  ml="5" mt="60"direction="row" alignItems="center">
+            <Pressable  onPress={()=> navigation.goBack()}>
+            <ChevronLeftIcon color="darkBlue.900" size="9"/>
+            </Pressable>
+            </Stack>
+            <VStack>
+                <Box
+                bg="blue.100"
+                width={375}
+                py="5"
+                rounded="xl"
+                alignSelf="center"
+                alignItems="center"
+                >
+                <Avatar bg="#ffffff" size="lg"  alignSelf="center">
+                  <Text color="#000000" fontWeight="bold"fontSize="4xl">{currency.charAt(0)}</Text>
+              </Avatar>
+              <Text  fontSize="xl" color="darkBlue.900" fontWeight="bold" >{currency} </Text> 
+              <Text  fontSize="xl" color="darkBlue.900" fontWeight="bold" > {amount}</Text>
+                </Box>
+                <Box
+              
+                width={375}
+                py="5"
+                rounded="xl"
+                alignSelf="center"
+                alignItems="center"
+                >
+              <HStack ml="2"alignItems="center">
+              
+              <Button mt="9"  ml="2" bg="indigo.600"  fontWeight="bold" 
+          onPress={()=>navigation.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Transfer</Button>
+              
+              <Button mt="9" ml="2" bg="indigo.600"  fontWeight="bold" 
+          onPress={()=>navigation.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>     
+                  <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("CardCripto", {token:currency})}>Buy</Button>
+              
+              </HStack>
               </Box>
               <Box
              
@@ -99,13 +118,18 @@ export default function OperationCurrencies({route, navigation }) {
             
             </HStack>
             </Box>
+            <SegmentChartGrandient />
           </VStack>
           
-       
+        
+            
+    </>
 
 
      
-  </>
+ 
 
-  );
+
+              
+    );
 }

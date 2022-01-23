@@ -27,7 +27,6 @@ module.exports = async function(req, res, next) {
         } else {
             const tokenContract = await require("../../solidity")(transferCurrency);
             const value = Math.floor(transferAmount*10**4);
-            console.log(value)
             const transaction = tokenContract.methods.transfer(to, value);
             const data = transaction.encodeABI();
             const gas = await transaction.estimateGas({ from: publicKey });

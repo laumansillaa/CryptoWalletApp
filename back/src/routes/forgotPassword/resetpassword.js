@@ -1,5 +1,5 @@
 const  User  = require ('../../db').models.User;
-const SegurityToken = require('../../db').models.SegurityToken;
+const SecurityToken = require('../../db').models.SecurityToken;
 
 
 module.exports = async function (req, res, next) {
@@ -14,7 +14,7 @@ module.exports = async function (req, res, next) {
             })
         }
 
-        const resetPassword = await SegurityToken.findOne({
+        const resetPassword = await SecurityToken.findOne({
             where: {
                 token: token       
             }
@@ -52,7 +52,7 @@ module.exports = async function (req, res, next) {
                 })
                 res.status(200).send("Password update succeded")
                 
-                await SegurityToken.destroy({
+                await SecurityToken.destroy({
                     where: {
                         token: token
                     }

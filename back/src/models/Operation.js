@@ -6,7 +6,7 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isIn: [["purchase", "sell", "transfer", "swap"]]
+                isIn: [["purchase", "sell", "transfer", "put stake", "take stake"]]
             }
         },
         blockchain: {

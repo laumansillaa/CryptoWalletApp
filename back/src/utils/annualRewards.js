@@ -1,11 +1,19 @@
 module.exports = [
     {
+        Currency: "HNR",
+        annualReward: "0.99"
+    },
+    {
         Currency: "BTC",
         annualReward: "0.03"
     },
     {
         Currency: "ETH",
         annualReward: "0.05"
+    },
+    {
+        Currency: "USDT",
+        annualReward: "0.02"
     },
     {
         Currency: "BNB",

@@ -1,5 +1,4 @@
 module.exports = function(sequelize) {
-
     require("./User.js")(sequelize);
     require("./Key.js")(sequelize);
     require("./Operation.js")(sequelize);
@@ -9,13 +8,12 @@ module.exports = function(sequelize) {
     require("./PaymentRequest.js")(sequelize)
 
     // Associations.
-    const { User, Operation, Key, Contact, SegurityToken, Staking, PaymentRequest } = sequelize.models;
+    const { User, Operation, Key, Contact, SecurityToken, Staking, PaymentRequest } = sequelize.models;
     Operation.belongsToMany(User, {as: "users", through: "UserOperation", foreignKey: "operationId"});
     User.belongsToMany(Operation, { as: "operations", through: "UserOperation", foreignKey: "userId"});
+    User.hasMany(Contact, { foreignKey: "userId" });
+    User.hasMany(Staking, { foreignKey: "userId"});
     User.hasOne(Key, {foreignKey: "userId"});
-    User.hasMany(Contact, {foreignKey: "userId"});
-    User.hasOne(SegurityToken, {through: "SegurityTokenUser"});
-    Staking.belongsToMany(User, {as: "users", through: "UserStaking", foreignKey: "stakingId"});
-    User.belongsToMany(Staking, { as: "stakings", through: "UserStaking", foreignKey: "userId"});
-    User.hasOne(PaymentRequest, {through: "UserPaymentRequest"});
-}
+    User.hasOne(SecurityToken, {foreignKey: "userId"});
+    User.hasOne(PaymentRequest, {foreignKey: "userId"});
+};

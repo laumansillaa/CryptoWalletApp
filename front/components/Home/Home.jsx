@@ -21,6 +21,7 @@ import {
   CheckIcon,
   ScrollView,
   extendTheme,
+  Avatar
 } from 'native-base';
 import Transaction from './components/Transaction';
 
@@ -28,6 +29,7 @@ import { SafeAreaView, View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useFocusEffect } from '@react-navigation/native';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
+import UserAvatar from 'react-native-user-avatar';
 export default function Home({ navigation }) {
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)
@@ -36,6 +38,7 @@ export default function Home({ navigation }) {
   const [founds, setFounds] = useState("");
   const [loadingState, setLoadingState] = useState(false)
   const blockChain = useSelector(state => state.blockChain);
+  
 
   React.useEffect( () => {
     dispatch(getDataUser())
@@ -124,7 +127,15 @@ export default function Home({ navigation }) {
                 <Button bg="indigo.400" onPress={() => setShowModal(true)}><Text color="#ffffff" >Add founds</Text></Button>
 
               </Box>
-              <Image
+              <UserAvatar size={100} name= {`${userData.firstname} ${userData.lastname}`} />
+              {/* <Avatar
+                bg="cyan.500"
+                alignSelf="center"
+                size="2xl"
+                title= "TM"
+              /> */}
+                
+              {/* <Image
                 source={{
                   uri: 'https://images.vexels.com/media/users/3/136558/isolated/preview/43cc80b4c098e43a988c535eaba42c53-icono-de-usuario-de-persona.png',
                 }}
@@ -132,7 +143,7 @@ export default function Home({ navigation }) {
                 height="100"
                 rounded="full"
                 width="100"
-              />
+              /> */}
             </HStack>
 
 
@@ -183,9 +194,9 @@ export default function Home({ navigation }) {
 
         {/*Ventana que se abren */}
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-          <Modal.Content maxWidth="500px">
+          <Modal.Content maxWidth="600px">
             <Modal.CloseButton />
-            <Modal.Header>Add founds</Modal.Header>
+            <Modal.Header>Add founds </Modal.Header>            
             <Modal.Body>
               <FormControl>
                 <FormControl.Label>how much money do you want to add?</FormControl.Label>
@@ -233,7 +244,7 @@ export default function Home({ navigation }) {
                   }}
                 >
                   Confirm
-                </Button>
+                </Button>                  
               </Button.Group>
             </Modal.Footer>
           </Modal.Content>

@@ -16,6 +16,7 @@ import {
   NativeBaseProvider,
   Button,
 } from "native-base"
+import UserAvatar from 'react-native-user-avatar';
 
 export default function MyData({navigation}) {
   const userData = useSelector(state => state.userData);
@@ -43,13 +44,14 @@ export default function MyData({navigation}) {
     }}
   >
     <Box>
-      <AspectRatio w="100%" ratio={16 / 9}>
-        <Image
+      <AspectRatio w="50%" ratio={16 / 9} >
+      <UserAvatar size={100} name= {`${userData.firstname} ${userData.lastname}`} />
+        {/* <Image
           source={{
             uri: userData.img
           }}
           alt="image"
-        />
+        /> */}
       </AspectRatio>
       <Center
         bg="violet.500"

@@ -144,7 +144,7 @@ setState({...state, [atr]: e})}
           {error.firstName}
         </FormControl.ErrorMessage>  
      
-        <Input variant="filled" value={state.lastname} placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastname")}/> 
+        <Input variant="filled" value={state.lastname} placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastname")} /> 
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           {error.lastName}
         </FormControl.ErrorMessage>   
@@ -156,7 +156,7 @@ setState({...state, [atr]: e})}
           {error.phone}
         </FormControl.ErrorMessage>   
     
-        <Button onPress={handleSubmit}>Confirmar</Button>
+        <Button onPress={handleSubmit} borderRadius= "10">Confirmar</Button>
         
         <FormControl.HelperText>
             {message}

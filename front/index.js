@@ -18,63 +18,63 @@ const Stack = createNativeStackNavigator();
 
 export default function Index() {
 
-const dispatch = useDispatch();
-let userToken =useSelector(state => state.userToken);
+// const dispatch = useDispatch();
+// let userToken =useSelector(state => state.userToken);
 
-  const [logged, setLogged] = useState(false);
-  const tokenLogged = useSelector(state => state.tokenLogged);
-  const log = useSelector(state => state.Log);
-  let isLoading = useSelector(state => state.isLoading);
+//   const [logged, setLogged] = useState(false);
+//   const tokenLogged = useSelector(state => state.tokenLogged);
+//   const log = useSelector(state => state.Log);
+//   let isLoading = useSelector(state => state.isLoading);
  
-  useEffect(() => {
-    isLogged()
-  }, [log])
+//   useEffect(() => {
+//     isLogged()
+//   }, [log])
 
-  const isLogged = () => {
-    if(log) {    
-      setLogged(true)
-    } else {
-      setLogged(false)
-    }
-  }
+//   const isLogged = () => {
+//     if(log) {    
+//       setLogged(true)
+//     } else {
+//       setLogged(false)
+//     }
+//   }
 
-  useEffect(() => {
-    setTimeout( async () => {
-      userToken= null;
-      try {
-        userToken = await AsyncStorage.getItem('userToken');
-        if (userToken !== null) {
-          dispatch(TokenLog());
-          dispatch(LoadingFalse());
-        } else {
-          dispatch(RetrieveToken(userToken));
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }, 3000); 
-  }, [])
+//   useEffect(() => {
+//     setTimeout( async () => {
+//       userToken= null;
+//       try {
+//         userToken = await AsyncStorage.getItem('userToken');
+//         if (userToken !== null) {
+//           dispatch(TokenLog());
+//           dispatch(LoadingFalse());
+//         } else {
+//           dispatch(RetrieveToken(userToken));
+//         }
+//       } catch (e) {
+//         console.error(e);
+//       }
+//     }, 3000); 
+//   }, [])
 
 
-  if(isLoading) { return (
-                  <>
-                  <Loading/>
-                  </>
-  )
-  }
+//   if(isLoading) { return (
+//                   <>
+//                   <Loading/>
+//                   </>
+//   )
+//   }
 
-  if(tokenLogged === true) {
-    return (
-      <>
-      <UserPin/>
-      </>
-    )
-  }
+//   if(tokenLogged === true) {
+//     return (
+//       <>
+//       <UserPin/>
+//       </>
+//     )
+//   }
 
   return ( 
    
       <NavigationContainer>
-        {!logged ? <Stack.Navigator initialRouteName='SplashScreen'>
+        {/* {!logged ? <Stack.Navigator initialRouteName='SplashScreen'>
                       <Stack.Screen name="SplashScreen" component={SplashScreen}/>
                       <Stack.Screen name="Login" component={Login}/>
                       <Stack.Screen name="Register" component={Register}/>
@@ -82,8 +82,8 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="PasswordReset" component={PasswordReset}/>
                    </Stack.Navigator>
     : 
-                   <TabNavFooter/>
-                   }
+  } */}
+  <TabNavFooter/>
       </NavigationContainer>
   )
 }

@@ -1,25 +1,23 @@
 const { ADMIN_ETHEREUM_PUBLIC_KEY, INFURA_URL } = process.env;
+const axios = require("axios");
 const Web3 = require("web3");
 const web3 = new Web3(INFURA_URL);
-const Binance = require("node-binance-api");
-const binance = new Binance();
-const { Key, Operation } = require("../../db").models;
+const { Key, Operation, Staking } = require("../../db").models;
+const rewards = require("../../utils/annualRewards");
 
 module.exports = async function(req, res, next) {
-    console.log("---------- OPERATION ETHEREUM SELL ROUTE ----------")
+    console.log("---------- OPERATION ETHEREUM PUT STAKE ROUTE ----------")
     try {
-        const { currency, amount } = req.body;
+        const { stakingCurrency, stakingAmount } = req.body;
         const [publicKey, privateKey] = (await Key.findOne({ where: { userId: req.user.id } })).ethereum;
-        const prices = await binance.futuresPrices();
-        const usdAmount = (currency === "USDT") 
-            ? amount * 1
-            : (currency === "HNR")
-            ? amount * 4000
-            : await amount * prices[`${currency}USDT`];
+        const date = await axios.get("http://worldtimeapi.org/api/ip");
+        const yearDay = date.data.day_of_year.toString();
+        const reward = rewards.filter(reward => reward.Currency === stakingCurrency);
 
-        if (currency === "ETH") {
+
+        if (stakingCurrency === "ETH") {
             const to = ADMIN_ETHEREUM_PUBLIC_KEY;
-            const value = (Math.floor(amount*10**18)).toString();
+            const value = (Math.floor(stakingAmount*10**18)).toString();
             const gasLimit = 21000;
             const gasPrice = await web3.eth.getGasPrice();
             const nonce = await web3.eth.getTransactionCount(publicKey);
@@ -34,9 +32,9 @@ module.exports = async function(req, res, next) {
 
             await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
         } else {
-            const tokenContract = await require("../../solidity")(currency);
+            const tokenContract = await require("../../solidity")(stakingCurrency);
             const to = tokenContract.options.address;
-            const value = Math.floor(amount*10**4);
+            const value = Math.floor(stakingAmount*10**4);
             const transaction = tokenContract.methods.transfer(ADMIN_ETHEREUM_PUBLIC_KEY, value);
             const data = transaction.encodeABI();
             const gas = await transaction.estimateGas({ from: publicKey });
@@ -55,23 +53,29 @@ module.exports = async function(req, res, next) {
         }
 
         const dbOperation = await Operation.create({
-            operationType: "sell",
+            operationType: "put stake",
             blockchain: "ethereum",
             from: publicKey,
             to: "admin",
-            currency,
-            amount: amount.toString(),
-            purchasedCurrency: "usd",
-            purchasedAmount: usdAmount.toString()
+            currency: stakingCurrency,
+            amount: stakingAmount.toString(),
+            purchasedCurrency: null,
+            purchasedAmount: null
         });
 
         await req.user.addOperation(dbOperation);
 
-        const updatedUsdValue = Number(req.user.usd) + Number(usdAmount);
-        await req.user.update({
-            usd: updatedUsdValue.toString()
+        const dbStake =  await Staking.create({
+            yearDay: yearDay.toString(),
+            publicKey,
+            blockchain: "ethereum",
+            currency: stakingCurrency,
+            amount: stakingAmount.toString(),
+            annualReward: reward[0].annualReward.toString()
         });
-        
-        return res.status(200).send("Ethereum sell succeeded.");
+
+        await req.user.addStaking(dbStake);
+
+        return res.status(200).send("Ethereum stake succeeded.");
     } catch(error) { next(error) }
 };

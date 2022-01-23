@@ -1,5 +1,5 @@
 const  User  = require ('../../db').models.User;
-const SegurityToken = require('../../db').models.SegurityToken;
+const SecurityToken = require('../../db').models.SecurityToken;
 
 
 module.exports = async function (req, res, next) {
@@ -12,7 +12,7 @@ module.exports = async function (req, res, next) {
                 message: 'A token is required. Check your mail'
             })
         } else {
-            const userDb = await SegurityToken.findOne({
+            const userDb = await SecurityToken.findOne({
                 where: {
                     token: token
                 }
@@ -34,7 +34,7 @@ module.exports = async function (req, res, next) {
 
                 res.status(200).send("User verified successfully")
 
-                await SegurityToken.destroy({
+                await SecurityToken.destroy({
                     where: {
                         token: token
                     }

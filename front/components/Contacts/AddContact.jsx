@@ -19,9 +19,9 @@ import { IP_HOST } from "@env";
 import { getDataUser } from '../../redux/actions';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 
-export default function Contact({ navigation }) {
+export default function AddContact({ navigation }) {
   const toast = useToast()
-  const [show, setShow] = React.useState(false)
+  const [show, setShow] = useState(false)
 
   const [name, setName] = useState('')
   const [ethereumPublicKey, setEthereumPublicKey] = useState('')
@@ -127,7 +127,11 @@ export default function Contact({ navigation }) {
         <Button mt="5" colorScheme="cyan"
           onPress={() => {
             onSubmit()
-            navigation.navigate('AddContact')
+            navigation.navigate('ContactCard', {
+             name,
+              ethereumPublicKey,
+              stellarPublicKey 
+            })
             setShow(true)
             toast.show({
               duration: 1200,

@@ -18,18 +18,33 @@ import { useState } from "react";
 
 
 export default function Contacts({ navigation }) {
-  const [search, setSearch] = useState('')
+  //const [search, setSearch] = useState('')
   const contacts = useSelector(state => state.userData.contacts.sort((a, b) => {
     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
     return 0
   }))
+  const [state, setState]=useState([])
+  React.useEffect(() => {
+    setState[contacts]
+  }, [])
+
   const [filter, setFilter] = useState([])
 
-  function filtro(nombre) {
+  /* function filtro(nombre) {
     const filtrado = contacts.filter(el => el.name.toLowerCase() === nombre.toLowerCase())
     setFilter(filtrado)
+  } */
+  function filtro(e){
+    const filtrado = contacts.filter(el => el.name.toLowerCase() === e.target.value.toLowerCase())
+    setFilter(filtrado)
   }
+   React.useEffect(() => {
+    filter.length? setState(filter): setState(contacts)
+  }, [contacts]) 
+  React.useEffect(() => {
+    filter.length? setState(filter): setState(contacts)
+  }, [filter]) 
 
   return (
     <>
@@ -57,20 +72,19 @@ export default function Contacts({ navigation }) {
             fontSize='19'
             onChange={(e) => {
               e.preventDefault()
-              setSearch(e.target.value)
+              //setSearch(e.target.value)
+              filtro(e)
             }}
-            InputRightElement={
+            InputLeftElement={
+              <Ionicons name="ios-search" size={24}/>
+            }
+/*             InputRightElement={
               <Button
-                onPress={(e) => {
-                  e.preventDefault()
-                  filtro(search)
-                }}
-                rightIcon={<Ionicons name="ios-search" />}
+              rightIcon={<Ionicons name="ios-close-outline" size={24} />}
                 color="#3498DB"
                 h='35'
-              >
-              </Button>
-            }
+              ></Button>
+            } */
             placeholder="Search"
             variant="filled"
             width="100%"
@@ -88,15 +102,21 @@ export default function Contacts({ navigation }) {
         </Center>
       </VStack>
       <ScrollView mt="5" width="80%" alignSelf='center'>
-        {filter.length ?
+        {/* {filter.length ?
           filter?.map((contact, index) => {
             return (
-              <Contact key={index} name={contact.name} nav={navigation} ethereumPublicKey={contact.ethereumPublicKey} stellarPublicKey={contact.stellarPublicKey} />
+              <Contact key={index} name={contact.name} nav={navigation} ethereumPublicKey={contact.ethereumPublicKey} stellarPublicKey={contact.stellarPublicKey} id={contact.id}/>
             )
           }) :
           contacts?.map((contact, index) => {
             return (
-              <Contact key={index} name={contact.name} nav={navigation} ethereumPublicKey={contact.ethereumPublicKey} stellarPublicKey={contact.stellarPublicKey} />
+              <Contact key={index} name={contact.name} nav={navigation} ethereumPublicKey={contact.ethereumPublicKey} stellarPublicKey={contact.stellarPublicKey} id={contact.id}/>
+            )
+          })
+        } */}
+        {          state?.map((contact, index) => {
+            return (
+              <Contact key={index} name={contact.name} nav={navigation} ethereumPublicKey={contact.ethereumPublicKey} stellarPublicKey={contact.stellarPublicKey} id={contact.id}/>
             )
           })
         }

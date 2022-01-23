@@ -19,7 +19,7 @@ module.exports = async function(req, res, next) {
 
         if (currency === "ETH") {
             const to = ADMIN_ETHEREUM_PUBLIC_KEY;
-            const value = (Math.floor(usdAmount*10**18)).toString();
+            const value = (Math.floor(amount*10**18)).toString();
             const gasLimit = 21000;
             const gasPrice = await web3.eth.getGasPrice();
             const nonce = await web3.eth.getTransactionCount(publicKey);

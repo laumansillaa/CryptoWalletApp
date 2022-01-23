@@ -14,33 +14,48 @@ import {
     HStack
     
   } from 'native-base';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { getBalance } from '../../redux/actions';
 import SegmentChartGrandient from './Chart/Chart';
 import { getCryptoChart } from '../../redux/actions';
+import Chart2 from './Chart/Chart2';
 
 
 export default function OperationCurrencies({route, navigation }) {
-
-    const {currency} = route.params;
-    const balance = useSelector(state=> state.userData.balance);
-    const [amount, setAmount] = useState("");
-    const blockChain = useSelector(state=> state.blockChain);
-    const dispatch = useDispatch();
-    
-
-  
-    React.useEffect(()=>{
+  const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+       const{currency} = route.params 
+        const balance = useSelector(state=> state.userData.balance)
+        const [amount, setAmount] = useState("")
+        const dispatch = useDispatch()
+    const blockChain = useSelector(state=> state.blockChain)
+       React.useEffect(()=>{
         if(blockChain === "stellar"){
-            let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
-            (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
-        } else if ("ethereum") {
+           let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
+
+           (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
+
+            
+          
+          }else if ("ethereum"){
             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
             (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
-        }
-        dispatch(getCryptoChart(currency));
-    },[])
+          }
+          
 
+       },[blockChain ])
+       React.useEffect(()=>{
+          dispatch(getBalance())
+          dispatch(getCryptoChart(currency));
+
+       },[ ])
+  
+  
+       
+    
+      
+     
+  
 
     return (<>
               <Stack  ml="5" mt="60"direction="row" alignItems="center">
@@ -79,11 +94,26 @@ export default function OperationCurrencies({route, navigation }) {
               <Button mt="9" ml="2" bg="indigo.600"  fontWeight="bold" 
           onPress={()=>navigation.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>     
                   <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("CardCripto", {token:currency})}>Buy</Button>
-              
+                  <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("StakingCurrencie", {
+                   amount:parseFloat(amount).toFixed(4), currency:currency,})}>Staking</Button>
               </HStack>
               </Box>
-              <SegmentChartGrandient />
-            </VStack>
+             <Text>
+             <Chart2 /> 
+             </Text>
+          <Chart2/>
+     
+          </VStack>
+          
+        
+            
     </>
+
+
+     
+ 
+
+
+              
     );
 }

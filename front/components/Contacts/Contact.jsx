@@ -9,16 +9,18 @@ import {
 } from 'native-base';
 import { Pressable } from 'react-native';
 
-export default function Contact({ name, ethereumPublicKey, stellarPublicKey, nav }) {
+export default function Contact({ name, ethereumPublicKey, stellarPublicKey, id, nav }) {
+
   return (
     <>
       <Pressable
         w='100%'
         onPress={() => {
           nav.navigate("ContactCard", {
-            name,
+            id,
+           name,
             ethereumPublicKey,
-            stellarPublicKey
+            stellarPublicKey 
           })
         }}>
         <VStack space={2} w='100%'>
@@ -26,9 +28,10 @@ export default function Contact({ name, ethereumPublicKey, stellarPublicKey, nav
             <Button
               onPress={() => {
                 nav.navigate("ContactCard", {
+                  id,
                   name,
                   ethereumPublicKey,
-                  stellarPublicKey
+                  stellarPublicKey,
                 })
               }}
               rightIcon={<Avatar shadow={5} bg="#3498DB" size="40px" borderColor="darkBlue.900" alignSelf="center">

@@ -7,7 +7,6 @@ import Contacts from './Contacts';
 import Contact from './Contact';
 import AddContact from './AddContact';
 import ContactCard from './ContactCard';
-import EditContact from './EditContact';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +24,6 @@ export default function ContactsIndex() {
       <Stack.Screen name="Contact" component={Contact} />
       <Stack.Screen name="AddContact" component={AddContact} />
       <Stack.Screen name="ContactCard" component={ContactCard} />
-      <Stack.Screen name="EditContact" component={EditContact} />
     </Stack.Navigator>
   );
 } 

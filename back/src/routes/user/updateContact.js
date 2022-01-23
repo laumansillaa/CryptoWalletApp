@@ -5,7 +5,7 @@ module.exports = async function(req, res, next) {
     try {
         const { id, name, ethereumPublicKey, stellarPublicKey } = req.body;
 
-        const contact = await Contact.findOne({ where: { id } });
+        const contact = await Contact.findOne({ where: { id: id } });
         await contact.update({
             name,
             ethereumPublicKey,

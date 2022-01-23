@@ -14,10 +14,9 @@ module.exports = async function(req, res, next) {
 
         const ethereumEther = (await web3.eth.getBalance(keys.ethereum[0]))/10**18;
         const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
-        await Promise.all(["USDT", "BNB", "HNR"].map(async currency => {
+        await Promise.all(["HNR", "BTC", "USDT", "BNB", "ADA", "SOL"].map(async currency => {
             const tokenContract = await require("../../solidity")(currency);
             const amount = (await tokenContract.methods.balanceOf(keys.ethereum[0]).call()) / 10**4;
-            console.log(currency, amount);
             ethereumCurrencies.push({
                 currency,
                 amount, 
@@ -26,12 +25,12 @@ module.exports = async function(req, res, next) {
         let ethereumCrypto = 0;
         let ethereumStaking = 0;
         for (let i = 0; i < ethereumCurrencies.length; i++) {
-            if (ethereumCurrencies[i].currency === "ETH" || ethereumCurrencies[i].currency === "BNB" ) {
-                ethereumCrypto += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
-            } else if (ethereumCurrencies[i].currency === "USDT") {
+            if (ethereumCurrencies[i].currency === "USDT") {
                 ethereumCrypto += ethereumCurrencies[i].amount;
             } else if (ethereumCurrencies[i].currency === "HNR") {
                 ethereumCrypto += ethereumCurrencies[i].amount * 4000;
+            } else {
+                ethereumCrypto += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
             }
         }
 

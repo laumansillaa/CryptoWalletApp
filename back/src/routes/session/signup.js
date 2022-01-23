@@ -2,7 +2,7 @@ const axios = require("axios");
 const Web3 = require("web3")
 const web3 = new Web3(process.env.INFURA_URL);
 const StellarSDK = require("stellar-sdk");
-const { User, Key, SegurityToken } = require("../../db").models;
+const { User, Key, SecurityToken } = require("../../db").models;
 const userDataValidator = require("../../utils/userDataValidator.js");
 const nodemailer = require('nodemailer');
 const pgenerator = require('generate-password')
@@ -39,7 +39,7 @@ module.exports = async function(req, res, next) {
                 numbers: true
             })
 
-            const tokenUser = await SegurityToken.create({
+            const tokenUser = await SecurityToken.create({
                 token,
                 email
             })

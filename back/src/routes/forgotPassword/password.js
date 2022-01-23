@@ -43,7 +43,7 @@ module.exports = async function (req, res, next) {
         })        
 
         const transporter = nodemailer.createTransport({
-            service: 'hotmail',
+            service: 'gmail',
             auth: {
                 user: `${EMAIL_ADDRESS}`,
                 pass: `${EMAIL_PASSWORD}`

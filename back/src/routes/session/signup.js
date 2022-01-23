@@ -45,7 +45,9 @@ module.exports = async function(req, res, next) {
             })
 
             const transporter = nodemailer.createTransport({
-                service: 'hotmail',
+                host: "smtp.gmail.com",
+                port: 465,
+                secure: true,
                 auth: {
                     user: `${EMAIL_ADDRESS}`,
                     pass: `${EMAIL_PASSWORD}`

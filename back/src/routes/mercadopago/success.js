@@ -19,7 +19,6 @@ module.exports = async (req, res, next) => {
                 email: payment[0].email
             }
         })
-        console.log("SOY EL USER", payment[0].email)
         
         //ACTUALIZO EL STATUS
         const payments = await PaymentRequest.update({
@@ -33,7 +32,7 @@ module.exports = async (req, res, next) => {
         //ACTUALIZO EL VALOR USD DEL USUARIO
  
         if(true) {
-            console.log("ENTRE AL IF")
+
             const updatedUsdValue = Number(userPayment[0].usd) + Number(payment[0].usd)
     
             const update = await User.update({

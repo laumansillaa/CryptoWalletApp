@@ -1,8 +1,19 @@
 
 import { StyleSheet, } from 'react-native';
 
-import {  ScrollView, NativeBaseProvider, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button } from 'native-base';
-
+import {  ScrollView, 
+NativeBaseProvider, 
+Stack, 
+Input,  
+FormControl,
+WarningOutlineIcon,
+Heading,
+Button, 
+Box,
+Pressable,
+ChevronLeftIcon,
+Text 
+} from 'native-base';
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
 import axios from "axios"
@@ -119,6 +130,23 @@ setState({...state, [atr]: e})}
  
   return (
   <NativeBaseProvider>
+    <Box
+    mt="50px"
+    py="1"
+
+    rounded="md"
+    alignSelf="center"
+    width={375}
+    maxWidth="100%"
+
+  >
+    <Stack direction="row" alignItems="center">
+      <Pressable onPress={() => navigation.goBack()}>
+        <ChevronLeftIcon color="darkBlue.900" size="9" />
+      </Pressable>
+      <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" >Edit info </Text>
+    </Stack>
+  </Box>
     <ScrollView>
     <FormControl
     isInvalid

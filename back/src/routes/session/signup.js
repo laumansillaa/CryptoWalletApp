@@ -1,12 +1,12 @@
 const axios = require("axios");
 const Web3 = require("web3")
-const web3 = new Web3("HTTP://127.0.0.1:7545");
+const web3 = new Web3(process.env.INFURA_URL);
 const StellarSDK = require("stellar-sdk");
-const { User, Key, SegurityToken } = require("../../db").models;
+const { User, Key, SecurityToken } = require("../../db").models;
 const userDataValidator = require("../../utils/userDataValidator.js");
 const nodemailer = require('nodemailer');
 const pgenerator = require('generate-password')
-const {EMAIL_ADDRESS, EMAIL_PASSWORD} = process.env;
+const { EMAIL_ADDRESS, EMAIL_PASSWORD } = process.env;
 
 module.exports = async function(req, res, next) {
     console.log("---------- SESSION SIGN UP ROUTE ----------")
@@ -39,15 +39,13 @@ module.exports = async function(req, res, next) {
                 numbers: true
             })
 
-            const tokenUser = await SegurityToken.create({
+            const tokenUser = await SecurityToken.create({
                 token,
                 email
             })
 
             const transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 465,
-                secure: true,
+                service: 'gmail',
                 auth: {
                     user: `${EMAIL_ADDRESS}`,
                     pass: `${EMAIL_PASSWORD}`
@@ -59,8 +57,8 @@ module.exports = async function(req, res, next) {
                 to: email,
                 subject: 'Password recovery process',
                 text: 
-                `Hello! To verify your account we need you to enter the security token.
-                No one from the support team is going to ask you. For your safety, please do not share it.
+                `Hello! In order to verify your account you need to enter this security token.
+                No one from the support team is going to request it. For your safety, please do not share it.
 
 
                 SECURITY TOKENS: ${token}`
@@ -68,9 +66,9 @@ module.exports = async function(req, res, next) {
 
             transporter.sendMail(mailOption, (err, response) => {
                 if (err) {
-                    console.log('Error al enviar email', err)
+                    console.error(err)
                 } else {
-                    console.log('Verify token was sent')
+                    console.log('Verification token sent.')
                 }
             })
 

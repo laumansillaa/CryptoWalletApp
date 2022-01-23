@@ -197,7 +197,7 @@ async function transferUser (){
           <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
             Your new {currency} amount will be: :
             </Text>
-          <Text color="#ffffff" fontWeight="bold" fontSize="6xl"> {(parseFloat(amount)- parseFloat(founds).toFixed(4)) } </Text>
+          <Text color="#ffffff" fontWeight="bold" fontSize="6xl"> {(parseFloat(amount) - parseFloat(founds)).toFixed(4) } </Text>
       
       </Box>
       {(mes)?mes:""}

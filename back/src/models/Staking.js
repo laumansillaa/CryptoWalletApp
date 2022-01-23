@@ -2,10 +2,6 @@ const { DataTypes } = require ("sequelize");
 
 module.exports = function (sequelize) {
     sequelize.define("Staking", {
-        yearDay: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         publicKey: {
             type: DataTypes.STRING,
             allowNull: false
@@ -17,12 +13,16 @@ module.exports = function (sequelize) {
                 isIn: [["ethereum", "stellar"]]
             }
         },
+        yearDay: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         currency: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: {
                 args: "currency",
-                msg: "This currency is already staked"
+                msg: "This currency is already staked."
              }
         },
         amount: {
@@ -33,5 +33,10 @@ module.exports = function (sequelize) {
             type: DataTypes.STRING,
             allowNull: false
         }
+    },
+    {
+      // Disable the modification of tablenames; By default, sequelize will automatically
+      // transform all passed model names (first parameter of define) into plural.
+      freezeTableName: true,
     })
 }

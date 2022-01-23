@@ -2,7 +2,7 @@ import * as React from 'react';
 
 
 import {
-
+    PresenceTransition,
   Box,
   Button,
   IconButton,
@@ -31,12 +31,42 @@ export default function BalanceUser({navigation}) {
     
         
         if(screen === "balance"){
-           screenRender = <UserCriptos navigation={navigation}/>
-
+           screenRender =<>
+           <PresenceTransition
+        visible= {true}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+          transition: {
+            duration: 250,
+          },
+        }}
+      >
+           <UserCriptos navigation={navigation}/>
+      </PresenceTransition>
+        
+           </>
         }else if(screen === "staking"){
 
-            screenRender = <StakingUser navigation={navigation}/>
-
+            screenRender = <>
+            <PresenceTransition
+         visible= {true}
+         initial={{
+           opacity: 0,
+         }}
+         animate={{
+           opacity: 1,
+           transition: {
+             duration: 250,
+           },
+         }}
+       >
+            <StakingUser navigation={navigation}/>
+       </PresenceTransition>
+         
+            </>
         }
 
 
@@ -61,16 +91,30 @@ export default function BalanceUser({navigation}) {
         <ChevronLeftIcon color="darkBlue.900" size="9"/>
         </Pressable>
         <Pressable onPress={()=>setScreen("balance")}>
-           <Text  fontSize="xl" color="darkBlue.900" fontWeight="bold" > YOUR BALANCE </Text> 
+           <Text  fontSize="xl" color={(screen=== "balance")?"darkBlue.700":"black"} fontWeight="bold" > YOUR BALANCE </Text> 
            </Pressable>
            <Divider bg="indigo.500" thickness="2" mx="2" orientation="vertical" />
            <Pressable  onPress={()=>setScreen("staking")}>
-           <Text  fontSize="xl" color="darkBlue.700" fontWeight="bold" > STAKING </Text> 
+           <Text  fontSize="xl" color={(screen=== "staking")?"darkBlue.700":"black"} fontWeight="bold" > STAKING </Text> 
             </Pressable>
            
         </Stack>
         </Box>
+        <PresenceTransition
+        visible= {true}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+          transition: {
+            duration: 250,
+          },
+        }}
+      >
         {screenRender}
+      </PresenceTransition>
+       
         
         </>
     );

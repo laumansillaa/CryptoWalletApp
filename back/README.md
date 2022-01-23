@@ -13,15 +13,16 @@ Then create an `.env` file, in which the following enviroment variables must be 
 
     ADMIN_ETHEREUM_PUBLIC_KEY = ""
     ADMIN_ETHEREUM_PRIVATE_KEY = ""
+    INFURA_URL=""
 
     TOKEN_MERCADOPAGO = "TEST-1256359479485533-011422-c43ac4c47ecf9be92a84de2708a6b79c-568635558"
 ```
 You must replace the first three values with your corresponding Postgres credentials,
 and the database name (`DB_NAME`) can be whatever you prefer (you must create that data base on your computer!).
-Variable `IP_HOST` must be asigned to your computer ip host. You also must install Ganache (https://trufflesuite.com/ganache/)
-in order to set a local ethereum blockchain. Once installed, you can choose any of the 10 accounts available in the program
-to fill both `ADMIN_ETHEREUM_PUBLIC_KEY` and `ADMIN_ETHEREUM_PRIVATE_KEY` (to visualize them, you must press the button which
-says "Show Keys" and has a key symbol).
+Variable `IP_HOST` must be asigned to your computer ip host. 
+You must also complete `ADMIN_ETHEREUM_PUBLIC_KEY` and `ADMIN_ETHEREUM_PRIVATE_KEY` with your Rinkeby network account credentials,
+and `INFURA_URL` must be set to your Infura Rinkeby URL provider.
+Then, move to `/back/src/solidity` folder and execute `truffle migrate --reset`.
 
 Once this is done, you can start the server by executing `npm start` command inside `back` folder.
 
@@ -150,14 +151,18 @@ The possible respnses are:
     pin: "000000",
     contacts: [
       {
+        id: "1",
         name: "someContactName",
         ethereumPublicKey: "0x5E3476BE144120aee33cEE61082Bc24261B9CD28",
-        stellarPublicKey: "0xCD2Bc2433ae82DCee33cEE61082Bc24261B9Cae1"
+        stellarPublicKey: "0xCD2Bc2433ae82DCee33cEE61082Bc24261B9Cae1",
+        userId: "1"
       },
       {
+        id: "2",
         name: "someOtherContactName",
         ethereumPublicKey: "0x429a92d23b33194edD3cEE61082Bc24261a203de",
-        stellarPublicKey: "0x5E3476BE1233194edD3cEE61082Bc24261B9CD28"
+        stellarPublicKey: "0x5E3476BE1233194edD3cEE61082Bc24261B9CD28",
+        userId: "1"
       }
     ],
     publicKeys: {
@@ -166,7 +171,8 @@ The possible respnses are:
     }
   }
 ``` 
-All the values will be of type string.
+All the values will be of type string. The property `id` identifies the contact in the data base, and `userId`
+is the id of the user who owns that contact.
 - An error in case something went wrong.
 
 ### Add a new contact:
@@ -188,6 +194,26 @@ The possible respnses are:
 - "Contact addition succeeded." (status 200).
 - An error in case something went wrong.
 
+### Update a contact:
+
+- Method: put 
+- Route: /user/updateContact
+
+You must send through __body__ the contact updated data. For example:
+``` 
+  {
+    id: "11",
+    name: "contactName",
+    ethereumPublicKey: "0x5E3476BE144120aee33cEE61082Bc24261B9CD28",                                              
+    stellarPublicKey: "0x5E3476BE1233194edD3cEE61082Bc24261B9CD28"
+  }
+``` 
+All the values must be of type string. The property `id` must be the id of the contact to be updated.
+
+The possible respnses are: 
+- "Contact update succeeded." (status 200).
+- An error in case something went wrong.
+
 ### Purchase an Ethereum token:
 
 - Method: post 
@@ -196,15 +222,13 @@ The possible respnses are:
 You must send through __body__ the purchase parameters. For example:
 ``` 
   {
-    currency: "USDT",
     amount: "200",                                              
-    purchaseCurrency: "BTC"
+    purchaseCurrency: "HNR"
   }
 ``` 
 All the values must be of type string and verify the following restrictions:
-- `currency` must be "USDT".
 - `amount` must be any digit that you want. 
-- `purchaseCurrency` must be "ETH".
+- `purchaseCurrency` must be either "HNR", "BTC", "ETH", "BNB", "ADA", "SOL".
 
 The possible respnses are:
 - "Ethereum purchase succeeded." (status 200).
@@ -225,7 +249,7 @@ You must send through __body__ the transfer parameters. For example:
 ``` 
 All the values must be of type string and verify the following restrictions:
 - `to` must be a valid public address.
-- `currency` must be "ETH".
+- `currency` must be either "HNR", "BTC", "ETH", "BNB", "ADA", "SOL".
 - `amount` must be any digit lower than the user's balance for that currency. 
 
 The possible respnses are:
@@ -242,19 +266,55 @@ You must send through __body__ the transfer parameters. For example:
   {
     currency: "ETH",
     amount: "0.2",                                              
-    purchaseCurrency: "USDT"
   }
 ``` 
 All the values must be of type string and verify the following restrictions:
-- `currency` must be "ETH".
+- `currency` must be either "HNR", "BTC", "ETH", "BNB", "ADA", "SOL".
 - `amount` must be any digit lower than the user's balance for that currency. 
-- `purchaseCurrency` must be "USDT".
 
 The possible respnses are:
 - "Ethereum transfer succeeded." (status 200).
 - An error in case something went wrong.
 
-### Purchase an Stellar token:
+### Stake an Ethereum token:
+
+- Method: post 
+- Route: /operation/ethereum/stake
+
+You must send through __body__ the staking parameters. For example:
+``` 
+  {
+    stakingCurrency: "BTC",
+    stakingAmount: "0.02"
+  }
+``` 
+All the values must be of type string and verify the following restrictions:
+- `stakingCurrency` must be either "HNR", "BTC", "ETH", "BNB", "ADA", "SOL".
+- `stakingAmount` must be any digit lower than the user's balance for that currency.
+
+The possible responses are:
+- "Ethereum stake succeeded." (status 200).
+- An error in case something went wrong.
+
+### Stake taking of an Ethereum token:
+
+- Method: post 
+- Route: /operation/ethereum/takestake
+
+You must send through __body__ the stake taking parameters. For example:
+``` 
+  {
+    stakingCurrency: "BTC"
+  }
+``` 
+All the values must be of type string and verify the following restrictions:
+- `stakingCurrency` must be either "HNR", "BTC", "ETH", "BNB", "ADA", "SOL".
+
+The possible responses are:
+- "Ethereum stake taking succeeded." (status 200).
+- An error in case something went wrong.
+
+### Purchase a Stellar token:
 
 - Method: post 
 - Route: /operation/stellar/purchase
@@ -277,7 +337,7 @@ The possible respnses are:
 - "Stellar purchase succeeded." (status 200).
 - An error in case something went wrong.
 
-### Transfer an Stellar token:
+### Transfer a Stellar token:
 
 - Method: post 
 - Route: /operation/stellar/transfer
@@ -299,7 +359,7 @@ The possible respnses are:
 - "Stellar transfer succeeded." (status 200).
 - An error in case something went wrong.
 
-### Sell an Stellar token:
+### Sell a Stellar token:
 
 - Method: post 
 - Route: /operation/stellar/sell
@@ -319,7 +379,7 @@ The possible respnses are:
 - "Stellar sell succeeded." (status 200).
 - An error in case something went wrong.
 
-### Stake an Stellar token:
+### Stake a Stellar token:
 
 - Method: post 
 - Route: /operation/stellar/stake
@@ -339,7 +399,7 @@ The possible responses are:
 - "Stellar transfer succeeded." (status 200).
 - An error in case something went wrong.
 
-### Take-stake of an Stellar token:
+### Take-stake of a Stellar token:
 
 - Method: post 
 - Route: /operation/stellar/takestake

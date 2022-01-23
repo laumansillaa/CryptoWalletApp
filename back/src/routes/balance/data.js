@@ -1,6 +1,6 @@
 const axios = require("axios");
 const Web3 = require("web3");
-const web3 = new Web3("HTTP://127.0.0.1:7545");
+const web3 = new Web3(process.env.INFURA_URL);
 const StellarSDK = require("stellar-sdk");
 const server = new StellarSDK.Server("https://horizon-testnet.stellar.org");
 const Binance = require("node-binance-api");
@@ -12,13 +12,26 @@ module.exports = async function(req, res, next) {
         const keys = await Key.findOne({ where: { userId: req.user.id } });
         const prices = await binance.futuresPrices();
 
-        const ethereumEtherInGwei = await web3.eth.getBalance(keys.ethereum[0]);
-        const ethereumEther = await web3.utils.fromWei(ethereumEtherInGwei, "ether")
+        const ethereumEther = (await web3.eth.getBalance(keys.ethereum[0]))/10**18;
         const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
+        await Promise.all(["HNR", "BTC", "USDT", "BNB", "ADA", "SOL"].map(async currency => {
+            const tokenContract = await require("../../solidity")(currency);
+            const amount = (await tokenContract.methods.balanceOf(keys.ethereum[0]).call()) / 10**4;
+            ethereumCurrencies.push({
+                currency,
+                amount, 
+            });
+        }));
         let ethereumCrypto = 0;
         let ethereumStaking = 0;
         for (let i = 0; i < ethereumCurrencies.length; i++) {
-            ethereumCrypto += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
+            if (ethereumCurrencies[i].currency === "USDT") {
+                ethereumCrypto += ethereumCurrencies[i].amount;
+            } else if (ethereumCurrencies[i].currency === "HNR") {
+                ethereumCrypto += ethereumCurrencies[i].amount * 4000;
+            } else {
+                ethereumCrypto += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
+            }
         }
 
         const stellarAccount = await server.loadAccount(keys.stellar[0]);

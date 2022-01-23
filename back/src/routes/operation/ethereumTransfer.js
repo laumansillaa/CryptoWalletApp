@@ -1,35 +1,56 @@
+const { ADMIN_ETHEREUM_PUBLIC_KEY, ADMIN_ETHEREUM_PRIVATE_KEY, INFURA_URL } = process.env;
 const Web3 = require("web3");
-const web3 = new Web3("HTTP://127.0.0.1:7545");
+const web3 = new Web3(INFURA_URL);
 const { Key, Operation } = require("../../db").models;
-const { ADMIN_ETHEREUM_PUBLIC_KEY, ADMIN_ETHEREUM_PRIVATE_KEY } = process.env;
 
 module.exports = async function(req, res, next) {
     console.log("---------- OPERATION ETHER TRANSFER ROUTE ----------")
     try {
-        // We get te user public and private keys from data base. User is the one executing the transfer operation.
-        // The person who will receive the crypto currency comes from <to> variable through the request body. 
-        const { pKey, transferCurrency, transferAmount } = req.body;
-        if (transferCurrency !== "ETH") return res.status(400).send("Currency variable must be 'ETH'");
-        const [publicKey, privateKey] = (await Key.findOne({ where: { userId: req.user.id } })).ethereum
+        const to = req.body.pKey, { transferCurrency, transferAmount } = req.body;
+        const [publicKey, privateKey] = (await Key.findOne({ where: { userId: req.user.id } })).ethereum;
 
-        const transactionCount = await web3.eth.getTransactionCount(publicKey);
-        const transaction = {
-            nonce: web3.utils.toHex(transactionCount),
-            to: pKey,
-            value: web3.utils.toHex(web3.utils.toWei(transferAmount.toString(), "ether")),
-            gasLimit: web3.utils.toHex(53000),
-            gasPrice: web3.utils.toHex(web3.utils.toWei("10", "gwei"))
-        };
-        const signedTransaction = await web3.eth.accounts.signTransaction(transaction, privateKey);
-        await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+        if (transferCurrency === "ETH") {
+            const value = (Math.floor(transferAmount*10**18)).toString();
+            const gasLimit = 21000;
+            const gasPrice = await web3.eth.getGasPrice();
+            const nonce = await web3.eth.getTransactionCount(publicKey);
+
+            const signedTransaction = await web3.eth.accounts.signTransaction({
+                to,
+                value, 
+                gasLimit,
+                gasPrice,
+                nonce
+            }, privateKey);
+
+            await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+        } else {
+            const tokenContract = await require("../../solidity")(transferCurrency);
+            const value = Math.floor(transferAmount*10**4);
+            const transaction = tokenContract.methods.transfer(to, value);
+            const data = transaction.encodeABI();
+            const gas = await transaction.estimateGas({ from: publicKey });
+            const gasPrice = await web3.eth.getGasPrice();
+            const nonce = await web3.eth.getTransactionCount(publicKey);
+
+            const signedTransaction = await web3.eth.accounts.signTransaction({
+                to, 
+                data, 
+                gas, 
+                gasPrice, 
+                nonce, 
+            }, privateKey);
+
+            await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+        }
 
         const dbOperation = await Operation.create({
             operationType: "transfer",
             blockchain: "ethereum",
             from: publicKey,
-            to: pKey,
+            to,
             currency: transferCurrency,
-            amount: transferAmount,
+            amount: transferAmount.toString(),
             purchasedCurrency: null,
             purchasedAmount: null
         });

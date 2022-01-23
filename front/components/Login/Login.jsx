@@ -9,7 +9,7 @@ import {  Container, Image, FormControl, Input, Button, Icon, Heading, Stack, Wa
 import { MaterialIcons } from "@expo/vector-icons"
 import { validateEmail, validatePassword } from "../Utils/Utils";
 
-
+import * as WebBrowser from 'expo-web-browser';
 
 
 export default function Login ({ navigation }) {
@@ -75,7 +75,9 @@ export default function Login ({ navigation }) {
 
     const onGoogleLogin = async (e) => {
       try {
-        window.open(`http://${IP_HOST}:3001/session/googleSignin`, '_self')
+
+        let result = await WebBrowser.openBrowserAsync(`http://localhost:3001/session/googleSignin`);
+        console.log(result)
         dispatch(Log())
       } catch (error) { console.error(error) }
     };

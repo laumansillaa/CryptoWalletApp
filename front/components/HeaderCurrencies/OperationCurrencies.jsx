@@ -17,7 +17,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getBalance } from '../../redux/actions';
-import SegmentChartGrandient from './Chart/Chart';
+/* import SegmentChartGrandient from './Chart/Chart'; */
 import { getCryptoChart } from '../../redux/actions';
 import Chart2 from './Chart/Chart2';
 
@@ -98,10 +98,8 @@ export default function OperationCurrencies({route, navigation }) {
                    amount:parseFloat(amount).toFixed(4), currency:currency,})}>Staking</Button>
               </HStack>
               </Box>
-             <Text>
-             <Chart2 /> 
-             </Text>
-          <Chart2/>
+           {/* <SegmentChartGrandient/> */}
+    {/*       <Chart2/>   */}
      
           </VStack>
           

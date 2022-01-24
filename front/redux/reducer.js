@@ -23,7 +23,7 @@ const initialState={
     },
     tokens:{
          },
-    monthPrices: []
+    monthPrices: [0]
 }
 
 const rootReducer = (state = initialState, action)=>{

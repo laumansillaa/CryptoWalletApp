@@ -34,7 +34,7 @@ const stellar =[  "BTC",
 "NEAR",
 "ATOM",]
 
-const ethereum = ["ETH"]
+const ethereum = ["ETH", "HNR", "BTC", "BNB", "ADA", "SOL"]
 
 
 const [aux, setAux] = useState([

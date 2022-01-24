@@ -33,6 +33,7 @@ export default function BuyCurrencie({route, navigation}) {
     const [mes, setMes] = useState("")
     const [state, setState] = useState({});
     const blockChain = useSelector(state => state.blockChain);
+
     const [urlBlockChain, setUrlBlockChain]= useState("");
 
     React.useEffect(()=>{

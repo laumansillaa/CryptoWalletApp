@@ -29,17 +29,16 @@ export default function AddContact({ navigation }) {
   const dispatch = useDispatch()
 
   function handleName(e) {
-    e.preventDefault()
-    setName(e.target.value)
+   
+    setName(e)
   }
   function handleEthereum(e) {
-    e.preventDefault()
-    setEthereumPublicKey(e.target.value)
+ 
+    setEthereumPublicKey(e)
   }
 
   function handleStellar(e) {
-    e.preventDefault()
-    setStellarPublicKey(e.target.value)
+    setStellarPublicKey(e)
   }
 
   async function onSubmit() {
@@ -105,21 +104,21 @@ export default function AddContact({ navigation }) {
                 _text={{
                   color: "gray.700",
                 }}>Name</FormControl.Label>
-              <Input backgroundColor='rgb(255, 255, 255)' color='grey.800' fontFamily='bold' fontSize='17' placeholder="name" name='name' onChange={handleName} />
+              <Input /*  backgroundColor='rgb(255, 255, 255)'*/ color='gray.800'  fontWeight='bold' fontSize='17' placeholder="name" name='name' onChangeText={handleName} />
             </Box>
             <Box>
               <FormControl.Label
                 _text={{
                   color: "gray.700",
                 }}>Ethereum Public Key</FormControl.Label>
-              <Input backgroundColor='rgb(255, 255, 255)' color='grey.800' fontFamily='bold' fontSize='17' placeholder="Ethereum Public Key" name='ethereumPublicKey' onChange={handleEthereum} />
+              <Input /*  backgroundColor='rgb(255, 255, 255)' */ color='gray.800' fontWeight='bold' fontSize='17' placeholder="Ethereum Public Key" name='ethereumPublicKey' onChangeText={handleEthereum} />
             </Box>
             <Box>
               <FormControl.Label
                 _text={{
                   color: "gray.700",
                 }}>Stellar Public Key</FormControl.Label>
-              <Input backgroundColor='rgb(255, 255, 255)' color='grey.800' fontFamily='bold' fontSize='17' placeholder="Stellar Public Key" name='stellarPublicKey' onChange={handleStellar} />
+              <Input /* backgroundColor='rgb(255, 255, 255)' */ color='gray.800' fontWeight='bold' fontSize='17' placeholder="Stellar Public Key" name='stellarPublicKey' onChangeText={handleStellar} />
 
             </Box>
           </Stack>

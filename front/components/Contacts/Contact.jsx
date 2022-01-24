@@ -37,10 +37,11 @@ export default function Contact({ name, ethereumPublicKey, stellarPublicKey, id,
               rightIcon={<Avatar shadow={5} bg="#3498DB" size="40px" borderColor="darkBlue.900" alignSelf="center">
                 <Text color="white" fontWeight="bold" fontSize="xl">{name.charAt(0).toUpperCase()}</Text>
               </Avatar>}
-              colorScheme="none"
+              variant="unstyled"
+               /* colorScheme="none" */
             ></Button>
             <Center>
-              <Text color="grey.700" fontSize={20}>{name}</Text>
+              <Text color="gray.700" fontSize={20}>{name}</Text>
             </Center>
           </HStack>
         </VStack>

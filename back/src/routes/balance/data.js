@@ -22,8 +22,23 @@ module.exports = async function(req, res, next) {
                 amount, 
             });
         }));
-        let ethereumCrypto = 0;
         let ethereumStaking = 0;
+        const dbEthereumStaking = await Staking.findAll({
+            where: {
+                userId: req.user.id,
+                blockchain: "ethereum"
+            }
+        });
+        for (let i = 0; i < dbEthereumStaking.length; i++) {
+            if (dbEthereumStaking[i].currency === "USDT") {
+                ethereumStaking += dbEthereumStaking[i].amount;
+            } else if (ethereumCurrencies[i].currency === "HNR") {
+                ethereumStaking += dbEthereumStaking[i].amount * 4000;
+            } else {
+                ethereumStaking += dbEthereumStaking[i].amount * prices[`${dbEthereumStaking[i].currency}USDT`];
+            }
+        }
+        let ethereumCrypto = 0;
         for (let i = 0; i < ethereumCurrencies.length; i++) {
             if (ethereumCurrencies[i].currency === "USDT") {
                 ethereumCrypto += ethereumCurrencies[i].amount;

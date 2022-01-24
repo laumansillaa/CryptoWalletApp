@@ -91,11 +91,11 @@ export default function Login ({ navigation }) {
             <Heading>Put your data pls </Heading>
             <Stack space={4} w={{base: "85%", md: "25%", }}>
             <Input placeholder="email" value={email} onChangeText={setEmail} InputLeftElement={
-          <Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />} />
+          <Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" borderRadius="4px"/>} />
            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>
           {error.email}
         </FormControl.ErrorMessage>  
-            <Input placeholder="password"  value={password} onChangeText={setPassword} type="password" 
+            <Input placeholder="password"  value={password} onChangeText={setPassword} type="password" borderRadius="4px"
             // InputRightElement={<Icon as={<MaterialIcons name="visibility-off" />} size={5} mr="2" color="muted.400" />} 
             />
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>

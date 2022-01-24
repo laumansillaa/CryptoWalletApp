@@ -29,14 +29,14 @@ module.exports = async (req, res, next) => {
 
 
         .then((response) => {
-            //console.log("PROCESS PAYMENT", response)
+            // console.log("PROCESS PAYMENT", response)
             const paymentReq = PaymentRequest.create({
                 preferenceId: response.body.id,
                 email: req.user.email,
                 usd: req.body.unit_price,
                 status: "IN PROCESS"
             })
-            //console.log("soy el RESIDD",response.body.id)
+            console.log("soy el RESIDD",response.body.sandbox_init_point)
             res.json({
                 id: response.body.id,
                 sandbox: response.body.sandbox_init_point

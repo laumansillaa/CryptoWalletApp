@@ -10,6 +10,7 @@ import Transfer from './components/Transfer';
 import Sell from "./components/Sell"
 import BalanceUser from "./components/BalanceUser"
 import StakingUser from './components/StakingUser';
+import MercadoPago from './components/MercadoPago';
 const Stack = createStackNavigator();
 
 export default function HomeIndex() {
@@ -28,6 +29,7 @@ export default function HomeIndex() {
       <Stack.Screen name="UserSell" component={Sell}/>
       <Stack.Screen name="StakingUser" component={StakingUser}/>
       <Stack.Screen name="BalanceUser" component={BalanceUser}/>
+      <Stack.Screen name="MercadoPago" component={MercadoPago} />
     </Stack.Navigator>
   );
 }

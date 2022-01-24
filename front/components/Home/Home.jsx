@@ -223,13 +223,15 @@ export default function Home({ navigation }) {
                 </Button>
                 <Button
                   onPress={() => {
-                    
-                    let d = new Date();
-                    d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
-                    dispatch(depositTransaction({ action: "Deposit", money: "USD", mont: founds, date: d }))
+                    setShowModal(false)
+                    navigation.navigate("MercadoPago", {price : founds})
+                    // let d = new Date();
+                    // d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
+                    // dispatch(depositTransaction({ action: "Deposit", money: "USD", mont: founds, date: d }))
+
                    
                     //setShowModal(false)
-                    setLoadingState(true)
+                    // setLoadingState(true)
                   }}
                 >
                   Confirm

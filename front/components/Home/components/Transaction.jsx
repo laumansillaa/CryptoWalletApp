@@ -12,44 +12,39 @@ import {
   Avatar
 } from 'native-base';
 
-export default function Transaction({action,date,mont,money}) {
-return (
+export default function Transaction({action, date, mont, money}) {
+  return (
+    <Box 
+      justifyContent="center"
+      alignSelf="center"
+      m="3px"
+      px="4px"
+      width="96%"
+      height="63px"
+      bg="gray.800"
+      borderRadius="4px"
+    >
+      <Stack
+        flexDirection="row"
+        justifyContent="space-around"
+      >
+        {/* <Box aligSelf="center" > */}
+        {/*   <Avatar bg="darkBlue.900" size="lg"  alignSelf="center"> */}
+        {/*     <Text fontSize="4xl">{money}</Text> */}
+        {/*   </Avatar> */}
+        {/* </Box> */}
 
-   
-        <Box 
-         bg="#ffffff"
-         py="5"
-         
-         mb="01"
-        shadow={9}
-         rounded="md"
-        
-         alignSelf="center"
-         width={350}
-         
-         maxWidth="100%"
-         maxHeight="100%"
-        >
-        <Stack direction="row" >
-            <Box aligSelf="center" >
-            <Avatar bg="darkBlue.900" size="lg"  alignSelf="center">
-                <Text fontSize="4xl">{(money)?money.charAt(0):""}</Text>
-            </Avatar>
-            </Box>
-            <VStack ml="10px">
-            <Text   fontSize="lg"color="#000000">{action} de {(money)?money.charAt(0):""}</Text>
-            <Text  fontSize="xs"color="#000000">{date}</Text>
-            </VStack>
-            <VStack ml="50px" >
-            <Text ml="50px" mt="0.5"color="tertiary.400">{(money)?money.charAt(0):""}</Text>
-            <Text fontSize="xl" color="tertiary.400">+{parseFloat(mont).toFixed(5)}</Text>
-            </VStack>
+        <VStack>
+          <Text fontSize="18px" color="#fff">{`${action[0]?.toUpperCase()}${action?.slice(1)}`}</Text>
+          <Text fontSize="12px" color="#fff">{date}</Text>
+        </VStack>
 
-        </Stack>
-            
-        </Box>  
-      
-  
- 
+        <VStack>
+          <Text fontSize="14px" color="#fff">{money}</Text>
+          <Text fontSize="14px" color="tertiary.400">+{parseFloat(mont).toFixed(5)}</Text>
+        </VStack>
+
+      </Stack>
+    </Box>  
   );
 }

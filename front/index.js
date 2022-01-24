@@ -33,21 +33,22 @@ React.useEffect(()=>{
       colors: {
         // Add new color
         theme: {
-          50: '#E3F2F9',
-          100: '#C5E4F3',
-          200: '#A2D4EC',
-          300: '#7AC1E4',
-          400: '#47A9DA',
-          500: '#0088CC',
-          600: '#000000',
-          700: '#006BA1',
-          800: '#005885',
-          900: '#003F5E',
+          50: '#FFFFFF',
+          100: '#18181b',
+          150: "#27272a",
+          200: '#6ee7b7',
+          300: '#059669',
+          400: '#064e3b',
+         
         },
         // Redefinig only one shade, rest of the color will remain same
-      }
+      },
+      config: {
+        // Changing initialColorMode to 'dark'
+        initialColorMode: 'dark',
+      },
     });
-    console.log(theme)
+
    setThemeSelect(theme)
   }else if(blockChain === "ethereum"){
 
@@ -55,65 +56,25 @@ React.useEffect(()=>{
       colors: {
         // Add new color
         theme: {
-          50: '#E3F2F9',
-          100: '#C5E4F3',
-          200: '#A2D4EC',
-          300: '#7AC1E4',
-          400: '#47A9DA',
-          500: '#0088CC',
-          600: '#005885',
-          700: '#006BA1',
-          800: '#005885',
-          900: '#003F5E',
+          50: '#FFFFFF',
+          100: '#18181b',
+          150: "#27272a",
+          200: '#fda4af',
+          300: '#e11d48',
+          400: '#881337',
+         
         },
         // Redefinig only one shade, rest of the color will remain same
       }
       
     });
-    console.log(theme)
+   
     setThemeSelect(theme)
   }
 
-console.log(blockChain)
+
 
 },[blockChain])
-
-/* 
-const themestellar = extendTheme({
-  colors: {
-    // Add new color
-    theme: {
-      50: '#E3F2F9',
-      100: '#C5E4F3',
-      200: '#A2D4EC',
-      300: '#7AC1E4',
-      400: '#47A9DA',
-      500: '#0088CC',
-      600: '#ffffff',
-      700: '#006BA1',
-      800: '#005885',
-      900: '#003F5E',
-    },
-    // Redefinig only one shade, rest of the color will remain same
-  }})
-
-  const themeethereum = extendTheme({
-    colors: {
-      // Add new color
-      theme: {
-        50: '#E3F2F9',
-        100: '#C5E4F3',
-        200: '#A2D4EC',
-        300: '#7AC1E4',
-        400: '#47A9DA',
-        500: '#0088CC',
-        600: '#000000',
-        700: '#006BA1',
-        800: '#005885',
-        900: '#003F5E',
-      },
-      // Redefinig only one shade, rest of the color will remain same
-    }}) */
 
 const dispatch = useDispatch();
 let userToken =useSelector(state => state.userToken);

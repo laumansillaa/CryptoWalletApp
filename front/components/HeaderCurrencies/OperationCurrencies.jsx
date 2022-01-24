@@ -99,7 +99,7 @@ export default function OperationCurrencies({route, navigation }) {
               </HStack>
               </Box>
            {/* <SegmentChartGrandient/> */}
-    {/*       <Chart2/>   */}
+       <Chart2/>   
      
           </VStack>
           

@@ -36,22 +36,31 @@ export default function UserCriptos({navigation}) {
  React.useEffect( () => {
 
   if(blockChain === "stellar"){
-    let usd
-    if(balance.stellar) usd = balance.stellar.stakingBalance
-    if(usd) usd = parseFloat(usd).toFixed(2);
-    setBalanceUsd(usd)
+    if(balance){
+      let usd
+      if(balance.stellar) usd = balance.stellar.stakingBalance
+      if(usd) usd = parseFloat(usd).toFixed(2);
+      setBalanceUsd(usd)
+  
+      let aux = balance.stellar.currencies?.filter((element) =>element["staking"] )
+  
+      setCurrencies(aux)
 
-    let aux = balance.stellar.currencies?.filter((element) =>element["staking"] )
-
-    setCurrencies(aux)
+    }
+    
   }else if ("ethereum"){
-    let usd
-    if(balance.ethereum) usd = balance.ethereum.stakingBalance
-    if(usd) usd = parseFloat(usd).toFixed(2);
-    let aux = balance.ethereum.currencies?.filter((element) =>element["staking"] )
 
-    setCurrencies(aux)
-    setBalanceUsd(usd)
+    if(balance){
+      let usd
+      if(balance.ethereum) usd = balance.ethereum.stakingBalance
+      if(usd) usd = parseFloat(usd).toFixed(2);
+      let aux = balance.ethereum.currencies?.filter((element) =>element["staking"] )
+  
+      setCurrencies(aux)
+      setBalanceUsd(usd)
+
+    }
+   
 }},[balance,blockChain])
 
 

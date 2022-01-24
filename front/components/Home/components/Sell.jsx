@@ -91,7 +91,7 @@ async function transferUser (){
       data: {
         currency: currency,
          amount: founds,                                              
-        purchaseCurrency: "USDT"
+       
   
       },
       withCredentials: true,

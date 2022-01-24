@@ -20,10 +20,14 @@ import { Pressable, RefreshControl } from 'react-native';
 import { useState } from 'react';
 import UserCriptos from '../UserCriptos';
 import StakingUser from './StakingUser';
+import { useSelector, useDispatch } from 'react-redux';
+import { getBalance } from '../../../redux/actions';
 
 
 export default function BalanceUser({navigation}) {
     let screenRender
+const dispatch = useDispatch()
+const [refreshing, setRefreshing] = useState(false);
     const [screen, setScreen]= useState("balance")
    
 
@@ -31,42 +35,16 @@ export default function BalanceUser({navigation}) {
     
         
         if(screen === "balance"){
-           screenRender =<>
-           <PresenceTransition
-        visible= {true}
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-          transition: {
-            duration: 250,
-          },
-        }}
-      >
+           screenRender =
+           
            <UserCriptos navigation={navigation}/>
-      </PresenceTransition>
+     
         
-           </>
+           
         }else if(screen === "staking"){
 
-            screenRender = <>
-            <PresenceTransition
-         visible= {true}
-         initial={{
-           opacity: 0,
-         }}
-         animate={{
-           opacity: 1,
-           transition: {
-             duration: 250,
-           },
-         }}
-       >
-            <StakingUser navigation={navigation}/>
-       </PresenceTransition>
-         
-            </>
+            screenRender = <StakingUser navigation={navigation}/>
+     
         }
 
 
@@ -76,8 +54,13 @@ export default function BalanceUser({navigation}) {
 
     return (
         <>
+        <ScrollView  refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={()=>{dispatch(getBalance())}}
+          />}>
          <Box
-          mt="50px"
+          mt="35px"
           py="1"
           
           rounded="md"
@@ -100,22 +83,9 @@ export default function BalanceUser({navigation}) {
            
         </Stack>
         </Box>
-        <PresenceTransition
-        visible= {true}
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-          transition: {
-            duration: 250,
-          },
-        }}
-      >
-        {screenRender}
-      </PresenceTransition>
-       
         
+        {screenRender}
+        </ScrollView>
         </>
     );
 }

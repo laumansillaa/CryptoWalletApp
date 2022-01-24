@@ -9,14 +9,7 @@ import {  Container, Image, FormControl, Input, Button, Icon, Heading, Stack, Wa
 import { MaterialIcons } from "@expo/vector-icons"
 import { validateEmail, validatePassword } from "../Utils/Utils";
 
-<<<<<<< HEAD
 import * as WebBrowser from 'expo-web-browser';
-=======
-
-import { AuthSession, WebBrowser, Linking } from 'expo'
-
-
->>>>>>> d6b916032d265a729fc6052e3d882a6b3c02888e
 
 
 export default function Login ({ navigation }) {

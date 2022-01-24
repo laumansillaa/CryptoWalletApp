@@ -15,14 +15,13 @@ import {
   Text,
 } from "native-base"
 import { MaterialCommunityIcons } from "@expo/vector-icons"
+import { useSelector } from "react-redux";
 
 
 
 export default function MyTags({ navigation }) {
-  //const cvu = useSelector(state => state.userData.cvu)
-  //para traer cvu del estado descomentar la linea 20, comentar la linea 22 y descomentar del reducer las lineas 18 y 52 
-  const [cvu, setCopyCvu] = React.useState("0000003344556600002233")
-
+  const data = useSelector(state => state.userData)
+  
   const toast = useToast()
   const [show, setShow] = React.useState(false)
   const { value, onCopy } = useClipboard()
@@ -44,14 +43,14 @@ export default function MyTags({ navigation }) {
           <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" >My Tags</Text>
         </Stack>
       </Box>
-      <Box w='250'>
+      <Box w='100%'>
         <VStack space={2}>
-          <HStack alignItems="center" justifyContent="space-between">
-            <Text color="dark">CVU</Text>
+          <VStack alignItems="center" justifyContent="space-between">
+            <Text color="dark">My ethereum public key</Text>
             <HStack alignItems="center" space={3}>
-              <Text color="blueGray.400">{cvu}</Text>
+              <Text color="blueGray.400">{data.publicKeys.ethereum}</Text>
               <Button onPress={() => {
-                onCopy(cvu)
+                onCopy(data.publicKeys.ethereum)
                 setShow(true)
                 toast.show({
                   duration: 1200,
@@ -69,7 +68,37 @@ export default function MyTags({ navigation }) {
                 colorScheme="green"
               ></Button>
             </HStack>
-          </HStack>
+          </VStack>
+          <Divider my="2" bg='emerald.600' />
+        </VStack>
+      </Box>
+
+      <Box w='100%'>
+        <VStack space={2}>
+          <VStack alignItems="center" justifyContent="space-between">
+            <Text color="dark">My stellar public key</Text>
+            <HStack alignItems="center" space={3}>
+              <Text color="blueGray.400">{data.publicKeys.stellar}</Text>
+              <Button onPress={() => {
+                onCopy(data.publicKeys.stellar)
+                setShow(true)
+                toast.show({
+                  duration: 1200,
+                  placement: "bottom",
+                  render: () => {
+                    return (
+                      <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
+                        successful copy
+                      </Box>
+                    )
+                  },
+                })
+              }}
+                leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
+                colorScheme="green"
+              ></Button>
+            </HStack>
+          </VStack>
           <Divider my="2" bg='emerald.600' />
         </VStack>
       </Box>

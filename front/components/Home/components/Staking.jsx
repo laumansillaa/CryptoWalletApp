@@ -49,6 +49,8 @@ export default function Staking({route, navigation}) {
   
           setUrlBlockChain("ethereum");
         }
+
+
         if(aux){
             if(aux.hasOwnProperty("staking")){
                 setDisableTakeOut(false)
@@ -75,7 +77,7 @@ export default function Staking({route, navigation}) {
 async function stakingUser (){
 
 
-    if(blockChain === "stellar"){
+
         
   try {
     setMes("loading...")
@@ -95,46 +97,43 @@ async function stakingUser (){
     setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
 
   } catch (error) {
-    setMes("Failed Transfer")
+    setMes("Failed Staking")
     console.error(error);
   } 
 
 
-      }
-      else if(blockChain === "ethereum"){
+      
+      
         
+  
+        
+
+}
+
+async function stakeTaking(){
+
   try {
     setMes("loading...")
     const response = await axios({
       method: "post",
       data: {
-        currency: currency,
-         amount: founds,                                              
-        purchaseCurrency: "USDT"
-  
+        stakingCurrency: currency, 
+     
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
+      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/takestake`,
     });
 
     setMes(response.data)
     setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
 
   } catch (error) {
-    setMes("Failed Transfer")
+    setMes("Failed Staking")
     console.error(error);
   } 
-        
-      }
-
-
-
-
 
 
 }
-
-
 
 
 
@@ -246,7 +245,7 @@ async function stakingUser (){
         <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
         <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disabledButton} onPress={() => stakingUser()}>
         <Text color="#ffffff" fontSize="2xl" >Confirm</Text></Button>
-        <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disableTakeOut} onPress={() => stakingUser()}>
+        <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disableTakeOut} onPress={() => stakeTaking()}>
         <Text color="#ffffff" fontSize="2xl" >Withdraw currency</Text></Button>
       </HStack>
 

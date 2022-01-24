@@ -31,7 +31,7 @@ export default function OperationCurrencies({ route, navigation }) {
         if(blockChain === "stellar") {
             let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
             (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
-        } else if("ethereum"){
+        } else if(blockChain === "ethereum"){
             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
             (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
         }
@@ -62,7 +62,7 @@ export default function OperationCurrencies({ route, navigation }) {
                     <Avatar bg="#ffffff" size="lg"  alignSelf="center">
                         <Text color="#000000" fontWeight="bold" fontSize="4xl">{currency.charAt(0)}</Text>
                     </Avatar>
-                    <Text fontSize="xl" color="darkBlue.900" fontWeight="bold" >{currency}</Text> 
+                    <Text fontSize="xl" color="darkBlue.900" fontWeight="bold" >{currency}</Text>
                     <Text fontSize="xl" color="darkBlue.900" fontWeight="bold" > {amount}</Text>
                 </Box>
                 <Box
@@ -73,38 +73,38 @@ export default function OperationCurrencies({ route, navigation }) {
                   alignItems="center"
                 >
                     <HStack ml="2"alignItems="center">
-                        <Button 
-                          mt="9"  
-                          ml="2" 
-                          bg="indigo.600"  
-                          fontWeight="bold" 
+                        <Button
+                          mt="9"
+                          ml="2"
+                          bg="indigo.600"
+                          fontWeight="bold"
                           onPress={()=>navigation.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency})}
                         >
                             Transfer
                         </Button>
-                        <Button 
-                          mt="9" 
-                          ml="2" 
-                          bg="indigo.600"  
-                          fontWeight="bold" 
+                        <Button
+                          mt="9"
+                          ml="2"
+                          bg="indigo.600"
+                          fontWeight="bold"
                           onPress={()=>navigation.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency})}
                         >
                             Sell
-                        </Button>     
-                        <Button 
-                          mt="9" 
-                          ml="2" 
-                          bg="indigo.600" 
-                          fontWeight="bold"  
+                        </Button>
+                        <Button
+                          mt="9"
+                          ml="2"
+                          bg="indigo.600"
+                          fontWeight="bold"
                           onPress={()=> navigation.navigate("CardCripto", {token:currency})}
                         >
                             Buy
                         </Button>
-                          <Button 
-                          mt="9" 
-                          ml="2" 
-                          bg="indigo.600" 
-                          fontWeight="bold"  
+                          <Button
+                          mt="9"
+                          ml="2"
+                          bg="indigo.600"
+                          fontWeight="bold"
                           onPress={()=> navigation.navigate("StakingCurrencie", {amount:parseFloat(amount).toFixed(4), currency:currency,})}
                         >
                             Staking
@@ -112,7 +112,7 @@ export default function OperationCurrencies({ route, navigation }) {
                     </HStack>
                 </Box>
                 <Chart2/>
-            </VStack> 
-        </Center>   
+            </VStack>
+        </Center>
     );
 }

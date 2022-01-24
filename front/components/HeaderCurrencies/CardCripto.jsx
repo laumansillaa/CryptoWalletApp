@@ -30,7 +30,7 @@ export default function CardCripto({route, navigation}) {
        const dispatch = useDispatch();
         const [state, setState] = useState()
         const stateToken = useSelector((state)=> state.tokens)
-
+        const [disabledButton, setDisableButton] = useState(true);
 
        /*  React.useEffect(async ()=>{
            let aux =state;
@@ -52,7 +52,7 @@ export default function CardCripto({route, navigation}) {
                 so.on(token, msg =>{
                   /* dispatch(getTokens({name:token,price:msg})) */
                    setState({name:token,price:msg})
-                
+                setDisableButton(false)
                 }) 
 
             }catch(e){
@@ -109,7 +109,7 @@ export default function CardCripto({route, navigation}) {
              Data {token}:
             </Text>
       </Box>
-        <Button onPress={()=> navigation.navigate("BuyCurrencie", {
+        <Button isDisabled={disabledButton} onPress={()=> navigation.navigate("BuyCurrencie", {
           token,
           price:state.price
         })}>

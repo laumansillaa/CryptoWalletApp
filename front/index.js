@@ -16,9 +16,65 @@ import {
 import TabNavFooter from './components/TabNavFooter/TabNavFooter'
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 import PasswordReset from './components/PasswordRecovery/PasswordReset';
+import { NativeBaseProvider, extendTheme, Text } from 'native-base';
+
 const Stack = createStackNavigator();
 
 export default function Index() {
+const blockChain = useSelector(state => state.blockChain)
+const [themeSelect, setThemeSelect] = useState({})
+
+
+React.useEffect(()=>{
+  
+  if(blockChain === "stellar"){
+
+   let theme = extendTheme({
+      colors: {
+        // Add new color
+        theme: {
+          50: '#FFFFFF',
+          100: '#18181b',
+          150: "#27272a",
+          200: '#6ee7b7',
+          300: '#059669',
+          400: '#064e3b',
+         
+        },
+        // Redefinig only one shade, rest of the color will remain same
+      },
+      config: {
+        // Changing initialColorMode to 'dark'
+        initialColorMode: 'dark',
+      },
+    });
+
+   setThemeSelect(theme)
+  }else if(blockChain === "ethereum"){
+
+  let  theme = extendTheme({
+      colors: {
+        // Add new color
+        theme: {
+          50: '#FFFFFF',
+          100: '#18181b',
+          150: "#27272a",
+          200: '#fda4af',
+          300: '#e11d48',
+          400: '#881337',
+         
+        },
+        // Redefinig only one shade, rest of the color will remain same
+      }
+      
+    });
+   
+    setThemeSelect(theme)
+  }
+
+
+
+},[blockChain])
 
 const dispatch = useDispatch();
 let userToken =useSelector(state => state.userToken);
@@ -74,7 +130,9 @@ let userToken =useSelector(state => state.userToken);
   }
 
   return ( 
-   
+
+    <NativeBaseProvider theme={themeSelect} >
+      {    console.log(blockChain)}
       <NavigationContainer>
         {!logged ? <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
       headerShown: false,
@@ -93,6 +151,7 @@ let userToken =useSelector(state => state.userToken);
                    <TabNavFooter/>
                    }
       </NavigationContainer>
+      </NativeBaseProvider>
   )
 }
 

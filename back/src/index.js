@@ -39,4 +39,3 @@ const httpServer = createServer(app);
     console.log(`Server listening at port ${PORT}.`);
   } catch(error) { console.error(error) }
 })()
-

@@ -1,7 +1,7 @@
 const axios = require("axios");
 const StellarSDK = require("stellar-sdk");
 const server = new StellarSDK.Server("https://horizon-testnet.stellar.org");
-const { Key, Staking } = require("../../db").models;
+const { Key, Staking, Operation } = require("../../db").models;
 
 module.exports = async function(req, res, next) {
     console.log("---------- OPERATION STELLAR TAKE-STAKE ROUTE ----------")
@@ -36,6 +36,19 @@ module.exports = async function(req, res, next) {
         await server.submitTransaction(operation);
         
         await stakeOperation.destroy();
+
+        const dbOperation = await Operation.create({
+            operationType: "take stake",
+            blockchain: "stellar",
+            from: keys.stellar[0],
+            to: "admin",
+            currency: stakingCurrency,
+            amount: amountReward.toString(),
+            purchasedCurrency: null,
+            purchasedAmount: null
+        });
+
+        await req.user.addOperation(dbOperation);
 
         return res.status(200).send("Stellar take-stake succeeded.");
     } catch(error) { next(error) }

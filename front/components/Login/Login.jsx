@@ -10,6 +10,9 @@ import { MaterialIcons } from "@expo/vector-icons"
 import { validateEmail, validatePassword } from "../Utils/Utils";
 
 
+import { AuthSession, WebBrowser, Linking } from 'expo'
+
+
 
 
 export default function Login ({ navigation }) {
@@ -75,11 +78,41 @@ export default function Login ({ navigation }) {
 
     const onGoogleLogin = async (e) => {
       try {
-        window.open(`http://${IP_HOST}:3001/session/googleSignin`, '_self')
+        window.open(`http://localhost:3001/session/googleSignin`, '_self')
         dispatch(Log())
       } catch (error) { console.error(error) }
     };
 
+
+
+
+//     const onGoogleLogin = async () => {
+//       // gets the app's deep link
+//       let redirectUrl = await Linking.getInitialURL();
+//       // this should change depending on where the server is running
+//       let authUrl = `http://localhost:3001/session/googleSignin`;
+
+//       addLinkingListener();
+
+//       try {
+//         let authResult = await WebBrowser.openAuthSessionAsync(authUrl, redirectUrl)
+//         // await this.setState({ authResult: authResult })
+//       } catch (err) { console.error('ERROR:', err) }
+
+//       removeLinkingListener();
+//     }
+
+//     const handleRedirect = async event => {
+//       WebBrowser.dismissBrowser()
+//     };
+
+//     const addLinkingListener = () => {
+//       Linking.addEventListener('url', handleRedirect)
+//     }
+
+//     const removeLinkingListener = () => {
+//       Linking.removeEventListener('url', handleRedirect)
+//     }
 
 
     

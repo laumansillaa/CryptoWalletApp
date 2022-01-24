@@ -9,6 +9,7 @@ module.exports = async function(req, res, next) {
     console.log("---------- OPERATION ETHEREUM PURCHASE ROUTE ----------")
     try {
         const usdAmount = req.body.amount, { purchaseCurrency } = req.body; 
+        if (usdAmount < req.user.usd) return res.status.send("Insufficient funds to complete operation.")
         const publicKey = (await Key.findOne({ where: { userId: req.user.id } })).ethereum[0];
         const prices = await binance.futuresPrices();
         const purchaseAmount = (purchaseCurrency === "USDT") 

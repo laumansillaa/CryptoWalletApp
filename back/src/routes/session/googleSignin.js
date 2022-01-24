@@ -8,7 +8,7 @@ module.exports = function(req, res, next) {
         
         req.logIn(user, (err) => {
             if (err) next(err);
-            else return res.redirect("http://localhost:19006");
-        })
+            else return res.redirect(`http://${process.env.IP_HOST}:19006`);
+        });
     })(req, res, next);
 };

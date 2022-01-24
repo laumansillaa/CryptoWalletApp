@@ -9,7 +9,14 @@ import {  Container, Image, FormControl, Input, Button, Icon, Heading, Stack, Wa
 import { MaterialIcons } from "@expo/vector-icons"
 import { validateEmail, validatePassword } from "../Utils/Utils";
 
+<<<<<<< HEAD
 import * as WebBrowser from 'expo-web-browser';
+=======
+
+import { AuthSession, WebBrowser, Linking } from 'expo'
+
+
+>>>>>>> d6b916032d265a729fc6052e3d882a6b3c02888e
 
 
 export default function Login ({ navigation }) {
@@ -77,11 +84,41 @@ export default function Login ({ navigation }) {
       try {
 
         let result = await WebBrowser.openBrowserAsync(`http://localhost:3001/session/googleSignin`);
-        console.log(result)
+        
         dispatch(Log())
       } catch (error) { console.error(error) }
     };
 
+
+
+
+//     const onGoogleLogin = async () => {
+//       // gets the app's deep link
+//       let redirectUrl = await Linking.getInitialURL();
+//       // this should change depending on where the server is running
+//       let authUrl = `http://localhost:3001/session/googleSignin`;
+
+//       addLinkingListener();
+
+//       try {
+//         let authResult = await WebBrowser.openAuthSessionAsync(authUrl, redirectUrl)
+//         // await this.setState({ authResult: authResult })
+//       } catch (err) { console.error('ERROR:', err) }
+
+//       removeLinkingListener();
+//     }
+
+//     const handleRedirect = async event => {
+//       WebBrowser.dismissBrowser()
+//     };
+
+//     const addLinkingListener = () => {
+//       Linking.addEventListener('url', handleRedirect)
+//     }
+
+//     const removeLinkingListener = () => {
+//       Linking.removeEventListener('url', handleRedirect)
+//     }
 
 
     

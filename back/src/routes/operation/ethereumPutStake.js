@@ -14,7 +14,6 @@ module.exports = async function(req, res, next) {
         const yearDay = date.data.day_of_year.toString();
         const reward = rewards.filter(reward => reward.Currency === stakingCurrency);
 
-
         if (stakingCurrency === "ETH") {
             const to = ADMIN_ETHEREUM_PUBLIC_KEY;
             const value = (Math.floor(stakingAmount*10**18)).toString();
@@ -52,6 +51,17 @@ module.exports = async function(req, res, next) {
             await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
         }
 
+        const dbStake =  await Staking.create({
+            yearDay: yearDay.toString(),
+            publicKey,
+            blockchain: "ethereum",
+            currency: stakingCurrency,
+            amount: stakingAmount.toString(),
+            annualReward: reward[0].annualReward.toString()
+        });
+
+        await req.user.addStaking(dbStake);
+
         const dbOperation = await Operation.create({
             operationType: "put stake",
             blockchain: "ethereum",
@@ -64,17 +74,6 @@ module.exports = async function(req, res, next) {
         });
 
         await req.user.addOperation(dbOperation);
-
-        const dbStake =  await Staking.create({
-            yearDay: yearDay.toString(),
-            publicKey,
-            blockchain: "ethereum",
-            currency: stakingCurrency,
-            amount: stakingAmount.toString(),
-            annualReward: reward[0].annualReward.toString()
-        });
-
-        await req.user.addStaking(dbStake);
 
         return res.status(200).send("Ethereum stake succeeded.");
     } catch(error) { next(error) }

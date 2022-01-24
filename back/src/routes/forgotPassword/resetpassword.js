@@ -10,7 +10,7 @@ module.exports = async function (req, res, next) {
     
         if(!token){
             res.status(400).send({
-                message: "A token is required. If you don't have one, please request one."
+                message: "A token is required. If you don't have one, please request it."
             })
         }
 

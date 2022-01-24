@@ -14,7 +14,6 @@ module.exports = async function(req, res, next) {
         const yearDay = date.data.day_of_year.toString();
         const reward = rewards.filter(reward => reward.Currency === stakingCurrency);
 
-
         if (stakingCurrency === "ETH") {
             const to = ADMIN_ETHEREUM_PUBLIC_KEY;
             const value = (Math.floor(stakingAmount*10**18)).toString();

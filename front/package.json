@@ -23,7 +23,7 @@
     "expo": "~44.0.0",
     "expo-linking": "^3.0.0",
     "expo-status-bar": "~1.2.0",
-    "expo-web-browser": "^10.1.0",
+    "expo-web-browser": "~10.1.0",
     "native-base": "^3.3.0",
     "react": "17.0.1",
     "react-chartjs-2": "^4.0.1",
@@ -32,7 +32,7 @@
     "react-native-chart-kit": "^6.11.0",
     "react-native-charts-wrapper": "^0.5.7",
     "react-native-dotenv": "^3.3.1",
-    "react-native-gesture-handler": "^2.2.0",
+    "react-native-gesture-handler": "~2.1.0",
     "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-pager-view": "5.4.9",
     "react-native-reanimated": "~2.3.1",
@@ -49,8 +49,7 @@
     "redux-thunk": "^2.4.1",
     "socket.io-client": "^4.4.1",
     "victory": "^36.2.0",
-    "victory-native": "^36.2.0",
-    "expo-web-browser": "~10.1.0"
+    "victory-native": "^36.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

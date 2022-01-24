@@ -9,7 +9,7 @@ module.exports = async function(req, res, next) {
     console.log("---------- OPERATION STELLAR PURCHASE ROUTE ----------")
     try {
         const { currency, amount, purchaseCurrency } = req.body;
-        if (amount < req.user.usd) return res.status.send("Insufficient funds to complete operation.")
+        if (Number(req.user.usd) < Number(amount)) return res.status(400).send("Insufficient funds to complete operation.")
         const keys = await Key.findOne({ where: { userId: req.user.id } });
         const prices = await binance.futuresPrices();
         const purchaseAmount = await amount / prices[`${purchaseCurrency}${currency}`];

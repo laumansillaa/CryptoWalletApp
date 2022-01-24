@@ -101,7 +101,7 @@ export default function Home({ navigation }) {
 
         >
           <Box
-            bg="indigo.600"
+            bg="theme.600"
             py="5"
             px="8"
             rounded="md"

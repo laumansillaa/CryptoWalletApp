@@ -8,18 +8,15 @@ import store from "./redux/store";
 import Index from './index';
 import { NativeBaseProvider, extendTheme, Text } from 'native-base';
 export default function App() {
-  const config = {
-    useSystemColorMode: false,
-    initialColorMode: 'dark',
-  };
+ 
   
-  // extend the theme
-  const customTheme = extendTheme({ config });
   return ( 
     <Provider store={store}>
-    <NativeBaseProvider theme={customTheme}>
+   <NativeBaseProvider>
+
+
       <Index />
-      </NativeBaseProvider>
+    </NativeBaseProvider>
     </Provider>
   );
 }

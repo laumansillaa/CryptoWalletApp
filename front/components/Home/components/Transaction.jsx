@@ -21,7 +21,7 @@ export default function Transaction({action, date, mont, money}) {
       px="4px"
       width="96%"
       height="63px"
-      bg="gray.800"
+      bg="theme.150"
       borderRadius="4px"
     >
       <Stack
@@ -35,13 +35,13 @@ export default function Transaction({action, date, mont, money}) {
         {/* </Box> */}
 
         <VStack>
-          <Text fontSize="18px" color="#fff">{`${action[0]?.toUpperCase()}${action?.slice(1)}`}</Text>
-          <Text fontSize="12px" color="#fff">{date}</Text>
+          <Text fontSize="18px" color="theme.50">{`${action[0]?.toUpperCase()}${action?.slice(1)}`}</Text>
+          <Text fontSize="12px" color="theme.50">{date}</Text>
         </VStack>
 
         <VStack>
-          <Text fontSize="14px" color="#fff">{money}</Text>
-          <Text fontSize="14px" color="tertiary.400">+{parseFloat(mont).toFixed(5)}</Text>
+          <Text fontSize="14px" color="theme.50" alignSelf="flex-end">{money}</Text>
+          <Text fontSize="14px" color="success.400">+{parseFloat(mont).toFixed(5)}</Text>
         </VStack>
 
       </Stack>

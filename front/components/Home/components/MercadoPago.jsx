@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import {WebView} from "react-native-webview";
 import {IP_HOST} from "@env";
-import { Container, View } from "native-base";
+import { Container, Text, View } from "native-base";
 
 export default function MercadoPago({route}) {
     
@@ -35,11 +35,12 @@ export default function MercadoPago({route}) {
         <>
         <View>
          {
-             url && <WebView
+             url ? <WebView
              originWhitelist={['*']}
              source={{ uri: url }}
              startInLoadingState={true}
-             />
+             onNavigationStateChange={state => stateChange(state)}
+             /> : <Text>I cant dowload the page</Text>
         }
         </View> 
         </>

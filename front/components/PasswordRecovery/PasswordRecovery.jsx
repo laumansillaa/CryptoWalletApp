@@ -62,7 +62,7 @@ export default function PasswordRecovery({ navigation }) {
                     {error.email !== "Please enter a valid email" && email !== "" ? 
                     
                     <Button onPress={generateToken} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px"
-                     _text={{fontSize:"md"}}>Generate a Token</Button> :
+                     _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Generate a Token</Button> :
                     <FormControl.HelperText leftIcon={<WarningOutlineIcon size="md" />}>
                     {error.email} 
                     </FormControl.HelperText> }
@@ -75,18 +75,20 @@ export default function PasswordRecovery({ navigation }) {
                     <Icon as={<AntDesign name="lock1" size={24} color="black" />} size={5} ml="2" color="muted.400" />} />
                     <Divider my="2" bg='#ecfeff' />
                     <Button onPress={submitToken} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px" 
-                     _text={{fontSize:"md"}}>Submit</Button>
+                     _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Submit</Button>
                     <FormControl.HelperText>
                     {messageSubmit}
                     </FormControl.HelperText>
                     { tokenValidate ? 
                      <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" 
-                     backgroundColor= 'darkBlue.600' borderRadius= "4px"  _text={{fontSize:"md"}}>Reset Password</Button>
+                     backgroundColor= 'darkBlue.600' borderRadius= "4px"  _text={{fontSize:"md"}} 
+                     borderColor= "darkBlue.50" borderWidth="1">Reset Password</Button>
                      : <Text>Validate the token</Text>}
                     
                 </Stack>
                 <Button onPress={() => navigation.navigate("Login")} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px"
-                leftIcon= {<Icon as={<AntDesign name="back" size={5} color="black" />} />} h="9" w= "250"  _text={{fontSize:"md"}}>Go to back</Button>
+                leftIcon= {<Icon as={<AntDesign name="back" size={5} color="black" />} />} h="9" w= "250" 
+                 _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Go to back</Button>
                 </FormControl>
             </Center>
         </Box>

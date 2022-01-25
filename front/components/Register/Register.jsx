@@ -103,7 +103,9 @@ async function handleSubmit(){
         md: "25%",}}
       
       style={styles.container} >
+        <Box>
 
+        </Box>
 
             <Heading>Register </Heading>
             <Divider my="2" bg='#ecfeff' />
@@ -155,12 +157,14 @@ async function handleSubmit(){
             {error.pin}
           </FormControl.ErrorMessage>  
           <Divider my="1" bg='#ecfeff' />
-          <Button onPress={handleSubmit} backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}>Next</Button>
+          <Button onPress={handleSubmit} backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}
+           borderColor= "darkBlue.50" borderWidth="1">Next</Button>
           <FormControl.HelperText>
               {message}
             </FormControl.HelperText>
             <Divider my="1" bg='#ecfeff' />
-          <Button  onPress={() => navigation.navigate("Login") } backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}>Go to back</Button>
+          <Button  onPress={() => navigation.navigate("Login") } backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}
+          borderColor= "darkBlue.50" borderWidth="1">Go to back</Button>
           {/* SE AGREGO LA PROP NAVIGATION A LA FUNCION PARA PROBAR ESTO, REVISAR BIEN */}
         </Stack>
       

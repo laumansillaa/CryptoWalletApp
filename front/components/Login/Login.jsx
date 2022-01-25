@@ -118,8 +118,8 @@ export default function Login ({ navigation }) {
     
     return (
             <FormControl isInvalid w={{base: "100%", md: "25%",}} style={styles.container}>
-            <Image width="200px" height="200px"
-            source={require("../../assets/icon.png")} alt="logo" />            
+            {/* <Image width="200px" height="200px"
+            source={require("../../assets/icon.png")} alt="logo" />             */}
             
             <Stack space={4} w={{base: "85%", md: "25%", }} >
             <Input placeholder="Email" value={email} onChangeText={setEmail} color='coolGray.900' borderRadius= "4px" InputLeftElement={
@@ -138,16 +138,17 @@ export default function Login ({ navigation }) {
         </FormControl.ErrorMessage > 
             <Divider my="1" bg='#ecfeff' />
             <Button onPress={onLogin} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px"
-             _text={{fontSize:"xl"}} >Log in</Button> 
+             _text={{fontSize:"xl"}} borderColor= "darkBlue.50" borderWidth="1">Log in</Button> 
             <FormControl.HelperText>
             {message}
           </FormControl.HelperText>
             <Button  onPress={onGoogleLogin} size="sm" backgroundColor= 'darkBlue.600' 
-            leftIcon= {<Icon as={<Fontisto name="google" size={8} color="black" />} />} borderRadius= "4px" _text={{fontSize:"md"}} >Log in with Google</Button>
+            leftIcon= {<Icon as={<Fontisto name="google" size={8} color="black" />} />} borderRadius= "4px" _text={{fontSize:"md"}}
+            borderColor= "darkBlue.50" borderWidth="1" >Log in with Google</Button>
             <Button onPress={() => navigation.navigate("Register")} size="sm" backgroundColor= 'darkBlue.600'
-            borderRadius= "4px"  _text={{fontSize:"md"}}>Create a new account</Button>
+            borderRadius= "4px"  _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Create a new account</Button>
             <Button onPress={() => navigation.navigate("PasswordRecovery")} size="sm" backgroundColor= 'darkBlue.600'
-            borderRadius= "4px"  _text={{fontSize:"md"}}>I do not remember my password</Button>       
+            borderRadius= "4px"  _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">I do not remember my password</Button>       
           </Stack>
           </FormControl>           
            )

@@ -51,7 +51,7 @@ export default function PasswordReset() {
                     { password === confirmPassword ? <Text>the passwords match</Text> : 
                     <Text>the passwords must match</Text>}
                     { error.password === "" ? <Button onPress={resetPassword} size="sm" backgroundColor= 'darkBlue.600'
-                     borderRadius= "4px"  _text={{fontSize:"md"}}>Reset the password</Button> : 
+                     borderRadius= "4px"  _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Reset the password</Button> : 
                     <Text>The password is not right</Text> } 
                     <Text>{message}</Text>
                                         

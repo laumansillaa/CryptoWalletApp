@@ -1,8 +1,10 @@
 import * as React from 'react';
-
-
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import { Pressable, RefreshControl } from 'react-native';
+import {useFocusEffect } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import {
-
   Box,
   Button,
   IconButton,
@@ -13,28 +15,20 @@ import {
   Flex,
   Divider,
   ScrollView,
-  
 } from 'native-base';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useSelector, useDispatch} from 'react-redux';
 import Tokens from './Tokens';
-import { useState, useEffect } from 'react';
-import { Pressable, RefreshControl } from 'react-native';
-import {useFocusEffect } from '@react-navigation/native';
 import { getBalance } from '../../../redux/actions';
-
-
 
 export default function UserCriptos({navigation}) {
   const dispatch = useDispatch();
- const balance = useSelector(state => state.userData.balance)
- const [balanceUSD, setBalanceUsd] = useState("");
- const [currencies, setCurrencies] = useState([])
- const [refreshing, setRefreshing] = useState(false);
- const blockChain = useSelector(state => state.blockChain);
- const Tab = createMaterialTopTabNavigator();
- React.useEffect( () => {
+  const balance = useSelector(state => state.userData.balance)
+  const blockChain = useSelector(state => state.blockChain);
+  const [balanceUSD, setBalanceUsd] = useState("");
+  const [currencies, setCurrencies] = useState([])
+  const [refreshing, setRefreshing] = useState(false);
+  const Tab = createMaterialTopTabNavigator();
 
+  React.useEffect( () => {
   if(blockChain === "stellar"){
     if(balance){
       let usd

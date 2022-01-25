@@ -1,22 +1,17 @@
 //import 'react-native-gesture-handler';
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { Provider} from 'react-redux';
-
-import * as React from 'react';
-
+import { NativeBaseProvider, extendTheme, Text } from 'native-base';
 import store from "./redux/store";
 import Index from './index';
-import { NativeBaseProvider, extendTheme, Text } from 'native-base';
+
 export default function App() {
- 
-  
   return ( 
     <Provider store={store}>
-   <NativeBaseProvider>
-
-
-      <Index />
-    </NativeBaseProvider>
+      <NativeBaseProvider>
+        <Index />
+      </NativeBaseProvider>
     </Provider>
   );
 }

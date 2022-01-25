@@ -1,69 +1,39 @@
 import * as React from 'react';
-
-
 import {
-
-  Box,
-  Stack,
-  
-  VStack,
   Text,
   Button,
- 
   Avatar,
-  ZStack,
-  Pressable
+  Pressable,
+  Divider
 } from 'native-base';
 
 export default function Tokens({currency, amount, nav}) {
-return (
-
-    <Pressable 
-    onPress={()=>{nav.navigate("OperationCurrencies",{currency})}}
+  return (
+    <>
+      <Pressable 
+        onPress={()=>{nav.navigate("OperationCurrencies",{currency})}}
+        alignSelf="center"
+        flexDirection="row"
+        justifyContent="flex-start"
+        alignItems="center"
+        m="5px"
+        p="10px"
+        px="25px"
+        width="90%"
+        height="50px"
+        bg="theme.150"
+        borderRadius="2px"
+        borderWidth="0.4px"
+        borderColor="theme.400"
       >
-        <Box 
-         bg="black"
-         
-         py="5"
-         px="1"
-         mb="01"
-        shadow={9}
-         rounded="md"
-        
-         alignSelf="center"
-         width={350}
-         height={100}
-         
-         maxWidth="100%"
-         maxHeight="100%"
-        >
-          <ZStack> 
-        <Stack direction="row" >
-            <Box aligSelf="center" >
-            <Avatar bg="#ffffff" size="lg"  alignSelf="center">
-                <Text color="#000000" fontWeight="bold"fontSize="4xl">{currency.charAt(0)}</Text>
-            </Avatar>
-            </Box>
-            <VStack>
-            <Text px="5" fontWeight="bold" fontSize="lg"color="#ffffff">{currency}</Text>
-            
-            </VStack>
-            <VStack alignItems="center" >
-            <Text px="1" mt="1" ml="70" color="tertiary.400">{parseFloat(amount).toFixed(5)}{currency}</Text>
-           
-            </VStack>
-           
-          
-        </Stack>
-       {/*  <Button mt="9"  ml="250px" bg="indigo.600" borderColor="#171717" fontWeight="bold" borderWidth="2" 
-        onPress={()=>nav.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Transfer</Button>
-             
-             <Button mt="9"  ml="180px" bg="indigo.600" borderColor="#171717" fontWeight="bold" borderWidth="2" 
-        onPress={()=>nav.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>    */}
-        </ZStack>
-        </Box>  
-        </Pressable>
-  
- 
+        <Avatar bg="theme.50" size="33px">
+          <Text color="theme.100" fontWeight="bold" fontSize="18px">{currency.charAt(0)}</Text>
+        </Avatar>
+
+        <Text ml="15px" fontSize="16px" color="theme.50" letterSpacing="1px">{currency}</Text>
+
+        <Text ml="auto" color="theme.50">{parseFloat(amount).toFixed(5)}</Text>
+      </Pressable>
+    </>
   );
 }

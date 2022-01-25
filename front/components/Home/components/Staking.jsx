@@ -3,6 +3,7 @@ import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
 import {IP_HOST} from "@env"
+import { Dimensions } from 'react-native';
 import {
   Box,
   Stack,
@@ -26,6 +27,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function Staking({route, navigation}) {
+  const windowHeight = Dimensions.get("window").height
       const {currency, amount,staking} = route.params
       const [disabledButton, setDisableButton] = useState(true)
       const [disableMount, setDisableMount] = useState(true);
@@ -46,7 +48,7 @@ export default function Staking({route, navigation}) {
         aux = balance.stellar.currencies.find(element => element.currency === currency) 
         }
         else if(blockChain === "ethereum"){
-  
+          aux = balance.ethereum.currencies.find(element => element.currency === currency) 
           setUrlBlockChain("ethereum");
         }
 
@@ -142,25 +144,30 @@ async function stakeTaking(){
     return (
       <>    
       {/* Componente amount y button go back */}
+      <Box bg="theme.100"
+      height={windowHeight}
+      >
+
+
            <Box
-          mt="50px"
+          mt="20"
           py="1"
-          mb="5"
-          rounded="xl"
+          mb="2"
+          rounded="md"
           alignSelf="center"
-          width={375}
+          width={360}
           maxWidth="100%"
-          bg="#FFC902"
+          bg="theme.200"
           
          
           >
 
           <Stack direction="row" alignItems="center" rounded="md">
           <Pressable   onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="darkBlue.900" size="9"/>
+          <ChevronLeftIcon color="theme.150" size="9"/>
           </Pressable>
           <VStack>
-          <Text ml="80px" fontSize="lg" color="black" fontWeight="bold" >Amount available </Text> 
+          <Text ml="80px" fontSize="lg" color="theme.150" fontWeight="bold" >Amount available </Text> 
              
           </VStack>
              
@@ -168,7 +175,7 @@ async function stakeTaking(){
           <VStack alignSelf="center">
           
           <Text color="#ffffff" ml="70px" fontWeight="bold" fontSize="2xl"> {amount} </Text>
-          <Text ml="170px" mt="-5" fontSize="xl"  color="darkBlue.800" fontWeight="bold" >{currency} </Text> 
+          <Text ml="170px" mt="-5" fontSize="xl"  color="theme.200" fontWeight="bold" >{currency} </Text> 
           </VStack>
           
           </Box>
@@ -179,21 +186,22 @@ async function stakeTaking(){
 
          
           <Box
-          mt="20px"
+        
           py="1"
-          mb="5"
+          mt="2"
+          mb="2"
           alignItems="center"
-          rounded="xl"
+          rounded="md"
           alignSelf="center"
-          width={375}
+          width={360}
           maxWidth="100%"
-          bg="#CF2E2E"
+          bg="theme.150"
           
           
          
           >
 
-          <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
+          <Text color="theme.50" mt="2" fontWeight="bold" fontSize="lg" pb="1">
             Amount to staking of {currency}:
             </Text>
           <Text color="#ffffff" fontWeight="bold" fontSize="2xl"> {founds} </Text>
@@ -201,15 +209,15 @@ async function stakeTaking(){
       </Box>
 
       <Box
-          mt="20px"
+          mt="1"
           py="1"
-          mb="5"
+          mb="2"
           alignItems="center"
-          rounded="xl"
+          rounded="md"
           alignSelf="center"
-          width={375}
+          width={360}
           maxWidth="100%"
-          bg="darkBlue.900"
+          bg="theme.300"
            >
 
           <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
@@ -220,15 +228,15 @@ async function stakeTaking(){
       </Box>
       
       <Box
-          mt="20px"
+          mt="1"
           py="1"
           mb="5"
           alignItems="center"
-          rounded="xl"
+          rounded="md"
           alignSelf="center"
-          width={375}
+          width={360}
           maxWidth="100%"
-          bg="darkBlue.900"
+          bg="theme.400"
            >
 
           <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
@@ -237,24 +245,24 @@ async function stakeTaking(){
           <Text color="#ffffff" fontWeight="bold" fontSize="2xl"> {parseFloat(foundsStalking).toFixed(3) } </Text>
       
       </Box>
-      
+       <HStack alignSelf="center">
 
-      <Text ml="70px" fontSize="xl" color="black" fontWeight="bold" > {(mes)?mes:""} </Text> 
-      <HStack alignSelf="center">
-      <Button rounded="lg" px="7" py="1"  isDisabled={disableMount} bg="darkBlue.900"onPress={() => setShowModal(true)}>
+      <Button variant="outline" colorScheme="theme" rounded="md" px="7" py="1"  isDisabled={disableMount}  onPress={() => setShowModal(true)}>
         <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
-        <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disabledButton} onPress={() => stakingUser()}>
+
+        <Button variant="outline" colorScheme="theme"  ml="2"rounded="md" px="7"  py="1" isDisabled={disabledButton} onPress={() => stakingUser()}>
         <Text color="#ffffff" fontSize="2xl" >Confirm</Text></Button>
-        <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disableTakeOut} onPress={() => stakeTaking()}>
+        </HStack>
+        <Button variant="outline" colorScheme="theme" mt="2"rounded="md" px="7"  py="1" isDisabled={disableTakeOut} onPress={() => stakeTaking()}>
         <Text color="#ffffff" fontSize="2xl" >Withdraw currency</Text></Button>
-      </HStack>
+   
 
   
 
           </Box>
       
           
-        
+          </Box>
          
 
           <Modal isOpen={showModal} onClose={() => setShowModal(false)}>

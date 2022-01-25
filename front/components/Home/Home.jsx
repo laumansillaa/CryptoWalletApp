@@ -1,8 +1,9 @@
 import * as React from 'react';
 
 import { useDispatch, useSelector } from "react-redux"
-import { addFounds, depositTransaction, getBalance, getDataUser, geTransactionUser, getTokernsHard } from '../../redux/actions';
+import { addFounds, depositTransaction, getBalance, getDataUser, geTransactionUser, getBlockChain } from '../../redux/actions';
 import { useState, useEffect } from 'react';
+import { FontAwesome } from '@expo/vector-icons'; 
 import {
   Button,
   NativeBaseProvider,
@@ -15,12 +16,14 @@ import {
   Modal,
   FormControl,
   Input,
+  Icon,
   Center,
   InputGroup,
   InputLeftAddon,
   CheckIcon,
   ScrollView,
   extendTheme,
+  Fab,
 } from 'native-base';
 import Transaction from './components/Transaction';
 
@@ -29,6 +32,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import {useFocusEffect } from '@react-navigation/native';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
 export default function Home({ navigation }) {
+  const [isEnabled, setIsEnabled] = useState(false);
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)
   const [showModal, setShowModal] = useState(false)
@@ -36,6 +40,27 @@ export default function Home({ navigation }) {
   const [founds, setFounds] = useState("");
   const [loadingState, setLoadingState] = useState(false)
   const blockChain = useSelector(state => state.blockChain);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  
+  React.useEffect(()=>{
+
+    
+
+    if(!isEnabled){
+      dispatch(getBlockChain("stellar"))
+      dispatch(getBalance())
+      dispatch(geTransactionUser())
+     
+     
+    }else{
+      dispatch(getBlockChain("ethereum"))
+      dispatch(getBalance())
+      dispatch(geTransactionUser())
+   
+    }
+  navigation.navigate("HomeIndex")
+
+  },[isEnabled])
 
   React.useEffect( () => {
     dispatch(getDataUser())
@@ -179,6 +204,22 @@ export default function Home({ navigation }) {
           </VStack>
 
         </ScrollView>
+
+        <Fab
+      onPress={()=>toggleSwitch()}
+      bottom={70}
+        borderRadius="full"
+        bg="theme.300"
+        placement="bottom-right"
+        icon={
+          <Icon
+            color="white"
+            as={<FontAwesome name="exchange" size={24} color="black" />}
+            size="4"
+          />
+        }
+        
+      />
     
 
         {/*Ventana que se abren */}

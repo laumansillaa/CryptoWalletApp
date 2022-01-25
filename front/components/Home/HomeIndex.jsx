@@ -10,6 +10,9 @@ import Transfer from './components/Transfer';
 import Sell from "./components/Sell"
 import BalanceUser from "./components/BalanceUser"
 import StakingUser from './components/StakingUser';
+import CardCripto from '../HeaderCurrencies/CardCripto';
+import BuyCurrencie from '../HeaderCurrencies/BuyCurrencie';
+import OperationCurrencies from '../HeaderCurrencies/OperationCurrencies';
 const Stack = createStackNavigator();
 
 export default function HomeIndex() {
@@ -27,7 +30,10 @@ export default function HomeIndex() {
       <Stack.Screen name="UserTransfer" component={Transfer}/>
       <Stack.Screen name="UserSell" component={Sell}/>
       <Stack.Screen name="StakingUser" component={StakingUser}/>
+      <Stack.Screen name="CardCripto" component={CardCripto} />
+      <Stack.Screen name="BuyCurrencie" component={BuyCurrencie} />
       <Stack.Screen name="BalanceUser" component={BalanceUser}/>
+      <Stack.Screen name="OperationCurrencies" component={OperationCurrencies} />
     </Stack.Navigator>
   );
 }

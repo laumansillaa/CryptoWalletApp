@@ -25,9 +25,8 @@ export default function CurrenciesIndex() {
       presentation="modal" >
       <Stack.Screen name="ChatBot" component={ChatBot} />
       <Stack.Screen name="CurrenciesIndex" component={HeaderCurrencies} />
-      <Stack.Screen name="CardCripto" component={CardCripto} />
-      <Stack.Screen name="BuyCurrencie" component={BuyCurrencie} />
-      <Stack.Screen name="OperationCurrencies" component={OperationCurrencies} />
+     
+     
       <Stack.Screen name="StakingCurrencie" component={Staking} />
     </Stack.Navigator>
   );

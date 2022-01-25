@@ -18,7 +18,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 export default function Confirmation({ navigation }) {
     const transaction = useSelector(state => state.userData.transactions[0])
-    console.log(transaction)
+ 
     return (
         <Center flex={1} px="3" >
             <VStack space={20}>

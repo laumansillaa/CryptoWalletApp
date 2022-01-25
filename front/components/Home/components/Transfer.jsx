@@ -52,6 +52,7 @@ export default function Transfer({route, navigation}) {
           setUrlBlockChain("stellar")
         }
         else if(blockChain === "ethereum"){
+          
   
           setUrlBlockChain("ethereum");
         }
@@ -63,7 +64,7 @@ export default function Transfer({route, navigation}) {
 
 async function transferUser (){
 
-  let response
+
   
   try {
     toast.show({
@@ -73,7 +74,7 @@ async function transferUser (){
     })
 
     setLoading(true)
-    response = await axios({
+   const response = await axios({
       method: "post",
       data: {
         transferCurrency: currency,
@@ -94,12 +95,12 @@ async function transferUser (){
 
   } catch (error) {
     toast.show({
-      title: response.data,
+      title: "Error",
       placement: "bottom"
 
     })
-    setMes("Failed Transfer")
-    console.error(error);
+    
+
   } 
 
 
@@ -202,13 +203,12 @@ async function transferUser (){
           <Text color="#ffffff" fontWeight="bold" fontSize="4xl"> {(parseFloat(amount) - parseFloat(founds)).toFixed(4) } </Text>
       
       </Box>
-     
-      <Text  fontSize="xl" color="black" fontWeight="bold" > {(mes)?mes:""} </Text> 
+  
       <HStack alignSelf="center">
       <Button variant="outline" colorScheme="theme"  rounded="lg" px="7" py="1"  onPress={() => setShowModal(true)}>
-        <Text color="#ffffff" fontSize="4xl" >Mont</Text></Button>
+        <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
         <Button variant="outline" colorScheme="theme" isLoading={loading} ml="2"rounded="lg" px="7"  py="1" isDisabled={disabledButton} onPress={() => transferUser()}>
-        <Text color="#ffffff" fontSize="4xl" >Confirm</Text></Button>
+        <Text color="#ffffff" fontSize="2xl" >Confirm</Text></Button>
       </HStack>
 
 

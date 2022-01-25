@@ -1,14 +1,14 @@
 
-import { StyleSheet, } from 'react-native';
+import { StyleSheet, Dimensions} from 'react-native';
 
-import {  ScrollView, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button } from 'native-base';
+import {  ScrollView, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button, Box, Divider } from 'native-base';
 
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
 import axios from "axios"
 import {IP_HOST} from "@env"
 
-export default function Register() {
+export default function Register({navigation}) {
 
 const [message, setMessage] = useState("");
 const [state,setState] = useState({
@@ -94,79 +94,96 @@ async function handleSubmit(){
 }
 
   return (
-  
-    <ScrollView>
-    <FormControl
-    isInvalid
-    w={{
-      base: "100%",
-      md: "25%",}}
-    style={styles.container}>
-
-
-          <Heading>Register </Heading>
-          
-      <Stack
-      space={4}
+    <Box height={windowsHeight} backgroundColor="coolGray.900">
+      <ScrollView>
+      <FormControl
+      isInvalid
       w={{
-        base: "85%",
-        md: "25%",
-      }}
+        base: "100%",
+        md: "25%",}}
       
-      >  
+      style={styles.container} >
+
+
+            <Heading>Register </Heading>
+            <Divider my="2" bg='#ecfeff' />
+            
+        <Stack
+        space={4}
+        w={{
+          base: "85%",
+          md: "25%",
+        }}
         
-        <Input variant="filled"   placeholder="Enter Name" onChangeText={(e)=>handleChange(e,"firstname")} />
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.firstName}
-        </FormControl.ErrorMessage>  
-     
-        <Input variant="filled"  placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastname")}/> 
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.lastName}
-        </FormControl.ErrorMessage>   
-        
-        <Input  variant="filled" placeholder="Enter Email" onChangeText={(e)=>handleChange(e,"email")} />
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.email}
-        </FormControl.ErrorMessage>  
-        
-        <Input  variant="filled"  placeholder="Enter Phone" onChangeText={(e)=>handleChange(e,"phone")} /> 
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.phone}
-        </FormControl.ErrorMessage>   
+        >  
+          
+          <Input variant="filled"  placeholder="Enter Name" onChangeText={(e)=>handleChange(e,"firstname")} 
+          color='coolGray.900' backgroundColor= 'darkBlue.50' size= "lg" fontWeight='bold' fontSize='12'/>
+          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
+            {error.firstName}
+          </FormControl.ErrorMessage>  
+      
+          <Input variant="filled"  placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastname")} 
+          color='coolGray.900' backgroundColor= 'darkBlue.50' size= "lg" fontWeight='bold' fontSize='12'/> 
+          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
+            {error.lastName}
+          </FormControl.ErrorMessage>   
+          
+          <Input  variant="filled" placeholder="Enter Email" onChangeText={(e)=>handleChange(e,"email")} 
+          color='coolGray.900' backgroundColor= 'darkBlue.50' size= "lg" fontWeight='bold' fontSize='12' />
+          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
+            {error.email}
+          </FormControl.ErrorMessage>  
+          
+          <Input  variant="filled"  placeholder="Enter Phone" onChangeText={(e)=>handleChange(e,"phone")} 
+          color='coolGray.900' backgroundColor= 'darkBlue.50' size= "lg" fontWeight='bold' fontSize='12'/> 
+          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
+            {error.phone}
+          </FormControl.ErrorMessage>   
+      
+          <Input variant="filled"  placeholder="Enter Password" onChangeText={(e)=>handleChange(e,"password")} password={true} secureTextEntry={true}
+          backgroundColor= 'darkBlue.50' color='coolGray.900' size= "lg" fontWeight='bold' fontSize='12'
+          />  
+            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
+            {error.password}
+          </FormControl.ErrorMessage>  
+
+          <Input variant="filled"  placeholder="Enter 6 digit pin" onChangeText={(e)=>handleChange(e,"pin")} password={true} secureTextEntry={true}
+          backgroundColor= 'darkBlue.50' color='coolGray.900' size= "lg" fontWeight='bold' fontSize='12'
+          />  
+            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
+            {error.pin}
+          </FormControl.ErrorMessage>  
+          <Divider my="1" bg='#ecfeff' />
+          <Button onPress={handleSubmit} backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}>Next</Button>
+          <FormControl.HelperText>
+              {message}
+            </FormControl.HelperText>
+            <Divider my="1" bg='#ecfeff' />
+          <Button  onPress={() => navigation.navigate("Login") } backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}>Go to back</Button>
+          {/* SE AGREGO LA PROP NAVIGATION A LA FUNCION PARA PROBAR ESTO, REVISAR BIEN */}
+        </Stack>
+      
     
-        <Input variant="filled"  placeholder="Enter Password" onChangeText={(e)=>handleChange(e,"password")} password={true} secureTextEntry={true}
-         />  
-           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.password}
-        </FormControl.ErrorMessage>  
-
-        <Input variant="filled"  placeholder="Enter 6 digit pin" onChangeText={(e)=>handleChange(e,"pin")} password={true} secureTextEntry={true}
-         />  
-           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error.pin}
-        </FormControl.ErrorMessage>  
-
-        <Button onPress={handleSubmit}>Next</Button>
-        <FormControl.HelperText>
-            {message}
-          </FormControl.HelperText>
-      </Stack>
-     
-  
-  </FormControl>
-  </ScrollView>
+    </FormControl>
+    </ScrollView>
+  </Box>
   
   );
 }
 
+const windowsHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#08b6ff',
+    backgroundColor: '#000e21',
     
     alignItems: 'center',
     justifyContent: 'center',
+    
    
   },
 });
+
+

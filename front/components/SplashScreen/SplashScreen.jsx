@@ -3,25 +3,26 @@ import {  Dimensions, StatusBar} from "react-native";
 
 export default function SplashScreen ({navigation}) {
     return (
-        <Container >
-          <StatusBar backgroundColor='#009387' barStyle="light-content"/>
-        <Box>
-            <Image
-            source={require('../../assets/icon.png')}
-            resizeMode="stretch" height={height_logo}
-            width={height_logo} alt="logo"
-            />
-        </Box>
-        <Box>
-            <Text >Stay connected with everyone!</Text>
-            <Text >Sign in with account</Text>
-            <Box >
-                    <Button onPress={()=>navigation.navigate('Login')}>
-                    <Text >Get Started</Text>
-            </Button>
+        <Box h= '100%' w= '100%' backgroundColor= '#000e21'>
+            <StatusBar barStyle="light-content"/>
+            <Box backgroundColor= '#000e21'>
+                <Image
+                source={require('../../assets/icon.png')}
+                resizeMode="stretch" height={height_logo}
+                width={height_logo} alt="logo"
+                />
+            </Box>
+            <Box>
+                <Text >Stay connected with everyone!</Text>
+                <Text >Sign in with account</Text>
+                <Box >
+                        <Button onPress={()=>navigation.navigate('Login')} backgroundColor= 'darkBlue.600' 
+                         _text={{fontSize:"md"}}borderRadius= "4px" alignContent={"center"}  justifyContent={"center"}>
+                        <Text >Get Started</Text>
+                </Button>
+                </Box>
             </Box>
         </Box>
-        </Container>
 
     )
 }

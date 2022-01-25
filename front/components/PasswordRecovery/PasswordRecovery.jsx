@@ -1,9 +1,10 @@
-import { Box, Button, Center, Container, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon } from "native-base";
+import { Box, Button, Center, Container, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon, Divider } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons"
+import { MaterialIcons, AntDesign } from "@expo/vector-icons"
 import { validateEmail } from "../Utils/Utils";
 import axios from "axios";
+import {Dimensions} from 'react-native';
 
 
 export default function PasswordRecovery({ navigation }) {
@@ -50,47 +51,61 @@ export default function PasswordRecovery({ navigation }) {
     
     return (
         <>
-        <Container style={styles.container}>
+        <Box style={styles.container}  height={windowsHeight} >
             <Center>
-                <FormControl>
+                <FormControl >
                 <Stack>
                     <Text>Put your email for generate a Token</Text>
                     <Input placeholder="email" value={email} onChangeText={setEmail} InputLeftElement={
-                        <Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />} />
+                        <Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />} 
+                        color='coolGray.900' backgroundColor= 'darkBlue.50' size= "lg" borderRadius= "4px"/>
                     {error.email !== "Please enter a valid email" && email !== "" ? 
-                    <Button onPress={generateToken} size="sm">Generate a Token</Button> :
-                    <FormControl.HelperText>
-                    {error.email}
-                    </FormControl.HelperText>}
+                    
+                    <Button onPress={generateToken} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px"
+                     _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Generate a Token</Button> :
+                    <FormControl.HelperText leftIcon={<WarningOutlineIcon size="md" />}>
+                    {error.email} 
+                    </FormControl.HelperText> }
                     <FormControl.HelperText>
                     {message}
                     </FormControl.HelperText>
                     <Text>Insert the Token</Text>
-                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword}/>
-                    <Button onPress={submitToken} size="sm">Submit</Button>
+                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword} color='coolGray.900' 
+                    backgroundColor= 'darkBlue.50' size= "lg" borderRadius= "4px" InputLeftElement={
+                    <Icon as={<AntDesign name="lock1" size={24} color="black" />} size={5} ml="2" color="muted.400" />} />
+                    <Divider my="2" bg='#ecfeff' />
+                    <Button onPress={submitToken} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px" 
+                     _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Submit</Button>
                     <FormControl.HelperText>
                     {messageSubmit}
                     </FormControl.HelperText>
                     { tokenValidate ? 
-                     <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" >Reset Password</Button>
+                     <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" 
+                     backgroundColor= 'darkBlue.600' borderRadius= "4px"  _text={{fontSize:"md"}} 
+                     borderColor= "darkBlue.50" borderWidth="1">Reset Password</Button>
                      : <Text>Validate the token</Text>}
                     
                 </Stack>
+                <Button onPress={() => navigation.navigate("Login")} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px"
+                leftIcon= {<Icon as={<AntDesign name="back" size={5} color="black" />} />} h="9" w= "250" 
+                 _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Go to back</Button>
                 </FormControl>
             </Center>
-        </Container>
+        </Box>
         </>
     )
 }
 
+const windowsHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#08b6ff',
+      backgroundColor: '#000e21',
       
       alignItems: 'center',
       justifyContent: 'center',
+      
      
     },
   });

@@ -30,9 +30,9 @@ export default function UserCriptos({navigation}) {
   const Tab = createMaterialTopTabNavigator();
 
   React.useEffect( () => {
-    if (balance[blockChain]) {
-      setBalanceUsd(parseFloat(balance[blockChain].cryptoBalance).toFixed(2));
-      setCurrencies(balance[blockChain].currencies);
+    if (balance) {
+      setBalanceUsd(parseFloat(balance[blockChain]?.cryptoBalance).toFixed(2));
+      setCurrencies(balance[blockChain]?.currencies.filter(currency => currency.amount > 0));
     }
     // if(blockChain === "stellar"){
     //   let usd = 0
@@ -60,7 +60,7 @@ export default function UserCriptos({navigation}) {
         dispatch(getBalance());
       }catch(error){ console.error(error) }
 
-      return  () => { };
+      return  () => {};
     }, [])
   );
 
@@ -93,7 +93,9 @@ export default function UserCriptos({navigation}) {
       <ScrollView mt="5" >
         {
           currencies?.map((element, index)=>{
-            return ( <Tokens key={index} currency={element.currency} amount={element.amount} nav={navigation}/>)
+            return (
+              <Tokens key={index} currency={element.currency} amount={element.amount} nav={navigation}/>
+            );
           })
         }
       </ScrollView>

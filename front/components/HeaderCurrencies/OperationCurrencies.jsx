@@ -63,9 +63,11 @@ export default function OperationCurrencies({ route, navigation }) {
             <VStack>
                 <Box bg="theme.150" width={Dimensions.get('window').width} height={Dimensions.get('window').height /2.25} borderBottomRadius={10} alignSelf="center" alignItems="center">
                     <Stack direction="row" mt="5" mb="5" alignSelf="center">
-                        <Pressable onPress={()=> navigation.goBack()}>
-                            <ChevronLeftIcon ml="-150" color="theme.50" size="9"/>
-                        </Pressable>
+                        <Box>
+                            <Pressable onPress={()=> navigation.goBack()}>
+                                <ChevronLeftIcon ml="-150" color="theme.50" size="9"/>
+                            </Pressable>
+                        </Box>
                         <Avatar bg="theme.150" size="lg" alignSelf="center" source={(cryptoData.img)?{
                             uri: cryptoData.img
                             } : ""}

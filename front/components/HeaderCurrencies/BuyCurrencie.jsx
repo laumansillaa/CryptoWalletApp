@@ -34,12 +34,13 @@ export default function BuyCurrencie({route, navigation}) {
     const [loading, setLoading] = useState("")
     const [disabled, setDisabled] = useState(true)
     const toast = useToast()
-    const [founds, setFounds] = useState("");
+    const [founds, setFounds] = useState("0");
     const dispatch = useDispatch()
     const [mes, setMes] = useState("")
+    const [disbledFunds, setDisableFunds]= useState(false)
     const [state, setState] = useState({});
     const blockChain = useSelector(state => state.blockChain);
-    
+    const balanceFunds = useSelector(state => state.userData.balance.funds.balance)
 
     const [urlBlockChain, setUrlBlockChain]= useState("");
 
@@ -55,6 +56,37 @@ export default function BuyCurrencie({route, navigation}) {
 
 
     },[blockChain])
+
+    
+    React.useEffect(()=>{
+
+      
+      setMes("")
+      if( validateFunds(founds)){
+        if(parseFloat(founds)<= parseFloat(balanceFunds)){
+
+          setMes("")
+          setDisabled(false)
+           
+        }else{
+          setDisableFunds(false)
+          setDisabled(true)
+          setMes("Insufficient funds")
+        }
+  
+
+
+       
+
+      }else{
+        setDisabled(true)
+        setMes("Please write a valid amount ")
+      }
+     
+   
+
+    },[founds])
+
 
     async  function  buyToken(){
        try {
@@ -96,20 +128,13 @@ export default function BuyCurrencie({route, navigation}) {
 
 
     function handleChange(e){
-      setMes("")
-      if( validateFunds(e)){
-        setFounds(e)
-        setMes("")
-        setDisabled(false)
 
-      }else{
-        setDisabled(true)
-        setMes("Please write a valid amount ")
-      }
+      setFounds(e)
      
 
 
     }
+
 
 
   

@@ -30,11 +30,11 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                 }}
                 width={Dimensions.get('window').width -25} // from react-native
                 height={220}
-                yAxisInterval={1} // optional, defaults to 1
+        /*         yAxisInterval={1} // optional, defaults to 1
                 withVerticalLines={0}
                 withHorizontalLines={1}
                 withVerticalLabels={1}
-                withHorizontalLabels={1}
+                withHorizontalLabels={1} */
                 chartConfig={{
                     backgroundColor: "#0f0f0f",
                     backgroundGradientFrom: "#000000",
@@ -45,9 +45,9 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                     style: {
                         borderRadius: 16
                     },
-                    propsForDots: {
+                   propsForDots: {
                         r: "0"
-                    }
+                    } 
                 }}
                 bezier
                 style={{
@@ -67,11 +67,11 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                 }}
                 width={Dimensions.get('window').width -25} // from react-native
                 height={220}
-                yAxisInterval={1} // optional, defaults to 1
+    /*             yAxisInterval={1} // optional, defaults to 1
                 withVerticalLines={0}
                 withHorizontalLines={1}
                 withVerticalLabels={1}
-                withHorizontalLabels={1}
+                withHorizontalLabels={1} */
                 chartConfig={{
                     backgroundColor: "#0f0f0f",
                     backgroundGradientFrom: "#000000",
@@ -84,7 +84,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                     },
                     propsForDots: {
                         r: "0"
-                    }
+                    } 
                 }}
                 bezier
                 style={{

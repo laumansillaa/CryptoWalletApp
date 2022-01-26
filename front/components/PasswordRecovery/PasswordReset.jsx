@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons"
 import { validatePassword } from "../Utils/Utils";
-import { AntDesign } from '@expo/vector-icons';
+
 
 export default function PasswordReset({navigation}) {
 

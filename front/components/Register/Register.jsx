@@ -1,7 +1,7 @@
 
 import { StyleSheet, Dimensions} from 'react-native';
 
-import {  ScrollView, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button, Box, Divider } from 'native-base';
+import {  ScrollView, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button, Box, Divider, Text } from 'native-base';
 
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
@@ -29,6 +29,7 @@ const [error, setError] = useState({
   pin:""
 
 })
+const [token, setToken] = useState("");
 
 function validateData (arg){
 
@@ -162,6 +163,11 @@ async function handleSubmit(){
           <FormControl.HelperText>
               {message}
             </FormControl.HelperText>
+            {message === "Sign in succeeded." ? 
+             <Button onPress={() => navigation.navigate("ValidateEmail") } backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}
+             borderColor= "darkBlue.50" borderWidth="1">Validate your email</Button>            
+            : <Text>Waiting...</Text>
+          }
             <Divider my="1" bg='#ecfeff' />
           <Button  onPress={() => navigation.navigate("Login") } backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}
           borderColor= "darkBlue.50" borderWidth="1">Go to back</Button>

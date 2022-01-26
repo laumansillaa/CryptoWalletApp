@@ -32,26 +32,8 @@ export default function UserCriptos({navigation}) {
   React.useEffect( () => {
     if (balance) {
       setBalanceUsd(parseFloat(balance[blockChain]?.cryptoBalance).toFixed(2));
-      setCurrencies(balance[blockChain]?.currencies.filter(currency => currency.amount > 0));
+      setCurrencies(balance[blockChain]?.currencies);
     }
-    // if(blockChain === "stellar"){
-    //   let usd = 0
-    // if(balance){
-    //   if(balance.hasOwnProperty("stellar")) usd = balance.stellar.cryptoBalance
-    //   if(usd) usd = parseFloat(usd).toFixed(2);
-    //   setBalanceUsd(usd)
-    //   setCurrencies(balance.stellar.currencies)
-    // }
-
-    // }else if ("ethereum"){
-    // if(balance){
-    //   let usd = 0
-    //   if(balance.hasOwnProperty("stellar")) usd = balance.ethereum.cryptoBalance
-    //   if(usd) usd = parseFloat(usd).toFixed(2);
-    //   setCurrencies(balance.ethereum.currencies)
-    //   setBalanceUsd(usd)
-    // }
-    // }
   }, [balance, blockChain])
 
   useFocusEffect(
@@ -66,11 +48,7 @@ export default function UserCriptos({navigation}) {
 
   return (
     <>    
-      <HStack 
-        alignSelf="center"
-        mt="33px"
-        height="59px"
-      >
+      <HStack alignSelf="center" mt="33px" height="59px" >
         <Text mt="2px" fontSize="26px">$</Text>
         <Text mt="-2px" fontSize="36px" style={styles.verticallyStretchedText}> {balanceUSD} </Text>
         <Text mb="1px" alignSelf="flex-end" fontSize="15px">USD</Text>

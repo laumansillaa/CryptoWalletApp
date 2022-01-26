@@ -22,7 +22,7 @@ module.exports = async function(req, res, next) {
         })
             .addOperation(StellarSDK.Operation.changeTrust({
                 asset: new StellarSDK.Asset(purchaseCurrency, "GATI44K5PNGVLJK46IRHKJH7QHUZTGS72BJKFCZETYYLS43QX4FMSVGP"),
-                limit: "10000"
+                limit: "10000000"
             }))
             .addOperation(StellarSDK.Operation.manageBuyOffer({
                 selling: StellarSDK.Asset.native(),

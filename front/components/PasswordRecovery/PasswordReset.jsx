@@ -1,6 +1,7 @@
-import { Button, Center, Container, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon } from "native-base";
+import { Box, Button, Center,  Divider, FormControl, Icon, Input, Stack, Text } from "native-base";
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+import { AntDesign } from "@expo/vector-icons"
 import { validatePassword } from "../Utils/Utils";
 import {IP_HOST} from "@env";
 import axios from "axios";
@@ -51,43 +52,52 @@ export default function PasswordReset() {
 
     return (
         <>
-        <Container style={styles.container}>
+        <Box style={styles.container} height={windowsHeight} >
             <Center>
                 <FormControl>
                 <Stack>
                     <Text>Insert the Token</Text>
-                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword}/>
+                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword} color='coolGray.900' 
+                    backgroundColor= 'darkBlue.50' size= "lg" borderRadius= "4px" InputLeftElement={
+                    <Icon as={<AntDesign name="lock1" size={24} color="black" />} size={5} ml="2" color="muted.400" />} />
                     <Text>Put your new password</Text>
-                    <Input placeholder="password"  value={password} onChangeText={setPassword} type="password"/>
-                    <FormControl.HelperText>
+                    <Input placeholder="password"  value={password} onChangeText={setPassword} type="password"
+                    color='coolGray.900' backgroundColor= 'darkBlue.50' size= "lg" borderRadius= "4px"/>
+                    <FormControl.HelperText >
                     {error.password}
                     </FormControl.HelperText>  
-                    <Input placeholder="confirm your password"  value={confirmPassword} onChangeText={setConfirmPassword} type="password"/>
+                    <Input placeholder="confirm your password"  value={confirmPassword} onChangeText={setConfirmPassword} type="password"
+                    color='coolGray.900' backgroundColor= 'darkBlue.50' size= "lg" borderRadius= "4px"/>
                     <FormControl.HelperText>
                     {error.confirmPassword}
                     </FormControl.HelperText>
                     { password === confirmPassword ? <Text>the passwords match</Text> : 
                     <Text>the passwords must match</Text>}
-                    { error.password === "" ? <Button onPress={resetPassword} size="sm">Reset the password</Button> : 
+                    <Divider my="2" bg='#ecfeff' />
+                    { error.password === "" ? <Button onPress={resetPassword} size="sm" backgroundColor= 'darkBlue.600'
+                     borderRadius= "4px"  _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Reset the password</Button> : 
                     <Text>The password is not right</Text> } 
                     <Text>{message}</Text>
                                         
                 </Stack>
                 </FormControl>
             </Center>
-        </Container>
+        </Box>
         </>
     )
 }
 
 
+const windowsHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#08b6ff',
+      backgroundColor: '#000e21',
       
       alignItems: 'center',
       justifyContent: 'center',
+      w: '100%'
      
     },
   });

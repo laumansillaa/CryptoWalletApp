@@ -1,91 +1,87 @@
 import * as React from 'react';
-
-
-import {
-    PresenceTransition,
-  Box,
-  Button,
-  IconButton,
-  Stack,Text,
-  ChevronLeftIcon,
-  Center,
-  Popover,
-  Flex,
-  Divider,
-  ScrollView,
-  
-} from 'native-base';
-
-import { Pressable, RefreshControl } from 'react-native';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Pressable, RefreshControl } from 'react-native';
+import {
+  PresenceTransition, Box, Button,
+  IconButton, HStack,Text,
+  ChevronLeftIcon, Center, Popover,
+  Flex, Divider, ScrollView,
+} from 'native-base';
 import UserCriptos from '../UserCriptos';
 import StakingUser from './StakingUser';
-import { useSelector, useDispatch } from 'react-redux';
 import { getBalance } from '../../../redux/actions';
 
-
 export default function BalanceUser({navigation}) {
-    let screenRender
-const dispatch = useDispatch()
-const [refreshing, setRefreshing] = useState(false);
-    const [screen, setScreen]= useState("balance")
-   
+  const dispatch = useDispatch()
+  const [refreshing, setRefreshing] = useState(false);
+  const [screen, setScreen]= useState("balance")
 
-    
-    
-        
-        if(screen === "balance"){
-           screenRender =
-           
-           <UserCriptos navigation={navigation}/>
-     
-        
-           
-        }else if(screen === "staking"){
+  const renderedScreen = screen === "balance" 
+    ? <UserCriptos navigation={navigation}/>
+    : <StakingUser navigation={navigation}/>;
 
-            screenRender = <StakingUser navigation={navigation}/>
-     
-        }
-
-
-
-
-
-
-    return (
-        <>
-        <ScrollView  refreshControl={
+  return (
+    <Box bg="theme.100" height="100%">
+      <ScrollView  refreshControl={
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={()=>{dispatch(getBalance())}}
-          />}>
-         <Box
-          mt="35px"
-          py="1"
-          
-          rounded="md"
-          alignSelf="center"
-          width={375}
-          maxWidth="100%"
-         
+            onRefresh={() => {dispatch(getBalance())}}
+          />
+        }
+      >
+        <Box
+          width="100%"
+        >
+          <Pressable  onPress={()=>navigation.goBack()} >
+            <ChevronLeftIcon 
+              m="7px"
+              size="40px"
+              color="theme.300" 
+            />
+          </Pressable>
+
+          <HStack 
+            justifyContent="space-around"
+            mt="20px"
+            px="27px"
           >
-        <Stack direction="row" alignItems="center">
-        <Pressable  onPress={()=>navigation.goBack()} >
-        <ChevronLeftIcon color="darkBlue.900" size="9"/>
-        </Pressable>
-        <Pressable onPress={()=>setScreen("balance")}>
-           <Text  fontSize="xl" color={(screen=== "balance")?"darkBlue.700":"black"} fontWeight="bold" > YOUR BALANCE </Text> 
-           </Pressable>
-           <Divider bg="indigo.500" thickness="2" mx="2" orientation="vertical" />
-           <Pressable  onPress={()=>setScreen("staking")}>
-           <Text  fontSize="xl" color={(screen=== "staking")?"darkBlue.700":"black"} fontWeight="bold" > STAKING </Text> 
+            <Pressable onPress={()=>setScreen("balance")}>
+              <Text 
+                justifyContent="center"
+                alignItems="center"
+                px="9px"
+                height="30px"
+                borderRadius="20px"
+                color={screen === "balance" ? "theme.300" : "theme.50"} 
+                bg={screen === "balance" ? "theme.50" : "theme.100"} 
+                fontSize="16px" 
+                letterSpacing="4px"
+              >
+                BALANCE
+              </Text> 
             </Pressable>
-           
-        </Stack>
+
+            <Pressable  onPress={()=>setScreen("staking")}>
+              <Text
+                justifyContent="center"
+                alignItems="center"
+                px="9px"
+                height="30px"
+                borderRadius="20px"
+                color={screen === "staking" ? "theme.300" : "theme.50"}
+                bg={screen === "staking" ? "theme.50" : "theme.100"} 
+                fontSize="16px"
+                letterSpacing="4px"
+              >
+                STAKING
+              </Text> 
+            </Pressable>
+          </HStack>
         </Box>
-        
-        {screenRender}
-        </ScrollView>
-        </>
-    );
-}
+
+        {renderedScreen}
+      </ScrollView>
+    </Box>
+  );
+};

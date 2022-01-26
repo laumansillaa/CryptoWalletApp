@@ -56,7 +56,11 @@ export default function Account({ navigation }) {
                     },
                   ],
                 }}>
+<<<<<<< HEAD
                 <HStack alignItems="center" justifyContent="space-between" >
+=======
+                <HStack alignItems="flex-start" justifyContent="space-between" >
+>>>>>>> 0fa1c5169d75d91bb92244df4daa3fd23d0a7a1d
                   <HStack>
                     <Icon as={MaterialCommunityIcons} name='face-profile' color='coolGray.800' size={7} alignSelf='center' />
                     <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>my data</Text>
@@ -82,7 +86,11 @@ export default function Account({ navigation }) {
                   ],
                 }}
               >
+<<<<<<< HEAD
                 <HStack alignItems="center" justifyContent="space-between">
+=======
+                <HStack alignItems="flex-start" justifyContent="space-between">
+>>>>>>> 0fa1c5169d75d91bb92244df4daa3fd23d0a7a1d
                   <HStack>
                     <Icon as={AntDesign} name='idcard' color='coolGray.800' size={7} alignSelf='center' />
                     <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>my tags</Text>
@@ -109,7 +117,11 @@ export default function Account({ navigation }) {
                 }}
               >
 
+<<<<<<< HEAD
                 <HStack alignItems="center" justifyContent="space-between">
+=======
+                <HStack alignItems="flex-start" justifyContent="space-between">
+>>>>>>> 0fa1c5169d75d91bb92244df4daa3fd23d0a7a1d
                   <HStack>
                     <Icon as={AntDesign} name='contacts' color='coolGray.800' size={7} alignSelf='center' />
                     <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>contacts</Text>
@@ -135,7 +147,11 @@ export default function Account({ navigation }) {
                   ],
                 }}
               >
+<<<<<<< HEAD
                 <HStack alignItems="center" justifyContent="space-between">
+=======
+                <HStack alignItems="flex-start" justifyContent="space-between">
+>>>>>>> 0fa1c5169d75d91bb92244df4daa3fd23d0a7a1d
                   <HStack>
                     <Icon as={AntDesign} name='logout' color='coolGray.800' size={6} alignSelf='center' />
                     <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>log out</Text>

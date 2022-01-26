@@ -1,133 +1,99 @@
 import * as React from 'react';
-
-
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import { Pressable, RefreshControl, StyleSheet } from 'react-native';
+import {useFocusEffect } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import {
-
   Box,
   Button,
   IconButton,
-  Stack,Text,
+  HStack,Text,
   ChevronLeftIcon,
   Center,
   Popover,
   Flex,
   Divider,
   ScrollView,
-  
 } from 'native-base';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useSelector, useDispatch} from 'react-redux';
 import Tokens from './Tokens';
-import { useState, useEffect } from 'react';
-import { Pressable, RefreshControl } from 'react-native';
-import {useFocusEffect } from '@react-navigation/native';
 import { getBalance } from '../../../redux/actions';
-
-
 
 export default function UserCriptos({navigation}) {
   const dispatch = useDispatch();
- const balance = useSelector(state => state.userData.balance)
- const [balanceUSD, setBalanceUsd] = useState("");
- const [currencies, setCurrencies] = useState([])
- const [refreshing, setRefreshing] = useState(false);
- const blockChain = useSelector(state => state.blockChain);
- const Tab = createMaterialTopTabNavigator();
- React.useEffect( () => {
+  const balance = useSelector(state => state.userData.balance)
+  const blockChain = useSelector(state => state.blockChain);
+  const [balanceUSD, setBalanceUsd] = useState("");
+  const [currencies, setCurrencies] = useState([])
+  const [refreshing, setRefreshing] = useState(false);
+  const Tab = createMaterialTopTabNavigator();
 
-  if(blockChain === "stellar"){
-    if(balance){
-      let usd
-      if(balance.stellar) usd = balance.stellar.stakingBalance
-      if(usd) usd = parseFloat(usd).toFixed(2);
-      setBalanceUsd(usd)
-  
-      let aux = balance.stellar.currencies?.filter((element) =>element["staking"] )
-  
-      setCurrencies(aux)
-
+  React.useEffect( () => {
+    if (balance) {
+      setBalanceUsd(parseFloat(balance[blockChain]?.stakingBalance).toFixed(2));
+      setCurrencies(balance[blockChain]?.currencies.filter(currency => currency.staking > 0));
     }
-    
-  }else if ("ethereum"){
+  }, [balance, blockChain])
 
-    if(balance){
-      let usd
-      if(balance.ethereum) usd = balance.ethereum.stakingBalance
-      if(usd) usd = parseFloat(usd).toFixed(2);
-      let aux = balance.ethereum.currencies?.filter((element) =>element["staking"] )
-  
-      setCurrencies(aux)
-      setBalanceUsd(usd)
-
-    }
-   
-}},[balance,blockChain])
-
-
-
- useFocusEffect(
-  React.useCallback(() => {
+  useFocusEffect(
+    React.useCallback(() => {
     try{
-    dispatch(getBalance())
-
-  }catch(e){
-    console.log("fail balance")
-  }
+      dispatch(getBalance())
+    }catch(error){ console.error(error) }
   
-    return  () => {
- };
+    return  () => {};
   }, []));
 
-
-
-return (
-<>    
- 
+  return (
+    <>    
       <ScrollView
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
             onRefresh={()=>{dispatch(getBalance())}}
-          />}
-        
+          />
+        }
       >
-         
-          
-          <Box alignSelf="center" alignItems="center" >
-          <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${balanceUSD} </Text>
-          <Box
-             bg="darkBlue.900"
-             py="5"
-             px="1"
-             mb={0.2}
-             mt={0.5}
-            shadow={9}
-             rounded="md"
-             alignSelf="center"
-             width={375}
-             alignItems="center"
-             maxWidth="100%"
-             maxHeight="100%"
-          >
-            <Text color="white" fontWeight="bold" fontSize="lg" pb="1">
-            Currencies in Staking:
-            </Text>
-      </Box>
-          </Box>
-          
-         <ScrollView mt="5">
-           {currencies?.map((element, index)=>{
-             return ( <Tokens key={index} currency={element.currency} amount={element.staking} nav={navigation}/>)
+        <HStack 
+          alignSelf="center"
+          mt="33px"
+          height="59px"
+        >
+          <Text mt="2px" fontSize="26px">$</Text>
+          <Text mt="-2px" fontSize="36px" style={styles.verticallyStretchedText}> {balanceUSD} </Text>
+          <Text mb="1px" alignSelf="flex-end" fontSize="15px">USD</Text>
+        </HStack>
 
-           })}
-           
-          </ScrollView>
-       {/*  </Box>  */}
+        <Text 
+          alignSelf="flex-start"
+          justifyContent="center"
+          mt="33px"
+          pl="14px"
+          color="theme.300"
+          fontSize="13px"
+          letterSpacing="2px"
+        >
+          {`Your ${blockChain} staking`.toUpperCase()}
+        </Text>
 
-        
-       </ScrollView>
-      
-      </>
- 
+        <Divider alignSelf="center" my="3" w="91%" bg='theme.300'/>
+          
+        <ScrollView mt="5">
+          {
+            currencies?.map((currency, index)=>{
+              return (
+                <Tokens key={index} currency={currency.currency} amount={currency.staking} nav={navigation}/>
+              );
+            })
+          }
+        </ScrollView>
+      </ScrollView>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  verticallyStretchedText: {
+    transform: [{scaleY: 1.4}]
+  }
+});

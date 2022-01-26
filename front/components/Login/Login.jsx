@@ -5,8 +5,8 @@ import { Log } from "../../redux/actions";
 import {IP_HOST} from "@env"
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {  Container, Image, FormControl, Input, Button, Icon, Heading, Stack, WarningOutlineIcon} from "native-base";
-import { MaterialIcons } from "@expo/vector-icons"
+import {  Container, Image, FormControl, Input, Button, Icon, Heading, Stack, WarningOutlineIcon, Divider} from "native-base";
+import { MaterialIcons, AntDesign, Fontisto, Ionicons } from "@expo/vector-icons"
 import { validateEmail, validatePassword } from "../Utils/Utils";
 
 import * as WebBrowser from 'expo-web-browser';
@@ -118,38 +118,48 @@ export default function Login ({ navigation }) {
     
     return (
             <FormControl isInvalid w={{base: "100%", md: "25%",}} style={styles.container}>
-            <Image width="200px" height="200px"
-            source={require("../../assets/icon.png")} alt="logo"/>            
-            <Heading>Put your data pls </Heading>
-            <Stack space={4} w={{base: "85%", md: "25%", }}>
-            <Input placeholder="email" value={email} onChangeText={setEmail} InputLeftElement={
-          <Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />} />
+            {/* <Image width="200px" height="200px"
+            source={require("../../assets/icon.png")} alt="logo" />             */}
+            
+            <Stack space={4} w={{base: "85%", md: "25%", }} >
+            <Input placeholder="Email" value={email} onChangeText={setEmail} color='coolGray.900' borderRadius= "4px" InputLeftElement={
+          <Icon as={<Ionicons name="person" size={24} color="black" />} size={5} ml="2" color="muted.400" />} backgroundColor= 'darkBlue.50'
+          fontWeight='bold' fontSize='12' />
            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>
           {error.email}
         </FormControl.ErrorMessage>  
-            <Input placeholder="password"  value={password} onChangeText={setPassword} type="password" 
-            // InputRightElement={<Icon as={<MaterialIcons name="visibility-off" />} size={5} mr="2" color="muted.400" />} 
+            <Input placeholder="Password"  value={password} onChangeText={setPassword} color='coolGray.900' type="password" 
+            backgroundColor= 'darkBlue.50' borderRadius= "4px"
+             InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />} size={5} ml="2" color="muted.400" />} 
+             fontWeight='bold' fontSize='12'
             />
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>
           {error.password}
         </FormControl.ErrorMessage > 
-            <Button onPress={onLogin} size="sm">Log in</Button> 
+            <Divider my="1" bg='#ecfeff' />
+            <Button onPress={onLogin} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px"
+             _text={{fontSize:"xl"}} borderColor= "darkBlue.50" borderWidth="1">Log in</Button> 
             <FormControl.HelperText>
             {message}
           </FormControl.HelperText>
-            <Button  onPress={onGoogleLogin} size="sm">Log in with Google</Button>
-            <Button onPress={() => navigation.navigate("Register")} size="sm">Create a new account</Button>
-            <Button onPress={() => navigation.navigate("PasswordRecovery")} size="sm">i do not remember my password</Button>       
+            <Button  onPress={onGoogleLogin} size="sm" backgroundColor= 'darkBlue.600' 
+            leftIcon= {<Icon as={<Fontisto name="google" size={8} color="black" />} />} borderRadius= "4px" _text={{fontSize:"md"}}
+            borderColor= "darkBlue.50" borderWidth="1" >Log in with Google</Button>
+            <Button onPress={() => navigation.navigate("Register")} size="sm" backgroundColor= 'darkBlue.600'
+            borderRadius= "4px"  _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Create a new account</Button>
+            <Button onPress={() => navigation.navigate("PasswordRecovery")} size="sm" backgroundColor= 'darkBlue.600'
+            borderRadius= "4px"  _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">I do not remember my password</Button>       
           </Stack>
           </FormControl>           
            )
 };
 
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#08b6ff',
+    backgroundColor: '#000e21',
     
     alignItems: 'center',
     justifyContent: 'center',

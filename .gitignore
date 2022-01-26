@@ -2,6 +2,7 @@
 .env
 node_modules/
 .vscode
+package-lock.json
 
 # Front ignored files/folders.
 .expo/

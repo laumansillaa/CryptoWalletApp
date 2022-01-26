@@ -51,43 +51,52 @@ export default function PasswordRecovery({ navigation }) {
                 <FormControl >
                 <Stack>
                     <Text fontSize="xl">Put your email</Text>
+
                     <Divider my="1" bg='#ecfeff' />
-                    <Input placeholder="email" value={email} onChangeText={setEmail} InputLeftElement={
-                        <Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />} 
-                        color='coolGray.900' backgroundColor= '#e4e4e7' size= "lg" borderRadius= "4px"
-                        borderColor= "#dark.900" borderWidth="2"/>
+
+                    <Input placeholder="email" value={email} onChangeText={setEmail} 
+                    InputLeftElement={<Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />} 
+                    color='coolGray.900' 
+                    backgroundColor= '#e4e4e7' 
+                    size= "lg" borderRadius= "4px"
+                    borderColor= "#dark.900" 
+                    borderWidth="2"/>
                     {error.email !== "Please enter a valid email" && email !== "" ? 
                     
-                    <Button onPress={generateToken} mt= "20px" size="sm" borderRadius= "4px" bg= 'theme.50' color= 'theme.100'
-                     _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Generate a Token</Button> :
+                    <Button onPress={generateToken} mt= "20px" size="sm" 
+                    borderRadius= "4px" 
+                    bg= 'theme.50' 
+                    color= 'theme.100'
+                    _text={{fontSize:"md"}} 
+                    borderColor= "darkBlue.50" 
+                    borderWidth="1">Generate a Token</Button> :
+
                     <FormControl.HelperText leftIcon={<WarningOutlineIcon size="md" />}>
                     {error.email} 
                     </FormControl.HelperText> }
                     <FormControl.HelperText>
                     {message}
                     </FormControl.HelperText>
-                    <Text mt= "10px" fontSize="xl">Insert the Token</Text>
-                    <Divider my="1" bg='#ecfeff' />
-                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword} color='coolGray.900' 
-                    backgroundColor= '#e4e4e7' size= "lg" borderRadius= "4px" InputLeftElement={
-                    <Icon as={<AntDesign name="lock1" size={24} color="black" />} size={5} ml="2" color="muted.400" />}
-                    borderColor= "#dark.900" borderWidth="2" />
-                    <Divider my="2" bg='#ecfeff' />
-                    <Button onPress={submitToken} size="sm" borderRadius="4px"  _text={{fontSize:"md"}} borderColor= "darkBlue.50" 
-                    borderWidth="1" bg='theme.50' color='theme.100' >Submit</Button>
-                    <FormControl.HelperText>
-                    {messageSubmit}
-                    </FormControl.HelperText>
-                    { tokenValidate ? 
-                     <Button onPress={() => navigation.navigate("PasswordReset")} mt= "10px" size="sm" 
-                      borderRadius= "4px"  _text={{fontSize:"md"}} bg= 'theme.50' color= 'theme.100'
-                     borderColor= "darkBlue.50" borderWidth="1" >Reset Password</Button>
-                     : <Text fontSize="xl">Validate the token</Text>}                    
+                    <Divider my="2" bg='#ecfeff' /> 
+                    <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" 
+                    backgroundColor= 'darkBlue.600' borderRadius= "4px"  _text={{fontSize:"md"}} 
+                    borderColor= "darkBlue.50" borderWidth="1">Reset Password</Button>                 
                 </Stack>
+
                 <Divider my="4" bg='#ecfeff' />
-                <Button onPress={() => navigation.navigate("Login")} mt= "40px" size="sm"  borderRadius= "4px"
-                leftIcon= {<Icon as={<AntDesign name="back" size={5} color="black" />} />} h="9" w= "320" 
-                 _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1" fontSize="xl" bg= 'theme.50' color= 'theme.100' >Go to back</Button>
+                
+                <Button onPress={() => navigation.navigate("Login")} 
+                mt= "40px" 
+                size="sm"  
+                borderRadius= "4px"
+                leftIcon= {<Icon as={<AntDesign name="back" size={5} color="black" />} />} 
+                h="9" w= "320" 
+                _text={{fontSize:"md"}} 
+                borderColor= "darkBlue.50" 
+                borderWidth="1" 
+                fontSize="xl" 
+                bg= 'theme.50' 
+                color= 'theme.100' >Go to back</Button>
                 </FormControl>
             </Center>
         </Box>

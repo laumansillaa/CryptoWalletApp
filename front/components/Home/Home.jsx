@@ -30,17 +30,16 @@ import {
   Fab,
 } from 'native-base';
 
-import { addFounds, depositTransaction, getBalance, getDataUser, geTransactionUser, getTokernsHard } from '../../redux/actions';
 import Transaction from './components/Transaction';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 export default function Home({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const dispatch = useDispatch();
-  const blockChain = useSelector(state => state.blockChain);
+  
   const userData = useSelector(state => state.userData)
   const [showModal, setShowModal] = useState(false)
-  const [loadingState, setLoadingState] = useState(false)
+
   const [balanceUSD, setBalanceUsd] = useState("");
   const [founds, setFounds] = useState("");
   const [loadingState, setLoadingState] = useState(false)

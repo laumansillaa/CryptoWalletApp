@@ -29,7 +29,7 @@ const [error, setError] = useState({
   pin:""
 
 })
-const [token, setToken] = useState("");
+/* const [token, setToken] = useState(""); */
 
 function validateData (arg){
 
@@ -233,7 +233,7 @@ const windowsHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'theme.100',
+  /*   backgroundColor: 'theme.100', */
     
     alignItems: 'center',
     justifyContent: 'center',

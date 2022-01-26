@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
                 "pending": `http://${IP_HOST}:3001/payment/feedback`
             },            
             marketplace: "Henry Wallet",
-            auto_return: "approved",
+           
                  
         }
     

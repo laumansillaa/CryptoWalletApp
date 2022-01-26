@@ -32,7 +32,7 @@ export default function UserCriptos({navigation}) {
   React.useEffect( () => {
     if (balance) {
       setBalanceUsd(parseFloat(balance[blockChain]?.cryptoBalance).toFixed(2));
-      setCurrencies(balance[blockChain]?.currencies.filter(currency => currency.amount > 0));
+      setCurrencies(balance[blockChain]?.currencies);
     }
     // if(blockChain === "stellar"){
     //   let usd = 0

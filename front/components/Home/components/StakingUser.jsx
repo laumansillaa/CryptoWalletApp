@@ -31,7 +31,7 @@ export default function UserCriptos({navigation}) {
   React.useEffect( () => {
     if (balance) {
       setBalanceUsd(parseFloat(balance[blockChain]?.stakingBalance).toFixed(2));
-      setCurrencies(balance[blockChain]?.currencies.filter(currency => currency.staking > 0));
+      setCurrencies(balance[blockChain]?.currencies);
     }
   }, [balance, blockChain])
 

@@ -45,7 +45,7 @@ export default function Home({ navigation }) {
   },[])
  
   React.useEffect( () => {
-    const usd = userData.balance !== undefined 
+    const usd = userData?.balance !== undefined 
       ? parseFloat(userData?.balance[blockChain]?.cryptoBalance).toFixed(2) 
       : 0;
     setBalanceUsd(usd);
@@ -142,10 +142,10 @@ export default function Home({ navigation }) {
         px="7px"
         width = "093%"
         height="41px"
-        borderRadius="40px"
+        rounded="40px"
         bg="theme.300"
       >
-        <Text color="theme.100" fontSize="12px" letterSpacing="2px">
+        <Text color="theme.100" fontWeight="bold" fontSize="12px" letterSpacing="2px">
           CHECK YOUR {blockChain.toUpperCase()} CURRENCIES
         </Text>
       </Pressable>
@@ -195,48 +195,40 @@ export default function Home({ navigation }) {
   
       {/* Mercadopago payment modal. */}
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-        <Modal.Content >
+        <Modal.Content bg="theme.100" borderRadius="3px" borderColor="theme.50" borderWidth="0.3px">
           <Modal.CloseButton />
 
-          <Modal.Header>Add funds</Modal.Header>
+          <Modal.Header>
+            <Text letterSpacing="1px">
+              Add funds
+            </Text>
+          </Modal.Header>
 
           <Modal.Body>
             <FormControl>
-              <FormControl.Label>How much money do you want to add?</FormControl.Label>
-               
-              <InputGroup
-                w={{
-                  base: "70%",
-                  md: "285",
-                }}
-              >
-                <InputLeftAddon children={"$"} />
+              <InputGroup mt="15px">
+                <InputLeftAddon children={"$"}/>
 
-                <Input
-                  w={{
-                    base: "70%",
-                    md: "100%",
-                  }}
-                  placeholder="Amount"
-                  onChangeText={setFounds}
-                />
-
+                <Input pl="25px" width="160px" placeholder="Amount" onChangeText={setFounds} />
               </InputGroup>
             </FormControl>
           </Modal.Body>
 
-          <Modal.Footer>
+          <Modal.Footer bg="theme.100">
             <Button.Group space={2}>
               <Button
-                variant="ghost"
-                colorScheme="blueGray"
+                bg="theme.150"
+                color="theme.50"
                 onPress={() => {
                   setShowModal(false)
                 }}
               >
                 Cancel
               </Button>
+
               <Button
+                bg="theme.50"
+                color="theme.100"
                 onPress={() => {
                   let d = new Date();
                   d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`

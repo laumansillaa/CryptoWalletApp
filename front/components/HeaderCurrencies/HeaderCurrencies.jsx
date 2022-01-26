@@ -2,7 +2,7 @@ import { Box, Center, Input, ScrollView, VStack,HStack,Text,ZStack, Button,Headi
 import * as React from 'react';
 import { useState } from 'react';
 import Criptos from './Criptos';
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Pressable, Dimensions } from 'react-native';
 import { getBalance, getBlockChain, getAllStellarData, getAllEthData } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ export default function HeaderCurrencies({navigation}) {
     const allStellarData = useSelector(state => state.allStellarData);
     const allEthData = useSelector(state => state.allEthData);
     //const [currencies, setCurrencies] = ({})
- 
+
     useFocusEffect(
         React.useCallback(() => {
           dispatch(getBalance())
@@ -39,8 +39,8 @@ export default function HeaderCurrencies({navigation}) {
     },[])
 
 
-    
-    return (  
+
+    return (
         <>
             <Stack bg="theme.100">
                 <Box size="16" width={Dimensions.get('window').width} bg="theme.200" borderBottomRadius="10" alignItems="center">
@@ -49,10 +49,10 @@ export default function HeaderCurrencies({navigation}) {
             </Stack>
             <ScrollView bg="theme.100">
                 <VStack mt="3" mb="3">
-                    {blockChain === "stellar" ? 
+                    {blockChain === "stellar" ?
                         allEthData?.map((el, index)=>{
                         return <Criptos key={index} symbol={el.symbol} name={el.name} price={el.price} percDay={el.percDay} img={el.img} nav={navigation}/>
-                        }) : 
+                        }) :
                         allEthData?.map((el, index)=>{
                             return <Criptos key={index} symbol={el.symbol} name={el.name} price={el.price} percDay={el.percDay} img={el.img} nav={navigation}/>
                         })
@@ -62,5 +62,3 @@ export default function HeaderCurrencies({navigation}) {
         </>
     );
 }
-
-

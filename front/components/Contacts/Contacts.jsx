@@ -122,7 +122,7 @@ export default function Contacts({ navigation }) {
         }
       </ScrollView>
       <Button
-        w='50%'
+        width='50%'
         alignSelf='center'
         onPress={() => navigation.navigate('AddContact')}>
         Add Contact

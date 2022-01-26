@@ -12,40 +12,36 @@ module.exports = async function(req, res, next) {
         const keys = await Key.findOne({ where: { userId: req.user.id } });
         const prices = await binance.futuresPrices();
 
+        const dbEthereumStaking = await Staking.findAll({ where: { userId: req.user.id, blockchain: "ethereum" } });
         const ethereumEther = (await web3.eth.getBalance(keys.ethereum[0]))/10**18;
-        const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
+        const ethereumEtherStakingAmount = dbEthereumStaking.filter(stake => stake.currency === "ETH")[0]?.amount;
+        const ethereumCurrencies = [{
+            currency: "ETH",
+            amount: ethereumEther,
+            staking: ethereumEtherStakingAmount ? ethereumEtherStakingAmount.toString() : "0"
+        }];
         await Promise.all(["HNR", "BTC", "USDT", "BNB", "ADA", "SOL"].map(async currency => {
             const tokenContract = await require("../../solidity")(currency);
             const amount = (await tokenContract.methods.balanceOf(keys.ethereum[0]).call()) / 10**4;
+            const stakingAmount = dbEthereumStaking.filter(stake => stake.currency === currency)[0]?.amount;
             ethereumCurrencies.push({
                 currency,
-                amount,
+                amount: amount.toString(),
+                staking: stakingAmount ? stakingAmount.toString() : "0"
             });
         }));
         let ethereumStaking = 0;
-        const dbEthereumStaking = await Staking.findAll({
-            where: {
-                userId: req.user.id,
-                blockchain: "ethereum"
-            }
-        });
-        for (let i = 0; i < dbEthereumStaking.length; i++) {
-            if (dbEthereumStaking[i].currency === "USDT") {
-                ethereumStaking += dbEthereumStaking[i].amount;
-            } else if (ethereumCurrencies[i].currency === "HNR") {
-                ethereumStaking += dbEthereumStaking[i].amount * 4000;
-            } else {
-                ethereumStaking += dbEthereumStaking[i].amount * prices[`${dbEthereumStaking[i].currency}USDT`];
-            }
-        }
         let ethereumCrypto = 0;
         for (let i = 0; i < ethereumCurrencies.length; i++) {
             if (ethereumCurrencies[i].currency === "USDT") {
-                ethereumCrypto += ethereumCurrencies[i].amount;
+                ethereumCrypto += Number(ethereumCurrencies[i].amount);
+                ethereumStaking += Number(ethereumCurrencies[i].staking);
             } else if (ethereumCurrencies[i].currency === "HNR") {
-                ethereumCrypto += ethereumCurrencies[i].amount * 4000;
+                ethereumCrypto += Number(ethereumCurrencies[i].amount) * 4000;
+                ethereumStaking += Number(ethereumCurrencies[i].staking) * 4000;
             } else {
-                ethereumCrypto += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
+                ethereumCrypto += Number(ethereumCurrencies[i].amount) * prices[`${ethereumCurrencies[i].currency}USDT`];
+                ethereumStaking += Number(ethereumCurrencies[i].staking) * prices[`${ethereumCurrencies[i].currency}USDT`];
             }
         }
 

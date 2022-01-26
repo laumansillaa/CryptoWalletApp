@@ -28,7 +28,13 @@ const sequelize = process.env.NODE_ENV === "production"
     })
   : new Sequelize( `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, { 
       logging: false,
-      native: false
+      native: false,
+      dialectOptions: {
+            useUTC: false, //for reading from database
+            dateStrings: true,
+            typeCast: true
+      },
+      timezone: "-03:00"
     });
 
  

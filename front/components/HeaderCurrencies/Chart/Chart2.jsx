@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   LineChart,
   BarChart,
@@ -20,7 +21,7 @@ const lastMonth = new Date().getMonth() === 0 ? 12 : new Date().getMonth();
 const month = lastMonth === 12 ? 1 : lastMonth + 1;
 
     if(chartInfo[0] < chartInfo[chartInfo.length -1]) {
-        return (  
+        return (
             <LineChart
                 data={{
                     labels: [`${date15}/${lastMonth}`, `${date2}/${month}`, `${date3}/${month}`, `${date4}/${month}`, `${date15}/${month}`],
@@ -47,7 +48,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                     },
                    propsForDots: {
                         r: "0"
-                    } 
+                    }
                 }}
                 bezier
                 style={{
@@ -57,7 +58,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
             />
         );
     } else {
-        return (  
+        return (
             <LineChart
                 data={{
                     labels: [`${date15}/${lastMonth}`, `${date2}/${month}`, `${date3}/${month}`, `${date4}/${month}`, `${date15}/${month}`],
@@ -84,7 +85,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                     },
                     propsForDots: {
                         r: "0"
-                    } 
+                    }
                 }}
                 bezier
                 style={{
@@ -95,7 +96,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
         );
     }
 
-    
+
 }
 
 // import * as React from 'react';
@@ -103,7 +104,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
 // import { AreaChart, Grid, } from 'react-native-svg-charts'
 // import * as shape from 'd3-shape'
 // import { useDispatch, useSelector } from 'react-redux';
- 
+
 
 
 // export default function Chart2() {
@@ -116,7 +117,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
 
 
 //     return (
-//       <> 
+//       <>
 //     <AreaChart
 //                 style={{ height: 200 }}
 //                 data={data}
@@ -126,12 +127,12 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
 //                 animate={true}
 //                 animationDuration={800}
 //             >
-          
-                
+
+
 //             </AreaChart>
 
 //      </>
-  
- 
+
+
 //   );
 // }

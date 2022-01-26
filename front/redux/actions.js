@@ -64,16 +64,16 @@ export function TokenLogOut () {
 
 export const getDataUser = ()=> async dispatch =>{
     try{
-    
+
         // let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
         const response = await axios({
               method: "get",
               withCredentials: true,
               url: `http://${IP_HOST}:3001/user/getData`,
             })
-        
+
         const dataUser =  response.data;
-        
+
         dispatch({type:GET_DATA_USER, payload: dataUser})
     }catch(e){
         console.log("Error al consultar")
@@ -83,16 +83,16 @@ export const getDataUser = ()=> async dispatch =>{
 
 export const geTransactionUser = ()=> async dispatch =>{
     try{
-    
+
         // let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
         const response = await axios({
               method: "get",
               withCredentials: true,
               url: `http://${IP_HOST}:3001/operation/record`,
             })
-        
+
         const dataUser =  response.data;
-        
+
         dispatch({type:GET_TRANSACTION_USER, payload: dataUser})
     }catch(e){
         console.log("Error al consultar")
@@ -111,28 +111,28 @@ export const depositTransaction = (transaction)=>{
 }
 
 export const getTokens = (data) =>{
-   
+
     return({type:GET_TOKENS, payload:data})
 
 }
 
 export const getBalance = ()=> async dispatch =>{
     try{
-    
+
         // let dataUser = await axios(`http://${IP_HOST}:3001/user/getData`)
-        
+
             const response = await axios({
                 method: "get",
                 withCredentials: true,
                 url: `http://${IP_HOST}:3001/balance/data`,
               })
-          
+
           const dataUser =  response.data;
-          
+
           dispatch({type:GET_BALANCE, payload: dataUser})
-        
-       
-   
+
+
+
     }catch(e){
         console.log("Error al consultar")
     }

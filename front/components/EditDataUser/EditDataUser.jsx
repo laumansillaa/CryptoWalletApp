@@ -150,7 +150,7 @@ setState({...state, [atr]: e})}
     <ScrollView>
     <FormControl
     isInvalid
-    w={{
+    width={{
       base: "100%",
       md: "25%",}}
     style={styles.container}>
@@ -160,7 +160,7 @@ setState({...state, [atr]: e})}
           
       <Stack
       space={4}
-      w={{
+      width={{
         base: "85%",
         md: "25%",
       }}

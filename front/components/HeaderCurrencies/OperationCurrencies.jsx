@@ -142,8 +142,8 @@ export default function OperationCurrencies({ route, navigation }) {
                         <Text fontSize="md" mt="0.9" fontWeight="semibold" color="red.600">  {cryptoData.percMonth}</Text>
                     }
                 </Stack>
-                <Chart2/> 
-            </VStack> 
+                <Chart2/>
+            </VStack>
         </Box>
     );
 }

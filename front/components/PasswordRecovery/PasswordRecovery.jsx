@@ -14,7 +14,6 @@ export default function PasswordRecovery({ navigation }) {
     const [error, setError] = useState({
         email:""
         });
-    const [emailSent, setEmailSent] = useState(false);
     const [message, setMessage] = useState("");
 
     
@@ -39,7 +38,7 @@ export default function PasswordRecovery({ navigation }) {
                 withCredentials: true,
                 url: `http://${IP_HOST}:3001/password/tokenrequest`,
               });
-            setEmailSent(true);
+            setMessage("Token generated")
         } catch (e) {console.log(e)};
 
     }
@@ -64,9 +63,7 @@ export default function PasswordRecovery({ navigation }) {
                     <FormControl.HelperText>
                     {message}
                     </FormControl.HelperText>
-                    <Divider my="2" bg='#ecfeff' />
-
-                    
+                    <Divider my="2" bg='#ecfeff' /> 
                     <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" 
                     backgroundColor= 'darkBlue.600' borderRadius= "4px"  _text={{fontSize:"md"}} 
                     borderColor= "darkBlue.50" borderWidth="1">Reset Password</Button>

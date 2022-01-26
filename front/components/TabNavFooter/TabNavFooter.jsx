@@ -5,40 +5,54 @@ import AccountIndex from '../Account/AccountIndex';
 import HeaderCurrencies from '../HeaderCurrencies/HeaderCurrencies';
 import HomeIndex from '../Home/HomeIndex';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { Button, Icon,Box,Fab } from 'native-base';
+import { Button, Icon,Box,Fab, Text, HStack } from 'native-base';
 import CurrenciesIndex from '../HeaderCurrencies/CurrenciesIndex';
 import { MaterialIcons } from "@expo/vector-icons"
 import { FontAwesome } from '@expo/vector-icons'; 
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getBalance, getBlockChain } from '../../redux/actions';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function TabNavFooter() {
+export default function TabNavFooter({navigation}) {
     const [isEnabled, setIsEnabled] = useState(false);
     const dispatch = useDispatch();
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const blockChain = useSelector(state => state.blockChain)
+     const userData = useSelector(state=> state.userData); 
+     const [funds, setFunds] = useState("")
+
   
+
     React.useEffect(()=>{
-      if(!isEnabled){
-        dispatch(getBlockChain("stellar"))
-        dispatch(getBalance())
-      }else{
-        dispatch(getBlockChain("ethereum"))
-        dispatch(getBalance())
+
+      if(userData){
+        if(userData.balance){
+          setFunds(userData.balance.funds.balance)
+        }
+
       }
   
   
-    },[isEnabled])
+    },[userData])
+  
   
 
 
 
 
     return (<>
-        
+      
+        <Box py="1" alignItems="center">
+          <HStack>
+            
+          <Text fontWeight="bold" color="theme.150" px="1">Funds</Text>
+      <Text fontWeight="bold" color="theme.150">{funds?funds:"0.00"} USD</Text> 
+          <Text color="theme.300"> Blockchain: {blockChain.charAt(0).toUpperCase() + blockChain.slice(1)}</Text>
+          </HStack>
+         
+        </Box>
         <Tab.Navigator
         tabBarPosition='bottom'
             screenOptions={{
@@ -69,22 +83,8 @@ export default function TabNavFooter() {
             />
                     
         </Tab.Navigator>
-        
-      <Fab
-      onPress={()=>toggleSwitch()}
-      bottom={70}
-        borderRadius="full"
-        colorScheme="indigo"
-        placement="bottom-right"
-        icon={
-          <Icon
-            color="white"
-            as={<FontAwesome name="exchange" size={24} color="black" />}
-            size="4"
-          />
-        }
-        
-      />
+
+   
     
         </>
     );

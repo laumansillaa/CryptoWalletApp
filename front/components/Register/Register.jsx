@@ -100,7 +100,7 @@ async function handleSubmit(){
       <FormControl
       mt= "20px"
       isInvalid
-      w={{
+      width={{
         base: "100%",
         md: "25%",}}
       
@@ -113,7 +113,7 @@ async function handleSubmit(){
             
         <Stack
         space={4}
-        w={{
+        width={{
           base: "85%",
           md: "25%",
         }}

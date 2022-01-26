@@ -1,14 +1,9 @@
 import * as React from 'react';
-
-
 import {
-
   Box,
   Stack,
-  
   VStack,
   Text,
- 
   Avatar
 } from 'native-base';
 

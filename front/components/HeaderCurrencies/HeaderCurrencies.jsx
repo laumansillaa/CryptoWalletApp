@@ -110,7 +110,7 @@ const [aux, setAux] = useState([
         </ZStack>
       </Box>
 
-      <Box mb="3"width={300} alignSelf="center">
+      <Box mb="3" width={300} alignSelf="center">
     <HStack>
     <Heading textAlign="center" mb="10">
         <Text color="black">BlockChain: {blockChain}</Text>

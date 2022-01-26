@@ -17,7 +17,9 @@ import {
   Container, View, HStack,
   Divider
 } from 'native-base';
-import { useSelector, AntDesig } from 'react-redux';
+import { useSelector} from 'react-redux';
+import axios from 'axios';
+import {IP_HOST} from "@env";
 
 export default function Account({ navigation }) {
   const userData = useSelector(state => state.userData)
@@ -27,6 +29,12 @@ export default function Account({ navigation }) {
     try {
       await AsyncStorage.removeItem('userToken');
       dispatch(Logout());
+      await axios({
+        method: "post",
+        withCredentials: true,
+        url: `http://${IP_HOST}:3001/session/signout`,
+      });
+      console.log("hehe");
     } catch (e) {
       console.error(e)
     }
@@ -35,7 +43,7 @@ export default function Account({ navigation }) {
   return (
     <>
       <VStack space={4} alignItems="center" justifyContent='flex-end'>
-        <Box w='90%'>
+        <Box width='90%'>
           <Text textAlign="center" fontSize={23} color='emerald.400' mt='15'>
             {`${userData.firstname} ${userData.lastname}`}
           </Text>
@@ -47,7 +55,7 @@ export default function Account({ navigation }) {
           {({ isPressed }) => {
             return (
               <Box
-                w='100%'
+                width='100%'
                 py={1}
                 style={{
                   transform: [
@@ -56,7 +64,7 @@ export default function Account({ navigation }) {
                     },
                   ],
                 }}>
-                <HStack alignItems="start" justifyContent="space-between" >
+                <HStack alignItems="flex-start" justifyContent="space-between" >
                   <HStack>
                     <Icon as={MaterialCommunityIcons} name='face-profile' color='coolGray.800' size={7} alignSelf='center' />
                     <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>my data</Text>
@@ -72,7 +80,7 @@ export default function Account({ navigation }) {
           {({ isPressed }) => {
             return (
               <Box
-                w='100%'
+                width='100%'
                 py={1}
                 style={{
                   transform: [
@@ -82,7 +90,7 @@ export default function Account({ navigation }) {
                   ],
                 }}
               >
-                <HStack alignItems="start" justifyContent="space-between">
+                <HStack alignItems="flex-start" justifyContent="space-between">
                   <HStack>
                     <Icon as={AntDesign} name='idcard' color='coolGray.800' size={7} alignSelf='center' />
                     <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>my tags</Text>
@@ -98,7 +106,7 @@ export default function Account({ navigation }) {
           {({ isPressed }) => {
             return (
               <Box
-                w='100%'
+                width='100%'
                 py={1}
                 style={{
                   transform: [
@@ -109,7 +117,7 @@ export default function Account({ navigation }) {
                 }}
               >
 
-                <HStack alignItems="start" justifyContent="space-between">
+                <HStack alignItems="flex-start" justifyContent="space-between">
                   <HStack>
                     <Icon as={AntDesign} name='contacts' color='coolGray.800' size={7} alignSelf='center' />
                     <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>contacts</Text>
@@ -125,7 +133,7 @@ export default function Account({ navigation }) {
           {({ isPressed }) => {
             return (
               <Box
-                w='100%'
+                width='100%'
                 py={1}
                 style={{
                   transform: [
@@ -135,7 +143,7 @@ export default function Account({ navigation }) {
                   ],
                 }}
               >
-                <HStack alignItems="start" justifyContent="space-between">
+                <HStack alignItems="flex-start" justifyContent="space-between">
                   <HStack>
                     <Icon as={AntDesign} name='logout' color='coolGray.800' size={6} alignSelf='center' />
                     <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>log out</Text>

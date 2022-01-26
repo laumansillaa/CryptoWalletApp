@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons"
 import { validateEmail } from "../Utils/Utils";
 import axios from "axios";
+import {IP_HOST} from "@env";
 import {Dimensions} from 'react-native';
 
 
@@ -15,11 +16,6 @@ export default function PasswordRecovery({ navigation }) {
         });
     const [emailSent, setEmailSent] = useState(false);
     const [message, setMessage] = useState("");
-    const [messageSubmit, setMessageSubmit] = useState("");
-
-    const [password, setPassword] = useState("");
-    const [tokenPassword, setTokenPassword] = useState("");
-    const [tokenValidate, setTokenValidate] = useState(false);
 
     
     function validateData (arg){
@@ -35,18 +31,17 @@ export default function PasswordRecovery({ navigation }) {
     const generateToken = async () => {
         setMessage("Loading...");
         try {
-            // await axios.post(`http://${IP_HOST}:3001/password/tokenrequest`, {email: email});
+            await axios({
+                method: "post",
+                data: {
+                  email: email,
+                },
+                withCredentials: true,
+                url: `http://${IP_HOST}:3001/password/tokenrequest`,
+              });
             setEmailSent(true);
         } catch (e) {console.log(e)};
 
-    }
-
-    const submitToken = async () => {
-        setMessageSubmit("Loading...");
-        try {
-            // await axios.post(`http://${IP_HOST}:3001/password/tokenrequest`, {email: email});
-            setTokenValidate(true);
-        } catch (e) {console.log(e)};
     }
     
     return (

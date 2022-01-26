@@ -1,6 +1,7 @@
 import { Button, Center, Container, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon, Box, Divider } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
+import { AntDesign } from "@expo/vector-icons"
 import { validatePassword } from "../Utils/Utils";
 import { AntDesign } from '@expo/vector-icons';
 
@@ -13,6 +14,8 @@ export default function PasswordReset({navigation}) {
         password:"",
         confirmPassword: "",
         });
+    const [tokenPassword, setTokenPassword] = useState("");
+    const [tokenValidate, setTokenValidate] = useState(false);
 
     function validateData (arg){
         switch(arg){
@@ -30,6 +33,20 @@ export default function PasswordReset({navigation}) {
 
     const resetPassword = async () => {
         setMessage("Loading...");
+        try {
+             await axios({
+                method: "post",
+                data: {
+                  token: tokenPassword,
+                  password: password,
+                  confirmPassword: confirmPassword,
+                },
+                withCredentials: true,
+                url: `http://${IP_HOST}:3001/password/resetpassword`,
+              });
+            setTokenValidate(true);
+            setMessage("password changed")
+        } catch (e) {console.log(e)};
     }
 
     return (

@@ -43,7 +43,7 @@ module.exports = async (req, res, next) => {
                     email: payment[0].email
                 }
             });
-            res.status(200).send("SE APROBO")
+            res.status(200);
 
         }
 

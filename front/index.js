@@ -17,10 +17,11 @@ import TabNavFooter from './components/TabNavFooter/TabNavFooter'
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 import PasswordReset from './components/PasswordRecovery/PasswordReset';
 import { NativeBaseProvider, extendTheme, Text } from 'native-base';
+import ValidateEmail from './components/Register/ValidateEmail';
 
 const Stack = createStackNavigator();
 
-export default function Index() {
+export default function Index({navigation}) {
 const blockChain = useSelector(state => state.blockChain)
 const [themeSelect, setThemeSelect] = useState({})
 
@@ -39,6 +40,7 @@ React.useEffect(()=>{
           200: '#6ee7b7',
           300: '#059669',
           400: '#064e3b',
+          500: '#059669',
          
         },
         // Redefinig only one shade, rest of the color will remain same
@@ -146,15 +148,15 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="Register" component={Register}/>
                       <Stack.Screen name="PasswordRecovery" component={PasswordRecovery}/>
                       <Stack.Screen name="PasswordReset" component={PasswordReset}/>
+                      <Stack.Screen name="ValidateEmail" component={ValidateEmail}/>
                    </Stack.Navigator>
     : 
-                   <TabNavFooter/>
+                   <TabNavFooter />
                    }
       </NavigationContainer>
       </NativeBaseProvider>
   )
 }
-
 
 
 

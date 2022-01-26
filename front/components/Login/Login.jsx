@@ -117,11 +117,11 @@ export default function Login ({ navigation }) {
     
     
     return (
-            <FormControl isInvalid w={{base: "100%", md: "25%",}} style={styles.container}>
+            <FormControl isInvalid width={{base: "100%", md: "25%",}} style={styles.container}>
             {/* <Image width="200px" height="200px"
             source={require("../../assets/icon.png")} alt="logo" />             */}
             
-            <Stack space={4} w={{base: "85%", md: "25%", }} >
+            <Stack space={4} width={{base: "85%", md: "25%", }} >
             <Input placeholder="Email" value={email} onChangeText={setEmail} color='coolGray.900' borderRadius= "4px" InputLeftElement={
           <Icon as={<Ionicons name="person" size={24} color="black" />} size={5} ml="2" color="muted.400" />} backgroundColor= 'darkBlue.50'
           fontWeight='bold' fontSize='12' />

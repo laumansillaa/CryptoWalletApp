@@ -72,7 +72,7 @@ export default function AddContact({ navigation }) {
         safeArea
 
         mt="4"
-        w={{
+        width={{
           base: "100%",
           md: "45%",
         }}

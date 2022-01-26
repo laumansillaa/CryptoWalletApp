@@ -43,7 +43,7 @@ export default function MyTags({ navigation }) {
           <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" >My Tags</Text>
         </Stack>
       </Box>
-      <Box w='100%'>
+      <Box width='100%'>
         <VStack space={2}>
           <VStack alignItems="center" justifyContent="space-between">
             <Text color="dark">My ethereum public key</Text>
@@ -73,7 +73,7 @@ export default function MyTags({ navigation }) {
         </VStack>
       </Box>
 
-      <Box w='100%'>
+      <Box width='100%'>
         <VStack space={2}>
           <VStack alignItems="center" justifyContent="space-between">
             <Text color="dark">My stellar public key</Text>

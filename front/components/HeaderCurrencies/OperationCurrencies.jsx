@@ -75,7 +75,7 @@ export default function OperationCurrencies({route, navigation }) {
   
 
     return (<>
-              <Stack  ml="5" mt="60"direction="row" alignItems="center">
+              <Stack  ml="5" mt="60" direction="row" alignItems="center">
             <Pressable  onPress={()=> navigation.goBack()}>
             <ChevronLeftIcon color="darkBlue.900" size="9"/>
             </Pressable>

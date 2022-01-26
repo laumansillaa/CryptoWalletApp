@@ -61,7 +61,7 @@ export default function MyData({ navigation }) {
         }}
       >
         <Box>
-          <AspectRatio w="100%" ratio={16 / 9}>
+          <AspectRatio width="100%" ratio={16 / 9}>
             <Image
               source={{
                 uri: userData.img

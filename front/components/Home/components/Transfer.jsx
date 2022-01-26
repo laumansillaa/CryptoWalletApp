@@ -227,14 +227,14 @@ async function transferUser (){
                 <FormControl.Label>How much {currency} do you want to transfer?</FormControl.Label>
                 <VStack alignItems="center">
                 <InputGroup
-                  w={{
+                  width={{
                     base: "70%",
                     md: "285",
                   }}
                 >
                   <InputLeftAddon children={"$"} />
                   <Input
-                    w={{
+                    width={{
                       base: "70%",
                       md: "100%",
                     }}
@@ -246,7 +246,7 @@ async function transferUser (){
                 </InputGroup>
                 <Input
                   mt="5"
-                    w={{
+                    width={{
                       base: "70%",
                       md: "100%",
                     }}

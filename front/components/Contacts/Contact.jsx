@@ -14,7 +14,7 @@ export default function Contact({ name, ethereumPublicKey, stellarPublicKey, id,
   return (
     <>
       <Pressable
-        w='100%'
+        width='100%'
         onPress={() => {
           nav.navigate("ContactCard", {
             id,
@@ -23,8 +23,8 @@ export default function Contact({ name, ethereumPublicKey, stellarPublicKey, id,
             stellarPublicKey 
           })
         }}>
-        <VStack space={2} w='100%'>
-          <HStack alignItems="center" w='100%' >
+        <VStack space={2} width='100%'>
+          <HStack alignItems="center" width='100%' >
             <Button
               onPress={() => {
                 nav.navigate("ContactCard", {

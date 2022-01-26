@@ -274,14 +274,14 @@ async function stakeTaking(){
                 <FormControl.Label>How much {currency} do you want to sell?</FormControl.Label>
                 
                 <InputGroup
-                  w={{
+                  width={{
                     base: "70%",
                     md: "285",
                   }}
                 >
                   <InputLeftAddon children={"$"} />
                   <Input
-                    w={{
+                    width={{
                       base: "70%",
                       md: "100%",
                     }}

@@ -17,7 +17,9 @@ import {
   Container, View, HStack,
   Divider
 } from 'native-base';
-import { useSelector, AntDesig } from 'react-redux';
+import { useSelector} from 'react-redux';
+import axios from 'axios';
+import {IP_HOST} from "@env";
 
 export default function Account({ navigation }) {
   const userData = useSelector(state => state.userData)
@@ -27,6 +29,12 @@ export default function Account({ navigation }) {
     try {
       await AsyncStorage.removeItem('userToken');
       dispatch(Logout());
+      await axios({
+        method: "post",
+        withCredentials: true,
+        url: `http://${IP_HOST}:3001/session/signout`,
+      });
+      console.log("hehe");
     } catch (e) {
       console.error(e)
     }
@@ -35,7 +43,7 @@ export default function Account({ navigation }) {
   return (
     <>
       <VStack space={4} alignItems="center" justifyContent='flex-end'>
-        <Box w='90%'>
+        <Box width='90%'>
           <Text textAlign="center" fontSize={23} color='emerald.400' mt='15'>
             {`${userData.firstname} ${userData.lastname}`}
           </Text>
@@ -47,7 +55,7 @@ export default function Account({ navigation }) {
           {({ isPressed }) => {
             return (
               <Box
-                w='100%'
+                width='100%'
                 py={1}
                 style={{
                   transform: [
@@ -72,7 +80,7 @@ export default function Account({ navigation }) {
           {({ isPressed }) => {
             return (
               <Box
-                w='100%'
+                width='100%'
                 py={1}
                 style={{
                   transform: [
@@ -98,7 +106,7 @@ export default function Account({ navigation }) {
           {({ isPressed }) => {
             return (
               <Box
-                w='100%'
+                width='100%'
                 py={1}
                 style={{
                   transform: [
@@ -125,7 +133,7 @@ export default function Account({ navigation }) {
           {({ isPressed }) => {
             return (
               <Box
-                w='100%'
+                width='100%'
                 py={1}
                 style={{
                   transform: [

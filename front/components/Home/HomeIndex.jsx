@@ -13,6 +13,7 @@ import StakingUser from './components/StakingUser';
 import CardCripto from '../HeaderCurrencies/CardCripto';
 import BuyCurrencie from '../HeaderCurrencies/BuyCurrencie';
 import OperationCurrencies from '../HeaderCurrencies/OperationCurrencies';
+import MercadoPago from './components/MercadoPago';
 const Stack = createStackNavigator();
 
 export default function HomeIndex() {
@@ -31,7 +32,7 @@ export default function HomeIndex() {
       <Stack.Screen name="StakingUser" component={StakingUser}/>
       
       <Stack.Screen name="BalanceUser" component={BalanceUser}/>
-     
+      <Stack.Screen name="MercadoPago" component={MercadoPago} />
     </Stack.Navigator>
   );
 }

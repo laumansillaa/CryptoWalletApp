@@ -98,7 +98,7 @@ async function handleSubmit(){
       <ScrollView>
       <FormControl
       isInvalid
-      w={{
+      width={{
         base: "100%",
         md: "25%",}}
       
@@ -112,7 +112,7 @@ async function handleSubmit(){
             
         <Stack
         space={4}
-        w={{
+        width={{
           base: "85%",
           md: "25%",
         }}

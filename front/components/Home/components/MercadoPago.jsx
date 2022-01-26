@@ -26,24 +26,21 @@ export default function MercadoPago({route}) {
                 } ,
                 withCredentials: true,
                 url:`http://${IP_HOST}:3001/payment/process-payment` });
-                console.log(response.data.sandbox);
-
-                setUrl(response.data.sandbox);
+               setUrl(response.data.sandbox);
                 setID(response.data.id)
-                console.log(url);
+              
         } catch (e) {console.log(e)};
         }
         sendServer();
     },[]);
 
-    useEffect(()=> {
-        console.log(url);
-    },[url])
     
-    async function stateChange(state) {
-        console.log(state);
+     async function stateChange(state) {
+  
         let url = state.url;
+   
         if (state.canGoBack == true && !url.includes("mercadopago")) {
+
             if(url.includes("approved")) {
                 let d = new Date();
                 d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`;
@@ -53,17 +50,17 @@ export default function MercadoPago({route}) {
                 route.params.nav.navigate("Home");
             }
         }
-    }
+    } 
 
     return (
         <>   
          {
              url ? <WebView 
-             style={{ marginTop: 20 }}
-            //  originWhitelist={['*']}
-             source={{ uri: url }}
-             startInLoadingState={true}
-             onNavigationStateChange={state => stateChange(state)}
+                    originWhitelist={['*']}
+                    style={{ marginTop: 20 }}
+                    source={{ uri: url }}
+                    startInLoadingState={true}
+                  onNavigationStateChange={state => stateChange(state)} 
              /> : <Text>I cant download the page</Text>
         }
         </>

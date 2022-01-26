@@ -71,7 +71,7 @@ export default function OperationCurrencies({ route, navigation }) {
                             } : ""}
                         />
                     </Stack>
-                    <Box bg="theme.100" width={Dimensions.get('window').width -20} pt="3" pb="3" pl="4" pr="4" borderWidth="1" borderColor="theme.200" borderRadius={7}>
+                    <Box bg="theme.100" width={Dimensions.get('window').width -20} mt="3" pt="3" pb="3" pl="4" pr="4" borderWidth="1" borderColor="theme.200" borderRadius={7}>
                         <Stack direction="row" justifyContent="space-around" space="xl">
                             <Stack direction="row">
                                 <Text fontSize="xl" color="theme.50" fontWeight="semibold" >${cryptoData.price}</Text>

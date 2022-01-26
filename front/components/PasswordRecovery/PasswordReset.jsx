@@ -1,7 +1,7 @@
 import { Box, Button, Center,  Divider, FormControl, Icon, Input, Stack, Text } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
-import { AntDesign } from "@expo/vector-icons"
+import { AntDesign } from "@expo/vector-icons";
 import { validatePassword } from "../Utils/Utils";
 import {IP_HOST} from "@env";
 import axios from "axios";

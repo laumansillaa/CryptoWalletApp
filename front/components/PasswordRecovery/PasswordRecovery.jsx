@@ -65,6 +65,8 @@ export default function PasswordRecovery({ navigation }) {
                     {message}
                     </FormControl.HelperText>
                     <Divider my="2" bg='#ecfeff' />
+
+                    
                     <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" 
                     backgroundColor= 'darkBlue.600' borderRadius= "4px"  _text={{fontSize:"md"}} 
                     borderColor= "darkBlue.50" borderWidth="1">Reset Password</Button>

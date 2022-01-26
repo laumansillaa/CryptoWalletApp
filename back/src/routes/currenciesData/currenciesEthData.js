@@ -1,8 +1,8 @@
 const axios = require("axios");
 
 module.exports = async function(req, res, next) {
-    console.log("---------- CURRENCIES DATA ROUTE ----------")
-    const coins = [{coin: "BTC", id: "bitcoin"}, {coin: "ETH", id: "ethereum"}, {coin: "BNB", id: "binancecoin"}, {coin: "SOL", id: "solana"}, {coin: "ADA", id: "cardano"}, {coin: "XRP", id: "ripple"}, {coin: "LUNA", id: "terra-luna"}, {coin: "DOT", id: "polkadot"}, {coin: "AVAX", id: "avalanche-2"}, {coin: "DOGE", id: "dogecoin"}, {coin: "SHIB", id: "shiba-inu"}, {coin: "MATIC", id: "matic-network"}, {coin: "LINK", id: "chainlink"}, {coin: "LTC", id: "litecoin"}, {coin: "ALGO", id: "algorand"}, {coin: "XLM", id: "stellar"}, {coin: "NEAR", id: "near"}, {coin: "ATOM", id: "cosmos"}]
+    console.log("---------- ETH CURRENCIES DATA ROUTE ----------")
+    const coins = [{coin: "BTC", id: "bitcoin"}, {coin: "ETH", id: "ethereum"}, {coin: "BNB", id: "binancecoin"}, {coin: "SOL", id: "solana"}, {coin: "ADA", id: "cardano"}]
     try {
         let dataCur = []
         for(var i = 0; i < coins.length; i++) {
@@ -20,6 +20,14 @@ module.exports = async function(req, res, next) {
                 symbol: api.data.symbol.toUpperCase()
             })
         }
+        dataCur.push({
+            price: "$4000",
+            percDay: "+0.00%", 
+            percMonth: "+0.00%",
+            img: "https://pbs.twimg.com/profile_images/1184057626222444545/oZiWyMiY_400x400.png",
+            name: "HenryCoin",
+            symbol: "HNR"
+        })
             
         return res.status(200).send(dataCur);
     } catch(error) { next(error) }

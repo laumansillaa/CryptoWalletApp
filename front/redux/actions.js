@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import {IP_HOST} from "@env"
 export const GET_DATA_USER = "GET_DATA_USER";
@@ -17,7 +16,8 @@ export const GET_TRANSACTION_USER = "GET_TRANSACTION_USER";
 export const GET_BLOCKCHAIN =  "GET_BLOCKCHAIN";
 export const GET_CRYPTO_CHART = "GET_CRYPTO_CHART";
 export const GET_CRYPTO_DATA = "GET_CRYPTO_DATA";
-export const GET_ALL_CRYPTO_DATA = "GET_ALL_CRYPTO_DATA";
+export const GET_ALL_STELLAR_DATA = "GET_ALL_STELLAR_DATA";
+export const GET_ALL_ETH_DATA = "GET_ALL_ETH_DATA";
 
 
 export function Log (payload) {
@@ -204,15 +204,29 @@ export const setCryptoData = () => async dispatch =>{
     }
 }
 
-export const getAllCryptoData = () => async dispatch =>{
+export const getAllStellarData = () => async dispatch =>{
     try{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/currencyData`,
+            url: `http://${IP_HOST}:3001/currenciesData/stellar`,
             })
         const dataUser =  response.data;
-        dispatch({type: GET_ALL_CRYPTO_DATA, payload: dataUser})
+        dispatch({type: GET_ALL_STELLAR_DATA, payload: dataUser})
+    }catch(e){
+        console.log("Error al consultar")
+    }
+}
+
+export const getAllEthData = () => async dispatch =>{
+    try{
+        const response = await axios({
+            method: "get",
+            withCredentials: true,
+            url: `http://${IP_HOST}:3001/currenciesData/eth`,
+            })
+        const dataUser =  response.data;
+        dispatch({type: GET_ALL_ETH_DATA, payload: dataUser})
     }catch(e){
         console.log("Error al consultar")
     }

@@ -1,5 +1,5 @@
 
-import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN, GET_CRYPTO_CHART, TOKEN_LOG, TOKEN_LOGOUT, GET_CRYPTO_DATA, GET_ALL_CRYPTO_DATA} from "./actions"
+import {LOG, LOGOUT, DATA_HARD, GET_DATA_USER, TOKENS_HARD, ADD_FOUNDS, DEPOSIT_TRANSACTION, RETRIEVE_TOKEN, LOADING_FALSE, GET_TOKENS, GET_BALANCE, GET_TRANSACTION_USER, GET_BLOCKCHAIN, GET_CRYPTO_CHART, TOKEN_LOG, TOKEN_LOGOUT, GET_CRYPTO_DATA, GET_ALL_STELLAR_DATA, GET_ALL_ETH_DATA} from "./actions"
 
 const initialState={
    Log: false,
@@ -29,7 +29,17 @@ const initialState={
         img: "",
         name: ""
     },
-    allCryptoData: [
+    allStellarData: [
+        {
+            price: "0",
+            percDay: "+0%",
+            percMonth: "+0%",
+            img: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+            name: "",
+            symbol: ""
+        }
+    ],
+    allEthData: [
         {
             price: "0",
             percDay: "+0%",
@@ -125,8 +135,11 @@ const rootReducer = (state = initialState, action)=>{
             case GET_CRYPTO_DATA:
                 return {...state, cryptoData: action.payload}
             
-            case GET_ALL_CRYPTO_DATA:
-                return {...state, allCryptoData: action.payload}
+            case GET_ALL_STELLAR_DATA:
+                return {...state, allStellarData: action.payload}
+            
+            case GET_ALL_ETH_DATA:
+                return {...state, allEthData: action.payload}
                 
        default: return state
     }

@@ -28,7 +28,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                         data: chartInfo
                     }]
                 }}
-                width={Dimensions.get('window').width -10} // from react-native
+                width={Dimensions.get('window').width -25} // from react-native
                 height={220}
                 yAxisInterval={1} // optional, defaults to 1
                 withVerticalLines={0}
@@ -36,9 +36,9 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                 withVerticalLabels={1}
                 withHorizontalLabels={1}
                 chartConfig={{
-                    backgroundColor: "#000000",
+                    backgroundColor: "#0f0f0f",
                     backgroundGradientFrom: "#000000",
-                    backgroundGradientTo: "#0f0f0f",
+                    backgroundGradientTo: "#000000",
                     decimalPlaces: 2, // optional, defaults to 2dp
                     color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -65,7 +65,7 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                         data: chartInfo
                     }]
                 }}
-                width={Dimensions.get('window').width -10} // from react-native
+                width={Dimensions.get('window').width -25} // from react-native
                 height={220}
                 yAxisInterval={1} // optional, defaults to 1
                 withVerticalLines={0}
@@ -73,9 +73,9 @@ const month = lastMonth === 12 ? 1 : lastMonth + 1;
                 withVerticalLabels={1}
                 withHorizontalLabels={1}
                 chartConfig={{
-                    backgroundColor: "#000000",
+                    backgroundColor: "#0f0f0f",
                     backgroundGradientFrom: "#000000",
-                    backgroundGradientTo: "#0f0f0f",
+                    backgroundGradientTo: "#000000",
                     decimalPlaces: 2, // optional, defaults to 2dp
                     color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,

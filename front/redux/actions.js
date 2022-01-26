@@ -16,6 +16,9 @@ export const GET_BALANCE = "GET_BALANCE"
 export const GET_TRANSACTION_USER = "GET_TRANSACTION_USER";
 export const GET_BLOCKCHAIN =  "GET_BLOCKCHAIN";
 export const GET_CRYPTO_CHART = "GET_CRYPTO_CHART";
+export const GET_CRYPTO_DATA = "GET_CRYPTO_DATA";
+export const GET_ALL_CRYPTO_DATA = "GET_ALL_CRYPTO_DATA";
+
 
 export function Log (payload) {
     return {
@@ -167,6 +170,49 @@ export const getCryptoChart = (crypto) => async dispatch =>{
             })
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_CHART, payload: dataUser})
+    }catch(e){
+        console.log("Error al consultar")
+    }
+}
+
+export const getCryptoData = (crypto) => async dispatch =>{
+    try{
+        const response = await axios({
+            method: "get",
+            withCredentials: true,
+            url: `http://${IP_HOST}:3001/currencyData/${crypto}`,
+            })
+        const dataUser =  response.data;
+        dispatch({type: GET_CRYPTO_DATA, payload: dataUser})
+    }catch(e){
+        console.log("Error al consultar")
+    }
+}
+
+export const setCryptoData = () => async dispatch =>{
+    try{
+        const response = {
+            price: "0",
+            percDay: "+0%",
+            percMonth: "+0%",
+            img: "",
+            name: ""
+        }
+        dispatch({type: GET_CRYPTO_DATA, payload: response})
+    }catch(e){
+        console.log("Error al consultar")
+    }
+}
+
+export const getAllCryptoData = () => async dispatch =>{
+    try{
+        const response = await axios({
+            method: "get",
+            withCredentials: true,
+            url: `http://${IP_HOST}:3001/currencyData`,
+            })
+        const dataUser =  response.data;
+        dispatch({type: GET_ALL_CRYPTO_DATA, payload: dataUser})
     }catch(e){
         console.log("Error al consultar")
     }

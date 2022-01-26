@@ -50,6 +50,7 @@ export default function TabNavFooter() {
                 },     
                 //tabBarInactiveTintColor: 'grey',
                 //tabBarActiveTintColor: '#1f2937'
+                //tabBarStyle: { backgroundColor: "#6ee7b7" }
             }}
         >
             <Tab.Screen

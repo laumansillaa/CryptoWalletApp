@@ -12,42 +12,42 @@ module.exports = async function(req, res, next) {
         const keys = await Key.findOne({ where: { userId: req.user.id } });
         const prices = await binance.futuresPrices();
 
-        const ethereumEther = (await web3.eth.getBalance(keys.ethereum[0]))/10**18;
-        const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
-        await Promise.all(["HNR", "BTC", "USDT", "BNB", "ADA", "SOL"].map(async currency => {
-            const tokenContract = await require("../../solidity")(currency);
-            const amount = (await tokenContract.methods.balanceOf(keys.ethereum[0]).call()) / 10**4;
-            ethereumCurrencies.push({
-                currency,
-                amount,
-            });
-        }));
-        let ethereumStaking = 0;
-        const dbEthereumStaking = await Staking.findAll({
-            where: {
-                userId: req.user.id,
-                blockchain: "ethereum"
-            }
-        });
-        for (let i = 0; i < dbEthereumStaking.length; i++) {
-            if (dbEthereumStaking[i].currency === "USDT") {
-                ethereumStaking += dbEthereumStaking[i].amount;
-            } else if (ethereumCurrencies[i].currency === "HNR") {
-                ethereumStaking += dbEthereumStaking[i].amount * 4000;
-            } else {
-                ethereumStaking += dbEthereumStaking[i].amount * prices[`${dbEthereumStaking[i].currency}USDT`];
-            }
-        }
-        let ethereumCrypto = 0;
-        for (let i = 0; i < ethereumCurrencies.length; i++) {
-            if (ethereumCurrencies[i].currency === "USDT") {
-                ethereumCrypto += ethereumCurrencies[i].amount;
-            } else if (ethereumCurrencies[i].currency === "HNR") {
-                ethereumCrypto += ethereumCurrencies[i].amount * 4000;
-            } else {
-                ethereumCrypto += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
-            }
-        }
+        // const ethereumEther = (await web3.eth.getBalance(keys.ethereum[0]))/10**18;
+        // const ethereumCurrencies = [{ currency: "ETH", amount: ethereumEther }] ;
+        // await Promise.all(["HNR", "BTC", "USDT", "BNB", "ADA", "SOL"].map(async currency => {
+        //     const tokenContract = await require("../../solidity")(currency);
+        //     const amount = (await tokenContract.methods.balanceOf(keys.ethereum[0]).call()) / 10**4;
+        //     ethereumCurrencies.push({
+        //         currency,
+        //         amount,
+        //     });
+        // }));
+        // let ethereumStaking = 0;
+        // const dbEthereumStaking = await Staking.findAll({
+        //     where: {
+        //         userId: req.user.id,
+        //         blockchain: "ethereum"
+        //     }
+        // });
+        // for (let i = 0; i < dbEthereumStaking.length; i++) {
+        //     if (dbEthereumStaking[i].currency === "USDT") {
+        //         ethereumStaking += dbEthereumStaking[i].amount;
+        //     } else if (ethereumCurrencies[i].currency === "HNR") {
+        //         ethereumStaking += dbEthereumStaking[i].amount * 4000;
+        //     } else {
+        //         ethereumStaking += dbEthereumStaking[i].amount * prices[`${dbEthereumStaking[i].currency}USDT`];
+        //     }
+        // }
+        // let ethereumCrypto = 0;
+        // for (let i = 0; i < ethereumCurrencies.length; i++) {
+        //     if (ethereumCurrencies[i].currency === "USDT") {
+        //         ethereumCrypto += ethereumCurrencies[i].amount;
+        //     } else if (ethereumCurrencies[i].currency === "HNR") {
+        //         ethereumCrypto += ethereumCurrencies[i].amount * 4000;
+        //     } else {
+        //         ethereumCrypto += ethereumCurrencies[i].amount * prices[`${ethereumCurrencies[i].currency}USDT`];
+        //     }
+        // }
 
         const stellarAccount = await server.loadAccount(keys.stellar[0]);
         const stellarCurrencies = stellarAccount.balances
@@ -58,12 +58,16 @@ module.exports = async function(req, res, next) {
         let stellarStaking = 0;
         for (let i = 0; i < stellarCurrencies.length; i++) {
             stellarCrypto += stellarCurrencies[i].amount * prices[`${stellarCurrencies[i].currency}USDT`];
-            stellarStake.forEach(data => {
+            stellarStake.forEach((data, index) => {
                 if(data.currency === stellarCurrencies[i].currency) {
                     stellarCurrencies[i].staking = data.amount;
                     stellarStaking += parseFloat(data.amount) * prices[`${stellarCurrencies[i].currency}USDT`];
+                    stellarStake.splice(1, index)
                 }
             })
+        }
+        if(stellarStake.length) {
+            stellarStake.forEach(data => stellarCurrencies[data.currency].staking = data.amount)
         }
 
         const user = await User.findOne({ where: { id: req.user.id } })

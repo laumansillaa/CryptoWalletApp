@@ -15,6 +15,7 @@ import {
     View
 } from 'native-base';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
+import { useState } from 'react';
 
 export default function Confirmation({ navigation }) {
     const transaction = useSelector(state => state.userData.transactions[0])

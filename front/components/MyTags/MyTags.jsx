@@ -17,17 +17,91 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { useSelector } from "react-redux";
 
-
+import { Dimensions } from 'react-native';
+const windowHeight = Dimensions.get('window').height
 
 export default function MyTags({ navigation }) {
   const data = useSelector(state => state.userData)
-  
+
   const toast = useToast()
   const [show, setShow] = React.useState(false)
   const { value, onCopy } = useClipboard()
 
   return (
-    <Center flex={1} px="3">
+    <Box bg="theme.100" height={windowHeight}>
+      <Pressable onPress={() => navigation.goBack()}>
+        <ChevronLeftIcon color="theme.300" size="40px" m='7px' />
+      </Pressable>
+      <Center>
+        <Text fontSize="15px" color="theme.300" letterSpacing={4}>MY KEYS</Text>
+      </Center>
+      <Center flex={1}>
+        <Box
+          width='100%'
+          maxWidth="100%"
+        >
+          <Stack direction="row" alignItems="center">
+          </Stack>
+        </Box>
+
+        <Box w='80%'>
+          <VStack space={2}>
+            
+            <VStack alignItems="center" justifyContent="space-between">
+
+              <HStack alignItems="center" space={3}>
+                <Text color="theme.50" letterSpacing={3}>My ethereum public key</Text>
+                <Button bgColor='theme.300' onPress={() => {
+                  onCopy(data.publicKeys.ethereum)
+                  setShow(true)
+                  toast.show({
+                    duration: 1200,
+                    placement: "bottom",
+                    render: () => {
+                      return (
+                        <Box bg="theme.300" px="2" py="1" rounded="sm" mb={150}>
+                          <Text color='theme.50'> successful copy </Text>
+                        </Box>
+                      )
+                    },
+                  })
+                }}
+                  leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
+                ></Button>
+              </HStack>
+              <Text color="theme.150">{data.publicKeys.ethereum}</Text>
+            </VStack>
+
+            <Divider my="3" bg='theme.150' />
+            <VStack alignItems="center" justifyContent="space-between">
+              <HStack alignItems="center" space={3}>
+                <Text color="theme.50" letterSpacing={3}>My stellar public key</Text>
+                <Button bgColor='theme.300' onPress={() => {
+                  onCopy(data.publicKeys.stellar)
+                  setShow(true)
+                  toast.show({
+                    duration: 1200,
+                    placement: "bottom",
+                    render: () => {
+                      return (
+                        <Box bg="theme.300" px="2" py="1" rounded="sm" mb={150}>
+                          <Text color='theme.50'> successful copy </Text>
+                        </Box>
+                      )
+                    },
+                  })
+                }}
+                  leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
+                  //colorScheme="green"
+                ></Button>
+              </HStack>
+              <Text color="theme.150">{data.publicKeys.stellar}</Text>
+            </VStack>
+            <Divider my="3" bg='theme.150' />
+          </VStack>
+        </Box>
+
+        {/* <Center flex={1} px="3">
       <Box
         mt="50px"
         py="1"
@@ -35,13 +109,8 @@ export default function MyTags({ navigation }) {
         alignSelf="center"
         width={375}
         maxWidth="100%"
-      >
-        <Stack direction="row" alignItems="center">
-          <Pressable onPress={() => navigation.goBack()}>
-            <ChevronLeftIcon color="darkBlue.900" size="9" />
-          </Pressable>
-          <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" >My Tags</Text>
-        </Stack>
+        >
+        
       </Box>
       <Box width='100%'>
         <VStack space={2}>
@@ -64,8 +133,8 @@ export default function MyTags({ navigation }) {
                   },
                 })
               }}
-                leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
-                colorScheme="green"
+              leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
+              colorScheme="green"
               ></Button>
             </HStack>
           </VStack>
@@ -94,14 +163,16 @@ export default function MyTags({ navigation }) {
                   },
                 })
               }}
-                leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
+              leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
                 colorScheme="green"
-              ></Button>
+                ></Button>
             </HStack>
           </VStack>
           <Divider my="2" bg='emerald.600' />
         </VStack>
       </Box>
     </Center>
+ */}    </Center>
+    </Box>
   )
 }

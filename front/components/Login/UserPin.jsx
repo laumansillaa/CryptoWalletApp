@@ -1,87 +1,101 @@
-import React, { useState } from 'react';
-import {
-  PinInput,
-  Center,
-  FormControl,
-  NativeBaseProvider,
-  Button,
-  Input
-} from 'native-base';
-import { validatePin } from '../Utils/Utils';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useSelector } from 'react-redux';
-import { getDataUser, Log, TokenLogOut, TOKEN_LOGOUT } from '../../redux/actions';
-import axios from 'axios';
-import { StyleSheet } from 'react-native';
+    
+//    function handleSubmit(){
+//         setMessage("Loading...");
+//           if(error === ""){
+//             if(pin !== ""){
+//                 if (pin === userData?.pin) {
+//                         dispatch(Log(userToken));
+//                         setMessage("Sign in succeeded.");
+//                         dispatch(TokenLogOut());                   
+//                     }
+//             
 
+
+import Icon from "react-native-vector-icons/Ionicons"
+import React, { useEffect, useRef, useState } from "react"
+import { SafeAreaView, StatusBar, } from "react-native"
+import ReactNativePinView from "react-native-pin-view"
+import { Text } from "native-base";
+import { useDispatch, useSelector } from 'react-redux';
+import { getDataUser, Log, TokenLogOut} from '../../redux/actions';
 
 export default function UserPin () {
-    const dispatch = useDispatch();
-    const [message, setMessage] = useState("");
-    const [pin,setPin] = useState("");
-    const [error, setError] = useState("");
-    const userToken = useSelector(state => state.userToken);
-    const userData = useSelector(state => state.userData); 
-    
-    
-    useEffect(() => {
-        validatePin(pin)? setError("") : setError("Please enter a 6-digit pin, only numbers are accepted");
-        dispatch(getDataUser());
-    },[pin]);
-    
-   function handleSubmit(){
-        setMessage("Loading...");
-          if(error === ""){
-            if(pin !== ""){
-                if (pin === userData?.pin) {
-                        dispatch(Log(userToken));
-                        setMessage("Sign in succeeded.");
-                        dispatch(TokenLogOut());                   
-                    }
-                 else {
-                    setMessage("Registration failed, try again")
-                }            
-              }else{
-                setMessage("Please fill all fields");
+  const dispatch = useDispatch();
+  const pinView = useRef(null);
+  const [showRemoveButton, setShowRemoveButton] = useState(false);
+  const [enteredPin, setEnteredPin] = useState("");
+  const [showCompletedButton, setShowCompletedButton] = useState(false);  
+  const userToken = useSelector(state => state.userToken);
+  const userData = useSelector(state => state.userData);
+  useEffect(() => {
+    if (enteredPin.length > 0) {
+      setShowRemoveButton(true)
+    } else {
+      setShowRemoveButton(false)
+    }
+    if (enteredPin.length === 6) {
+      setShowCompletedButton(true)
+    } else {
+      setShowCompletedButton(false)
+    }
+    dispatch(getDataUser());
+  }, [enteredPin])
+  return (
+    <>
+      <StatusBar barStyle="light-content" />
+        <SafeAreaView
+          style={{ flex: 1, backgroundColor: "#18181b", justifyContent: "center", alignItems: "center" }}>
+          <Text
+            style={{
+              paddingTop: 24,
+              paddingBottom: 48,
+              color: "#059669",
+              fontSize: 30,
+            }}>
+            Insert your pin
+          </Text>
+          <ReactNativePinView
+            inputSize={32}
+            ref={pinView}
+            pinLength={6}
+            buttonSize={60}
+            onValueChange={value => setEnteredPin(value)}
+            buttonAreaStyle={{
+              marginTop: 24,
+            }}
+            inputAreaStyle={{
+              marginBottom: 24,
+            }}
+            inputViewEmptyStyle={{
+              backgroundColor: "transparent",
+              borderWidth: 1,
+              borderColor: "#FFF",
+            }}
+            inputViewFilledStyle={{
+              backgroundColor: "#FFF",
+            }}
+            buttonViewStyle={{
+              borderWidth: 1,
+              borderColor: "#18181b",
+            }}
+            buttonTextStyle={{
+              color: "#FFF",
+            }}
+            onButtonPress={key => {
+              if (key === "custom_left") {
+                pinView.current.clear()
               }
-           
-           }else{
-            setMessage("Please review the warnings");
-           }
-      }
-
-
-    return (
-        <Center>
-        <FormControl>
-          <FormControl.Label>PIN</FormControl.Label>
-          <Input placeholder="Enter password" type='password' value={pin} onChangeText={setPin} />
-          <FormControl.HelperText>
-            Put your pin for security
-          </FormControl.HelperText>
-          {<FormControl.HelperText>
-            {error}
-            </FormControl.HelperText>}
-          <Button onPress={handleSubmit}>Enter the app</Button>
-          {<FormControl.HelperText>
-            {message}
-            </FormControl.HelperText>}
-
-        </FormControl>
-      </Center>
-    )
+              if (key === "custom_right") {
+                if (enteredPin === userData?.pin) {
+                    dispatch(Log(userToken));
+                    dispatch(TokenLogOut());                   
+                }
+              }
+            }}
+            customLeftButton={showRemoveButton ? <Icon name={"ios-backspace"} size={36} color={"#FFF"} /> : undefined}
+            customRightButton={showCompletedButton ? <Icon name={"caret-forward-circle-sharp"} size={36} color={"#FFF"} /> : undefined}
+          />
+        </SafeAreaView>
+    </>
+  )
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000e21',
-    
-    alignItems: 'center',
-    justifyContent: 'center',
-   
-  },
-});

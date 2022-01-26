@@ -26,8 +26,8 @@ export default function Criptos({symbol, name, price, percDay, img, nav}) {
                 mt="1"
                 pl="3"
                 mb="2"
-                borderWidth="2" 
-                borderColor="theme.200" 
+                borderWidth="1" 
+                borderColor="theme.300" 
                 borderRadius={7}
                 //shadow={9}
                 height={70}

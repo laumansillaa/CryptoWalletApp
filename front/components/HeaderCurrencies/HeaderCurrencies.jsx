@@ -43,14 +43,14 @@ export default function HeaderCurrencies({navigation}) {
     return (
         <>
             <Stack bg="theme.100">
-                <Box size="16" width={Dimensions.get('window').width} bg="theme.200" borderBottomRadius="10" alignItems="center">
+                <Box size="16" width={Dimensions.get('window').width} bg="theme.300" borderBottomRadius="10" alignItems="center">
                     <Text fontSize="2xl" mt="3" fontWeight="bold" color="theme.100">CURRENCIES</Text>
                 </Box>
             </Stack>
             <ScrollView bg="theme.100">
                 <VStack mt="3" mb="3">
                     {blockChain === "stellar" ?
-                        allEthData?.map((el, index)=>{
+                        allStellarData?.map((el, index)=>{
                         return <Criptos key={index} symbol={el.symbol} name={el.name} price={el.price} percDay={el.percDay} img={el.img} nav={navigation}/>
                         }) :
                         allEthData?.map((el, index)=>{

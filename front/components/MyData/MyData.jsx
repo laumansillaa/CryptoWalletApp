@@ -17,6 +17,7 @@ import {
   Pressable,
   ChevronLeftIcon,
   Text,
+  Divider,
 } from "native-base"
 
 export default function MyData({ navigation }) {
@@ -25,54 +26,63 @@ export default function MyData({ navigation }) {
 
 
   return (
-    <Center flex={1} px="3">
+    <Center 
+    // flex={1} 
+    // px="3" 
+    bg="theme.100" 
+    height="100%"
+    >
       <Box
         mt="50px"
         py="1"
         rounded="md"
-        alignSelf="center"
-        width={375}
-        maxWidth="100%"
+        alignSelf="flex-start"
+        // width={375}
+        // maxWidth="100%"
       >
         <Stack direction="row" alignItems="center">
           <Pressable onPress={() => navigation.goBack()}>
-            <ChevronLeftIcon color="darkBlue.900" size="9" />
+            <ChevronLeftIcon color="theme.500" size="10" />
           </Pressable>
-          <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" >My Data </Text>
+          <Text ml="105px" fontSize="xl" color="theme.500" fontWeight="bold" >My Data </Text>
         </Stack>
       </Box>
 
       <Box
-        maxW="lg"
-        rounded="lg"
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
         overflow="hidden"
-        borderColor="coolGray.200"
-        borderWidth="1"
-        _dark={{
-          borderColor: "coolGray.600",
-          backgroundColor: "gray.700",
-        }}
-        _web={{
-          shadow: 2,
-          borderWidth: 0,
-        }}
-        _light={{
-          backgroundColor: "gray.50",
-        }}
+        // borderColor="theme.300"
+        // borderWidth="1"
+        // _dark={{
+        //   borderColor: "theme.200",
+        //   backgroundColor: "theme.150",
+        // }}
+        // _web={{
+        //   shadow: 2,
+        //   borderWidth: 0,
+        // }}
+        // _light={{
+        //   backgroundColor: "theme.100",
+        // }}
       >
-        <Box>
-          <AspectRatio width="100%" ratio={16 / 9}>
-            <Image
+        <Stack alignItems="center" space={4} justifyContent="space-between" >
+
+          <Box>
+            <AspectRatio width="100%" ratio={16 / 9}>
+              <Image
               source={{
                 uri: userData.img
               }}
               alt="image"
-            />
-          </AspectRatio>
-          <Center
-            bg="violet.500"
+              />
+            </AspectRatio>
+          </Box>
+          <Box
+            bg="theme.500"
             _dark={{
-              bg: "violet.400",
+              bg: "theme.400",
             }}
             _text={{
               color: "warmGray.50",
@@ -85,20 +95,22 @@ export default function MyData({ navigation }) {
             py="1.5"
           >
             PROFILE
-          </Center>
-        </Box>
-        <Stack p="4" space={3}>
-          <Stack space={2}>
+          </Box>
+        </Stack>
+
+        <Divider my="3" bg='#ecfeff' />
+        
+          <Stack alignItems="center" space={1} justifyContent="space-between">
             <Heading size="md" ml="-1">
               {`${userData.firstname} ${userData.lastname}`}
             </Heading>
             <Text
               fontSize="xs"
               _light={{
-                color: "violet.500",
+                color: "theme.400",
               }}
               _dark={{
-                color: "violet.400",
+                color: "theme.500",
               }}
               fontWeight="500"
               ml="-0.5"
@@ -106,35 +118,36 @@ export default function MyData({ navigation }) {
             >
               {userData.email}
             </Text>
-          </Stack>
-
-          <HStack alignItems="center" space={4} justifyContent="space-between">
-            <HStack alignItems="center">
               <Text
                 color="coolGray.600"
                 _dark={{
                   color: "warmGray.200",
                 }}
-                fontWeight="400"
+                fontWeight="600"
               >
                 Phone: {userData.phone}
               </Text>
-            </HStack>
-          </HStack>
-          <HStack alignItems="center" space={4} justifyContent="space-between">
-            <HStack alignItems="center">
-              <Text
-                color="coolGray.600"
+          </Stack>
+
+          <Divider my="3" bg='#ecfeff' />
+
+          <Stack alignItems="center" space={3} justifyContent="space-between">
+            {/* <HStack alignItems="center"> */}
+            {/* </HStack> */}
+          {/* </HStack>
+          <HStack alignItems="center" space={4} justifyContent="space-between"> */}
+            
+              {/* <Text
+                color="theme.500"
                 _dark={{
-                  color: "warmGray.200",
+                  color: "theme.200",
                 }}
                 fontWeight="400"
-              >
-                <Button onPress={() => navigation.navigate("EditDataUser")}>Editar Perfil</Button>
-              </Text>
-            </HStack>
-          </HStack>
-        </Stack>
+              > */}
+                <Button fontWeight="500" bg="theme.500" onPress={() => navigation.navigate("EditDataUser")}>Edit profile</Button>
+              {/* </Text> */}
+          </Stack>
+        
       </Box>
       </Center>
   );

@@ -1,7 +1,7 @@
 
 import { StyleSheet, Dimensions} from 'react-native';
 
-import {  ScrollView, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button, Box, Divider, Icon } from 'native-base';
+import {  ScrollView, Stack, Input,  FormControl,WarningOutlineIcon,Heading,Button, Box, Divider, Icon, Text } from 'native-base';
 import { AntDesign } from "@expo/vector-icons"
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
@@ -28,8 +28,8 @@ const [error, setError] = useState({
   password:"",
   pin:""
 
-})
-/* const [token, setToken] = useState(""); */
+});
+const [emailSent, setEmailSent] = useState(false);
 
 function validateData (arg){
 
@@ -81,6 +81,7 @@ async function handleSubmit(){
           try {
              await axios.post(`http://${IP_HOST}:3001/session/signup`, state)
             setMessage("Sign in succeeded.");
+            setEmailSent(true);
           } catch (error) {
             setMessage("Registration failed, try again ")
           }
@@ -207,6 +208,11 @@ async function handleSubmit(){
           <FormControl.HelperText>
               {message}
           </FormControl.HelperText>
+          {emailSent ? <Button onPress={() => navigation.navigate("ValidateEmail")} bg= "theme.50"  _text={{fontSize:"md"}}
+           borderColor= "darkBlue.50"
+           borderWidth="1" 
+           color= 'theme.100' >Validate your email</Button> : 
+           <Text>Waiting</Text>}
 
           <Divider my="1" bg='#ecfeff' />
 

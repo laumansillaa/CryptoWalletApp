@@ -11,6 +11,8 @@ export default function MercadoPago({route}) {
     
     const [url,setUrl] = useState(null);
     const dispatch = useDispatch();
+    const [id,setID] = useState(null);
+
 
     
 
@@ -25,7 +27,9 @@ export default function MercadoPago({route}) {
                 withCredentials: true,
                 url:`http://${IP_HOST}:3001/payment/process-payment` });
                 console.log(response.data.sandbox);
+
                 setUrl(response.data.sandbox);
+                setID(response.data.id)
                 console.log(url);
         } catch (e) {console.log(e)};
         }

@@ -25,7 +25,7 @@ export default function MyData({ navigation }) {
 
 
   return (
-    <NativeBaseProvider>
+    <Center flex={1} px="3">
       <Box
         mt="50px"
         py="1"
@@ -136,6 +136,6 @@ export default function MyData({ navigation }) {
           </HStack>
         </Stack>
       </Box>
-    </NativeBaseProvider>
+      </Center>
   );
 }

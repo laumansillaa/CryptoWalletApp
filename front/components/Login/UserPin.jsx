@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from 'react-redux';
 import { getDataUser, Log, TokenLogOut, TOKEN_LOGOUT } from '../../redux/actions';
 import axios from 'axios';
+import { StyleSheet } from 'react-native';
 
 
 export default function UserPin () {
@@ -72,3 +73,15 @@ export default function UserPin () {
       </Center>
     )
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#000e21',
+    
+    alignItems: 'center',
+    justifyContent: 'center',
+   
+  },
+});

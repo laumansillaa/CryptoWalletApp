@@ -30,13 +30,13 @@ export default function Account({ navigation }) {
 
   async function onLogout() {
     try {
-      await AsyncStorage.removeItem('userToken');
-      dispatch(Logout());
       await axios({
         method: "post",
         withCredentials: true,
         url: `http://${IP_HOST}:3001/session/signout`,
       });
+      await AsyncStorage.removeItem('userToken');
+      dispatch(Logout());
       console.log("hehe");
     } catch (e) {
       console.error(e)

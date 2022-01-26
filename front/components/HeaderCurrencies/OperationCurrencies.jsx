@@ -62,7 +62,7 @@ export default function OperationCurrencies({ route, navigation }) {
         <Center paddingBottom={500} bg="theme.100">
             <VStack>
                 <Box bg="theme.150" width={Dimensions.get('window').width} height={Dimensions.get('window').height /2.25} borderBottomRadius={10} alignSelf="center" alignItems="center">
-                    <Stack direction="row" mt="5" mb="5" alignSelf="left">
+                    <Stack direction="row" mt="5" mb="5" alignSelf="center">
                         <Pressable onPress={()=> navigation.goBack()}>
                             <ChevronLeftIcon ml="-150" color="theme.50" size="9"/>
                         </Pressable>

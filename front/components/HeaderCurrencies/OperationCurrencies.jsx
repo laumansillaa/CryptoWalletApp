@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Pressable, RefreshControl } from 'react-native';
+import { Pressable, RefreshControl, Dimensions } from 'react-native';
 import {
-
     Box,
     Button,
     IconButton,
@@ -11,124 +10,140 @@ import {
     ScrollView,
     Avatar,
     VStack,
-    HStack
-    
+    HStack,
+    Image
   } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { getBalance } from '../../redux/actions';
-/* import SegmentChartGrandient from './Chart/Chart'; */
+import { getBalance, getCryptoData, setCryptoData } from '../../redux/actions';
 import { getCryptoChart } from '../../redux/actions';
 import Chart2 from './Chart/Chart2';
-import {useFocusEffect } from '@react-navigation/native';
+import { Entypo  } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function OperationCurrencies({route, navigation }) {
-  const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
-       const{currency} = route.params 
-        const balance = useSelector(state=> state.userData.balance)
-        const [amount, setAmount] = useState("")
-        const dispatch = useDispatch()
-    const blockChain = useSelector(state=> state.blockChain)
-       React.useEffect(()=>{
-        if(blockChain === "stellar"){
-           let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
 
-           (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
+export default function OperationCurrencies({ route, navigation }) {
+    const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
+    const { currency } = route.params;
+    const balance = useSelector(state => state.userData.balance);
+    const [amount, setAmount] = useState("");
+    const dispatch = useDispatch();
+    const blockChain = useSelector(state => state.blockChain);
+    const cryptoData = useSelector(state => state.cryptoData);
 
-            
-          
-          }else if (blockChain === "ethereum"){
+    React.useEffect(()=>{
+        if(blockChain === "stellar") {
+            let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
+            (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
+        } else if(blockChain === "ethereum"){
             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
             (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
-          }
-          
+        }
+    },[blockChain, balance ,currency])
 
-       },[blockChain, balance ,currency])
-       React.useEffect(()=>{
-          dispatch(getBalance())
-          dispatch(getCryptoChart(currency));
+    React.useEffect(() => {
+        dispatch(getBalance());
+        dispatch(getCryptoChart(currency));
+    },[])
 
-       },[])
-
-     /*   useFocusEffect(
+    useFocusEffect(
         React.useCallback(() => {
-          if(blockChain === "stellar"){
-            let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
- 
-            (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
- 
-             
-           
-           }else if (blockChain === "ethereum"){
-             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
-             (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
-           }
-           
-        
-          return  () => {
-       };
-        }, []));
-   */
-      
-      
-     
-  
+            dispatch(getCryptoData(currency));
+            return () => {
+                dispatch(setCryptoData())
+            };
+        }, [])
+    );
 
-    return (<>
-              <Stack  ml="5" mt="60" direction="row" alignItems="center">
-            <Pressable  onPress={()=> navigation.goBack()}>
-            <ChevronLeftIcon color="darkBlue.900" size="9"/>
-            </Pressable>
-            </Stack>
+
+    return (
+        <Box height={Dimensions.get('window').height} bg="theme.100">
             <VStack>
-                <Box
-                bg="blue.100"
-                width={375}
-                py="5"
-                rounded="xl"
-                alignSelf="center"
-                alignItems="center"
-                >
-                <Avatar bg="#ffffff" size="lg"  alignSelf="center">
-                  <Text color="#000000" fontWeight="bold"fontSize="4xl">{currency.charAt(0)}</Text>
-              </Avatar>
-              <Text  fontSize="xl" color="darkBlue.900" fontWeight="bold" >{currency} </Text> 
-              <Text  fontSize="xl" color="darkBlue.900" fontWeight="bold" > {amount}</Text>
+                <Box bg="theme.150" width={Dimensions.get('window').width} height={Dimensions.get('window').height /2.25} borderBottomRadius={10} alignSelf="center" alignItems="center">
+                    <Stack direction="row" mt="5" mb="5" alignSelf="center">
+                        <Pressable onPress={()=> navigation.goBack()}>
+                            <ChevronLeftIcon ml="-150" color="theme.50" size="9"/>
+                        </Pressable>
+                        <Avatar bg="theme.150" size="lg" alignSelf="center" source={(cryptoData.img)?{
+                            uri: cryptoData.img
+                            } : ""}
+                        />
+                    </Stack>
+                    <Box bg="theme.100" width={Dimensions.get('window').width -20} mt="3" pt="3" pb="3" pl="4" pr="4" borderWidth="1" borderColor="theme.200" borderRadius={7}>
+                        <Stack direction="row" justifyContent="space-around" space="xl">
+                            <Stack direction="row">
+                                <Text fontSize="xl" color="theme.50" fontWeight="semibold" >${cryptoData.price}</Text>
+                                    {cryptoData.percDay[0] === "+" ?
+                                        <Text fontSize="md" mt="1" color="success.500" fontWeight="normal" > {cryptoData.percDay}</Text> :
+                                        <Text fontSize="md" mt="1" color="red.600" fontWeight="normal" > {cryptoData.percDay}</Text>
+                                    }
+                            </Stack>
+                            <Stack direction="row">
+                                <Text fontSize="xl" color="theme.50" fontWeight="semibold" >{amount}</Text>
+                                <Text fontSize="xl" color="theme.50" fontWeight="semibold" > {currency}</Text>
+                            </Stack>
+                        </Stack>
+                    </Box>
+                    <HStack space={6} alignItems="center">
+                        <Stack direction="column" alignSelf="center" alignItems="center">
+                            <Button
+                                mt="9"
+                                bg="theme.200"
+                                borderRadius="full"
+                                onPress={()=>navigation.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency})}
+                            >
+                                <Feather name="arrow-up" size={28} color="theme.50" />
+                            </Button>
+                            <Text color="theme.200" mt="2" fontWeight="normal">TRANSFER</Text>
+                        </Stack>
+                        <Stack direction="column" alignSelf="center" alignItems="center">
+                            <Button
+                                mt="9"
+                                bg="theme.200"
+                                borderRadius="full"
+                                onPress={()=> navigation.navigate("CardCripto", {token:currency})}
+                            >
+                                <Entypo name="plus" size={28} color="theme.50" />
+                            </Button>
+                            <Text color="theme.200" mt="2" fontWeight="normal">BUY</Text>
+                        </Stack>
+                        <Stack direction="column" alignSelf="center" alignItems="center">
+                            <Button
+                                mt="9"
+                                bg="theme.200"
+                                borderRadius="full"
+                                onPress={()=>navigation.navigate("UserSell", {amount:parseFloat(amount).toFixed(4), currency:currency})}
+                            >
+                                <Entypo name="minus" size={28} color="theme.50" />
+                            </Button>
+                            <Text color="theme.200" mt="2" fontWeight="normal">SELL</Text>
+                        </Stack>
+                        <Stack direction="column" alignSelf="center" alignItems="center">
+                            <Button
+                                mt="9"
+                                bg="theme.200"
+                                borderRadius="full"
+                                onPress={()=> navigation.navigate("StakingCurrencie", {amount:parseFloat(amount).toFixed(4), currency:currency,})}
+                            >
+                                <MaterialCommunityIcons name="pickaxe" size={28} color="black" />
+                            </Button>
+                            <Text color="theme.200" mt="2" fontWeight="normal">STAKING</Text>
+                        </Stack>
+                    </HStack>
                 </Box>
-                <Box
-              
-                width={375}
-                py="5"
-                rounded="xl"
-                alignSelf="center"
-                alignItems="center"
-                >
-              <HStack ml="2"alignItems="center">
-              
-              <Button mt="9"  ml="2" bg="indigo.600"  fontWeight="bold" 
-          onPress={()=>navigation.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Transfer</Button>
-              
-              <Button mt="9" ml="2" bg="indigo.600"  fontWeight="bold" 
-          onPress={()=>navigation.navigate("UserSell",{amount:parseFloat(amount).toFixed(4), currency:currency}) }>Sell</Button>     
-                  <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("CardCripto", {token:currency})}>Buy</Button>
-                  <Button mt="9" ml="2" bg="indigo.600" fontWeight="bold"  onPress={()=> navigation.navigate("StakingCurrencie", {
-                   amount:parseFloat(amount).toFixed(4), currency:currency,})}>Staking</Button>
-              </HStack>
-              </Box>
-           {/* <SegmentChartGrandient/> */}
-       <Chart2 currency={currency}/>   
-     
-          </VStack>
-          
-        
-            
-    </>
-
-
-     
- 
-
-
-              
+            </VStack>
+           <VStack alignItems="center" alignSelf="center" mt="10" mb="10">
+                <Stack direction="row">
+                    <Text fontSize="lg" fontWeight="semibold">LAST MONTH:</Text>
+                    {cryptoData.percMonth[0] === "+" ?
+                        <Text fontSize="md" mt="0.9" fontWeight="semibold" color="success.500">  {cryptoData.percMonth}</Text> :
+                        <Text fontSize="md" mt="0.9" fontWeight="semibold" color="red.600">  {cryptoData.percMonth}</Text>
+                    }
+                </Stack>
+                <Chart2/>
+            </VStack>
+        </Box>
     );
 }

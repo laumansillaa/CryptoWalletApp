@@ -18,9 +18,9 @@ export default function Contact({ name, ethereumPublicKey, stellarPublicKey, id,
         onPress={() => {
           nav.navigate("ContactCard", {
             id,
-           name,
+            name,
             ethereumPublicKey,
-            stellarPublicKey 
+            stellarPublicKey
           })
         }}>
         <VStack space={2} width='100%'>
@@ -34,14 +34,14 @@ export default function Contact({ name, ethereumPublicKey, stellarPublicKey, id,
                   stellarPublicKey,
                 })
               }}
-              rightIcon={<Avatar shadow={5} bg="#3498DB" size="40px" borderColor="darkBlue.900" alignSelf="center">
-                <Text color="white" fontWeight="bold" fontSize="xl">{name.charAt(0).toUpperCase()}</Text>
+              rightIcon={<Avatar shadow={5} bg="theme.300" size="40px" alignSelf="center">
+                <Text color="theme.50" fontWeight="bold" fontSize="xl" style={{ textTransform: 'uppercase' }}>{name[0]}</Text>
               </Avatar>}
               variant="unstyled"
-               /* colorScheme="none" */
+            /* colorScheme="none" */
             ></Button>
             <Center>
-              <Text color="gray.700" fontSize={20}>{name}</Text>
+              <Text color="theme.50" letterSpacing={2} spa fontSize={20}>{name}</Text>
             </Center>
           </HStack>
         </VStack>

@@ -1,65 +1,61 @@
 import * as React from 'react';
-
-
 import {
-
   Box,
   Stack,
-  
   VStack,
   Text,
- 
   Avatar,
   Button,
   ZStack
 } from 'native-base';
-import { Pressable } from 'react-native';
+import { Pressable, Dimensions } from 'react-native';
+import { getCryptoData } from '../../redux/actions';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
+import { useSelector,useDispatch } from 'react-redux';
 
-export default function Criptos({token, nav}) {
-   
 
-return (
-
-   <Pressable onPress={()=> nav.navigate("OperationCurrencies", {
-    currency:token
-   })}>
-        <Box 
-         bg="darkBlue.900"
-         mt="1"
-         pl="3"
-         mb="2"
-        shadow={9}
-         rounded="md"
-        height={55}
-         alignSelf="center"
-         width={300}
-         
-         maxWidth="100%"
-         maxHeight="100%"
+export default function Criptos({symbol, name, price, percDay, img, nav}) {
+    
+    return (
+        <Pressable onPress={()=> nav.navigate("OperationCurrencies", {
+            currency:symbol
+            })}
         >
-          <ZStack>
-        <Stack direction="row" >
-            <Box aligSelf="center" >
-            <Avatar shadow={5} mt="4" bg="#ffffff" size="md" borderWidth="2" borderColor="darkBlue.900" alignSelf="center">
-                <Text color="#000000" fontWeight="bold"fontSize="xl">{token.charAt(0)}</Text>
-            </Avatar>
+            <Box
+                bg="theme.150"
+                mt="1"
+                pl="3"
+                mb="2"
+                borderWidth="1" 
+                borderColor="theme.300" 
+                borderRadius={7}
+                //shadow={9}
+                height={70}
+                alignSelf="center"
+                width={Dimensions.get('window').width -20}
+            >
+                <Stack direction="row" justifyContent="space-between">
+                    <Stack direction="row" mt="1.5">
+                        <Stack direction="row" ml="1">
+                            <Avatar bg="theme.150" size="md" alignSelf="center" source={{
+                                uri: img
+                                }}
+                            />
+                        </Stack>
+                        <Stack direction="column" ml="4">
+                                <Text fontWeight="bold" fontSize="lg" color="theme.50">{symbol}</Text>
+                                <Text fontWeight="normal" fontSize="md"c olor="theme.50">{name}</Text>
+                        </Stack>
+                    </Stack>
+                    <Stack direction="column" mt="1.5" mr="4">
+                        <Text fontWeight="semibold" fontSize="lg" color="theme.50">{price}</Text>
+                        {percDay[0] === "+" ?
+                            <Text fontWeight="normal" fontSize="md" color="success.500">{percDay}</Text> :
+                            <Text fontWeight="normal" fontSize="md" color="red.600">{percDay}</Text>
+                        }
+                    </Stack>
+                </Stack>   
             </Box>
-            <VStack>
-            <Text px="5" mt="4" fontWeight="bold" fontSize="lg"color="#ffffff">{token}</Text>
-            
-            </VStack>
-          
-
-        </Stack>
-        {/* <Button bg="indigo.600" fontWeight="bold" ml="241px" onPress={()=> nav.navigate("CardCripto", {
-    token
-   })}>Buy</Button> */}
-        </ZStack>   
-        </Box>  
         </Pressable>
-        
-  
- 
-  );
+    );
 }

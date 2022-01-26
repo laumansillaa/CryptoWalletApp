@@ -5,5 +5,7 @@ module.exports = function(app) {
     app.use("/operation", require("./operation"));
     app.use("/balance", require("./balance"));
     app.use('/password', require('./forgotPassword'))
-    app.use('/charts', require("./charts"));
+    app.use('/charts', require('./charts'));
+    app.use('/currencyData', require('./currencyData'));
+    app.use('/currenciesData', require('./currenciesData'));
 };

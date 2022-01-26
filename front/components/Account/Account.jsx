@@ -21,6 +21,9 @@ import { useSelector} from 'react-redux';
 import axios from 'axios';
 import {IP_HOST} from "@env";
 
+import { Dimensions } from 'react-native';
+const windowHeight = Dimensions.get('window').height
+
 export default function Account({ navigation }) {
   const userData = useSelector(state => state.userData)
   const dispatch = useDispatch();
@@ -42,137 +45,127 @@ export default function Account({ navigation }) {
 
   return (
     <>
-      <VStack space={4} alignItems="center" justifyContent='flex-end'>
-        <Box width='90%'>
-          <Text textAlign="center" fontSize={23} color='emerald.400' mt='15'>
-            {`${userData.firstname} ${userData.lastname}`}
-          </Text>
-          <Divider bg='coolGray.800' />
+      <Box bg="theme.100" height={windowHeight}>
+        <VStack space={4} alignItems="center" justifyContent='flex-end'>
+          <Box w='90%'>
+
+            <Text
+              textAlign="center"
+              fontSize={18}
+              color='theme.300'
+              letterSpacing={3}
+              style={{ textTransform: 'uppercase' }}
+              mt='10'>
+              {`${userData.firstname} ${userData.lastname}`}
+            </Text>
+            <Divider bg='theme.300' my="3" />
+          </Box>
+        </VStack>
+        <Box w='100%' px={3}>
+          <Pressable onPress={() => navigation.navigate("MyData")} >
+            {({ isPressed }) => {
+              return (
+                <Box
+                  w='100%'
+                  py={1}
+                  style={{
+                    transform: [
+                      {
+                        scale: isPressed ? 0.90 : 1,
+                      },
+                    ],
+                  }}>
+                  <HStack justifyContent="space-between" >
+                    <HStack>
+                      <Icon as={MaterialCommunityIcons} name='face-profile' color='theme.200' size={7} alignSelf='center' />
+                      <Text letterSpacing={1} alignSelf='center' color='theme.150' fontWeight={300} fontSize={18} px={3} py={0}>MY DATA</Text>
+                    </HStack>
+                    <ChevronRightIcon color='theme.300' size="9" />
+                  </HStack>
+                </Box>
+              )
+            }}
+          </Pressable>
+
+          <Pressable onPress={() => navigation.navigate("MyTags")}>
+            {({ isPressed }) => {
+              return (
+                <Box
+                  w='100%'
+                  py={1}
+                  style={{
+                    transform: [
+                      {
+                        scale: isPressed ? 0.90 : 1,
+                      },
+                    ],
+                  }}
+                >
+                  <HStack justifyContent="space-between">
+                    <HStack>
+                      <Icon as={AntDesign} name='idcard' color='theme.200' size={7} alignSelf='center' />
+                      <Text letterSpacing={1} alignSelf='center' color='theme.150' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>MY TAGS</Text>
+                    </HStack>
+                    <ChevronRightIcon color='theme.300' size="9" />
+                  </HStack>
+                </Box>
+              )
+            }}
+          </Pressable>
+
+          <Pressable onPress={() => navigation.navigate("ContactsIndex")}>
+            {({ isPressed }) => {
+              return (
+                <Box
+                  w='100%'
+                  py={1}
+                  style={{
+                    transform: [
+                      {
+                        scale: isPressed ? 0.90 : 1,
+                      },
+                    ],
+                  }}
+                >
+
+                  <HStack justifyContent="space-between">
+                    <HStack>
+                      <Icon as={AntDesign} name='contacts' color='theme.200' size={7} alignSelf='center' />
+                      <Text letterSpacing={1} alignSelf='center' color='theme.150' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>CONTACTS</Text>
+                    </HStack>
+                    <ChevronRightIcon color='theme.300' size="9" />
+                  </HStack>
+                </Box>
+              )
+            }}
+          </Pressable>
+
+          <Pressable onPress={onLogout}>
+            {({ isPressed }) => {
+              return (
+                <Box
+                  w='100%'
+                  py={1}
+                  style={{
+                    transform: [
+                      {
+                        scale: isPressed ? 0.90 : 1,
+                      },
+                    ],
+                  }}
+                >
+                  <HStack justifyContent="space-between">
+                    <HStack>
+                      <Icon as={AntDesign} name='logout' color='theme.200' size={6} alignSelf='center' />
+                      <Text letterSpacing={1} alignSelf='center' color='theme.150' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>LOG OUT</Text>
+                    </HStack>
+                  </HStack>
+                </Box>
+              )
+            }}
+          </Pressable>
         </Box>
-      </VStack>
-      <Box w='100%' px={3}>
-        <Pressable onPress={() => navigation.navigate("MyData")} >
-          {({ isPressed }) => {
-            return (
-              <Box
-                width='100%'
-                py={1}
-                style={{
-                  transform: [
-                    {
-                      scale: isPressed ? 0.90 : 1,
-                    },
-                  ],
-                }}>
-                <HStack alignItems="flex-start" justifyContent="space-between" >
-                  <HStack>
-                    <Icon as={MaterialCommunityIcons} name='face-profile' color='coolGray.800' size={7} alignSelf='center' />
-                    <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>my data</Text>
-                  </HStack>
-                  <ChevronRightIcon color='coolGray.400' size="9" />
-                </HStack>
-              </Box>
-            )
-          }}
-        </Pressable>
-
-        <Pressable onPress={() => navigation.navigate("MyTags")}>
-          {({ isPressed }) => {
-            return (
-              <Box
-                width='100%'
-                py={1}
-                style={{
-                  transform: [
-                    {
-                      scale: isPressed ? 0.90 : 1,
-                    },
-                  ],
-                }}
-              >
-                <HStack alignItems="flex-start" justifyContent="space-between">
-                  <HStack>
-                    <Icon as={AntDesign} name='idcard' color='coolGray.800' size={7} alignSelf='center' />
-                    <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>my tags</Text>
-                  </HStack>
-                  <ChevronRightIcon color='coolGray.400' size="9" />
-                </HStack>
-              </Box>
-            )
-          }}
-        </Pressable>
-
-        <Pressable onPress={() => navigation.navigate("ContactsIndex")}>
-          {({ isPressed }) => {
-            return (
-              <Box
-                width='100%'
-                py={1}
-                style={{
-                  transform: [
-                    {
-                      scale: isPressed ? 0.90 : 1,
-                    },
-                  ],
-                }}
-              >
-
-                <HStack alignItems="flex-start" justifyContent="space-between">
-                  <HStack>
-                    <Icon as={AntDesign} name='contacts' color='coolGray.800' size={7} alignSelf='center' />
-                    <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>contacts</Text>
-                  </HStack>
-                  <ChevronRightIcon color='coolGray.400' size="9" />
-                </HStack>
-              </Box>
-            )
-          }}
-        </Pressable>
-
-        <Pressable onPress={onLogout}>
-          {({ isPressed }) => {
-            return (
-              <Box
-                width='100%'
-                py={1}
-                style={{
-                  transform: [
-                    {
-                      scale: isPressed ? 0.90 : 1,
-                    },
-                  ],
-                }}
-              >
-                <HStack alignItems="flex-start" justifyContent="space-between">
-                  <HStack>
-                    <Icon as={AntDesign} name='logout' color='coolGray.800' size={6} alignSelf='center' />
-                    <Text alignSelf='center' color='coolGray.900' fontFamily='body' fontWeight={300} fontSize={22} px={3} py={0}>log out</Text>
-                  </HStack>
-                </HStack>
-              </Box>
-            )
-          }}
-
-
-        </Pressable>
-        {/*  <Button title="My tags" onPress={() => navigation.navigate("MyTags")} />
-        <Button title="Security" onPress={() => navigation.navigate("Security")} />
-        <Button title="Settings" onPress={() => navigation.navigate("Settings")} />
-        <Button title="Help" onPress={() => navigation.navigate("Help")} />
-        <Button title="Contacts" onPress={() => navigation.navigate("ContactsIndex")} />
-        <Button title="Log out" onPress={onLogout} /> */}
       </Box>
-
     </>
   );
 }
-
-/* <Box w="100%" h="20" bg="primary.200" shadow={3}>
-          <VStack alignItems='center'>
-            
-            <Avatar shadow={5} bg="#3498DB" size="40px" borderColor="darkBlue.900" alignSelf="center">
-              <Text color="white" fontWeight="bold" fontSize="xl">{userData.firstname.charAt(0).toUpperCase()}</Text>
-            </Avatar>  
-          </VStack>
-        </Box>
-         */

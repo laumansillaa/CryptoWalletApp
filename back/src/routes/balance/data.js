@@ -26,7 +26,7 @@ module.exports = async function(req, res, next) {
             const stakingAmount = dbEthereumStaking.filter(stake => stake.currency === currency)[0]?.amount;
             ethereumCurrencies.push({
                 currency,
-                amount: amount.toString(), 
+                amount: amount.toString(),
                 staking: stakingAmount ? stakingAmount.toString() : "0"
             });
         }));
@@ -54,12 +54,16 @@ module.exports = async function(req, res, next) {
         let stellarStaking = 0;
         for (let i = 0; i < stellarCurrencies.length; i++) {
             stellarCrypto += stellarCurrencies[i].amount * prices[`${stellarCurrencies[i].currency}USDT`];
-            stellarStake.forEach(data => {
+            stellarStake.forEach((data, index) => {
                 if(data.currency === stellarCurrencies[i].currency) {
                     stellarCurrencies[i].staking = data.amount;
                     stellarStaking += parseFloat(data.amount) * prices[`${stellarCurrencies[i].currency}USDT`];
+                    stellarStake.splice(1, index)
                 }
             })
+        }
+        if(stellarStake.length) {
+            stellarStake.forEach(data => stellarCurrencies[data.currency].staking = data.amount)
         }
 
         const user = await User.findOne({ where: { id: req.user.id } })

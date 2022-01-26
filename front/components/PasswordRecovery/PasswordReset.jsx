@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
       
       alignItems: 'center',
       justifyContent: 'center',
-      w: '100%'
+      width: '100%'
      
     },
   });

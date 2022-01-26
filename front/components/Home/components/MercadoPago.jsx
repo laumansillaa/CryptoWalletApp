@@ -54,8 +54,9 @@ export default function MercadoPago({route}) {
     return (
         <>   
          {
-             url ? <WebView
-             originWhitelist={['*']}
+             url ? <WebView 
+             style={{ marginTop: 20 }}
+            //  originWhitelist={['*']}
              source={{ uri: url }}
              startInLoadingState={true}
              onNavigationStateChange={state => stateChange(state)}

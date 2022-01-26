@@ -70,7 +70,7 @@ export default function PasswordRecovery({ navigation }) {
                     borderColor= "darkBlue.50" borderWidth="1">Reset Password</Button>
                 </Stack>
                 <Button onPress={() => navigation.navigate("Login")} size="sm" backgroundColor= 'darkBlue.600' borderRadius= "4px"
-                leftIcon= {<Icon as={<AntDesign name="back" size={5} color="black" />} />} h="9" w= "250" 
+                leftIcon= {<Icon as={<AntDesign name="back" size={5} color="black" />} />} h="9" width= "250" 
                  _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Go to back</Button>
                 </FormControl>
             </Center>

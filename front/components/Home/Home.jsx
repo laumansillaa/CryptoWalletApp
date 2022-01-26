@@ -129,7 +129,7 @@ export default function Home({ navigation }) {
         </Button>
       </Box>
 
-      <Divider alignSelf="center" my="3" w="81%" bg='theme.150' />
+      <Divider alignSelf="center" my="3" width="81%" bg='theme.150' />
 
       <Pressable 
         onPress={() => { navigation.navigate("BalanceUser") }} 
@@ -167,7 +167,7 @@ export default function Home({ navigation }) {
         </Text>
       </Box>
 
-      <Divider alignSelf="center" my="3" w="91%" bg='theme.300' />
+      <Divider alignSelf="center" my="3" width="91%" bg='theme.300' />
    
       <ScrollView>
         <VStack>
@@ -204,13 +204,13 @@ export default function Home({ navigation }) {
               <FormControl.Label>How much money do you want to add?</FormControl.Label>
                
               <InputGroup
-                w={{
+                width={{
                   base: "70%",
                   md: "285",
                 }} >
                   <InputLeftAddon children={"$"} />
                   <Input
-                    w={{
+                    width={{
                       base: "70%",
                       md: "100%",
                     }}

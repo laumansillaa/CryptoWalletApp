@@ -91,7 +91,7 @@ export default function ContactCard({ route, navigation }) {
         </Stack>
       </Box>
 
-      <Box w='80%'>
+      <Box width='80%'>
         <VStack space={2}>
           <Text color="dark">{nameChange.toUpperCase()}</Text>
 

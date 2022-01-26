@@ -17,6 +17,7 @@ import TabNavFooter from './components/TabNavFooter/TabNavFooter'
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 import PasswordReset from './components/PasswordRecovery/PasswordReset';
 import { NativeBaseProvider, extendTheme, Text } from 'native-base';
+import ValidateEmail from './components/Register/ValidateEmail';
 
 const Stack = createStackNavigator();
 
@@ -100,7 +101,7 @@ let userToken =useSelector(state => state.userToken);
     setTimeout( async () => {
       userToken= null;
       try {
-        // userToken = await AsyncStorage.getItem('userToken');
+        userToken = await AsyncStorage.getItem('userToken');
         if (userToken !== null) {
           dispatch(TokenLog());
           dispatch(LoadingFalse());
@@ -121,13 +122,13 @@ let userToken =useSelector(state => state.userToken);
   )
   }
 
-  // if(tokenLogged === true) {
-  //   return (
-  //     <>
-  //     <UserPin/>
-  //     </>
-  //   )
-  // }
+  if(tokenLogged === true) {
+    return (
+      <>
+      <UserPin/>
+      </>
+    )
+  }
 
   return ( 
 
@@ -146,6 +147,7 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="Register" component={Register}/>
                       <Stack.Screen name="PasswordRecovery" component={PasswordRecovery}/>
                       <Stack.Screen name="PasswordReset" component={PasswordReset}/>
+                      <Stack.Screen name="ValidateEmail" component={ValidateEmail}/>
                    </Stack.Navigator>
     : 
                    <TabNavFooter/>

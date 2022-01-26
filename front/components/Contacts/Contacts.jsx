@@ -89,6 +89,7 @@ export default function Contacts({ navigation }) {
           <Text fontSize='16' letterSpacing={1}>Add Contact</Text>
         </Button>
       </Box>
+
     </>
   );
 }

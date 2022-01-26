@@ -76,6 +76,7 @@ export default function ContactCard({ route, navigation }) {
   }
 
   return (
+
     <Box bg="theme.100" height={windowHeight}>
       <Pressable onPress={() => navigation.goBack()}>
         <ChevronLeftIcon color="theme.300" size="40px" m='7px' />
@@ -92,6 +93,7 @@ export default function ContactCard({ route, navigation }) {
           <Stack direction="row" alignItems="center">
           </Stack>
         </Box>
+
 
         <Box w='80%'>
           <VStack space={2}>

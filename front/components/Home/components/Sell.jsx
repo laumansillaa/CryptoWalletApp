@@ -17,6 +17,7 @@ import {
   ZStack,
   Modal,
   FormControl,
+  useToast,
   HStack
 
   
@@ -24,14 +25,18 @@ import {
 
 import { Pressable} from 'react-native';
 import axios from 'axios';
-
+import { Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { validateFunds } from '../../Utils/Utils';
 
 
 export default function Sell({route, navigation}) {
+  const windowHeight = Dimensions.get("screen").height
       const {currency, amount} = route.params
+      const [loading, setLoading] = useState("")
+      const toast = useToast()
       const [disabledButton, setDisableButton] = useState(true)
+      const [disabledMont, setDisableMont] = useState(true)
       const [showModal, setShowModal] = useState(false)
       const blockChain = useSelector(state => state.blockChain);
       const [urlBlockChain, setUrlBlockChain]= useState("");
@@ -52,15 +57,37 @@ export default function Sell({route, navigation}) {
   
       },[blockChain])
 
+      React.useEffect(()=>{
+
+       if(parseFloat(amount) > 0){
+
+        setDisableMont(false)
+
+       }else{
+        setDisableMont(true)
+       }
+  
+  
+      },[])
+
+
+
+
 
 
 async function transferUser (){
+  toast.show({
+    title: "Selling...",
+    placement: "top"
 
+  })
+
+  setLoading(true)
 
     if(blockChain === "stellar"){
         
   try {
-    setMes("loading...")
+   
     const response = await axios({
       method: "post",
       data: {
@@ -71,40 +98,56 @@ async function transferUser (){
       withCredentials: true,
       url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
     });
+    setLoading(false)
+    toast.show({
+      title: response.data,
+      placement: "bottom"
 
-    setMes(response.data)
-    setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
+    })
+    setTimeout(()=>navigation.popToTop(),1000)
 
   } catch (error) {
-    setMes("Failed Transfer")
-    console.error(error);
+    toast.show({
+      title: "Error",
+      placement: "bottom"
+
+    })
+   
+    
   } 
 
 
       }
       else if(blockChain === "ethereum"){
-        
-  try {
-    setMes("loading...")
-    const response = await axios({
-      method: "post",
-      data: {
-        currency: currency,
-         amount: founds,                                              
+     
+        try {
        
-  
-      },
-      withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
-    });
-
-    setMes(response.data)
-    setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
-
-  } catch (error) {
-    setMes("Failed Transfer")
-    console.error(error);
-  } 
+         const response = await axios({
+            method: "post",
+            data: {
+              currency:currency,
+              amount: founds
+        
+            },
+            withCredentials: true,
+            url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
+          });
+          setLoading(false)
+          toast.show({
+            title: response.data,
+            placement: "bottom"
+      
+          })
+          setTimeout(()=>navigation.navigation.popToTop(),1000)
+      
+        } catch (error) {
+          toast.show({
+            title: "Error",
+            placement: "bottom"
+      
+          })
+        }
+         
         
       }
 
@@ -116,6 +159,38 @@ async function transferUser (){
 }
 
 
+React.useEffect(()=>{
+
+      
+  setMes("")
+  if( validateFunds(founds)){
+
+    if(parseFloat(founds) > 0){
+      if(parseFloat(founds)<= parseFloat(amount) ){
+
+        setMes("")
+        setDisableButton(false)
+         
+      }else{
+   
+        setDisableButton(true)
+        setMes(`Insufficient ${currency}`)
+      }
+
+    }else{
+      setMes("")
+
+    }
+   
+ }else{
+    setDisableButton(true)
+    setMes("Please write a valid amount ")
+  }
+ 
+
+
+},[founds])
+
 
 
 
@@ -124,66 +199,70 @@ async function transferUser (){
     return (
       <>    
       {/* Componente amount y button go back */}
-           <Box
-          mt="50px"
+      <Box bg="theme.100"
+      height={windowHeight}
+      >
+
+          <Box
+         mt="20"
           py="1"
-          mb="5"
+         mb="2"
           rounded="xl"
           alignSelf="center"
           width={375}
           maxWidth="100%"
-          bg="#FFC902"
+          bg="theme.200"
           
          
           >
 
           <Stack direction="row" alignItems="center" rounded="md">
           <Pressable   onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="darkBlue.900" size="9"/>
+          <ChevronLeftIcon color="theme.150" size="9"/>
           </Pressable>
           <VStack>
-          <Text ml="70px" fontSize="xl" color="black" fontWeight="bold" >Amount available </Text> 
+          <Text ml="70px" fontSize="xl" color="theme.100" fontWeight="bold"  >Amount available </Text> 
              
           </VStack>
              
           </Stack>
           <VStack alignSelf="center">
           
-          <Text color="#ffffff" ml="24px" fontWeight="bold" mt="-5" fontSize="6xl"> {amount} </Text>
-          <Text ml="220px" mt="-5" fontSize="xl"  color="darkBlue.800" fontWeight="bold" >{currency} </Text> 
+          <Text color="#ffffff" ml="60px" mt="-3" fontWeight="bold"  fontSize="4xl"> {amount} </Text>
+          <Text ml="200px" mt="-5" fontSize="xl"  color="theme.150" fontWeight="bold" >{currency} </Text> 
           </VStack>
           
           </Box>
          {/* Currency and amount */}
          
-          <Box alignSelf="center" alignItems="center" >
+         <Box alignSelf="center" alignItems="center" >
           
-
-         
           <Box
-          mt="20px"
+       
           py="1"
-          mb="5"
+         
           alignItems="center"
           rounded="xl"
           alignSelf="center"
           width={375}
           maxWidth="100%"
-          bg="#CF2E2E"
+          bg="theme.150"
           
           
          
           >
 
-          <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
-            Amount to sell of {currency}:
+          <Text color="#ffffff" fontWeight="bold" fontSize="lg" pb="1">
+            Amount to sell from {currency}:
             </Text>
-          <Text color="#ffffff" fontWeight="bold" fontSize="6xl"> {founds} </Text>
-          
-      </Box>
+          <Text color="#ffffff" mt="-3"fontWeight="bold" fontSize="4xl"> {founds} </Text>
+         
+            
+       </Box>
 
-      <Box
-          mt="20px"
+     
+       <Box
+          mt="10px"
           py="1"
           mb="5"
           alignItems="center"
@@ -191,29 +270,27 @@ async function transferUser (){
           alignSelf="center"
           width={375}
           maxWidth="100%"
-          bg="darkBlue.900"
+          bg="theme.300"
            >
 
           <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
             Your new {currency} amount will be: :
             </Text>
-          <Text color="#ffffff" fontWeight="bold" fontSize="6xl"> {(parseFloat(amount) - parseFloat(founds)).toFixed(4) } </Text>
+          <Text color="#ffffff" fontWeight="bold" fontSize="4xl"> {(parseFloat(amount) - parseFloat(founds)).toFixed(4) } </Text>
       
       </Box>
-      {(mes)?mes:""}
-      <Text ml="70px" fontSize="xl" color="black" fontWeight="bold" > {(mes)?mes:""} </Text> 
+     
+   
       <HStack alignSelf="center">
-      <Button rounded="lg" px="7" py="1" bg="darkBlue.900"onPress={() => setShowModal(true)}>
-        <Text color="#ffffff" fontSize="4xl" fontWeight="bold">Mont</Text></Button>
-        <Button ml="2"rounded="lg" px="7" bg="black" py="1" isDisabled={disabledButton} onPress={() => transferUser()}>
-        <Text color="#ffffff" fontSize="4xl" fontWeight="bold">Confirm</Text></Button>
+      <Button variant="outline" colorScheme="theme"  isDisabled={disabledMont} rounded="lg" px="7" py="1"  onPress={() => setShowModal(true)}>
+        <Text color="#ffffff" fontSize="2xl"  >Mont</Text></Button>
+        <Button variant="outline" colorScheme="theme" isLoading={loading} ml="2"rounded="lg" px="7"  py="1" isDisabled={disabledButton} onPress={() => transferUser()}>
+        <Text color="#ffffff" fontSize="2xl" >Confirm</Text></Button>
       </HStack>
-
-      {(mes)?mes:""}
-
+      <Text color="theme.300">{mes}</Text>
           </Box>
       
-          
+          </Box>
         
          
 
@@ -226,14 +303,14 @@ async function transferUser (){
                 <FormControl.Label>How much {currency} do you want to sell?</FormControl.Label>
                 
                 <InputGroup
-                  w={{
+                  width={{
                     base: "70%",
                     md: "285",
                   }}
                 >
                   <InputLeftAddon children={"$"} />
                   <Input
-                    w={{
+                    width={{
                       base: "70%",
                       md: "100%",
                     }}
@@ -263,7 +340,7 @@ async function transferUser (){
                 <Button
                   onPress={() => {
                    setShowModal(false)
-                   setDisableButton(false)
+             
 
                    
                   }}

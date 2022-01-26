@@ -70,9 +70,11 @@ export default function AddContact({ navigation }) {
 
   return (
     <>
+
       <ScrollView
         _contentContainerStyle={{
           minW: "72",
+
         }}
       >
         <Box bg="theme.100" height={windowHeight} w='100%'>

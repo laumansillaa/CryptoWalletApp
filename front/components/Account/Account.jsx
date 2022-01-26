@@ -17,7 +17,9 @@ import {
   Container, View, HStack,
   Divider
 } from 'native-base';
-import { useSelector, AntDesig } from 'react-redux';
+import { useSelector} from 'react-redux';
+import axios from 'axios';
+import {IP_HOST} from "@env";
 
 import { Dimensions } from 'react-native';
 const windowHeight = Dimensions.get('window').height
@@ -30,6 +32,12 @@ export default function Account({ navigation }) {
     try {
       await AsyncStorage.removeItem('userToken');
       dispatch(Logout());
+      await axios({
+        method: "post",
+        withCredentials: true,
+        url: `http://${IP_HOST}:3001/session/signout`,
+      });
+      console.log("hehe");
     } catch (e) {
       console.error(e)
     }
@@ -37,6 +45,7 @@ export default function Account({ navigation }) {
 
   return (
     <>
+
       <Box bg="theme.100" height={windowHeight}>
         <VStack space={4} alignItems="center" justifyContent='flex-end'>
           <Box w='90%'>
@@ -73,11 +82,13 @@ export default function Account({ navigation }) {
                       <Text letterSpacing={1} alignSelf='center' color='theme.150' fontWeight={300} fontSize={18} px={3} py={0}>MY DATA</Text>
                     </HStack>
                     <ChevronRightIcon color='theme.300' size="9" />
+
                   </HStack>
                 </Box>
               )
             }}
           </Pressable>
+
 
           <Pressable onPress={() => navigation.navigate("MyTags")}>
             {({ isPressed }) => {
@@ -99,6 +110,7 @@ export default function Account({ navigation }) {
                       <Text letterSpacing={1} alignSelf='center' color='theme.150' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>MY TAGS</Text>
                     </HStack>
                     <ChevronRightIcon color='theme.300' size="9" />
+
                   </HStack>
                 </Box>
               )
@@ -119,6 +131,7 @@ export default function Account({ navigation }) {
                     ],
                   }}
                 >
+
 
                   <HStack justifyContent="space-between">
                     <HStack>
@@ -151,6 +164,7 @@ export default function Account({ navigation }) {
                       <Icon as={AntDesign} name='logout' color='theme.200' size={6} alignSelf='center' />
                       <Text letterSpacing={1} alignSelf='center' color='theme.150' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>LOG OUT</Text>
                     </HStack>
+
                   </HStack>
                 </Box>
               )

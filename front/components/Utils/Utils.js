@@ -15,6 +15,12 @@ export function validateEmail(email) {
     return re.test(num)
 
   }
+  export function validateFunds(num){
+    if(!num)return false;
+    const re = /^[0-9.]+$/
+    return re.test(num)
+
+  }
   export function validatePassword(pass){
     if(!pass) return true;
  

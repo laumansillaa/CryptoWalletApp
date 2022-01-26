@@ -1,6 +1,7 @@
 # General ignored files/folders.
 .env
 node_modules/
+.vscode
 
 # Front ignored files/folders.
 .expo/

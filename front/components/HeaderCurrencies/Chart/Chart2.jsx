@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   LineChart,
   BarChart,
@@ -9,8 +10,23 @@ import {
 import { View,Text } from 'react-native';
 import { Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-export default function Chart2() {
+import { getCryptoChart } from '../../../redux/actions';
+import {useFocusEffect } from '@react-navigation/native';
+export default function Chart2({currency}) {
   const chartInfo = useSelector(state=> state.monthPrices);
+
+  const dispatch = useDispatch()
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(getCryptoChart(currency));
+    
+      return  () => {
+   
+   };
+    }, [chartInfo]));
+
+
+
   return (
     <> 
      

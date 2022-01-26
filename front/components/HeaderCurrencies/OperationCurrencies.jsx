@@ -20,7 +20,7 @@ import { getBalance } from '../../redux/actions';
 /* import SegmentChartGrandient from './Chart/Chart'; */
 import { getCryptoChart } from '../../redux/actions';
 import Chart2 from './Chart/Chart2';
-
+import {useFocusEffect } from '@react-navigation/native';
 
 export default function OperationCurrencies({route, navigation }) {
   const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
@@ -43,22 +43,39 @@ export default function OperationCurrencies({route, navigation }) {
           }
           
 
-       },[blockChain ])
+       },[blockChain, balance ,currency])
        React.useEffect(()=>{
           dispatch(getBalance())
           dispatch(getCryptoChart(currency));
 
-       },[ ])
-  
-  
-       
-    
+       },[])
+
+     /*   useFocusEffect(
+        React.useCallback(() => {
+          if(blockChain === "stellar"){
+            let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
+ 
+            (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
+ 
+             
+           
+           }else if (blockChain === "ethereum"){
+             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
+             (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
+           }
+           
+        
+          return  () => {
+       };
+        }, []));
+   */
+      
       
      
   
 
     return (<>
-              <Stack  ml="5" mt="60"direction="row" alignItems="center">
+              <Stack  ml="5" mt="60" direction="row" alignItems="center">
             <Pressable  onPress={()=> navigation.goBack()}>
             <ChevronLeftIcon color="darkBlue.900" size="9"/>
             </Pressable>
@@ -99,7 +116,7 @@ export default function OperationCurrencies({route, navigation }) {
               </HStack>
               </Box>
            {/* <SegmentChartGrandient/> */}
-       <Chart2/>   
+       <Chart2 currency={currency}/>   
      
           </VStack>
           

@@ -59,10 +59,10 @@ export default function OperationCurrencies({ route, navigation }) {
 
 
     return (
-        <Center paddingBottom={500} bg="theme.100">
+        <Box height={Dimensions.get('window').height} bg="theme.100">
             <VStack>
                 <Box bg="theme.150" width={Dimensions.get('window').width} height={Dimensions.get('window').height /2.25} borderBottomRadius={10} alignSelf="center" alignItems="center">
-                    <Stack direction="row" mt="5" mb="5" alignSelf="left">
+                    <Stack direction="row" mt="5" mb="5" alignSelf="center">
                         <Pressable onPress={()=> navigation.goBack()}>
                             <ChevronLeftIcon ml="-150" color="theme.50" size="9"/>
                         </Pressable>
@@ -134,7 +134,7 @@ export default function OperationCurrencies({ route, navigation }) {
                     </HStack>
                 </Box>
             </VStack>
-            <VStack alignItems="center" alignSelf="center" mt="10" mb="10">
+           <VStack alignItems="center" alignSelf="center" mt="10" mb="10">
                 <Stack direction="row">
                     <Text fontSize="lg" fontWeight="semibold">LAST MONTH:</Text>
                     {cryptoData.percMonth[0] === "+" ?
@@ -142,8 +142,8 @@ export default function OperationCurrencies({ route, navigation }) {
                         <Text fontSize="md" mt="0.9" fontWeight="semibold" color="red.600">  {cryptoData.percMonth}</Text>
                     }
                 </Stack>
-                <Chart2/>
-            </VStack>
-        </Center>
+                <Chart2/> 
+            </VStack> 
+        </Box>
     );
 }

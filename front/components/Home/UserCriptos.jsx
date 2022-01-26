@@ -88,7 +88,7 @@ export default function UserCriptos({navigation}) {
         {`Your ${blockChain} currencies`.toUpperCase()}
       </Text>
 
-      <Divider alignSelf="center" my="3" w="91%" bg='theme.300'/>
+      <Divider alignSelf="center" my="3" width="91%" bg='theme.300'/>
     
       <ScrollView mt="5" >
         {

@@ -11,7 +11,8 @@ import {
     Button,
     Square,
     ChevronLeftIcon,
-    Text
+    Text,
+    View
 } from 'native-base';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 
@@ -29,7 +30,7 @@ export default function Confirmation({ navigation }) {
                 <Text>{transaction?.action}</Text>
                 <Divider my="2"/>
             </Box>
-
+    
             <Box mt="25px">
                 <Text mb="10px">MONEY</Text>
                 <Text>{transaction?.money}</Text>
@@ -53,7 +54,7 @@ export default function Confirmation({ navigation }) {
                 height="48px"
                 bg="theme.150"
                 leftIcon={<ChevronLeftIcon color="theme.50" size="57px" />}
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate("HomeIndex")}
             >
             </Button>
         </VStack>

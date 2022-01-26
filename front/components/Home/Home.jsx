@@ -72,14 +72,13 @@ export default function Home({ navigation }) {
     }, [])
   );
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoadingState(false)
-      setShowModal(false)
-    }, 1000);
-
-    if (!loadingState) navigation.navigate('Confirmation')
-  }, [loadingState])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoadingState(false)
+  //     setShowModal(false)
+  //   }, 1000);
+  //   if (!loadingState) navigation.navigate('Confirmation')
+  // }, [loadingState])
 
   return (
     <Box bg="theme.100" height="100%">
@@ -130,7 +129,7 @@ export default function Home({ navigation }) {
         </Button>
       </Box>
 
-      <Divider alignSelf="center" my="3" w="81%" bg='theme.150' />
+      <Divider alignSelf="center" my="3" width="81%" bg='theme.150' />
 
       <Pressable 
         onPress={() => { navigation.navigate("BalanceUser") }} 
@@ -168,7 +167,7 @@ export default function Home({ navigation }) {
         </Text>
       </Box>
 
-      <Divider alignSelf="center" my="3" w="91%" bg='theme.300' />
+      <Divider alignSelf="center" my="3" width="91%" bg='theme.300' />
    
       <ScrollView>
         <VStack>
@@ -230,10 +229,8 @@ export default function Home({ navigation }) {
                 bg="theme.50"
                 color="theme.100"
                 onPress={() => {
-                  let d = new Date();
-                  d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
-                  dispatch(depositTransaction({ action: "Deposit", money: "USD", mont: founds, date: d }))
-                  setLoadingState(true)
+                  setShowModal(false)
+                  navigation.navigate("MercadoPago", {price: founds, nav: navigation})
                 }}
               >
                 Confirm

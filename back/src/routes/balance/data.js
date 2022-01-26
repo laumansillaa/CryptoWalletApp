@@ -62,8 +62,6 @@ module.exports = async function(req, res, next) {
             })
         }
 
-        const user = await User.findOne({ where: { id: req.user.id } })
-
         return res.status(200).send({
             ethereum: {
                 cryptoBalance: ethereumCrypto.toString(),
@@ -76,7 +74,7 @@ module.exports = async function(req, res, next) {
                 currencies: stellarCurrencies
             },
             funds: {
-                balance: user.usd === null ? "0" : user.usd.toString()
+                balance: req.user.usd === null ? "0" : req.user.usd.toString()
             }
         });
     } catch(error) { next(error) }

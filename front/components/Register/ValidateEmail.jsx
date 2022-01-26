@@ -34,20 +34,23 @@ export default function validateEmail ({navigation}) {
 
     return (
         <>
-        <Box height={windowsHeight} backgroundColor="coolGray.900">
+        <Box height={windowsHeight} backgroundColor="theme.100">
             <Box width={{
             base: "100%",
             md: "25%",}}
-            style={styles.container} >
+            flex={1}
+            alignItems='center'
+            justifyContent='center'
+           >
             <Stack space={4}
             width={{
             base: "85%",
             md: "25%",
             }}>
-                <Text fontWeight='bold' fontSize='12'>Insert your token</Text>
+                <Text fontWeight='bold' fontSize='12' color="theme.500">Insert your token</Text>
                 <Input variant="filled"  placeholder="Token" value={token} onChangeText={setToken} 
-                 color='coolGray.900' backgroundColor= 'darkBlue.50' size= "lg" fontWeight='bold' fontSize='12'/>
-                <Button onPress={onSubmit} backgroundColor= 'darkBlue.600'  _text={{fontSize:"md"}}
+                 color='theme.500' backgroundColor= 'theme.400' size= "lg" fontWeight='bold' fontSize='12'/>
+                <Button onPress={onSubmit} backgroundColor= 'theme.500'  _text={{fontSize:"md"}}
           borderColor= "darkBlue.50" borderWidth="1">Submit</Button>
             </Stack>
             </Box>

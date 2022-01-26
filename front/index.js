@@ -102,7 +102,7 @@ let userToken =useSelector(state => state.userToken);
     setTimeout( async () => {
       userToken= null;
       try {
-        // userToken = await AsyncStorage.getItem('userToken');
+        userToken = await AsyncStorage.getItem('userToken');
         if (userToken !== null) {
           dispatch(TokenLog());
           dispatch(LoadingFalse());
@@ -123,13 +123,13 @@ let userToken =useSelector(state => state.userToken);
   )
   }
 
-  // if(tokenLogged === true) {
-  //   return (
-  //     <>
-  //     <UserPin/>
-  //     </>
-  //   )
-  // }
+  if(tokenLogged === true) {
+    return (
+      <>
+      <UserPin/>
+      </>
+    )
+  }
 
   return ( 
 

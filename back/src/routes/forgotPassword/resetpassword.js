@@ -50,6 +50,7 @@ module.exports = async function (req, res, next) {
                         email: userDb
                     }
                 })
+                console.log(dbUser);
                 res.status(200).send("Password update succeded")
                 
                 await SecurityToken.destroy({

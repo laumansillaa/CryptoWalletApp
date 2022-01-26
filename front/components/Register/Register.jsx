@@ -29,6 +29,7 @@ const [error, setError] = useState({
   pin:""
 
 })
+const [token, setToken] = useState("");
 
 function validateData (arg){
 

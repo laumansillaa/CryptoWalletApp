@@ -3,7 +3,7 @@ import {  Dimensions, StatusBar} from "react-native";
 
 export default function SplashScreen ({navigation}) {
     return (
-        <Box h= '100%' w= '100%' backgroundColor= 'theme.100' alignItems= "center">
+        <Box h= '100%' w= '100%' bg= 'theme.100' alignItems= "center">
             <StatusBar barStyle="light-content"/>
             {/* <Box backgroundColor= '#000e21'>
                 <Image

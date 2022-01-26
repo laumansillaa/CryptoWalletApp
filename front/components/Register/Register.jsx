@@ -95,9 +95,9 @@ async function handleSubmit(){
 }
 
   return (
-    <Box height={windowsHeight} backgroundColor="theme.100">
+    <Box height={windowsHeight} bg="theme.100">
       <ScrollView>
-      <Box mt= "40px" backgroundColor="theme.100">
+      <Box mt= "40px" bg="theme.100">
       <FormControl
       mt= "20px"
       isInvalid
@@ -233,7 +233,7 @@ const windowsHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'theme.100',
+    //backgroundColor: 'theme.100',
     
     alignItems: 'center',
     justifyContent: 'center',

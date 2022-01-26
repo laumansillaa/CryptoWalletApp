@@ -22,15 +22,14 @@ import ValidateEmail from './components/Register/ValidateEmail';
 const Stack = createStackNavigator();
 
 export default function Index({navigation}) {
-const blockChain = useSelector(state => state.blockChain)
+/* const blockChain = useSelector(state => state.blockChain)
 const [themeSelect, setThemeSelect] = useState({})
 
 
 React.useEffect(()=>{
   
   if(blockChain === "stellar"){
-
-   let theme = extendTheme({
+    let theme = extendTheme({
       colors: {
         // Add new color
         theme: {
@@ -41,7 +40,7 @@ React.useEffect(()=>{
           300: '#059669',
           400: '#064e3b',
           500: '#059669',
-         
+          
         },
         // Redefinig only one shade, rest of the color will remain same
       },
@@ -50,11 +49,12 @@ React.useEffect(()=>{
         initialColorMode: 'dark',
       },
     });
-
-   setThemeSelect(theme)
+    
+    setThemeSelect(theme)
   }else if(blockChain === "ethereum"){
-
-  let  theme = extendTheme({
+    
+    */
+    let  theme = extendTheme({
       colors: {
         // Add new color
         theme: {
@@ -71,9 +71,9 @@ React.useEffect(()=>{
       
     });
    
+    /* 
     setThemeSelect(theme)
   }
-
 
 
 },[blockChain])
@@ -130,13 +130,13 @@ let userToken =useSelector(state => state.userToken);
       </>
     )
   }
-
+ */
   return ( 
 
-    <NativeBaseProvider theme={themeSelect} >
-      {    console.log(blockChain)}
+    <NativeBaseProvider theme={theme} >
+     {/*  {    console.log(blockChain)} */}
       <NavigationContainer>
-        {!logged ? <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
+        {/* !logged ? <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
       headerShown: false,
       gestureEnabled: true,
       cardOverlayEnabled: true,
@@ -150,7 +150,7 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="PasswordReset" component={PasswordReset}/>
                       <Stack.Screen name="ValidateEmail" component={ValidateEmail}/>
                    </Stack.Navigator>
-    : 
+    :  */
                    <TabNavFooter />
                    }
       </NavigationContainer>

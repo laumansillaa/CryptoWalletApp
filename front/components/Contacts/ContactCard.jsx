@@ -24,6 +24,10 @@ import { IP_HOST } from "@env";
 import { useDispatch } from 'react-redux';
 import { getDataUser } from "../../redux/actions";
 
+import { Dimensions } from 'react-native';
+const windowHeight = Dimensions.get('window').height
+
+
 
 export default function ContactCard({ route, navigation }) {
   const { name, ethereumPublicKey, stellarPublicKey, id } = route.params;
@@ -35,7 +39,7 @@ export default function ContactCard({ route, navigation }) {
   const [nameChange, setNameChange] = React.useState('')
   const [ethereumPublicKeyChange, setEthereumPublicKeyChange] = React.useState('')
   const [stellarPublicKeyChange, setStellarPublicKeyChange] = React.useState('')
-   React.useEffect(() => {
+  React.useEffect(() => {
     setNameChange(name)
     setEthereumPublicKeyChange(ethereumPublicKey)
     setStellarPublicKeyChange(stellarPublicKey)
@@ -72,152 +76,180 @@ export default function ContactCard({ route, navigation }) {
   }
 
   return (
-    <Center flex={1} px="3">
-      <Box
-        mt="50px"
-        py="1"
+    <Box bg="theme.100" height={windowHeight}>
+      <Pressable onPress={() => navigation.goBack()}>
+        <ChevronLeftIcon color="theme.300" size="40px" m='7px' />
+      </Pressable>
+      <Center>
+        <Text fontSize="15px" color="theme.300" letterSpacing={4}>CONTACT INFO</Text>
+      </Center>
 
-        rounded="md"
-        alignSelf="center"
-        width={375}
-        maxWidth="100%"
+      <Center flex={1}>
+        <Box
+          width='100%'
+          maxWidth="100%"
+        >
+          <Stack direction="row" alignItems="center">
+          </Stack>
+        </Box>
 
-      >
-        <Stack direction="row" alignItems="center">
-          <Pressable onPress={() => navigation.goBack()}>
-            <ChevronLeftIcon color="darkBlue.900" size="9" />
-          </Pressable>
-          <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" >Info </Text>
-        </Stack>
-      </Box>
-
-      <Box w='80%'>
-        <VStack space={2}>
-          <Text color="dark">{nameChange.toUpperCase()}</Text>
-
-          <Divider my="2" bg='emerald.600' />
-
-          <VStack alignItems="center" justifyContent="space-between">
-
-            <HStack alignItems="center" space={3}>
-              <Text color="dark">Ethereum public key</Text>
-              <Button onPress={() => {
-                onCopy(ethereumPublicKeyChange)
-                setShow(true)
-                toast.show({
-                  duration: 1200,
-                  placement: "bottom",
-                  render: () => {
-                    return (
-                      <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
-                        successful copy
-                      </Box>
-                    )
-                  },
-                })
+        <Box w='80%'>
+          <VStack space={2}>
+            <Text
+              color="theme.150"
+              letterSpacing='8px'
+              style={{
+                textTransform: 'uppercase',
               }}
-                leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
-                colorScheme="green"
-              ></Button>
-            </HStack>
-            <Text color="blueGray.400">{ethereumPublicKeyChange}</Text>
-          </VStack>
+            >{nameChange}</Text>
 
-          <Divider my="2" bg='emerald.600' />
-          <VStack alignItems="center" justifyContent="space-between">
-            <HStack alignItems="center" space={3}>
-              <Text color="dark">Stellar public key</Text>
-              <Button onPress={() => {
-                onCopy(stellarPublicKeyChange)
-                setShow(true)
-                toast.show({
-                  duration: 1200,
-                  placement: "bottom",
-                  render: () => {
-                    return (
-                      <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
-                        successful copy
-                      </Box>
-                    )
-                  },
-                })
-              }}
-                leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
-                colorScheme="green"
-              ></Button>
-            </HStack>
-            <Text color="blueGray.400">{stellarPublicKeyChange}</Text>
-          </VStack>
-          <Divider my="2" bg='emerald.600' />
-        </VStack>
-      </Box>
-      <>
-                {/* <Button
-                  onPress={() => {
-                    setShowModal(false)
-                  }}
-                >
-                  Delete
-                </Button> */}
-        <Button onPress={() => setShowModal(true)}>Edit</Button>
-        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-          <Modal.Content size="100%">
-            <Modal.CloseButton />
-            <Modal.Header>Contact Us</Modal.Header>
-            <Modal.Body>
-              <FormControl>
-                <FormControl.Label>Name</FormControl.Label>
-                <Input value={nameChange}  /*  onChangeText={(e)=>{handleChangeName}} */ onChange={handleChangeName}/>
-              </FormControl>
-              <FormControl mt="3">
-                <FormControl.Label>Ethereum Public Key</FormControl.Label>
-                <Input  value={ethereumPublicKeyChange} /*  onChangeText={(e)=>{handleChangeEthereum}} */ onChange={handleChangeEthereum}/>
-              </FormControl>
-              <FormControl>
-                <FormControl.Label>Stellar Public Key</FormControl.Label>
-                <Input  value={stellarPublicKeyChange}  /* onChangeText={(e)=>{handleChangeStellar}} */ onChange={handleChangeStellar}/>
-              </FormControl>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button.Group space={2}>
-                <Button
-                  variant="ghost"
-                  colorScheme="blueGray"
-                  onPress={() => {
-                    setShowModal(false)
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                 variant="ghost"
-                 colorScheme="blueGray"
-                  onPress={() => {
-                    onSubmit()
-                    setShowModal(false)
-                    setShow(true)
-                    toast.show({
-                      duration: 1600,
-                      placement: "bottom",
-                      render: () => {
-                        return (
-                          <Box bg="emerald.500" px="100" py="6" rounded="sm" mb={200}>
-                            Successful change
-                          </Box>
-                        )
-                      },
-                    })
-                  }}
-                  /* leftIcon={<Icon as={MaterialCommunityIcons} name="account-plus-outline" size={7} color="white" />}
-                  colorScheme="green" */>
-                    Save
-                </Button>
+            <Divider my="2" bg='theme.150' />
 
-              </Button.Group>
-            </Modal.Footer>
-          </Modal.Content>
-        </Modal>
-      </>
-    </Center>
+            <VStack alignItems="center" justifyContent="space-between">
+
+              <HStack alignItems="center" space={3}>
+                <Text color="theme.50" letterSpacing={4}>Ethereum public key</Text>
+                <Button bgColor='theme.300' onPress={() => {
+                  onCopy(ethereumPublicKeyChange)
+                  setShow(true)
+                  toast.show({
+                    duration: 1200,
+                    placement: "bottom",
+                    render: () => {
+                      return (
+                        <Box bg="theme.300" px="2" py="1" rounded="sm" mb={150}>
+                          <Text color='theme.50'> successful copy </Text>
+                        </Box>
+                      )
+                    },
+                  })
+                }}
+                  leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
+                ></Button>
+              </HStack>
+              <Text color="theme.150">{ethereumPublicKeyChange}</Text>
+            </VStack>
+
+            <Divider my="3" bg='theme.150' />
+            <VStack alignItems="center" justifyContent="space-between">
+              <HStack alignItems="center" space={3}>
+                <Text color="theme.50" letterSpacing={4}>Stellar public key</Text>
+                <Button bgColor='theme.300' onPress={() => {
+                  onCopy(stellarPublicKeyChange)
+                  setShow(true)
+                  toast.show({
+                    duration: 1200,
+                    placement: "bottom",
+                    render: () => {
+                      return (
+                        <Box bg="theme.300" px="2" py="1" rounded="sm" mb={150}>
+                          <Text color='theme.50'> successful copy </Text>
+                        </Box>
+                      )
+                    },
+                  })
+                }}
+                  leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
+                  colorScheme="green"
+                ></Button>
+              </HStack>
+              <Text color="theme.150">{stellarPublicKeyChange}</Text>
+            </VStack>
+            <Divider my="3" bg='theme.150' />
+          </VStack>
+        </Box>
+        <>
+
+          <Button
+            variant="outline"
+            //colorScheme="theme.300"
+            w='50%'
+            mb='54'
+            mt='2'
+            alignSelf='center'
+            onPress={() => setShowModal(true)}>
+            <Text color='theme.50' letterSpacing={2}>EDIT</Text>
+          </Button>
+          <Modal isOpen={showModal} onClose={() => setShowModal(false)} >
+            <Modal.Content size="100%" >
+              <Modal.CloseButton />
+              <Modal.Header >
+                <Text color='theme.300'>
+                  EDIT
+                </Text>
+              </Modal.Header>
+              <Modal.Body>
+                <VStack space={1}>
+                  <FormControl>
+                    <FormControl.Label
+                      _text={{
+                        color: "theme.300",
+                        letterSpacing: '1',
+                        fontSize: "14px",
+                      }}>Name</FormControl.Label>
+                    <Input fontSize='17' value={nameChange} bgColor='theme.150' color='theme.200' onChange={handleChangeName} />
+                  </FormControl>
+                  <FormControl >
+                    <FormControl.Label
+                      _text={{
+                        color: "theme.300",
+                        letterSpacing: '1',
+                        fontSize: "14",
+                      }}>Ethereum Public Key</FormControl.Label>
+                    <Input fontSize='17' value={ethereumPublicKeyChange} bgColor='theme.150' color='theme.200' onChange={handleChangeEthereum} />
+                  </FormControl>
+                  <FormControl>
+                    <FormControl.Label
+                      _text={{
+                        color: "theme.300",
+                        letterSpacing: '1',
+                        fontSize: "14",
+                      }}>Stellar Public Key</FormControl.Label>
+                    <Input fontSize='17' value={stellarPublicKeyChange} bgColor='theme.150' color='theme.200' onChange={handleChangeStellar} />
+                  </FormControl>
+                </VStack>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button.Group space={2}>
+                  <Button
+                    variant="outline"
+                    //colorScheme="blueGray"
+                    onPress={() => {
+                      setShowModal(false)
+                    }}
+                  >
+                    <Text color='theme.300'> Cancel </Text>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    //colorScheme="theme.300"
+                    alignSelf='center'
+                    onPress={() => {
+                      onSubmit()
+                      setShowModal(false)
+                      setShow(true)
+                      toast.show({
+                        duration: 1600,
+                        placement: "bottom",
+                        render: () => {
+                          return (
+                            <Box bg="theme.300" px="100" py="6" rounded="sm" mb={90}>
+                              <Text color='theme.100'>Successful change</Text>
+                            </Box>
+                          )
+                        },
+                      })
+                    }}
+                  >
+                    <Text color='theme.300'> Save </Text>
+                  </Button>
+
+                </Button.Group>
+              </Modal.Footer>
+            </Modal.Content>
+          </Modal>
+        </>
+      </Center>
+    </Box>
   )
 }

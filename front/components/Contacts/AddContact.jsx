@@ -12,12 +12,18 @@ import {
   Pressable,
   ChevronLeftIcon,
   Text,
+  ScrollView,
 } from 'native-base';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { IP_HOST } from "@env";
 import { getDataUser } from '../../redux/actions';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
+
+
+import { Dimensions } from 'react-native';
+const windowHeight = Dimensions.get('window').height
+
 
 export default function AddContact({ navigation }) {
   const toast = useToast()
@@ -29,11 +35,11 @@ export default function AddContact({ navigation }) {
   const dispatch = useDispatch()
 
   function handleName(e) {
-   
+
     setName(e)
   }
   function handleEthereum(e) {
- 
+
     setEthereumPublicKey(e)
   }
 
@@ -64,90 +70,86 @@ export default function AddContact({ navigation }) {
 
   return (
     <>
-
-      <Stack
-        space={5}
-        alignSelf="center"
-        px="4"
-        safeArea
-
-        mt="4"
-        w={{
-          base: "100%",
-          md: "45%",
+      <ScrollView
+        _contentContainerStyle={{
+          minW: "72",
         }}
       >
-        <Box
-          mt="50px"
-          py="1"
-
-          rounded="md"
-          alignSelf="center"
-          width={375}
-          maxWidth="100%"
-
-        >
-          <Stack direction="row" alignItems="center">
-            <Pressable onPress={() => navigation.goBack()}>
-              <ChevronLeftIcon color="darkBlue.900" size="9" />
-            </Pressable>
-            <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" >Add Contact </Text>
-          </Stack>
-        </Box>
-
-        <FormControl mb="5">
+        <Box bg="theme.100" height={windowHeight} w='100%'>
+          <Pressable onPress={() => navigation.goBack()}>
+            <ChevronLeftIcon color="theme.300" size="40px" m='7px' />
+          </Pressable>
           <Stack
-            space={5}>
-            <Box>
-              <FormControl.Label
-                isRequired
-                _text={{
-                  color: "gray.700",
-                }}>Name</FormControl.Label>
-              <Input /*  backgroundColor='rgb(255, 255, 255)'*/ color='gray.800'  fontWeight='bold' fontSize='17' placeholder="name" name='name' onChangeText={handleName} />
-            </Box>
-            <Box>
-              <FormControl.Label
-                _text={{
-                  color: "gray.700",
-                }}>Ethereum Public Key</FormControl.Label>
-              <Input /*  backgroundColor='rgb(255, 255, 255)' */ color='gray.800' fontWeight='bold' fontSize='17' placeholder="Ethereum Public Key" name='ethereumPublicKey' onChangeText={handleEthereum} />
-            </Box>
-            <Box>
-              <FormControl.Label
-                _text={{
-                  color: "gray.700",
-                }}>Stellar Public Key</FormControl.Label>
-              <Input /* backgroundColor='rgb(255, 255, 255)' */ color='gray.800' fontWeight='bold' fontSize='17' placeholder="Stellar Public Key" name='stellarPublicKey' onChangeText={handleStellar} />
+            space={8}
+            alignSelf="center"
+            safeArea
+            w={{
+              base: "90%",
+              md: "45%",
+            }}
+          >
+            <FormControl mb="5" >
+              <Stack
+                space={5}
+              >
+                <Box >
+                  <FormControl.Label
+                    _text={{
+                      color: "theme.300",
+                      letterSpacing: '2'
+                    }}>NAME</FormControl.Label>
+                  <Input bgColor='theme.150' color='theme.200' fontSize='17' name='name' onChangeText={handleName} />
+                </Box>
+                <Box>
+                  <FormControl.Label
+                    _text={{
+                      color: "theme.300",
+                      letterSpacing: '2'
+                    }}>ETHEREUM PUBLIC KEY</FormControl.Label>
+                  <Input bgColor='theme.150' color='theme.200' fontSize='17' name='ethereumPublicKey' onChangeText={handleEthereum} />
+                </Box>
+                <Box>
+                  <FormControl.Label
+                    _text={{
+                      color: "theme.300",
+                      letterSpacing: '2'
+                    }}>STELLAR PUBLIC KEY</FormControl.Label>
+                  <Input bgColor='theme.150' color='theme.200' fontSize='17' name='stellarPublicKey' onChangeText={handleStellar} />
 
-            </Box>
+                </Box>
+              </Stack>
+            </FormControl>
           </Stack>
-        </FormControl>
-        <Button mt="5" colorScheme="cyan"
-          onPress={() => {
-            onSubmit()
-            navigation.navigate('ContactCard', {
-             name,
-              ethereumPublicKey,
-              stellarPublicKey 
-            })
-            setShow(true)
-            toast.show({
-              duration: 1200,
-              placement: "bottom",
-              render: () => {
-                return (
-                  <Box bg="emerald.500" px="50" py="1" rounded="sm" mb={200}>
-                    successful add!
-                  </Box>
-                )
-              },
-            })
-          }}
-          leftIcon={<Icon as={MaterialCommunityIcons} name="account-plus-outline" size={7} color="white" />}
-          colorScheme="green">
-        </Button>
-      </Stack>
+          <Button variant="outline" //colorScheme="theme.300" 
+            w='45%'
+            mb='54'
+            mt='2'
+            alignSelf='center'
+            onPress={() => {
+              onSubmit()
+              navigation.navigate('ContactCard', {
+                name,
+                ethereumPublicKey,
+                stellarPublicKey
+              })
+              setShow(true)
+              toast.show({
+                duration: 1200,
+                placement: "bottom",
+                render: () => {
+                  return (
+                    <Box bg="theme.300" px="50" py="1" rounded="sm" mb={200}>
+                      successful add!
+                    </Box>
+                  )
+                },
+              })
+            }}
+          >
+            <Text fontSize='14' letterSpacing={1}>ADD CONTACT</Text>
+          </Button>
+        </Box>
+      </ScrollView>
     </>
   );
 }

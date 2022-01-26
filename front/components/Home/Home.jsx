@@ -62,7 +62,7 @@ export default function Home({ navigation }) {
       dispatch(geTransactionUser())
    
     }
-  navigation.navigate("HomeIndex")
+  navigation.popToTop()
 
   },[isEnabled])
 

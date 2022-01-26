@@ -4,6 +4,7 @@ const {TOKEN_MERCADOPAGO} = process.env;
 mercadopago.configure({
     access_token: TOKEN_MERCADOPAGO
 })
+const {IP_HOST} = process.env;
 
 module.exports = async (req, res, next) => {
     try{
@@ -16,9 +17,9 @@ module.exports = async (req, res, next) => {
                 }
             ],
             back_urls: {
-                "success": "http://localhost:3001/payment/success",
-                "failure": "http://localhost:3001/payment/failure",
-                "pending": "http://localhost:3001/payment/feedback"
+                "success": `http://${IP_HOST}:3001/payment/success`,
+                "failure": `http://${IP_HOST}:3001/payment/failure`,
+                "pending": `http://${IP_HOST}:3001/payment/feedback`
             },            
             marketplace: "Henry Wallet",
             auto_return: "approved",

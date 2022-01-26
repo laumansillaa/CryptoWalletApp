@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "android",
+			"path": "front/",
+			"problemMatcher": [],
+			"label": "npm: android - front",
+			"detail": "expo start --android"
+		}
+	]
+}

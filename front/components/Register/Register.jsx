@@ -239,7 +239,7 @@ const windowsHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#18181b",
+  /*   backgroundColor: 'theme.100', */
     
     alignItems: 'center',
     justifyContent: 'center',

@@ -27,8 +27,14 @@ export default function validateEmail ({navigation}) {
                 url: `http://${IP_HOST}:3001/session/verifyUser`,
               });
               userToken = token;     
+
+
+
+
               await AsyncStorage.setItem('userToken', userToken);
-              dispatch(Log(userToken));
+
+              navigation.popToTop();
+          /*     dispatch(Log(userToken)); */
         } catch (e) {console.log(e)}
     }
 

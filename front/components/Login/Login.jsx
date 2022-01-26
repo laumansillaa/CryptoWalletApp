@@ -123,33 +123,83 @@ export default function Login ({ navigation }) {
             source={require("../../assets/icon.png")} alt="logo" />             */}
             
             <Stack space={4} w={{base: "85%", md: "25%", }} >
-            <Input placeholder="Email" value={email} onChangeText={setEmail} borderRadius= "4px" InputLeftElement={
-          <Icon as={<Ionicons name="person" size={24} color="black" />} size={5} ml="2" color="muted.400"/>} backgroundColor= 'theme.50'
-          fontWeight='bold' fontSize='14' borderColor= "#dark.900" borderWidth="2" _text={{fontSize:"lg"}} color='coolGray.900'/>
+            <Input placeholder="Email" value={email} onChangeText={setEmail} 
+            borderRadius= "4px" 
+            InputLeftElement={<Icon as={<Ionicons name="person" size={24} color="black" />} 
+            size={5} 
+            ml="2" 
+            color="muted.400"/>} 
+            backgroundColor= 'theme.50'
+            fontWeight='bold' 
+            fontSize='14' 
+            borderColor= "#dark.900" 
+            borderWidth="2" 
+            _text={{fontSize:"lg"}} 
+            color='coolGray.900'/>
           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>
           {error.email}
-        </FormControl.ErrorMessage>  
-            <Input placeholder="Password"  value={password} onChangeText={setPassword}  type="password" 
-            borderRadius= "4px" backgroundColor= 'theme.50' color='coolGray.900'
-            InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />} size={5} ml="2" color="muted.400"/>} 
-             fontWeight='bold' fontSize='14' borderColor= "#dark.900" borderWidth="2" _text={{fontSize:"lg"}}
+        </FormControl.ErrorMessage>
+
+            <Input placeholder="Password"  value={password} onChangeText={setPassword}  
+            type="password" 
+            borderRadius= "4px" 
+            backgroundColor= 'theme.50' 
+            color='coolGray.900'
+            InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />} 
+            size={5} 
+            ml="2" 
+            color="muted.400"/>} 
+            fontWeight='bold' 
+            fontSize='14' 
+            borderColor= "#dark.900" 
+            borderWidth="2" 
+            _text={{fontSize:"lg"}}
             />
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs"/>}>
           {error.password}
-        </FormControl.ErrorMessage > 
+        </FormControl.ErrorMessage >
+
             <Divider my="1" bg='#ecfeff' />
-            <Button onPress={onLogin} size="sm" borderRadius= "4px" bg= 'theme.50' color= 'theme.100'
-             _text={{fontSize:"xl"}} borderColor= "theme.150" borderWidth="1" >Log in</Button> 
+
+            <Button onPress={onLogin} 
+            size="sm" 
+            borderRadius= "4px" 
+            bg= 'theme.50' 
+            color= 'theme.100'
+            _text={{fontSize:"xl"}} 
+            borderColor= "theme.150" 
+            borderWidth="1" >Log in</Button> 
             <FormControl.HelperText>
             {message}
           </FormControl.HelperText>
-            <Button  onPress={onGoogleLogin} size="sm" bg= 'theme.50' color= 'theme.100'
-            leftIcon= {<Icon as={<Fontisto name="google" size={8} color="black" />} />} borderRadius= "4px" _text={{fontSize:"md"}}
-            borderColor= "theme.150" borderWidth="1" >Log in with Google</Button>
-            <Button onPress={() => navigation.navigate("Register")} size="sm" bg= 'theme.50' color= 'theme.100'
-            borderRadius= "4px"  _text={{fontSize:"md"}} borderColor= "theme.150" borderWidth="1" >Create account</Button>
-            <Button onPress={() => navigation.navigate("PasswordRecovery")} size="sm" bg= 'theme.50' color= 'theme.100'
-            borderRadius= "4px"  _text={{fontSize:"md"}} borderColor= "theme.150" borderWidth="1" >Forgot password</Button>       
+
+            <Button  onPress={onGoogleLogin} 
+            size="sm" 
+            bg= 'theme.50' 
+            color= 'theme.100'
+            leftIcon= {<Icon as={<Fontisto name="google" size={8} color="black" />} />} 
+            borderRadius= "4px" 
+            _text={{fontSize:"md"}}
+            borderColor= "theme.150" 
+            borderWidth="1" >Log in with Google</Button>
+
+            <Button onPress={() => navigation.navigate("Register")} 
+            size="sm" 
+            bg= 'theme.50' 
+            color= 'theme.100'
+            borderRadius= "4px"  
+            _text={{fontSize:"md"}} 
+            borderColor= "theme.150" 
+            borderWidth="1" >Create account</Button>
+            
+            <Button onPress={() => navigation.navigate("PasswordRecovery")} 
+            size="sm" 
+            bg= 'theme.50' 
+            color= 'theme.100'
+            borderRadius= "4px"  
+            _text={{fontSize:"md"}} 
+            borderColor= "theme.150" 
+            borderWidth="1" >Forgot password</Button>       
           </Stack>
           </FormControl>
                   

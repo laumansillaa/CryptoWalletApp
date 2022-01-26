@@ -22,8 +22,8 @@ module.exports = async function(req, res, next) {
         }
         dataCur.push({
             price: "$4000",
-            percDay: "+0.00%", 
-            percMonth: "+0.00%",
+            percDay: "+0,00%", 
+            percMonth: "+0,00%",
             img: "https://pbs.twimg.com/profile_images/1184057626222444545/oZiWyMiY_400x400.png",
             name: "HenryCoin",
             symbol: "HNR"

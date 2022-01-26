@@ -45,26 +45,30 @@ module.exports = async function(req, res, next) {
             }
         }
 
+        const coins = ["BTC", "ETH", "BNB", "SOL", "ADA", "XRP", "LUNA", "DOT", "AVAX", "DOGE", "SHIB", "MATIC", "LINK", "LTC", "ALGO", "XLM", "NEAR", "ATOM"]
+        
+        const stellarStake = await Staking.findAll({ where: { publicKey: keys.stellar[0]}})
         const stellarAccount = await server.loadAccount(keys.stellar[0]);
+
+        let stellarStaking = 0;
+        let stellarCrypto = 0;
         const stellarCurrencies = stellarAccount.balances
             .filter(currency => currency.asset_code !== undefined && currency.asset_code !== "USD" && currency.balance > 0)
-            .map(currency => { return { currency: currency.asset_code, amount: currency.balance } });
-        const stellarStake = await Staking.findAll({ where: { publicKey: keys.stellar[0]}})
-        let stellarCrypto = 0;
-        let stellarStaking = 0;
-        for (let i = 0; i < stellarCurrencies.length; i++) {
-            stellarCrypto += stellarCurrencies[i].amount * prices[`${stellarCurrencies[i].currency}USDT`];
-            stellarStake.forEach((data, index) => {
-                if(data.currency === stellarCurrencies[i].currency) {
-                    stellarCurrencies[i].staking = data.amount;
-                    stellarStaking += parseFloat(data.amount) * prices[`${stellarCurrencies[i].currency}USDT`];
-                    stellarStake.splice(1, index)
-                }
-            })
-        }
-        if(stellarStake.length) {
-            stellarStake.forEach(data => stellarCurrencies[data.currency].staking = data.amount)
-        }
+            .map(currency => {
+                stellarCrypto += parseFloat(currency.balance) * prices[`${currency.asset_code}USDT`];
+                return { 
+                    currency: currency.asset_code, 
+                    amount: currency.balance
+                }});
+        stellarStake.forEach(el => stellarStaking += parseFloat(el.amount) * prices[`${el.currency}USDT`])
+        
+        const balance = coins.map(coin => {
+            return {
+                currency: coin,
+                amount: (stellarCurrencies.filter(el => el.currency === coin)).length === 1 ? stellarCurrencies.filter(el => el.currency === coin)[0].amount : "0",
+                staking: (stellarStake.filter(el => el.currency === coin)).length === 1 ? stellarStake.filter(el => el.currency === coin)[0].amount : "0"
+            }
+        })
 
         const user = await User.findOne({ where: { id: req.user.id } })
 
@@ -77,7 +81,7 @@ module.exports = async function(req, res, next) {
             stellar: {
                 cryptoBalance: stellarCrypto.toString(),
                 stakingBalance: stellarStaking.toString(),
-                currencies: stellarCurrencies
+                currencies: balance
             },
             funds: {
                 balance: user.usd === null ? "0" : user.usd.toString()

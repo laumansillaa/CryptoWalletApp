@@ -63,15 +63,17 @@ export default function OperationCurrencies({ route, navigation }) {
             <VStack>
                 <Box bg="theme.150" width={Dimensions.get('window').width} height={Dimensions.get('window').height /2.25} borderBottomRadius={10} alignSelf="center" alignItems="center">
                     <Stack direction="row" mt="5" mb="5" alignSelf="center">
-                        <Pressable onPress={()=> navigation.goBack()}>
-                            <ChevronLeftIcon ml="-150" color="theme.50" size="9"/>
-                        </Pressable>
+                        <Box>
+                            <Pressable onPress={()=> navigation.goBack()}>
+                                <ChevronLeftIcon ml="-150" color="theme.50" size="9"/>
+                            </Pressable>
+                        </Box>
                         <Avatar bg="theme.150" size="lg" alignSelf="center" source={(cryptoData.img)?{
                             uri: cryptoData.img
                             } : ""}
                         />
                     </Stack>
-                    <Box bg="theme.100" width={Dimensions.get('window').width -20} mt="3" pt="3" pb="3" pl="4" pr="4" borderWidth="1" borderColor="theme.200" borderRadius={7}>
+                    <Box bg="theme.100" width={Dimensions.get('window').width -20} mt="3" pt="3" pb="3" pl="4" pr="4" borderWidth="1" borderColor="theme.300" borderRadius={7}>
                         <Stack direction="row" justifyContent="space-around" space="xl">
                             <Stack direction="row">
                                 <Text fontSize="xl" color="theme.50" fontWeight="semibold" >${cryptoData.price}</Text>
@@ -90,53 +92,53 @@ export default function OperationCurrencies({ route, navigation }) {
                         <Stack direction="column" alignSelf="center" alignItems="center">
                             <Button
                                 mt="9"
-                                bg="theme.200"
+                                bg="theme.300"
                                 borderRadius="full"
                                 onPress={()=>navigation.navigate("UserTransfer",{amount:parseFloat(amount).toFixed(4), currency:currency})}
                             >
                                 <Feather name="arrow-up" size={28} color="theme.50" />
                             </Button>
-                            <Text color="theme.200" mt="2" fontWeight="normal">TRANSFER</Text>
+                            <Text letterSpacing="1px" color="theme.300" mt="2" fontWeight="normal">TRANSFER</Text>
                         </Stack>
                         <Stack direction="column" alignSelf="center" alignItems="center">
                             <Button
                                 mt="9"
-                                bg="theme.200"
+                                bg="theme.300"
                                 borderRadius="full"
                                 onPress={()=> navigation.navigate("CardCripto", {token:currency})}
                             >
                                 <Entypo name="plus" size={28} color="theme.50" />
                             </Button>
-                            <Text color="theme.200" mt="2" fontWeight="normal">BUY</Text>
+                            <Text letterSpacing="1px" color="theme.300" mt="2" fontWeight="normal">BUY</Text>
                         </Stack>
                         <Stack direction="column" alignSelf="center" alignItems="center">
                             <Button
                                 mt="9"
-                                bg="theme.200"
+                                bg="theme.300"
                                 borderRadius="full"
                                 onPress={()=>navigation.navigate("UserSell", {amount:parseFloat(amount).toFixed(4), currency:currency})}
                             >
                                 <Entypo name="minus" size={28} color="theme.50" />
                             </Button>
-                            <Text color="theme.200" mt="2" fontWeight="normal">SELL</Text>
+                            <Text letterSpacing="1px" color="theme.300" mt="2" fontWeight="normal">SELL</Text>
                         </Stack>
                         <Stack direction="column" alignSelf="center" alignItems="center">
                             <Button
                                 mt="9"
-                                bg="theme.200"
+                                bg="theme.300"
                                 borderRadius="full"
                                 onPress={()=> navigation.navigate("StakingCurrencie", {amount:parseFloat(amount).toFixed(4), currency:currency,})}
                             >
                                 <MaterialCommunityIcons name="pickaxe" size={28} color="black" />
                             </Button>
-                            <Text color="theme.200" mt="2" fontWeight="normal">STAKING</Text>
+                            <Text letterSpacing="1px" color="theme.300" mt="2" fontWeight="normal">STAKING</Text>
                         </Stack>
                     </HStack>
                 </Box>
             </VStack>
            <VStack alignItems="center" alignSelf="center" mt="10" mb="10">
                 <Stack direction="row">
-                    <Text fontSize="lg" fontWeight="semibold">LAST MONTH:</Text>
+                    <Text letterSpacing="1px" fontSize="lg" fontWeight="normal">LAST MONTH:</Text>
                     {cryptoData.percMonth[0] === "+" ?
                         <Text fontSize="md" mt="0.9" fontWeight="semibold" color="success.500">  {cryptoData.percMonth}</Text> :
                         <Text fontSize="md" mt="0.9" fontWeight="semibold" color="red.600">  {cryptoData.percMonth}</Text>

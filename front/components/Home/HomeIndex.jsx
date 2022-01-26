@@ -27,13 +27,11 @@ export default function HomeIndex() {
       <Stack.Screen name="HomeIndex" component={Home} />
       <Stack.Screen name="UserCriptos" component={UserCriptos} />
       <Stack.Screen name="Confirmation" component={Confirmation} />
-      <Stack.Screen name="UserTransfer" component={Transfer}/>
-      <Stack.Screen name="UserSell" component={Sell}/>
+  
       <Stack.Screen name="StakingUser" component={StakingUser}/>
-      <Stack.Screen name="CardCripto" component={CardCripto} />
-      <Stack.Screen name="BuyCurrencie" component={BuyCurrencie} />
+      
       <Stack.Screen name="BalanceUser" component={BalanceUser}/>
-      <Stack.Screen name="OperationCurrencies" component={OperationCurrencies} />
+     
     </Stack.Navigator>
   );
 }

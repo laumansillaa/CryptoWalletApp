@@ -96,7 +96,7 @@ async function stakingUser (){
     });
 
     setMes(response.data)
-    setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
+    setTimeout(()=>navigation.popToTop(),1000)
 
   } catch (error) {
     setMes("Failed Staking")

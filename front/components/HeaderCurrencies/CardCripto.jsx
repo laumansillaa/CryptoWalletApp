@@ -31,6 +31,7 @@ export default function CardCripto({route, navigation}) {
         const [state, setState] = useState()
         const stateToken = useSelector((state)=> state.tokens)
         const [disabledButton, setDisableButton] = useState(true);
+        const [loading, setLoading] = useState(false);
 
        /*  React.useEffect(async ()=>{
            let aux =state;
@@ -60,12 +61,26 @@ export default function CardCripto({route, navigation}) {
             }
             
               return  () => {
-                
+                setLoading(false)
                 so.disconnect(true);
 
               
               };
             }, []));
+
+          function loadingButton (){
+            setLoading(true)
+            setTimeout(()=>{
+              navigation.navigate("BuyCurrencie", {
+                token,
+                price:state.price
+              })
+
+            }, 1000)
+           
+
+
+          }  
   
     return (
       <>    
@@ -113,10 +128,7 @@ export default function CardCripto({route, navigation}) {
              Data {token}:
             </Text>
       </Box>
-        <Button mt="5" bg="theme.300" isDisabled={disabledButton} onPress={()=> navigation.navigate("BuyCurrencie", {
-          token,
-          price:state.price
-        })}><Text color="theme.50">
+        <Button mt="5"  variant="outline" colorScheme="theme" isDisabled={disabledButton} isLoading={loading} onPress={()=> loadingButton()}><Text color="theme.50">
     Buy now:
         </Text>
         

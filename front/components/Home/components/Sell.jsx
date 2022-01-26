@@ -121,7 +121,7 @@ async function transferUser (){
             placement: "bottom"
       
           })
-          setTimeout(()=>navigation.navigation.goBack(),1000)
+          setTimeout(()=>navigation.navigation.popToTop(),1000)
       
         } catch (error) {
           toast.show({

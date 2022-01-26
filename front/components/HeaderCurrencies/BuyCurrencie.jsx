@@ -24,6 +24,7 @@ import { Dimensions } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { geTransactionUser } from '../../redux/actions';
+import { validateFunds } from '../Utils/Utils';
 
 
 
@@ -31,12 +32,14 @@ export default function BuyCurrencie({route, navigation}) {
   const windowHeight = Dimensions.get("window").height
     const {token, price} = route.params;
     const [loading, setLoading] = useState("")
+    const [disabled, setDisabled] = useState(true)
     const toast = useToast()
     const [founds, setFounds] = useState("");
     const dispatch = useDispatch()
     const [mes, setMes] = useState("")
     const [state, setState] = useState({});
     const blockChain = useSelector(state => state.blockChain);
+    
 
     const [urlBlockChain, setUrlBlockChain]= useState("");
 
@@ -79,14 +82,36 @@ export default function BuyCurrencie({route, navigation}) {
         
             })
             setLoading(false)
-            setTimeout(()=>navigation.navigate("BalanceUser"),1000)
+            setTimeout(()=>navigation.popToTop(),1000)
 
           } catch (error) {
+          
+            setDisabled(true)
+            setLoading(false)
             setMes("Failed buy")
-            console.error(error);
+            
           } 
 
     }
+
+
+    function handleChange(e){
+      setMes("")
+      if( validateFunds(e)){
+        setFounds(e)
+        setMes("")
+        setDisabled(false)
+
+      }else{
+        setDisabled(true)
+        setMes("Please write a valid amount ")
+      }
+     
+
+
+    }
+
+
   
     return (
       <>    
@@ -155,7 +180,7 @@ export default function BuyCurrencie({route, navigation}) {
                     }}
                     colorScheme="theme"
                      placeholder="Amount"
-                     onChangeText={setFounds}
+                     onChangeText={handleChange}
                    />
                 <InputRightAddon children={"USD"} />
                  </InputGroup>
@@ -163,7 +188,9 @@ export default function BuyCurrencie({route, navigation}) {
 
         <Button 
         px="10"
-          bg="theme.300"
+          
+          variant="outline" colorScheme="theme"
+          isDisabled={disabled}
           isLoading={loading}
         onPress={()=> buyToken()}>
           <Text fontSize="lg">
@@ -171,7 +198,7 @@ export default function BuyCurrencie({route, navigation}) {
           </Text>
            
             </Button>
-           
+           <Text color="theme.300">{mes}</Text>
           </Box>
           
           

@@ -17,7 +17,9 @@ import {
   Container, View, HStack,
   Divider
 } from 'native-base';
-import { useSelector, AntDesig } from 'react-redux';
+import { useSelector} from 'react-redux';
+import axios from 'axios';
+import {IP_HOST} from "@env";
 
 import { Dimensions } from 'react-native';
 const windowHeight = Dimensions.get('window').height
@@ -30,6 +32,12 @@ export default function Account({ navigation }) {
     try {
       await AsyncStorage.removeItem('userToken');
       dispatch(Logout());
+      await axios({
+        method: "post",
+        withCredentials: true,
+        url: `http://${IP_HOST}:3001/session/signout`,
+      });
+      console.log("hehe");
     } catch (e) {
       console.error(e)
     }

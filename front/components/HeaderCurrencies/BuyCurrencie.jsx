@@ -7,32 +7,40 @@ import axios from 'axios';
 import {
 
   Box,
-  
+  useToast,
   Stack,Text,
   ChevronLeftIcon,
   InputGroup,
   Input,
   InputLeftAddon,
-  Button
+  Button,
+  InputRightAddon
 
   
 } from 'native-base';
 
 import { Pressable} from 'react-native';
-
+import { Dimensions } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { geTransactionUser } from '../../redux/actions';
+import { validateFunds } from '../Utils/Utils';
 
 
 
 export default function BuyCurrencie({route, navigation}) {
+  const windowHeight = Dimensions.get("window").height
     const {token, price} = route.params;
-    const [founds, setFounds] = useState("");
+    const [loading, setLoading] = useState("")
+    const [disabled, setDisabled] = useState(true)
+    const toast = useToast()
+    const [founds, setFounds] = useState("0");
     const dispatch = useDispatch()
     const [mes, setMes] = useState("")
+    const [disbledFunds, setDisableFunds]= useState(false)
     const [state, setState] = useState({});
     const blockChain = useSelector(state => state.blockChain);
+    const balanceFunds = useSelector(state => state.userData.balance.funds.balance)
 
     const [urlBlockChain, setUrlBlockChain]= useState("");
 
@@ -49,9 +57,46 @@ export default function BuyCurrencie({route, navigation}) {
 
     },[blockChain])
 
+    
+    React.useEffect(()=>{
+
+      
+      setMes("")
+      if( validateFunds(founds)){
+        if(parseFloat(founds)<= parseFloat(balanceFunds)){
+
+          setMes("")
+          setDisabled(false)
+           
+        }else{
+          setDisableFunds(false)
+          setDisabled(true)
+          setMes("Insufficient funds")
+        }
+  
+
+
+       
+
+      }else{
+        setDisabled(true)
+        setMes("Please write a valid amount ")
+      }
+     
+   
+
+    },[founds])
+
+
     async  function  buyToken(){
        try {
-            setMes("loading...")
+        setLoading(true)
+        toast.show({
+          title: "Buying...",
+          placement: "top"
+      
+        })
+           
             const response = await axios({
               method: "post",
               data: {
@@ -63,44 +108,66 @@ export default function BuyCurrencie({route, navigation}) {
               url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/purchase`,
             });
             dispatch(geTransactionUser())
-            setMes(response.data)
-            setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
+            toast.show({
+              title: response.data,
+              placement: "bottom"
+        
+            })
+            setLoading(false)
+            setTimeout(()=>navigation.popToTop(),1000)
 
           } catch (error) {
+          
+            setDisabled(true)
+            setLoading(false)
             setMes("Failed buy")
-            console.error(error);
+            
           } 
 
     }
+
+
+    function handleChange(e){
+
+      setFounds(e)
+     
+
+
+    }
+
+
+
   
     return (
       <>    
-     
+      <Box bg="theme.100"
+      height={windowHeight}
+      >
            <Box
-          mt="50px"
+        mt="10"
           py="1"
-          
           rounded="md"
           alignSelf="center"
           width={375}
-          maxWidth="100%"
+          
          
           >
 
           <Stack direction="row" alignItems="center">
           <Pressable   onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="darkBlue.900" size="9"/>
+          <ChevronLeftIcon color="theme.50" size="9"/>
           </Pressable>
-             <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" > Buy Currencie </Text> 
+             <Text ml="50px" fontSize="xl" color="theme.50" fontWeight="bold" > Buy Currency </Text> 
+             <Text ml="20px" fontSize="xl" color="theme.300" fontWeight="bold" > {token} </Text> 
           </Stack>
           </Box>
           
           <Box alignSelf="center" alignItems="center" >
-          <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${price} </Text>
+          <Text color="theme.50" fontWeight="bold" fontSize="6xl"> ${price} </Text>
   {/*         <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${stateToken?.price} </Text> */}
 
           <Box
-             bg="darkBlue.900"
+             bg="theme.400"
              
              
             shadow={9}
@@ -112,36 +179,55 @@ export default function BuyCurrencie({route, navigation}) {
              maxWidth="100%"
              maxHeight="100%"
           >
-            <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
+            <Text color="theme.50" mt="2" fontWeight="bold" fontSize="lg" pb="1">
              {token}
             </Text>
             
       </Box>
       <InputGroup
                  mt="5"
+                 color="theme.50"
+                 colorScheme="theme"
                  mb="5"
+                 _focus={{
+                  borderColor:"theme.300" ,
+                }}
+               
+                 
                  >
-                   <InputLeftAddon color="black" children={"$"} />
+                   <InputLeftAddon color="theme.300" children={"$"} />
                    <Input
+                    borderColor="theme.300"
                     color="black"
                     width="250"
+                    _hover={{
+                      bg:"theme.300" ,
+                    }}
+                    colorScheme="theme"
                      placeholder="Amount"
-                     onChangeText={setFounds}
+                     onChangeText={handleChange}
                    />
- 
+                <InputRightAddon children={"USD"} />
                  </InputGroup>
 
 
-        <Button onPress={()=> buyToken()}>
-            Buy
+        <Button 
+        px="10"
+          
+          variant="outline" colorScheme="theme"
+          isDisabled={disabled}
+          isLoading={loading}
+        onPress={()=> buyToken()}>
+          <Text fontSize="lg">
+          Buy
+          </Text>
+           
             </Button>
-            <Text color="black" mt="2" fontWeight="bold" fontSize="lg" pb="1">
-             {(mes)?mes:""}
-            </Text>
+           <Text color="theme.300">{mes}</Text>
           </Box>
           
           
-     
+          </Box>
 
      
       </>

@@ -40,7 +40,7 @@ module.exports = async function(req, res, next) {
         const dbOperation = await Operation.create({
             operationType: "take stake",
             blockchain: "stellar",
-            from: keys.stellar[0],
+            from: userKeys.stellar[0],
             to: "admin",
             currency: stakingCurrency,
             amount: amountReward.toString(),

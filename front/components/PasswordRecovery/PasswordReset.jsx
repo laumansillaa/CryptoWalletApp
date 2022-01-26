@@ -1,9 +1,11 @@
-import { Button, Center, Container, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon } from "native-base";
+import { Button, Center, Container, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon, Box, Divider } from "native-base";
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+import { AntDesign } from "@expo/vector-icons"
 import { validatePassword } from "../Utils/Utils";
 
-export default function PasswordReset() {
+
+export default function PasswordReset({navigation}) {
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -12,6 +14,8 @@ export default function PasswordReset() {
         password:"",
         confirmPassword: "",
         });
+    const [tokenPassword, setTokenPassword] = useState("");
+    const [tokenValidate, setTokenValidate] = useState(false);
 
     function validateData (arg){
         switch(arg){
@@ -29,45 +33,71 @@ export default function PasswordReset() {
 
     const resetPassword = async () => {
         setMessage("Loading...");
+        try {
+             await axios({
+                method: "post",
+                data: {
+                  token: tokenPassword,
+                  password: password,
+                  confirmPassword: confirmPassword,
+                },
+                withCredentials: true,
+                url: `http://${IP_HOST}:3001/password/resetpassword`,
+              });
+            setTokenValidate(true);
+            setMessage("password changed")
+        } catch (e) {console.log(e)};
     }
 
     return (
         <>
-        <Container style={styles.container}>
+        <Box style={styles.container} height={windowsHeight} >
             <Center>
                 <FormControl>
                 <Stack>
-                    <Text>Put your new password</Text>
-                    <Input placeholder="password"  value={password} onChangeText={setPassword} type="password"/>
-                    <FormControl.HelperText>
+                    <Text fontSize="xl">Put your new password</Text>
+                    <Input placeholder="Password"  value={password} onChangeText={setPassword} type="password"
+                    color='coolGray.900' backgroundColor= '#e4e4e7' size= "lg" borderRadius= "4px" w= "250px"
+                    InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />} size={5} ml="2" color="muted.400" />}
+                    borderColor= "#dark.900" borderWidth="2"/>
+                    <FormControl.HelperText >
                     {error.password}
                     </FormControl.HelperText>  
-                    <Input placeholder="confirm your password"  value={confirmPassword} onChangeText={setConfirmPassword} type="password"/>
+                    <Input placeholder="Confirm your password"  value={confirmPassword} onChangeText={setConfirmPassword} type="password"
+                    color='coolGray.900' backgroundColor= '#e4e4e7' size= "lg" borderRadius= "4px" w= "250px"
+                    InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />} size={5} ml="2" color="muted.400" />}
+                    borderColor= "#dark.900" borderWidth="2"/>
                     <FormControl.HelperText>
                     {error.confirmPassword}
                     </FormControl.HelperText>
-                    { password === confirmPassword ? <Text>the passwords match</Text> : 
-                    <Text>the passwords must match</Text>}
-                    { error.password === "" ? <Button onPress={resetPassword} size="sm">Reset the password</Button> : 
-                    <Text>The password is not right</Text> } 
+                    { password === confirmPassword ? <Text fontSize="xl">The passwords match</Text> : 
+                    <Text fontSize="xl">The passwords must match</Text>}
+                    { error.password === "" ? <Button onPress={resetPassword} size="sm" borderRadius= "4px" bg= 'theme.50' color= 'theme.100'
+                     _text={{fontSize:"md"}} borderColor= "darkBlue.50" borderWidth="1">Reset the password</Button> : 
+                    <Text fontSize="xl">The password is not right</Text> } 
                     <Text>{message}</Text>
-                                        
+                    <Divider my="4" bg='#ecfeff' />
+                    <Button  onPress={() => navigation.navigate("Login") } _text={{fontSize:"md"}}
+                    borderColor= "darkBlue.50" borderWidth="1" bg= 'theme.50' color= 'theme.100'>Go to back</Button>                                        
                 </Stack>
                 </FormControl>
             </Center>
-        </Container>
+        </Box>
         </>
     )
 }
 
 
+const windowsHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#08b6ff',
+      backgroundColor: '#18181b',
       
       alignItems: 'center',
       justifyContent: 'center',
+      
      
     },
   });

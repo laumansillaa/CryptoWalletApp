@@ -41,7 +41,7 @@ export default function OperationCurrencies({ route, navigation }) {
             let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
             (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
         }
-    },[blockChain])
+    },[blockChain, balance ,currency])
 
     React.useEffect(() => {
         dispatch(getBalance());

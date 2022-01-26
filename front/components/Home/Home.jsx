@@ -76,13 +76,13 @@ export default function Home({ navigation }) {
     }, []));
   
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoadingState(false)
-      setShowModal(false)
-    }, 1000);
-    if (!loadingState) navigation.navigate('Confirmation')
-  }, [loadingState])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoadingState(false)
+  //     setShowModal(false)
+  //   }, 1000);
+  //   if (!loadingState) navigation.navigate('Confirmation')
+  // }, [loadingState])
 
   return (<>
 
@@ -224,7 +224,7 @@ export default function Home({ navigation }) {
                 <Button
                   onPress={() => {
                     setShowModal(false)
-                    navigation.navigate("MercadoPago", {price : founds})
+                    navigation.navigate("MercadoPago", {price : founds, nav : navigation})
                     // let d = new Date();
                     // d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`
                     // dispatch(depositTransaction({ action: "Deposit", money: "USD", mont: founds, date: d }))

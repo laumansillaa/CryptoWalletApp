@@ -2,6 +2,8 @@ import { Button, Center, Container, FormControl, Icon, Input, Stack, Text, Warni
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { validatePassword } from "../Utils/Utils";
+import {IP_HOST} from "@env";
+import axios from "axios";
 
 export default function PasswordReset() {
 
@@ -12,6 +14,8 @@ export default function PasswordReset() {
         password:"",
         confirmPassword: "",
         });
+    const [tokenPassword, setTokenPassword] = useState("");
+    const [tokenValidate, setTokenValidate] = useState(false);
 
     function validateData (arg){
         switch(arg){
@@ -29,6 +33,20 @@ export default function PasswordReset() {
 
     const resetPassword = async () => {
         setMessage("Loading...");
+        try {
+             await axios({
+                method: "post",
+                data: {
+                  token: tokenPassword,
+                  password: password,
+                  confirmPassword: confirmPassword,
+                },
+                withCredentials: true,
+                url: `http://${IP_HOST}:3001/password/resetpassword`,
+              });
+            setTokenValidate(true);
+            setMessage("password changed")
+        } catch (e) {console.log(e)};
     }
 
     return (
@@ -37,6 +55,8 @@ export default function PasswordReset() {
             <Center>
                 <FormControl>
                 <Stack>
+                    <Text>Insert the Token</Text>
+                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword}/>
                     <Text>Put your new password</Text>
                     <Input placeholder="password"  value={password} onChangeText={setPassword} type="password"/>
                     <FormControl.HelperText>

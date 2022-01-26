@@ -3,11 +3,16 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import {WebView} from "react-native-webview";
 import {IP_HOST} from "@env";
-import { Container, Text, View } from "native-base";
+import { Text } from "native-base";
+import { useDispatch } from "react-redux";
+import { depositTransaction } from "../../../redux/actions";
 
 export default function MercadoPago({route}) {
     
     const [url,setUrl] = useState(null);
+    const dispatch = useDispatch();
+
+    
 
     useEffect(async () => {
         async function sendServer () {
@@ -31,18 +36,31 @@ export default function MercadoPago({route}) {
         console.log(url);
     },[url])
     
+    async function stateChange(state) {
+        console.log(state);
+        let url = state.url;
+        if (state.canGoBack == true && !url.includes("mercadopago")) {
+            if(url.includes("approved")) {
+                let d = new Date();
+                d = `${d.getDate()}/${1 + parseInt(d.getMonth())}/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`;
+                dispatch(depositTransaction({ action: "Deposit", money: "USD", mont: route.params.price, date: d }));
+                route.params.nav.navigate("Confirmation");
+            } else {
+                route.params.nav.navigate("Home");
+            }
+        }
+    }
+
     return (
-        <>
-        <View>
+        <>   
          {
              url ? <WebView
              originWhitelist={['*']}
              source={{ uri: url }}
              startInLoadingState={true}
              onNavigationStateChange={state => stateChange(state)}
-             /> : <Text>I cant dowload the page</Text>
+             /> : <Text>I cant download the page</Text>
         }
-        </View> 
         </>
     )
 }

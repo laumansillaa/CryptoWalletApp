@@ -11,7 +11,8 @@ import {
     Button,
     Square,
     ChevronLeftIcon,
-    Text
+    Text,
+    View
 } from 'native-base';
 import { useSelector } from 'react-redux';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
@@ -20,6 +21,7 @@ export default function Confirmation({ navigation }) {
     const transaction = useSelector(state => state.userData.transactions[0])
     console.log(transaction)
     return (
+        <View>
         <Center flex={1} px="3" >
             <VStack space={20}>
 
@@ -50,7 +52,7 @@ export default function Confirmation({ navigation }) {
                 </Box>
 
                 <Button
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate("HomeIndex")}
                     leftIcon={<ChevronLeftIcon color="white" size="10" />}
                     color="#3498DB"
                     h='35'
@@ -58,5 +60,6 @@ export default function Confirmation({ navigation }) {
                 </Button>
             </VStack>
         </Center>
+        </View>
     );
 }

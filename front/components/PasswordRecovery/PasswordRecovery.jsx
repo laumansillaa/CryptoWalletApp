@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons"
 import { validateEmail } from "../Utils/Utils";
 import axios from "axios";
+import {IP_HOST} from "@env";
 
 
 export default function PasswordRecovery({ navigation }) {
@@ -14,11 +15,6 @@ export default function PasswordRecovery({ navigation }) {
         });
     const [emailSent, setEmailSent] = useState(false);
     const [message, setMessage] = useState("");
-    const [messageSubmit, setMessageSubmit] = useState("");
-
-    const [password, setPassword] = useState("");
-    const [tokenPassword, setTokenPassword] = useState("");
-    const [tokenValidate, setTokenValidate] = useState(false);
 
     
     function validateData (arg){
@@ -34,18 +30,17 @@ export default function PasswordRecovery({ navigation }) {
     const generateToken = async () => {
         setMessage("Loading...");
         try {
-            // await axios.post(`http://${IP_HOST}:3001/password/tokenrequest`, {email: email});
+            await axios({
+                method: "post",
+                data: {
+                  email: email,
+                },
+                withCredentials: true,
+                url: `http://${IP_HOST}:3001/password/tokenrequest`,
+              });
             setEmailSent(true);
         } catch (e) {console.log(e)};
 
-    }
-
-    const submitToken = async () => {
-        setMessageSubmit("Loading...");
-        try {
-            // await axios.post(`http://${IP_HOST}:3001/password/tokenrequest`, {email: email});
-            setTokenValidate(true);
-        } catch (e) {console.log(e)};
     }
     
     return (
@@ -64,16 +59,9 @@ export default function PasswordRecovery({ navigation }) {
                     </FormControl.HelperText>}
                     <FormControl.HelperText>
                     {message}
-                    </FormControl.HelperText>
-                    <Text>Insert the Token</Text>
-                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword}/>
-                    <Button onPress={submitToken} size="sm">Submit</Button>
-                    <FormControl.HelperText>
-                    {messageSubmit}
-                    </FormControl.HelperText>
-                    { tokenValidate ? 
-                     <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" >Reset Password</Button>
-                     : <Text>Validate the token</Text>}
+                    </FormControl.HelperText>                    
+                    <Button onPress={() => navigation.navigate("PasswordReset")} size="sm" >Reset Password</Button>
+                
                     
                 </Stack>
                 </FormControl>

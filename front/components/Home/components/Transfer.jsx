@@ -31,7 +31,7 @@ import { Pressable} from 'react-native';
 import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
-
+import { validateFunds } from '../../Utils/Utils';
 
 
 export default function Transfer({route, navigation}) {
@@ -39,6 +39,7 @@ export default function Transfer({route, navigation}) {
       const {currency, amount} = route.params
       const [loading, setLoading] = useState("")
       const toast = useToast()
+      const [disabledMont, setDisableMont] = useState(true)
       const [disabledButton, setDisableButton] = useState(true)
       const [showModal, setShowModal] = useState(false)
       const blockChain = useSelector(state => state.blockChain);
@@ -59,6 +60,54 @@ export default function Transfer({route, navigation}) {
   
   
       },[blockChain])
+
+
+      React.useEffect(()=>{
+
+        if(parseFloat(amount) > 0){
+ 
+         setDisableMont(false)
+ 
+        }else{
+         setDisableMont(true)
+        }
+   
+   
+       },[])
+
+
+       React.useEffect(()=>{
+
+      
+        setMes("")
+        if( validateFunds(founds)){
+      
+          if(parseFloat(founds) > 0){
+            if(parseFloat(founds)<= parseFloat(amount) ){
+      
+              setMes("")
+              setDisableButton(false)
+               
+            }else{
+         
+              setDisableButton(true)
+              setMes(`Insufficient ${currency}`)
+            }
+      
+          }else{
+            setMes("")
+      
+          }
+         
+       }else{
+          setDisableButton(true)
+          setMes("Please write a valid amount ")
+        }
+       
+      
+      
+      },[founds])
+
 
 
 
@@ -205,12 +254,12 @@ async function transferUser (){
       </Box>
   
       <HStack alignSelf="center">
-      <Button variant="outline" colorScheme="theme"  rounded="lg" px="7" py="1"  onPress={() => setShowModal(true)}>
+      <Button variant="outline" colorScheme="theme"  isDisabled={disabledMont} rounded="lg" px="7" py="1"  onPress={() => setShowModal(true)}>
         <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
         <Button variant="outline" colorScheme="theme" isLoading={loading} ml="2"rounded="lg" px="7"  py="1" isDisabled={disabledButton} onPress={() => transferUser()}>
         <Text color="#ffffff" fontSize="2xl" >Confirm</Text></Button>
       </HStack>
-
+      <Text color="theme.300">{mes}</Text>
 
           </Box>
 
@@ -272,7 +321,7 @@ async function transferUser (){
                 <Button
                   onPress={() => {
                    setShowModal(false)
-                   setDisableButton(false)
+              
 
                    
                   }}

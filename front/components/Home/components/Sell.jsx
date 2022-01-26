@@ -27,15 +27,16 @@ import { Pressable} from 'react-native';
 import axios from 'axios';
 import { Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { validateFunds } from '../../Utils/Utils';
 
 
 export default function Sell({route, navigation}) {
-  const windowHeight = Dimensions.get("window").height
+  const windowHeight = Dimensions.get("screen").height
       const {currency, amount} = route.params
       const [loading, setLoading] = useState("")
       const toast = useToast()
       const [disabledButton, setDisableButton] = useState(true)
+      const [disabledMont, setDisableMont] = useState(true)
       const [showModal, setShowModal] = useState(false)
       const blockChain = useSelector(state => state.blockChain);
       const [urlBlockChain, setUrlBlockChain]= useState("");
@@ -56,6 +57,22 @@ export default function Sell({route, navigation}) {
   
       },[blockChain])
 
+      React.useEffect(()=>{
+
+       if(parseFloat(amount) > 0){
+
+        setDisableMont(false)
+
+       }else{
+        setDisableMont(true)
+       }
+  
+  
+      },[])
+
+
+
+
 
 
 async function transferUser (){
@@ -70,7 +87,7 @@ async function transferUser (){
     if(blockChain === "stellar"){
         
   try {
-    setMes("loading...")
+   
     const response = await axios({
       method: "post",
       data: {
@@ -87,7 +104,7 @@ async function transferUser (){
       placement: "bottom"
 
     })
-    setTimeout(()=>navigation.goBack(),1000)
+    setTimeout(()=>navigation.popToTop(),1000)
 
   } catch (error) {
     toast.show({
@@ -104,7 +121,7 @@ async function transferUser (){
       else if(blockChain === "ethereum"){
      
         try {
-          setMes("loading...")
+       
          const response = await axios({
             method: "post",
             data: {
@@ -141,6 +158,38 @@ async function transferUser (){
 
 }
 
+
+React.useEffect(()=>{
+
+      
+  setMes("")
+  if( validateFunds(founds)){
+
+    if(parseFloat(founds) > 0){
+      if(parseFloat(founds)<= parseFloat(amount) ){
+
+        setMes("")
+        setDisableButton(false)
+         
+      }else{
+   
+        setDisableButton(true)
+        setMes(`Insufficient ${currency}`)
+      }
+
+    }else{
+      setMes("")
+
+    }
+   
+ }else{
+    setDisableButton(true)
+    setMes("Please write a valid amount ")
+  }
+ 
+
+
+},[founds])
 
 
 
@@ -233,12 +282,12 @@ async function transferUser (){
      
    
       <HStack alignSelf="center">
-      <Button variant="outline" colorScheme="theme"  rounded="lg" px="7" py="1"  onPress={() => setShowModal(true)}>
-        <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
+      <Button variant="outline" colorScheme="theme"  isDisabled={disabledMont} rounded="lg" px="7" py="1"  onPress={() => setShowModal(true)}>
+        <Text color="#ffffff" fontSize="2xl"  >Mont</Text></Button>
         <Button variant="outline" colorScheme="theme" isLoading={loading} ml="2"rounded="lg" px="7"  py="1" isDisabled={disabledButton} onPress={() => transferUser()}>
         <Text color="#ffffff" fontSize="2xl" >Confirm</Text></Button>
       </HStack>
-
+      <Text color="theme.300">{mes}</Text>
           </Box>
       
           </Box>
@@ -291,7 +340,7 @@ async function transferUser (){
                 <Button
                   onPress={() => {
                    setShowModal(false)
-                   setDisableButton(false)
+             
 
                    
                   }}

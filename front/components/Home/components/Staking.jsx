@@ -16,6 +16,7 @@ import {
   VStack,
   ZStack,
   Modal,
+  useToast,
   FormControl,
   HStack} from 'native-base';
 
@@ -23,18 +24,22 @@ import { Pressable} from 'react-native';
 import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
-
+import { validateFunds } from '../../Utils/Utils';
 
 
 export default function Staking({route, navigation}) {
   const windowHeight = Dimensions.get("window").height
+  const toast = useToast()
       const {currency, amount,staking} = route.params
       const [disabledButton, setDisableButton] = useState(true)
       const [disableMount, setDisableMount] = useState(true);
       const [disableTakeOut, setDisableTakeOut] = useState(true)
+      const [loading, setLoading] = useState("")
+      const [loadingTakeStake, setLoadingTakeStake] = useState("")
       const [showModal, setShowModal] = useState(false)
       const blockChain = useSelector(state => state.blockChain);
       const [urlBlockChain, setUrlBlockChain]= useState("");
+      const [disabledMont, setDisableMont] = useState(true)
       const balance = useSelector(state => state.userData.balance)
       const [founds, setFounds] = useState("0.00");
         const [foundsStalking, setFoundsStalking] = useState("0.00")
@@ -70,7 +75,18 @@ export default function Staking({route, navigation}) {
 
       },[blockChain, balance])
 
+      React.useEffect(()=>{
+
+        if(parseFloat(amount) > 0){
  
+         setDisableMont(false)
+ 
+        }else{
+         setDisableMont(true)
+        }
+   
+   
+       },[])
 
 
 
@@ -78,11 +94,15 @@ export default function Staking({route, navigation}) {
 
 async function stakingUser (){
 
+  toast.show({
+    title: "Stalking...",
+    placement: "top"
 
+  })
 
         
   try {
-    setMes("loading...")
+    setLoading(true)
     const response = await axios({
       method: "post",
       data: {
@@ -96,18 +116,27 @@ async function stakingUser (){
     });
 
     setMes(response.data)
+    setLoading(false)
+    toast.show({
+      title: response.data,
+      placement: "bottom"
+
+    })
     setTimeout(()=>navigation.popToTop(),1000)
+    toast.show({
+      title: response.data,
+      placement: "bottom"
+
+    })
 
   } catch (error) {
+    setLoading(false)
     setMes("Failed Staking")
     console.error(error);
   } 
 
 
       
-      
-        
-  
         
 
 }
@@ -115,7 +144,12 @@ async function stakingUser (){
 async function stakeTaking(){
 
   try {
-    setMes("loading...")
+    toast.show({
+      title: "Withdrawing...",
+      placement: "top"
+  
+    })
+    setLoadingTakeStake(true)
     const response = await axios({
       method: "post",
       data: {
@@ -127,16 +161,49 @@ async function stakeTaking(){
     });
 
     setMes(response.data)
-    setTimeout(()=>navigation.navigate("CurrenciesIndex"),1000)
+    setLoadingTakeStake(false)
+    setTimeout(()=>navigation.popToTop(),1000)
 
   } catch (error) {
     setMes("Failed Staking")
+    setLoadingTakeStake(false)
     console.error(error);
   } 
 
 
 }
 
+React.useEffect(()=>{
+
+      
+  setMes("")
+  if( validateFunds(founds)){
+
+    if(parseFloat(founds) > 0){
+      if(parseFloat(founds)<= parseFloat(amount) ){
+
+        setMes("")
+        setDisableButton(false)
+         
+      }else{
+   
+        setDisableButton(true)
+        setMes(`Insufficient ${currency}`)
+      }
+
+    }else{
+      setMes("")
+
+    }
+   
+ }else{
+    setDisableButton(true)
+    setMes("Please write a valid amount ")
+  }
+ 
+
+
+},[founds])
 
 
 
@@ -181,7 +248,7 @@ async function stakeTaking(){
           </Box>
          {/* Currency and amount */}
          
-          <Box alignSelf="center" alignItems="center" >
+          <Box alignSelf="center" mb="10" alignItems="center" >
           
 
          
@@ -247,16 +314,16 @@ async function stakeTaking(){
       </Box>
        <HStack alignSelf="center">
 
-      <Button variant="outline" colorScheme="theme" rounded="md" px="7" py="1"  isDisabled={disableMount}  onPress={() => setShowModal(true)}>
+      <Button variant="outline" colorScheme="theme" rounded="md" px="7" isDisabled={disabledMont} py="1"  isDisabled={disableMount}  onPress={() => setShowModal(true)}>
         <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
 
-        <Button variant="outline" colorScheme="theme"  ml="2"rounded="md" px="7"  py="1" isDisabled={disabledButton} onPress={() => stakingUser()}>
+        <Button variant="outline" isLoading={loading} colorScheme="theme"  ml="2"rounded="md" px="7"  py="1" isDisabled={disabledButton} onPress={() => stakingUser()}>
         <Text color="#ffffff" fontSize="2xl" >Confirm</Text></Button>
         </HStack>
-        <Button variant="outline" colorScheme="theme" mt="2"rounded="md" px="7"  py="1" isDisabled={disableTakeOut} onPress={() => stakeTaking()}>
+        <Button variant="outline"  isLoading={loadingTakeStake} colorScheme="theme" mt="2"rounded="md" px="7"  py="1" isDisabled={disableTakeOut} onPress={() => stakeTaking()}>
         <Text color="#ffffff" fontSize="2xl" >Withdraw currency</Text></Button>
    
-
+        <Text color="theme.300">{mes}</Text>
   
 
           </Box>
@@ -271,7 +338,7 @@ async function stakeTaking(){
             <Modal.Header>Amount to sell</Modal.Header>
             <Modal.Body>
               <FormControl>
-                <FormControl.Label>How much {currency} do you want to sell?</FormControl.Label>
+                <FormControl.Label>How much {currency} do you want to stalking?</FormControl.Label>
                 
                 <InputGroup
                   width={{
@@ -311,7 +378,7 @@ async function stakeTaking(){
                 <Button
                   onPress={() => {
                    setShowModal(false)
-                   setDisableButton(false)
+                   
 
                    
                   }}

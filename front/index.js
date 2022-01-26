@@ -22,7 +22,7 @@ import ValidateEmail from './components/Register/ValidateEmail';
 const Stack = createStackNavigator();
 
 export default function Index({navigation}) {
-/* const blockChain = useSelector(state => state.blockChain)
+ const blockChain = useSelector(state => state.blockChain)
 const [themeSelect, setThemeSelect] = useState({})
 
 
@@ -53,7 +53,7 @@ React.useEffect(()=>{
     setThemeSelect(theme)
   }else if(blockChain === "ethereum"){
     
-    */
+  
     let  theme = extendTheme({
       colors: {
         // Add new color
@@ -71,7 +71,7 @@ React.useEffect(()=>{
       
     });
    
-    /* 
+ 
     setThemeSelect(theme)
   }
 
@@ -130,13 +130,13 @@ let userToken =useSelector(state => state.userToken);
       </>
     )
   }
- */
+ 
   return ( 
 
-    <NativeBaseProvider theme={theme} >
-     {/*  {    console.log(blockChain)} */}
+    <NativeBaseProvider theme={themeSelect} >
+     {    console.log(blockChain)}
       <NavigationContainer>
-        {/* !logged ? <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
+        {!logged ? <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
       headerShown: false,
       gestureEnabled: true,
       cardOverlayEnabled: true,
@@ -150,7 +150,7 @@ let userToken =useSelector(state => state.userToken);
                       <Stack.Screen name="PasswordReset" component={PasswordReset}/>
                       <Stack.Screen name="ValidateEmail" component={ValidateEmail}/>
                    </Stack.Navigator>
-    :  */
+    :  
                    <TabNavFooter />
                    }
       </NavigationContainer>

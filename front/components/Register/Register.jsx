@@ -98,7 +98,7 @@ async function handleSubmit(){
   return (
     <Box height={windowsHeight} backgroundColor="theme.100">
       <ScrollView>
-      <Box mt= "40px" backgroundColor="theme.100">
+      <Box  backgroundColor="theme.100">
       <FormControl
       mt= "20px"
       isInvalid
@@ -216,7 +216,7 @@ async function handleSubmit(){
 
           <Divider my="1" bg='#ecfeff' />
 
-          <Button  onPress={() => navigation.navigate("Login") } 
+          <Button mb="10" onPress={() => navigation.goBack() } 
           size="sm" h="9" 
           bg= "theme.50" 
           color= 'theme.100' 

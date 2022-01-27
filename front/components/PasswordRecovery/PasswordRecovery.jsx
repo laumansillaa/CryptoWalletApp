@@ -40,6 +40,7 @@ export default function PasswordRecovery({ navigation }) {
                 url: `${DEPLOYED_BACKEND_URL}password/tokenrequest`,
               });
             setEmailSent(true);
+            setMessage("Sent Token...");
         } catch (e) {console.log(e)};
 
     }

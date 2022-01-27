@@ -16,6 +16,7 @@ import {
   Modal,
   FormControl,
   Input,
+  HelperText
 } from "native-base"
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -39,6 +40,7 @@ export default function ContactCard({ route, navigation }) {
   const [nameChange, setNameChange] = React.useState('')
   const [ethereumPublicKeyChange, setEthereumPublicKeyChange] = React.useState('')
   const [stellarPublicKeyChange, setStellarPublicKeyChange] = React.useState('')
+  const [message, setMessage] = React.useState("");
   React.useEffect(() => {
     setNameChange(name)
     setEthereumPublicKeyChange(ethereumPublicKey)
@@ -55,6 +57,9 @@ export default function ContactCard({ route, navigation }) {
     setEthereumPublicKeyChange(e.target.value)
   }
   async function onSubmit() {
+    if (nameChange) {
+      if (ethereumPublicKeyChange || stellarPublicKeyChange) {
+        setMessage("Successful change")
     try {
       const response = await axios({
         method: "put",
@@ -73,6 +78,12 @@ export default function ContactCard({ route, navigation }) {
 
       console.error(error);
     }
+  } else {
+    setMessage("Please enter enter a public key")
+  }
+} else {
+  setMessage("Please enter name and public key")
+}
   }
 
   return (
@@ -96,7 +107,7 @@ export default function ContactCard({ route, navigation }) {
         <Box w='80%'>
           <VStack space={2}>
             <Text
-              color="theme.150"
+              color="theme.200"
               letterSpacing='8px'
               style={{
                 textTransform: 'uppercase',
@@ -127,7 +138,7 @@ export default function ContactCard({ route, navigation }) {
                   leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
                 ></Button>
               </HStack>
-              <Text color="theme.150">{ethereumPublicKeyChange}</Text>
+              <Text color="theme.200">{ethereumPublicKeyChange}</Text>
             </VStack>
 
             <Divider my="3" bg='theme.150' />
@@ -153,7 +164,7 @@ export default function ContactCard({ route, navigation }) {
                   colorScheme="green"
                 ></Button>
               </HStack>
-              <Text color="theme.150">{stellarPublicKeyChange}</Text>
+              <Text color="theme.200">{stellarPublicKeyChange}</Text>
             </VStack>
             <Divider my="3" bg='theme.150' />
           </VStack>
@@ -162,7 +173,7 @@ export default function ContactCard({ route, navigation }) {
 
           <Button
             variant="outline"
-            //colorScheme="theme.300"
+            colorScheme="theme"
             w='50%'
             mb='54'
             mt='2'
@@ -206,6 +217,9 @@ export default function ContactCard({ route, navigation }) {
                         fontSize: "14",
                       }}>Stellar Public Key</FormControl.Label>
                     <Input fontSize='17' value={stellarPublicKeyChange} bgColor='theme.150' color='theme.200' onChange={handleChangeStellar} />
+                  <FormControl.HelperText>
+                  {message}
+                </FormControl.HelperText>
                   </FormControl>
                 </VStack>
               </Modal.Body>
@@ -226,8 +240,8 @@ export default function ContactCard({ route, navigation }) {
                     alignSelf='center'
                     onPress={() => {
                       onSubmit()
-                      setShowModal(false)
-                      setShow(true)
+                       /* setShowModal(true)
+                      setShow(false) 
                       toast.show({
                         duration: 1600,
                         placement: "bottom",
@@ -238,7 +252,7 @@ export default function ContactCard({ route, navigation }) {
                             </Box>
                           )
                         },
-                      })
+                      }) */
                     }}
                   >
                     <Text color='theme.300'> Save </Text>

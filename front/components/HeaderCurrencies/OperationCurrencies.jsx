@@ -36,11 +36,17 @@ export default function OperationCurrencies({ route, navigation }) {
 
     React.useEffect(()=>{
         if(blockChain === "stellar") {
-            let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
-            (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
+            if(balance){
+                let searchStellar = balance.stellar.currencies?.find((element) => element.currency === currency);
+                (searchStellar)?setAmount(searchStellar.amount): setAmount("0.00");
+            }
+  
         } else if(blockChain === "ethereum"){
-            let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
-            (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
+            if(balance){
+                let searchEthereum = balance.ethereum.currencies?.find((element) => element.currency === currency);
+                (searchEthereum)?setAmount(searchEthereum.amount): setAmount("0.00");
+            }
+
         }
     },[blockChain, balance ,currency])
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { useDispatch, useSelector } from "react-redux"
 import { getDataUser, getDatuSER } from '../../redux/actions';
+import { StyleSheet, Dimensions } from "react-native";
 import axios from 'axios';
 import { IP_HOST } from "@env"
 import {
@@ -18,20 +19,17 @@ import {
   ChevronLeftIcon,
   Text,
   Divider,
+  Avatar,
 } from "native-base"
 
 export default function MyData({ navigation }) {
   const userData = useSelector(state => state.userData);
-
+  const windowsHeight = Dimensions.get("window").height;
 
 
   return (
-    <Center 
-    // flex={1} 
-    // px="3" 
-    bg="theme.100" 
-    height="100%"
-    >
+    <>
+    <Box bg="theme.100" height={windowsHeight}>
       <Box
         mt="50px"
         py="1"
@@ -42,9 +40,9 @@ export default function MyData({ navigation }) {
       >
         <Stack direction="row" alignItems="center">
           <Pressable onPress={() => navigation.goBack()}>
-            <ChevronLeftIcon color="theme.100" size="10" />
+            <ChevronLeftIcon color="theme.400" size="10" />
           </Pressable>
-          <Text ml="105px" fontSize="xl" color="theme.100" fontWeight="bold" >My Data </Text>
+          <Text ml="105px" fontSize="xl" color="theme.200" fontWeight="bold" >My Data </Text>
         </Stack>
       </Box>
 
@@ -70,14 +68,19 @@ export default function MyData({ navigation }) {
         <Stack alignItems="center" space={4} justifyContent="space-between" >
 
           <Box>
-            <AspectRatio width="100%" ratio={16 / 9}>
+            {/* <AspectRatio width="100%" ratio={16 / 9}>
               <Image
               source={{
                 uri: userData.img
               }}
               alt="image"
               />
-            </AspectRatio>
+            </AspectRatio> */}
+            <Avatar size="2xl"bg="theme.50" source={{
+           uri: "https://images.unsplash.com/photo-1601233749202-95d04d5b3c00?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2876&q=80"
+          }} >
+          <Text fontSize="6xl" color="theme.200">{userData.firstname.charAt(0)}</Text>
+      </Avatar>
           </Box>
           <Box
             bg="theme.100"
@@ -89,7 +92,7 @@ export default function MyData({ navigation }) {
               fontWeight: "700",
               fontSize: "xs",
             }}
-            position="absolute"
+            
             bottom="0"
             px="3"
             py="1.5"
@@ -110,7 +113,7 @@ export default function MyData({ navigation }) {
                 color: "theme.400",
               }}
               _dark={{
-                color: "theme.100",
+                color: "theme.200",
               }}
               fontWeight="500"
               ml="-0.5"
@@ -149,6 +152,8 @@ export default function MyData({ navigation }) {
           </Stack>
         
       </Box>
-      </Center>
+
+      </Box>
+      </>
   );
 }

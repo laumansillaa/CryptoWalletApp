@@ -76,7 +76,7 @@ export const getDataUser = ()=> async dispatch =>{
 
         dispatch({type:GET_DATA_USER, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar la data")
     }
 
 }
@@ -95,7 +95,7 @@ export const geTransactionUser = ()=> async dispatch =>{
 
         dispatch({type:GET_TRANSACTION_USER, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar las operaciones")
     }
 
 }
@@ -134,7 +134,7 @@ export const getBalance = ()=> async dispatch =>{
 
 
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar el balance")
     }
 
 }
@@ -163,6 +163,7 @@ export const getBlockChain =(data)=>{
 
 export const getCryptoChart = (crypto) => async dispatch =>{
     try{
+        console.log(crypto)
         const response = await axios({
             method: "get",
             withCredentials: true,
@@ -171,12 +172,13 @@ export const getCryptoChart = (crypto) => async dispatch =>{
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_CHART, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar las graficas")
     }
 }
 
 export const getCryptoData = (crypto) => async dispatch =>{
     try{
+       
         const response = await axios({
             method: "get",
             withCredentials: true,
@@ -185,7 +187,7 @@ export const getCryptoData = (crypto) => async dispatch =>{
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_DATA, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar la data de una crypto")
     }
 }
 
@@ -198,9 +200,10 @@ export const setCryptoData = () => async dispatch =>{
             img: "",
             name: ""
         }
+     
         dispatch({type: GET_CRYPTO_DATA, payload: response})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al eliminar")
     }
 }
 
@@ -214,7 +217,7 @@ export const getAllStellarData = () => async dispatch =>{
         const dataUser =  response.data;
         dispatch({type: GET_ALL_STELLAR_DATA, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar las monedas de stellar")
     }
 }
 
@@ -223,11 +226,11 @@ export const getAllEthData = () => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `currenciesData/eth`,
+            url: `${DEPLOYED_BACKEND_URL}currenciesData/eth`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_ALL_ETH_DATA, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar las monedas de ethereum")
     }
 }

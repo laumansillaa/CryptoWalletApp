@@ -21,7 +21,7 @@ import ValidateEmail from './components/Register/ValidateEmail';
 import { IP_HOST, DEPLOYED_BACKEND_URL } from "@env"
 
 import axios from "axios";
-axios.defaults.baseURL = DEPLOYED_BACKEND_URL
+/* axios.defaults.baseURL = DEPLOYED_BACKEND_URL */
 
 const Stack = createStackNavigator();
 

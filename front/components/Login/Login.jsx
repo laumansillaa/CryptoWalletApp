@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, } from 'react-native';
 import axios from "axios";
-import { Log } from "../../redux/actions";
+import { Log, getAllEthData, getAllStellarData } from "../../redux/actions";
 import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,6 +24,10 @@ export default function Login ({ navigation }) {
       email:"",
       password:"",
       })
+
+      
+
+
 
     function validateData (arg){
       switch(arg){

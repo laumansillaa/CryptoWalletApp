@@ -51,12 +51,18 @@ export default function PasswordReset({navigation}) {
 
     return (
         <>
-        <Box style={styles.container} height={windowsHeight} >
-            <Center>
-                <FormControl>
-                <Stack>
+        <Box 
+        style={styles.container}
+         height={windowsHeight} 
+         width={windowswidth} 
+         alignSelf="center" 
+         alignItems="center"
+         px="5">
+           
+                <FormControl alignSelf="center" >
+                <Stack alignSelf="center" >
                 <Text>Insert the Token</Text>
-                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword} color='coolGray.900' 
+                    <Input placeholder="Token"  w= "250px" value={tokenPassword} onChangeText={setTokenPassword} color='coolGray.900' 
                     backgroundColor= 'darkBlue.50' size= "lg" borderRadius= "4px" InputLeftElement={
                     <Icon as={<AntDesign name="lock1" size={24} color="black" />} size={5} ml="2" color="muted.400" />} />
                     <Text fontSize="xl">Put your new password</Text>
@@ -74,7 +80,7 @@ export default function PasswordReset({navigation}) {
                     borderColor= "dark.900" 
                     borderWidth="2"/>
 
-                    <FormControl.HelperText >
+                    <FormControl.HelperText w="250px">
                     {error.password}
                     </FormControl.HelperText>
 
@@ -89,7 +95,7 @@ export default function PasswordReset({navigation}) {
                     borderColor= "dark.900" 
                     borderWidth="2"/>
 
-                    <FormControl.HelperText>
+                    <FormControl.HelperText w="250px">
                     {error.confirmPassword}
                     </FormControl.HelperText>
 
@@ -121,7 +127,7 @@ export default function PasswordReset({navigation}) {
                     color= 'theme.100'>Go to back</Button>                                        
                 </Stack>
                 </FormControl>
-            </Center>
+           
         </Box>
         </>
     )
@@ -129,6 +135,7 @@ export default function PasswordReset({navigation}) {
 
 
 const windowsHeight = Dimensions.get("window").height;
+const windowswidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
     container: {

@@ -26,7 +26,8 @@ import { useFocusEffect } from '@react-navigation/native';
 
 export default function OperationCurrencies({ route, navigation }) {
     const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
-    const { currency } = route.params;
+
+    const { currency } = route.params; 
     const balance = useSelector(state => state.userData.balance);
     const [amount, setAmount] = useState("");
     const dispatch = useDispatch();
@@ -43,23 +44,25 @@ export default function OperationCurrencies({ route, navigation }) {
         }
     },[blockChain, balance ,currency])
 
-    React.useEffect(() => {
-        dispatch(getBalance());
-        dispatch(getCryptoChart(currency));
-    },[])
-
+     
     useFocusEffect(
+
         React.useCallback(() => {
+
             dispatch(getCryptoData(currency));
+            dispatch(getCryptoChart(currency));
             return () => {
+                
                 dispatch(setCryptoData())
             };
-        }, [])
+        }, [route.params.currency])
     );
+
 
 
     return (
         <Box height={Dimensions.get('window').height} bg="theme.100">
+          
             <VStack>
                 <Box bg="theme.150" width={Dimensions.get('window').width} height={Dimensions.get('window').height /2.25} borderBottomRadius={10} alignSelf="center" alignItems="center">
                     <Stack direction="row" mt="5" mb="5" alignSelf="center">

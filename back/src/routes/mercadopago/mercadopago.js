@@ -17,9 +17,9 @@ module.exports = async (req, res, next) => {
                 }
             ],
             back_urls: {
-                success: `http://${IP_HOST}:3001/payment/success`,
-                failure: `http://${IP_HOST}:3001/payment/failure`,
-                pending: `http://${IP_HOST}:3001/payment/feedback`
+                success: `https://jralvarezwindey-wallet-app.herokuapp.com/payment/success`,
+                failure: `https://jralvarezwindey-wallet-app.herokuapp.com/payment/failure`,
+                pending: `https://jralvarezwindey-wallet-app.herokuapp.com/payment/feedback`
             },            
             marketplace: "Henry Wallet",
            

@@ -42,9 +42,9 @@ export default function MyData({ navigation }) {
       >
         <Stack direction="row" alignItems="center">
           <Pressable onPress={() => navigation.goBack()}>
-            <ChevronLeftIcon color="theme.500" size="10" />
+            <ChevronLeftIcon color="theme.100" size="10" />
           </Pressable>
-          <Text ml="105px" fontSize="xl" color="theme.500" fontWeight="bold" >My Data </Text>
+          <Text ml="105px" fontSize="xl" color="theme.100" fontWeight="bold" >My Data </Text>
         </Stack>
       </Box>
 
@@ -80,7 +80,7 @@ export default function MyData({ navigation }) {
             </AspectRatio>
           </Box>
           <Box
-            bg="theme.500"
+            bg="theme.100"
             _dark={{
               bg: "theme.400",
             }}
@@ -110,7 +110,7 @@ export default function MyData({ navigation }) {
                 color: "theme.400",
               }}
               _dark={{
-                color: "theme.500",
+                color: "theme.100",
               }}
               fontWeight="500"
               ml="-0.5"
@@ -144,7 +144,7 @@ export default function MyData({ navigation }) {
                 }}
                 fontWeight="400"
               > */}
-                <Button fontWeight="500" bg="theme.500" onPress={() => navigation.navigate("EditDataUser")}>Edit profile</Button>
+                <Button fontWeight="500" bg="theme.100" onPress={() => navigation.navigate("EditDataUser")}>Edit profile</Button>
               {/* </Text> */}
           </Stack>
         

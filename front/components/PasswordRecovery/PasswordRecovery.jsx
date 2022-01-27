@@ -59,7 +59,7 @@ export default function PasswordRecovery({ navigation }) {
                     color='coolGray.900' 
                     backgroundColor= '#e4e4e7' 
                     size= "lg" borderRadius= "4px"
-                    borderColor= "dark.900" 
+                    borderColor= "#fafafa" 
                     borderWidth="2"/>
                     {error.email !== "Please enter a valid email" && email !== "" ? 
                     

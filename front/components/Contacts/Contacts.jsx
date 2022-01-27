@@ -80,9 +80,10 @@ export default function Contacts({ navigation }) {
           })
           }
         </ScrollView>
-        <Button variant="outline" //colorScheme="theme.300"
+        <Button variant="outline" 
+        colorScheme="theme"
           w='50%'
-          mb='54'
+          mb='130'
           mt='2'
           alignSelf='center'
           onPress={() => navigation.navigate('AddContact')}>

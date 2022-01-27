@@ -17,7 +17,7 @@ import {
   Container, View, HStack,
   Divider
 } from 'native-base';
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import { DEPLOYED_BACKEND_URL } from "@env"
@@ -62,108 +62,110 @@ export default function Account({ navigation }) {
           </Box>
         </VStack>
         <Box w='100%' px={3}>
-          <Pressable onPress={() => navigation.navigate("MyData")} >
-            {({ isPressed }) => {
-              return (
-                <Box
-                  w='100%'
-                  py={1}
-                  style={{
-                    transform: [
-                      {
-                        scale: isPressed ? 0.90 : 1,
-                      },
-                    ],
-                  }}>
-                  <HStack justifyContent="space-between" >
-                    <HStack>
-                      <Icon as={MaterialCommunityIcons} name='face-profile' color='theme.200' size={7} alignSelf='center' />
-                      <Text letterSpacing={1} alignSelf='center' color='theme.150' fontWeight={300} fontSize={18} px={3} py={0}>MY DATA</Text>
+          <VStack space={2} justifyContent='flex-end'>
+            <Pressable onPress={() => navigation.navigate("MyData")} >
+              {({ isPressed }) => {
+                return (
+                  <Box
+                    w='100%'
+                    py={1}
+                    style={{
+                      transform: [
+                        {
+                          scale: isPressed ? 0.90 : 1,
+                        },
+                      ],
+                    }}>
+                    <HStack justifyContent="space-between" >
+                      <HStack>
+                        <Icon as={MaterialCommunityIcons} name='face-profile' color='theme.200' size={7} alignSelf='center' />
+                        <Text letterSpacing={1} alignSelf='center' color='theme.50' fontWeight={300} fontSize={18} px={3} py={0}>MY DATA</Text>
+                      </HStack>
+                      <ChevronRightIcon color='theme.300' size="10" />
                     </HStack>
-                    <ChevronRightIcon color='theme.300' size="9" />
-                  </HStack>
-                </Box>
-              )
-            }}
-          </Pressable>
+                  </Box>
+                )
+              }}
+            </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("MyTags")}>
-            {({ isPressed }) => {
-              return (
-                <Box
-                  w='100%'
-                  py={1}
-                  style={{
-                    transform: [
-                      {
-                        scale: isPressed ? 0.90 : 1,
-                      },
-                    ],
-                  }}
-                >
-                  <HStack justifyContent="space-between">
-                    <HStack>
-                      <Icon as={AntDesign} name='idcard' color='theme.200' size={7} alignSelf='center' />
-                      <Text letterSpacing={1} alignSelf='center' color='theme.150' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>MY TAGS</Text>
+            <Pressable onPress={() => navigation.navigate("MyTags")}>
+              {({ isPressed }) => {
+                return (
+                  <Box
+                    w='100%'
+                    py={1}
+                    style={{
+                      transform: [
+                        {
+                          scale: isPressed ? 0.90 : 1,
+                        },
+                      ],
+                    }}
+                  >
+                    <HStack justifyContent="space-between">
+                      <HStack>
+                        <Icon as={AntDesign} name='idcard' color='theme.200' size={7} alignSelf='center' />
+                        <Text letterSpacing={1} alignSelf='center' color='theme.50' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>MY TAGS</Text>
+                      </HStack>
+                      <ChevronRightIcon color='theme.300' size="10" />
                     </HStack>
-                    <ChevronRightIcon color='theme.300' size="9" />
-                  </HStack>
-                </Box>
-              )
-            }}
-          </Pressable>
+                  </Box>
+                )
+              }}
+            </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("ContactsIndex")}>
-            {({ isPressed }) => {
-              return (
-                <Box
-                  w='100%'
-                  py={1}
-                  style={{
-                    transform: [
-                      {
-                        scale: isPressed ? 0.90 : 1,
-                      },
-                    ],
-                  }}
-                >
+            <Pressable onPress={() => navigation.navigate("ContactsIndex")}>
+              {({ isPressed }) => {
+                return (
+                  <Box
+                    w='100%'
+                    py={1}
+                    style={{
+                      transform: [
+                        {
+                          scale: isPressed ? 0.90 : 1,
+                        },
+                      ],
+                    }}
+                  >
 
-                  <HStack justifyContent="space-between">
-                    <HStack>
-                      <Icon as={AntDesign} name='contacts' color='theme.200' size={7} alignSelf='center' />
-                      <Text letterSpacing={1} alignSelf='center' color='theme.150' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>CONTACTS</Text>
+                    <HStack justifyContent="space-between">
+                      <HStack>
+                        <Icon as={AntDesign} name='contacts' color='theme.200' size={7} alignSelf='center' />
+                        <Text letterSpacing={1} alignSelf='center' color='theme.50' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>CONTACTS</Text>
+                      </HStack>
+                      <ChevronRightIcon color='theme.300' size="10" />
                     </HStack>
-                    <ChevronRightIcon color='theme.300' size="9" />
-                  </HStack>
-                </Box>
-              )
-            }}
-          </Pressable>
+                  </Box>
+                )
+              }}
+            </Pressable>
 
-          <Pressable onPress={onLogout}>
-            {({ isPressed }) => {
-              return (
-                <Box
-                  w='100%'
-                  py={1}
-                  style={{
-                    transform: [
-                      {
-                        scale: isPressed ? 0.90 : 1,
-                      },
-                    ],
-                  }}
-                >
-                  <HStack justifyContent="space-between">
-                    <HStack>
-                      <Icon as={AntDesign} name='logout' color='theme.200' size={6} alignSelf='center' />
-                      <Text letterSpacing={1} alignSelf='center' color='theme.150' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>LOG OUT</Text>
+            <Pressable onPress={onLogout}>
+              {({ isPressed }) => {
+                return (
+                  <Box
+                    w='100%'
+                    py={1}
+                    style={{
+                      transform: [
+                        {
+                          scale: isPressed ? 0.90 : 1,
+                        },
+                      ],
+                    }}
+                  >
+                    <HStack justifyContent="space-between">
+                      <HStack>
+                        <Icon as={AntDesign} name='logout' color='theme.200' size={6} alignSelf='center' />
+                        <Text letterSpacing={1} alignSelf='center' color='theme.50' fontFamily='body' fontWeight={300} fontSize={18} px={3} py={0}>LOG OUT</Text>
+                      </HStack>
                     </HStack>
-                  </HStack>
-                </Box>
-              )
-            }}
-          </Pressable>
+                  </Box>
+                )
+              }}
+            </Pressable>
+          </VStack>
         </Box>
       </Box>
     </>

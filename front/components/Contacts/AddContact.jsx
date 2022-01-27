@@ -28,11 +28,11 @@ const windowHeight = Dimensions.get('window').height
 export default function AddContact({ navigation }) {
   const toast = useToast()
   const [show, setShow] = useState(false)
-
   const [name, setName] = useState('')
   const [ethereumPublicKey, setEthereumPublicKey] = useState('')
   const [stellarPublicKey, setStellarPublicKey] = useState('')
   const dispatch = useDispatch()
+  const [message, setMessage] = useState("");
 
   function handleName(e) {
 
@@ -48,6 +48,8 @@ export default function AddContact({ navigation }) {
   }
 
   async function onSubmit() {
+    if (name) {
+      if (ethereumPublicKey || stellarPublicKey) {
     try {
       const response = await axios({
         method: "post",
@@ -59,12 +61,22 @@ export default function AddContact({ navigation }) {
         withCredentials: true,
         url: `${DEPLOYED_BACKEND_URL}user/addContact`,
       });
+      navigation.navigate('ContactCard', {
+        name,
+        ethereumPublicKey,
+        stellarPublicKey
+      })
       dispatch(getDataUser())
-
     } catch (error) {
 
       console.error(error);
     }
+  } else {
+    setMessage("Please enter enter a public key")
+  }
+} else {
+  setMessage("Please enter name and public key")
+}
   }
 
 
@@ -118,20 +130,24 @@ export default function AddContact({ navigation }) {
 
                 </Box>
               </Stack>
+              <FormControl.HelperText>
+                  {message}
+                </FormControl.HelperText>
             </FormControl>
           </Stack>
-          <Button variant="outline" //colorScheme="theme.300" 
+          <Button variant="outline" 
+          colorScheme="theme" 
             w='45%'
             mb='54'
             mt='2'
             alignSelf='center'
             onPress={() => {
               onSubmit()
-              navigation.navigate('ContactCard', {
+/*                navigation.navigate('ContactCard', {
                 name,
                 ethereumPublicKey,
                 stellarPublicKey
-              })
+              }) 
               setShow(true)
               toast.show({
                 duration: 1200,
@@ -143,7 +159,7 @@ export default function AddContact({ navigation }) {
                     </Box>
                   )
                 },
-              })
+              }) */
             }}
           >
             <Text fontSize='14' letterSpacing={1}>ADD CONTACT</Text>

@@ -37,11 +37,8 @@ export default function BuyCurrencie({route, navigation}) {
     const [founds, setFounds] = useState("0");
     const dispatch = useDispatch()
     const [mes, setMes] = useState("")
-    const [disbledFunds, setDisableFunds]= useState(false)
-    const [state, setState] = useState({});
     const blockChain = useSelector(state => state.blockChain);
     const balanceFunds = useSelector(state => state.userData.balance.funds.balance)
-
     const [urlBlockChain, setUrlBlockChain]= useState("");
 
     React.useEffect(()=>{
@@ -63,22 +60,24 @@ export default function BuyCurrencie({route, navigation}) {
       
       setMes("")
       if( validateFunds(founds)){
-        if(parseFloat(founds)<= parseFloat(balanceFunds)){
+
+        if(parseFloat(founds) > 0){
+          if(parseFloat(founds)<= parseFloat(balanceFunds)){
+
+            setMes("")
+            setDisabled(false)
+             
+           }else{
+            setDisabled(true)
+            setMes("Insufficient funds")
+            }
+
+        }else{
 
           setMes("")
-          setDisabled(false)
-           
-        }else{
-          setDisableFunds(false)
-          setDisabled(true)
-          setMes("Insufficient funds")
         }
-  
-
-
-       
-
-      }else{
+         
+    }else{
         setDisabled(true)
         setMes("Please write a valid amount ")
       }

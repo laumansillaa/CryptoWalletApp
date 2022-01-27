@@ -71,7 +71,7 @@ export default function PasswordReset({navigation}) {
                     InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />} 
                     size={5} ml="2" 
                     color="muted.400" />}
-                    borderColor= "#dark.900" 
+                    borderColor= "dark.900" 
                     borderWidth="2"/>
 
                     <FormControl.HelperText >
@@ -86,7 +86,7 @@ export default function PasswordReset({navigation}) {
                     borderRadius= "4px" 
                     w= "250px"
                     InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />}size={5} ml="2" color="muted.400" />}
-                    borderColor= "#dark.900" 
+                    borderColor= "dark.900" 
                     borderWidth="2"/>
 
                     <FormControl.HelperText>

@@ -59,22 +59,28 @@ export default function Staking({route, navigation}) {
 
 
         if(aux){
-            if(aux.hasOwnProperty("staking")){
-                if(parseFloat(aux.staking) > 0){
+             if(parseFloat(aux.staking) > 0){
                   setDisableTakeOut(false)
+                  setDisableMont(true)
                   setFoundsStalking(aux.staking)
 
-                }else{
+             }else{
 
-                  setDisableMont(false)
-                }
+              if(parseFloat(amount) > 0){
+ 
+                setDisableMont(false)
+        
+               }else{
+                setDisableMont(true)
+               }
+
+                
+            }
        
     
-            }else{
-                setDisableMont(false)
-            }
-    
         }
+    
+        
 
         
   
@@ -82,23 +88,7 @@ export default function Staking({route, navigation}) {
 
       },[blockChain, balance])
 
-      React.useEffect(()=>{
-
-        if(parseFloat(amount) > 0){
  
-         setDisableMont(false)
- 
-        }else{
-         setDisableMont(true)
-        }
-   
-   
-       },[])
-
-
-
-
-
 async function stakingUser (){
 
   toast.show({
@@ -168,6 +158,12 @@ async function stakeTaking(){
     });
 
     setMes(response.data)
+    toast.show({
+      title: "Success...",
+      placement: "top"
+  
+    })
+
     setLoadingTakeStake(false)
     setTimeout(()=>navigation.popToTop(),1000)
 

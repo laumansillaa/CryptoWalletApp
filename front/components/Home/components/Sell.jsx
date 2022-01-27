@@ -112,7 +112,8 @@ async function transferUser (){
       placement: "bottom"
 
     })
-   
+    setDisableButton(true)
+    setLoading(false)
     
   } 
 
@@ -138,7 +139,7 @@ async function transferUser (){
             placement: "bottom"
       
           })
-          setTimeout(()=>navigation.navigation.popToTop(),1000)
+          setTimeout(()=>navigation.popToTop(),1000)
       
         } catch (error) {
           toast.show({
@@ -146,6 +147,8 @@ async function transferUser (){
             placement: "bottom"
       
           })
+          setDisableButton(true)
+          setLoading(false)
         }
          
         

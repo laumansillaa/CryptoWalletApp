@@ -39,7 +39,7 @@ module.exports = function (app) {
   app.use((req, res, next) => {
     console.log('---------- ACCESS MIDDLEWARE 2 ----------')
     if (
-      ((req.url.startsWith('/session/') && req.url !== '/session/signout')) || req.url.startsWith("/password/") &&
+      ((req.url.startsWith('/session/') && req.url !== '/session/signout') || req.url.startsWith("/password/")) &&
       req.isAuthenticated()
     ) {
       return res.status(200).send('You have already signed up.');

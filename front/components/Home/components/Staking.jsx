@@ -32,7 +32,7 @@ export default function Staking({route, navigation}) {
   const toast = useToast()
       const {currency, amount,staking} = route.params
       const [disabledButton, setDisableButton] = useState(true)
-      const [disableMount, setDisableMount] = useState(true);
+  
       const [disableTakeOut, setDisableTakeOut] = useState(true)
       const [loading, setLoading] = useState("")
       const [loadingTakeStake, setLoadingTakeStake] = useState("")
@@ -60,11 +60,18 @@ export default function Staking({route, navigation}) {
 
         if(aux){
             if(aux.hasOwnProperty("staking")){
-                setDisableTakeOut(false)
-                setFoundsStalking(aux.staking)
+                if(parseFloat(aux.staking) > 0){
+                  setDisableTakeOut(false)
+                  setFoundsStalking(aux.staking)
+
+                }else{
+
+                  setDisableMont(false)
+                }
+       
     
             }else{
-                setDisableMount(false)
+                setDisableMont(false)
             }
     
         }
@@ -314,7 +321,7 @@ React.useEffect(()=>{
       </Box>
        <HStack alignSelf="center">
 
-      <Button variant="outline" colorScheme="theme" rounded="md" px="7" isDisabled={disabledMont} py="1"  isDisabled={disableMount}  onPress={() => setShowModal(true)}>
+      <Button variant="outline" colorScheme="theme" rounded="md" px="7" isDisabled={disabledMont} py="1"   onPress={() => setShowModal(true)}>
         <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
 
         <Button variant="outline" isLoading={loading} colorScheme="theme"  ml="2"rounded="md" px="7"  py="1" isDisabled={disabledButton} onPress={() => stakingUser()}>

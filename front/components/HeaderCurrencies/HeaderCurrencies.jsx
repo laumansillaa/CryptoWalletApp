@@ -46,7 +46,7 @@ export default function HeaderCurrencies({navigation}) {
             
             <Stack bg="theme.100">
                 <Box size="16" width={Dimensions.get('window').width} bg="theme.300" borderBottomRadius="10" alignItems="center">
-                    <Text letterSpacing="1px" fontSize="2xl" mt="3" fontWeight="semibold" color="theme.100">CURRENCIES</Text>
+                    <Text letterSpacing="1px" fontSize="20px" mt="3" fontWeight="semibold" color="theme.100">CURRENCIES</Text>
                 </Box>
             </Stack>
             <ScrollView bg="theme.100">

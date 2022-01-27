@@ -33,6 +33,7 @@ import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 export default function Home({ navigation }) {
   const [balanceUSD, setBalanceUsd] = useState("");
+  const [funds, setFunds] = useState("")
   const [founds, setFounds] = useState("");
   const [loadingState, setLoadingState] = useState(false)
   const [isEnabled, setIsEnabled] = useState(false);
@@ -68,6 +69,19 @@ export default function Home({ navigation }) {
       : 0;
     setBalanceUsd(usd);
   },[userData.balance])
+
+
+    React.useEffect(()=>{
+
+      if(userData){
+        if(userData.balance){
+          setFunds(userData.balance.funds.balance)
+        }
+
+      }
+  
+  
+    },[userData])
  
   useFocusEffect(
     React.useCallback(() => {
@@ -100,7 +114,7 @@ export default function Home({ navigation }) {
 
         <HStack alignSelf="center" height="59px" >
           <Text mt="2px" fontSize="26px">$</Text>
-          <Text mt="-2px" fontSize="36px" style={styles.verticallyStretchedText}> {balanceUSD} </Text>
+          <Text mt="-2px" fontSize="36px" style={styles.verticallyStretchedText}> {funds} </Text>
           <Text mb="1px" alignSelf="flex-end" fontSize="15px">USD</Text>
         </HStack>
 

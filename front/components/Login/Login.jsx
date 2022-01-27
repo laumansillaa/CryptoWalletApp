@@ -53,8 +53,9 @@ export default function Login ({ navigation }) {
                       password: password,
                     },
                     withCredentials: true,
-                    url: `http://${IP_HOST}:3001/session/localSignin`,
+                    url: `session/localSignin`,
                   });
+                  console.log(response)
                   userToken = email;     
                   await AsyncStorage.setItem('userToken', userToken);
                   dispatch(Log(userToken));  

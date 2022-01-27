@@ -112,7 +112,7 @@ async function stakingUser (){
   
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/stake`,
+      url: `operation/${urlBlockChain}/stake`,
     });
 
     setMes(response.data)
@@ -157,7 +157,7 @@ async function stakeTaking(){
      
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/takestake`,
+      url: `operation/${urlBlockChain}/takestake`,
     });
 
     setMes(response.data)

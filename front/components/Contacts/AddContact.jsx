@@ -57,7 +57,7 @@ export default function AddContact({ navigation }) {
           stellarPublicKey: stellarPublicKey,
         },
         withCredentials: true,
-        url: `http://${IP_HOST}:3001/user/addContact`,
+        url: `user/addContact`,
       });
       dispatch(getDataUser())
 

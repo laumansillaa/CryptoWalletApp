@@ -109,7 +109,7 @@ setState({...state, [atr]: e})}
 
           },
           withCredentials: true,
-          url: `http://${IP_HOST}:3001/user/updateData`,
+          url: `user/updateData`,
         })
         dispatch(getDataUser());
         setMessage("Updated information")

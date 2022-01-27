@@ -24,7 +24,7 @@ export default function validateEmail ({navigation}) {
                   token: token
                 },
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/session/verifyUser`,
+                url: `session/verifyUser`,
               });
               userToken = token;     
 

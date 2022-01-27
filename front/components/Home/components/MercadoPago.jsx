@@ -25,7 +25,7 @@ export default function MercadoPago({route}) {
                     unit_price: route.params.price,
                 } ,
                 withCredentials: true,
-                url:`http://${IP_HOST}:3001/payment/process-payment` });
+                url:`payment/process-payment` });
                setUrl(response.data.sandbox);
                 setID(response.data.id)
               

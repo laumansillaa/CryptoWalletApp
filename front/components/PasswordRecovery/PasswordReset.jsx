@@ -43,7 +43,7 @@ export default function PasswordReset({navigation}) {
                   confirmPassword: confirmPassword,
                 },
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/password/resetpassword`,
+                url: `password/resetpassword`,
               });
             setMessage("password changed")
         } catch (e) {console.log(e)};

@@ -131,7 +131,7 @@ async function transferUser (){
         pKey: publicKey
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/transfer`,
+      url: `operation/${urlBlockChain}/transfer`,
     });
     setLoading(false)
     setMes(response.data)

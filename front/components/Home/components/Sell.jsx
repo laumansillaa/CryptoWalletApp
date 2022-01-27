@@ -96,7 +96,7 @@ async function transferUser (){
   
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
+      url: `operation/${urlBlockChain}/sell`,
     });
     setLoading(false)
     toast.show({
@@ -130,7 +130,7 @@ async function transferUser (){
         
             },
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/sell`,
+            url: `operation/${urlBlockChain}/sell`,
           });
           setLoading(false)
           toast.show({

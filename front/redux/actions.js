@@ -69,7 +69,7 @@ export const getDataUser = ()=> async dispatch =>{
         const response = await axios({
               method: "get",
               withCredentials: true,
-              url: `http://${IP_HOST}:3001/user/getData`,
+              url: `user/getData`,
             })
 
         const dataUser =  response.data;
@@ -88,7 +88,7 @@ export const geTransactionUser = ()=> async dispatch =>{
         const response = await axios({
               method: "get",
               withCredentials: true,
-              url: `http://${IP_HOST}:3001/operation/record`,
+              url: `operation/record`,
             })
 
         const dataUser =  response.data;
@@ -124,7 +124,7 @@ export const getBalance = ()=> async dispatch =>{
             const response = await axios({
                 method: "get",
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/balance/data`,
+                url: `balance/data`,
               })
 
           const dataUser =  response.data;
@@ -166,7 +166,7 @@ export const getCryptoChart = (crypto) => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/charts/${crypto}`,
+            url: `charts/${crypto}`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_CHART, payload: dataUser})
@@ -180,7 +180,7 @@ export const getCryptoData = (crypto) => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/currencyData/${crypto}`,
+            url: `currencyData/${crypto}`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_DATA, payload: dataUser})
@@ -209,7 +209,7 @@ export const getAllStellarData = () => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/currenciesData/stellar`,
+            url: `currenciesData/stellar`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_ALL_STELLAR_DATA, payload: dataUser})
@@ -223,7 +223,7 @@ export const getAllEthData = () => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/currenciesData/eth`,
+            url: `currenciesData/eth`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_ALL_ETH_DATA, payload: dataUser})

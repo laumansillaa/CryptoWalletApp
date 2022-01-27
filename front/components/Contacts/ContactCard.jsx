@@ -65,7 +65,7 @@ export default function ContactCard({ route, navigation }) {
           stellarPublicKey: stellarPublicKeyChange,
         },
         withCredentials: true,
-        url: `http://${IP_HOST}:3001/user/updateContact`,
+        url: `user/updateContact`,
       });
       dispatch(getDataUser())
 

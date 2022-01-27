@@ -33,7 +33,7 @@ export default function Account({ navigation }) {
       await axios({
         method: "post",
         withCredentials: true,
-        url: `http://${IP_HOST}:3001/session/signout`,
+        url: `session/signout`,
       });
       await AsyncStorage.removeItem('userToken');
       dispatch(Logout());

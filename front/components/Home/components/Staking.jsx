@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST} from "@env"
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 import { Dimensions } from 'react-native';
 import {
   Box,
@@ -109,7 +109,7 @@ async function stakingUser (){
   
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/stake`,
+      url: `${DEPLOYED_BACKEND_URL}operation/${urlBlockChain}/stake`,
     });
 
     setMes(response.data)
@@ -154,7 +154,7 @@ async function stakeTaking(){
      
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/takestake`,
+      url: `${DEPLOYED_BACKEND_URL}operation/${urlBlockChain}/takestake`,
     });
 
     setMes(response.data)

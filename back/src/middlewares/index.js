@@ -18,7 +18,7 @@ module.exports = function (app) {
 
   // Session middlewares.
   app.use(session({
-    secret: 'hs01sAFol2ldpHqp1R0394l',
+    secret: process.env.EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {maxAge: 360*24*60*60*1000}

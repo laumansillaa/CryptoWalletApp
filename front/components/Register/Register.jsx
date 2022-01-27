@@ -79,7 +79,7 @@ async function handleSubmit(){
       if(state.firstname&&state.lastname&&state.email&&state.phone&&state.password&&state.pin){
  
           try {
-             await axios.post(`http://${IP_HOST}:3001/session/signup`, state)
+             await axios.post(`session/signup`, state)
             setMessage("Sign in succeeded.");
             setEmailSent(true);
           } catch (error) {

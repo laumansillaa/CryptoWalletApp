@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST} from "@env"
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 import { Dimensions } from 'react-native';
 import {
 
@@ -131,7 +131,7 @@ async function transferUser (){
         pKey: publicKey
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/transfer`,
+      url: `${DEPLOYED_BACKEND_URL}operation/${urlBlockChain}/transfer`,
     });
     setLoading(false)
     setMes(response.data)

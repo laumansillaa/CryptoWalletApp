@@ -37,7 +37,7 @@ export default function PasswordRecovery({ navigation }) {
                   email: email,
                 },
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/password/tokenrequest`,
+                url: `password/tokenrequest`,
               });
             setEmailSent(true);
         } catch (e) {console.log(e)};

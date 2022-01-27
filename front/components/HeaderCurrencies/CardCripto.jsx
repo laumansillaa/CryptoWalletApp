@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST} from "@env"
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 import {
 
   Box,
@@ -47,7 +47,7 @@ export default function CardCripto({route, navigation}) {
                 let so;
             
               try{
-                so =  (io(`http://${IP_HOST}:3001`))
+                so =  (io(`https://jralvarezwindey-wallet-app.herokuapp.com:443`))
 
                 so.emit("token client", token);
                 so.on(token, msg =>{

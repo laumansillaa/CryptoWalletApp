@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import {WebView} from "react-native-webview";
-import {IP_HOST} from "@env";
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env";
 import { Text } from "native-base";
 import { useDispatch } from "react-redux";
 import { depositTransaction } from "../../../redux/actions";
@@ -25,7 +25,7 @@ export default function MercadoPago({route}) {
                     unit_price: route.params.price,
                 } ,
                 withCredentials: true,
-                url:`http://${IP_HOST}:3001/payment/process-payment` });
+                url:`${DEPLOYED_BACKEND_URL}payment/process-payment` });
                setUrl(response.data.sandbox);
                 setID(response.data.id)
               

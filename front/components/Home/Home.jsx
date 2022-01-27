@@ -164,6 +164,7 @@ export default function Home({ navigation }) {
             }
             return (
               <Transaction
+                transaction={transaction}
                 key={index}
                 action={transaction.operationType}
                 mont={transaction.purchasedAmount}

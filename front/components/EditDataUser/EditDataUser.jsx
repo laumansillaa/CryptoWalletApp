@@ -1,5 +1,5 @@
 
-import { StyleSheet, } from 'react-native';
+import { Dimensions, StyleSheet, } from 'react-native';
 
 import {  ScrollView, 
 NativeBaseProvider, 
@@ -12,7 +12,9 @@ Button,
 Box,
 Pressable,
 ChevronLeftIcon,
-Text 
+Text, 
+Container,
+Center
 } from 'native-base';
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
@@ -129,7 +131,7 @@ setState({...state, [atr]: e})}
 }
  
   return (
-  <NativeBaseProvider>
+    <Center height={windowsHeight}  backgroundColor="theme.100">
     <Box
     mt="50px"
     py="1"
@@ -142,49 +144,103 @@ setState({...state, [atr]: e})}
   >
     <Stack direction="row" alignItems="center">
       <Pressable onPress={() => navigation.goBack()}>
-        <ChevronLeftIcon color="darkBlue.900" size="9" />
+        <ChevronLeftIcon color="theme.500" size="10" />
       </Pressable>
-      <Text ml="70px" fontSize="xl" color="darkBlue.900" fontWeight="bold" >Edit info </Text>
+      <Text ml="100px" fontSize="xl" color="theme.500" fontWeight="bold" >Edit info</Text>
     </Stack>
   </Box>
-    <ScrollView>
+    <ScrollView >
+      <Box 
+      mt= "40px" 
+      display="flex"
+      width={{
+        base:"100%"
+      }}
+      flexDirection="column"
+      alignItems='center'
+      justifyContent='center'
+      // borderColor="theme.300" 
+      // borderWidth="1"  
+      //   // justifyContent="space-between"
+      //   // overflow="hidden"
+      // borderColor="theme.300"
+      // borderWidth="1"
+      // _dark={{
+      //     borderColor: "theme.200",
+      //     backgroundColor: "theme.150",
+      //   }}
+      // _web={{
+      //     shadow: 2,
+      //     borderWidth: 0,
+      //   }}
+      // _light={{
+      //     backgroundColor: "theme.100",
+      //   }}
+        >
     <FormControl
     isInvalid
     width={{
       base: "100%",
-      md: "25%",}}
-    style={styles.container}>
-
-
-          <Heading>Edit Info</Heading>
-          
+      md: "25%",
+    }}
+      flex={1}
+      alignItems='center'
+      justifyContent='center'
+    >         
       <Stack
       space={4}
       width={{
         base: "85%",
         md: "25%",
       }}
-      
       >  
         
-        <Input variant="filled" value={state.firstname}  placeholder="Enter Name" onChangeText={(e)=>handleChange(e,"firstname")} />
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+        <Input variant="filled" value={state.firstname}  placeholder="Enter Name" 
+        onChangeText={(e)=>handleChange(e,"firstname")}  
+          color='coolGray.900' 
+          backgroundColor= 'theme.200' 
+          size= "xs" 
+          fontWeight='normal' 
+          fontSize='16'
+          borderColor= "theme.500"
+          borderWidth="1"/>
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
           {error.firstName}
         </FormControl.ErrorMessage>  
      
-        <Input variant="filled" value={state.lastname} placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastname")}/> 
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+        <Input variant="filled" value={state.lastname} 
+        placeholder="Enter Last Name" onChangeText={(e)=>handleChange(e,"lastname")}
+        color='coolGray.900' 
+          backgroundColor= 'theme.200' 
+          size= "xs" 
+          fontWeight='normal' 
+          fontSize='16'
+          borderColor= "theme.400" 
+          borderWidth="1"/> 
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
           {error.lastName}
         </FormControl.ErrorMessage>   
         
       
         
-        <Input  variant="filled" value={state.phone} placeholder="Enter Phone" onChangeText={(e)=>handleChange(e,"phone")} /> 
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+        <Input  variant="filled" value={state.phone} 
+        placeholder="Enter Phone" onChangeText={(e)=>handleChange(e,"phone")}
+        color='coolGray.900' 
+          backgroundColor= 'theme.200' 
+          size= "xs" 
+          fontWeight='normal' 
+          fontSize='16'
+          borderColor= "theme.400" 
+          borderWidth="1" /> 
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
           {error.phone}
         </FormControl.ErrorMessage>   
     
-        <Button onPress={handleSubmit}>Confirmar</Button>
+        <Button onPress={handleSubmit}   
+        _text={{fontSize:"md"}}
+           borderColor= "theme.400"
+           borderWidth="1" 
+           bg= 'theme.500'>Confirmar</Button>
         
         <FormControl.HelperText>
             {message}
@@ -193,10 +249,15 @@ setState({...state, [atr]: e})}
      
   
   </FormControl>
+  </Box>
   </ScrollView>
-  </NativeBaseProvider>
+  </Center>
   );
 }
+
+
+const windowsHeight = Dimensions.get("window").height;
+
 
 const styles = StyleSheet.create({
   container: {

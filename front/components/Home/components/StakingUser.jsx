@@ -31,7 +31,7 @@ export default function UserCriptos({navigation}) {
   React.useEffect( () => {
     if (balance) {
       setBalanceUsd(parseFloat(balance[blockChain]?.stakingBalance).toFixed(2));
-      setCurrencies(balance[blockChain]?.currencies.filter(currency => currency.staking > 0));
+      setCurrencies(balance[blockChain]?.currencies);
     }
   }, [balance, blockChain])
 
@@ -48,17 +48,10 @@ export default function UserCriptos({navigation}) {
     <>    
       <ScrollView
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={()=>{dispatch(getBalance())}}
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={()=>{dispatch(getBalance())}}/>
         }
       >
-        <HStack 
-          alignSelf="center"
-          mt="33px"
-          height="59px"
-        >
+        <HStack alignSelf="center" mt="33px" height="59px">
           <Text mt="2px" fontSize="26px">$</Text>
           <Text mt="-2px" fontSize="36px" style={styles.verticallyStretchedText}> {balanceUSD} </Text>
           <Text mb="1px" alignSelf="flex-end" fontSize="15px">USD</Text>

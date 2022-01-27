@@ -17,12 +17,12 @@ module.exports = async (req, res, next) => {
                 }
             ],
             back_urls: {
-                "success": `http://${IP_HOST}:3001/payment/success`,
-                "failure": `http://${IP_HOST}:3001/payment/failure`,
-                "pending": `http://${IP_HOST}:3001/payment/feedback`
+                success: `http://${IP_HOST}:3001/payment/success`,
+                failure: `http://${IP_HOST}:3001/payment/failure`,
+                pending: `http://${IP_HOST}:3001/payment/feedback`
             },            
             marketplace: "Henry Wallet",
-            auto_return: "approved",
+           
                  
         }
     
@@ -37,7 +37,7 @@ module.exports = async (req, res, next) => {
                 usd: req.body.unit_price,
                 status: "IN PROCESS"
             })
-            console.log("soy el RESIDD",response.body.sandbox_init_point)
+      
             res.json({
                 id: response.body.id,
                 sandbox: response.body.sandbox_init_point

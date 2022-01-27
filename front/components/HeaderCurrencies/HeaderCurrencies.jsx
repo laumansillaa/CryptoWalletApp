@@ -8,6 +8,7 @@ import { getBalance, getBlockChain, getAllStellarData, getAllEthData } from '../
 import { useDispatch, useSelector } from 'react-redux';
 import {useFocusEffect } from '@react-navigation/native';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
+import { Feather } from '@expo/vector-icons'; 
 
 
 export default function HeaderCurrencies({navigation}) {
@@ -39,23 +40,26 @@ export default function HeaderCurrencies({navigation}) {
     },[])
 
 
-
     return (
         <>
             <Stack bg="theme.100">
                 <Box size="16" width={Dimensions.get('window').width} bg="theme.300" borderBottomRadius="10" alignItems="center">
-                    <Text fontSize="2xl" mt="3" fontWeight="bold" color="theme.100">CURRENCIES</Text>
+                    <Text letterSpacing="1px" fontSize="2xl" mt="3" fontWeight="semibold" color="theme.100">CURRENCIES</Text>
                 </Box>
             </Stack>
             <ScrollView bg="theme.100">
                 <VStack mt="3" mb="3">
                     {blockChain === "stellar" ?
-                        allStellarData?.map((el, index)=>{
-                        return <Criptos key={index} symbol={el.symbol} name={el.name} price={el.price} percDay={el.percDay} img={el.img} nav={navigation}/>
-                        }) :
-                        allEthData?.map((el, index)=>{
-                            return <Criptos key={index} symbol={el.symbol} name={el.name} price={el.price} percDay={el.percDay} img={el.img} nav={navigation}/>
-                        })
+                        (allStellarData.length === 1 ?
+                            <Button mt="40" _text={{color:"theme.50", fontSize:"xl"}} backgroundColor="theme.100" isLoading>LOADING</Button> : 
+                            allStellarData.map((el, index)=>{
+                                return <Criptos key={index} symbol={el.symbol} name={el.name} price={el.price} percDay={el.percDay} img={el.img} nav={navigation}/>
+                        })) :
+                        (allEthData.length === 1 ?
+                            <Button mt="40" _text={{color:"theme.50", fontSize:"xl"}} backgroundColor="theme.100" isLoading>LOADING</Button> : 
+                            allEthData.map((el, index)=>{
+                                return <Criptos key={index} symbol={el.symbol} name={el.name} price={el.price} percDay={el.percDay} img={el.img} nav={navigation}/>
+                        }))
                     }
                 </VStack>
             </ScrollView>

@@ -34,14 +34,16 @@ export default function HeaderCurrencies({navigation}) {
     //     }
     // },[blockChain])
 
+
     React.useEffect(() => {
         dispatch(getAllStellarData());
         dispatch(getAllEthData());
-    },[])
+    },[blockChain])
 
 
     return (
         <>
+            
             <Stack bg="theme.100">
                 <Box size="16" width={Dimensions.get('window').width} bg="theme.300" borderBottomRadius="10" alignItems="center">
                     <Text letterSpacing="1px" fontSize="2xl" mt="3" fontWeight="semibold" color="theme.100">CURRENCIES</Text>

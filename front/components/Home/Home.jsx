@@ -53,7 +53,7 @@ export default function Home({ navigation }) {
       dispatch(geTransactionUser())
     }
 
-    navigation.popToTop()
+    navigation.navigate("CurrenciesIndex")
   },[isEnabled])
 
   React.useEffect( () => {
@@ -73,6 +73,7 @@ export default function Home({ navigation }) {
     React.useCallback(() => {
       try{
         dispatch(getBalance())
+        dispatch(geTransactionUser())
       } catch(error) { console.error(error) }
 
       return  () => { };
@@ -154,13 +155,13 @@ export default function Home({ navigation }) {
       <ScrollView>
         <VStack>
           {userData.transactionCurren ?.filter(transaction => transaction.blockchain === blockChain).map((transaction, index) => {
-            const utcDate = transaction.createdAt;
-            const utcHour = Number(utcDate.slice(11,13));
+            const utcDate = transaction?.createdAt;
+            const utcHour = Number(utcDate?.slice(11,13));
             let transactionDate;
             if (utcHour < 3) {
-              transactionDate = `${utcDate.slice(0,4)}/${utcDate.slice(5,7)}/${(Number(utcDate.slice(8,10)) - 1)} - ${24 + Number(utcDate.slice(11,13))-3}:${utcDate.slice(14,16)}`
+              transactionDate = `${utcDate?.slice(0,4)}/${utcDate?.slice(5,7)}/${(Number(utcDate?.slice(8,10)) - 1)} - ${24 + Number(utcDate?.slice(11,13))-3}:${utcDate?.slice(14,16)}`
             } else {
-              transactionDate = `${utcDate.slice(0,4)}/${utcDate.slice(5,7)}/${utcDate.slice(8,10)} - ${Number(utcDate.slice(11,13))-3}:${utcDate.slice(14,16)}`
+              transactionDate = `${utcDate?.slice(0,4)}/${utcDate?.slice(5,7)}/${utcDate?.slice(8,10)} - ${Number(utcDate?.slice(11,13))-3}:${utcDate?.slice(14,16)}`
             }
             return (
               <Transaction

@@ -47,7 +47,7 @@ export default function CardCripto({route, navigation}) {
                 let so;
             
               try{
-                so =  (io(DEPLOYED_BACKEND_URL))
+                so =  (io(`https://jralvarezwindey-wallet-app.herokuapp.com:443`))
 
                 so.emit("token client", token);
                 so.on(token, msg =>{

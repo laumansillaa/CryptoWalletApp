@@ -6,7 +6,7 @@ import { AntDesign } from "@expo/vector-icons"
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
 import axios from "axios"
-import {IP_HOST} from "@env"
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 
 export default function Register({navigation}) {
 
@@ -79,7 +79,7 @@ async function handleSubmit(){
       if(state.firstname&&state.lastname&&state.email&&state.phone&&state.password&&state.pin){
  
           try {
-             await axios.post(`session/signup`, state)
+             await axios.post(`${DEPLOYED_BACKEND_URL}session/signup`, state)
             setMessage("Sign in succeeded.");
             setEmailSent(true);
           } catch (error) {

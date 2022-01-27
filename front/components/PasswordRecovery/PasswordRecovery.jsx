@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons"
 import { validateEmail } from "../Utils/Utils";
 import axios from "axios";
-import {IP_HOST} from "@env";
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env";
 import {Dimensions} from 'react-native';
 
 
@@ -37,7 +37,7 @@ export default function PasswordRecovery({ navigation }) {
                   email: email,
                 },
                 withCredentials: true,
-                url: `password/tokenrequest`,
+                url: `${DEPLOYED_BACKEND_URL}password/tokenrequest`,
               });
             setEmailSent(true);
         } catch (e) {console.log(e)};

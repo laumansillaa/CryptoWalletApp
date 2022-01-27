@@ -77,7 +77,7 @@ export default function Login ({ navigation }) {
     const onGoogleLogin = async (e) => {
       try {
 
-        let result = await WebBrowser.openBrowserAsync(`http://localhost:3001/session/googleSignin`);
+        let result = await WebBrowser.openBrowserAsync(`https://jralvarezwindey-wallet-app.herokuapp.com/session/googleSignin`);
         
         dispatch(Log())
       } catch (error) { console.error(error) }

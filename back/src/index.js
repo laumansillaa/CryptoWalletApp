@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 require("dotenv").config();
-const { PORT, IP_HOST } = process.env;
+const { PORT } = process.env;
 const app = require("./app.js");
 const db = require("./db.js");
 const { createServer } = require("http");

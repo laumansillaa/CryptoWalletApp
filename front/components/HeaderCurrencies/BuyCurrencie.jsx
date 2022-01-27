@@ -105,7 +105,7 @@ export default function BuyCurrencie({route, navigation}) {
                 purchaseCurrency: token
               },
               withCredentials: true,
-              url: `operation/${urlBlockChain}/purchase`,
+              url: `${DEPLOYED_BACKEND_URL}operation/${urlBlockChain}/purchase`,
             });
             dispatch(geTransactionUser())
             toast.show({

@@ -8,17 +8,17 @@ import {
   Avatar
 } from 'native-base';
 
-export default function Transaction({transaction, action, date, mont, money}) {
+export default function Transaction({action, date, mont, money, from, to}) {
   const blockchain  = useSelector(state => state.blockChain);
   const publicKeys = useSelector(state => state.userData.publicKeys)
   const publicKey = blockchain === "ethereum" ? publicKeys.ethereum : publicKeys.stellar;
 
-  function getTransactionAmountColor(transaction) {
-    console.log(transaction);
-    if (transaction === "purchase") return "success.600";
-    if (transaction === "transfer" && transaction.to === publicKey) return "success.600"
-    if (transaction === "transfer" && transaction.from === publicKey) return "error.600"
-    else if (transaction === "sell" || transaction === "staking") return "error.600";
+  function getTransactionAmountColor(action, from, to) {
+    console.log(action, from);
+    if (action === "purchase") return "success.600";
+    if (action === "transfer" && to === publicKey) return "success.600"
+    if (action === "transfer" && from === publicKey) return "error.600"
+    else if (action === "sell" || action === "staking") return "error.600";
   }
 
   return (
@@ -40,7 +40,7 @@ export default function Transaction({transaction, action, date, mont, money}) {
 
         <VStack>
           <Text fontSize="14px" color="theme.50" alignSelf="flex-end">{money}</Text>
-          <Text fontSize="14px" color={getTransactionAmountColor(transaction)}>+{parseFloat(mont).toFixed(5)}</Text>
+          <Text fontSize="14px" color={getTransactionAmountColor(action, from, to)}>+{parseFloat(mont).toFixed(5)}</Text>
         </VStack>
       </Stack>
     </Box>  

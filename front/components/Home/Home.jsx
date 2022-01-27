@@ -154,7 +154,8 @@ export default function Home({ navigation }) {
    
       <ScrollView>
         <VStack>
-          {userData.transactionCurren ?.filter(transaction => transaction.blockchain === blockChain).map((transaction, index) => {
+          {userData.transactionCurren?.filter(transaction => transaction.blockchain === blockChain).map((transaction, index) => {
+            console.log(transaction)
             const utcDate = transaction?.createdAt;
             const utcHour = Number(utcDate?.slice(11,13));
             let transactionDate;
@@ -165,12 +166,13 @@ export default function Home({ navigation }) {
             }
             return (
               <Transaction
-                transaction={transaction}
                 key={index}
                 action={transaction.operationType}
                 mont={transaction.purchasedAmount}
                 money={transaction.purchasedCurrency}
                 date={transactionDate}
+                from={transaction.from}
+                to={transaction.to}
               />
             )
           })}

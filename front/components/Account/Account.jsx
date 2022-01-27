@@ -19,8 +19,8 @@ import {
 } from 'native-base';
 import { useSelector} from 'react-redux';
 import axios from 'axios';
-import {IP_HOST} from "@env";
 
+import { DEPLOYED_BACKEND_URL } from "@env"
 import { Dimensions } from 'react-native';
 const windowHeight = Dimensions.get('window').height
 
@@ -33,7 +33,7 @@ export default function Account({ navigation }) {
       await axios({
         method: "post",
         withCredentials: true,
-        url: `http://${IP_HOST}:3001/session/signout`,
+        url: `${DEPLOYED_BACKEND_URL}session/signout`,
       });
       await AsyncStorage.removeItem('userToken');
       dispatch(Logout());

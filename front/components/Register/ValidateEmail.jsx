@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Log } from "../../redux/actions";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {IP_HOST} from "@env"
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 
 
 export default function validateEmail ({navigation}) {
@@ -24,7 +24,7 @@ export default function validateEmail ({navigation}) {
                   token: token
                 },
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/session/verifyUser`,
+                url: `${DEPLOYED_BACKEND_URL}session/verifyUser`,
               });
               userToken = token;     
 

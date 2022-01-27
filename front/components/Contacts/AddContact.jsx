@@ -16,7 +16,7 @@ import {
 } from 'native-base';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { IP_HOST } from "@env";
+import { IP_HOST,DEPLOYED_BACKEND_URL } from "@env";
 import { getDataUser } from '../../redux/actions';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 
@@ -57,7 +57,7 @@ export default function AddContact({ navigation }) {
           stellarPublicKey: stellarPublicKey,
         },
         withCredentials: true,
-        url: `http://${IP_HOST}:3001/user/addContact`,
+        url: `${DEPLOYED_BACKEND_URL}user/addContact`,
       });
       dispatch(getDataUser())
 

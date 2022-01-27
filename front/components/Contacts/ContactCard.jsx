@@ -20,7 +20,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { IP_HOST } from "@env";
+import { IP_HOST,DEPLOYED_BACKEND_URL } from "@env";
 import { useDispatch } from 'react-redux';
 import { getDataUser } from "../../redux/actions";
 
@@ -65,7 +65,7 @@ export default function ContactCard({ route, navigation }) {
           stellarPublicKey: stellarPublicKeyChange,
         },
         withCredentials: true,
-        url: `http://${IP_HOST}:3001/user/updateContact`,
+        url: `${DEPLOYED_BACKEND_URL}user/updateContact`,
       });
       dispatch(getDataUser())
 

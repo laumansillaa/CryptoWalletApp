@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, } from 'react-native';
 import axios from "axios";
 import { Log } from "../../redux/actions";
-import {IP_HOST} from "@env"
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {  Container, Image, FormControl, Input, Button, Icon, Heading, Stack, WarningOutlineIcon, Divider} from "native-base";
@@ -53,8 +53,9 @@ export default function Login ({ navigation }) {
                       password: password,
                     },
                     withCredentials: true,
-                    url: `http://${IP_HOST}:3001/session/localSignin`,
+                    url: `${DEPLOYED_BACKEND_URL}session/localSignin`,
                   });
+                  console.log(response)
                   userToken = email;     
                   await AsyncStorage.setItem('userToken', userToken);
                   dispatch(Log(userToken));  
@@ -76,7 +77,7 @@ export default function Login ({ navigation }) {
     const onGoogleLogin = async (e) => {
       try {
 
-        let result = await WebBrowser.openBrowserAsync(`http://localhost:3001/session/googleSignin`);
+        let result = await WebBrowser.openBrowserAsync(`https://jralvarezwindey-wallet-app.herokuapp.com/session/googleSignin`);
         
         dispatch(Log())
       } catch (error) { console.error(error) }

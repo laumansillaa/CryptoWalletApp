@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons"
 import { validatePassword } from "../Utils/Utils";
-import {IP_HOST} from "@env";
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env";
 import axios from "axios";
 
 
@@ -43,7 +43,7 @@ export default function PasswordReset({navigation}) {
                   confirmPassword: confirmPassword,
                 },
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/password/resetpassword`,
+                url: `${DEPLOYED_BACKEND_URL}password/resetpassword`,
               });
             setMessage("password changed")
         } catch (e) {console.log(e)};

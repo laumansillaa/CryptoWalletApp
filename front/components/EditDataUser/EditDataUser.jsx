@@ -19,7 +19,7 @@ Center
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
 import axios from "axios"
-import {IP_HOST} from "@env"
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 
 import { useSelector, useDispatch } from 'react-redux';
 import {  getDataUser } from '../../redux/actions';
@@ -109,7 +109,7 @@ setState({...state, [atr]: e})}
 
           },
           withCredentials: true,
-          url: `http://${IP_HOST}:3001/user/updateData`,
+          url: `${DEPLOYED_BACKEND_URL}user/updateData`,
         })
         dispatch(getDataUser());
         setMessage("Updated information")

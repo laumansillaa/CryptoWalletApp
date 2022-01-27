@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST} from "@env"
+import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
 import axios from 'axios';
 import {
 
@@ -95,7 +95,7 @@ export default function BuyCurrencie({route, navigation}) {
           placement: "top"
       
         })
-           
+           console.log("comprando")
             const response = await axios({
               method: "post",
               data: {

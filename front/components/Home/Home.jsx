@@ -53,7 +53,7 @@ export default function Home({ navigation }) {
       dispatch(geTransactionUser())
     }
 
-    navigation.popToTop()
+    navigation.navigate("CurrenciesIndex")
   },[isEnabled])
 
   React.useEffect( () => {

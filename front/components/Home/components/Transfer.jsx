@@ -113,44 +113,59 @@ export default function Transfer({route, navigation}) {
   }
 
   return (
-    <Box bg="theme.100" height={windowHeight * 0.9}>
-      <HStack justifyContent="space-between" pt="20px" px="13px">
+    <Box height={windowHeight * 0.862} bg="theme.100">
+      <HStack justifyContent="space-between" mt="20px" px="13px">
         <Pressable onPress={() => navigation.goBack()}>
           <ChevronLeftIcon color="theme.300" size="40px"/>
         </Pressable>
 
-        <Text
-          alignSelf="center"
-          py="1px"
-          px="11px"
+        <Text px="11px"
           borderRadius="4px"
-          color="theme.50"
+          bg="theme.175"
+          color="theme.100"
           fontSize="22px"
           fontWeight="bold"
           letterSpacing="1px"
         ><Text color="theme.300">{currency}</Text> TRANSFER</Text> 
       </HStack>
 
-      <Box alignSelf="flex-start" mt="50px" px="10px">
-        <Text color="theme.50" fontSize="16px" fontWeight="bold">Your {currency} available amount is {amount}</Text> 
-        <Divider alignSelf="center" my="3" height="1px" width={windowWidth * 0.93} bg='theme.175' />
-      </Box>
-
-      <Box alignSelf="center" alignItems="flex-start" width={windowWidth * 0.93}>
-        <VStack alignItems="flex-start" mt="50px">
-          <Text py="8px" px="10px" height="41px" borderRadius="4px" bg="theme.175" color="theme.100" fontSize="14px" fontWeight="bold" letterSpacing="1px">TRANSFER BENEFICIARY:</Text> 
-          <Input mt="9px" height="41px" width={windowWidth * 0.93} borderColor="theme.300" color="theme.50" placeholder="Beneficiary public key" onChangeText={setPublicKey}/>
-        </VStack>
-
-        <HStack justifyContent="space-between" mt="25px" width={windowWidth * 0.93}>
-          <Text py="8px" px="10px" height="41px" borderRadius="4px" bg="theme.175" color="theme.100" fontSize="14px" fontWeight="bold" letterSpacing="1px">TRANSFER AMOUNT:</Text> 
-          <Input height="41px" borderColor="theme.300" color="theme.50" placeholder="Transfer amount" onChangeText={setFounds}/>
+      <Box alignSelf="center" mt="70px">
+        <HStack justifyContent="space-between" alignItems="flex-end">
+          <Text color="theme.50" fontSize="13px" letterSpacing="1px">AVAILABLE AMOUNT:</Text> 
+          <Text top="3px" color="theme.300" fontSize="18px" fontWeight="bold">{amount} {currency}</Text>
         </HStack>
+        <Divider mt="6px" height="1px" width={windowWidth * 0.93} bg='theme.175'/>
       </Box>
 
-      <Box alignSelf="flex-start" mt="50px" px="10px">
-        <Text color="theme.50" fontSize="16px" fontWeight="bold">Your {currency} new amount will be {(parseFloat(amount) - parseFloat(founds)).toFixed(4)}</Text> 
-        <Divider alignSelf="center" my="3" height="1px" width={windowWidth * 0.93} bg='theme.175' />
+      <Box alignSelf="center" alignItems="flex-start" mt="70px" width={windowWidth * 0.93}>
+        <Input 
+          height="41px"
+          width={windowWidth * 0.93}
+          borderColor="theme.300"
+          color="theme.50"
+          placeholder={`Beneficiary ${blockChain} public key`}
+          onChangeText={setPublicKey}
+        />
+
+        <Input
+          mt="39px"
+          height="41px"
+          width={windowWidth * 0.57}
+          borderColor="theme.300"
+          color="theme.50"
+          placeholder={`${currency} amount`}
+          onChangeText={setFounds}
+        />
+      </Box>
+
+      <Text mt="10px" px="11px" color="#f00">{mes}</Text>
+
+      <Box mt="25px" alignSelf="center">
+        <HStack justifyContent="space-between" alignItems="flex-end">
+          <Text color="theme.50" fontSize="13px" letterSpacing="1px">REMAINING AMOUNT:</Text> 
+          <Text top="3px" color="theme.300" fontSize="18px" fontWeight="bold">{(parseFloat(amount) - parseFloat(founds)).toFixed(4)} {currency}</Text>
+        </HStack>
+        <Divider mt="6px" height="1px" width={windowWidth * 0.93} bg='theme.175' />
       </Box>
 
       <Button 
@@ -164,11 +179,7 @@ export default function Transfer({route, navigation}) {
         isLoading={loading}
         isDisabled={disabledButton}
         onPress={() => transferUser()}
-      >
-        <Text color="theme.50" fontSize="22px" fontWeight="bold" letterSpacing="2px" >TRANSFER</Text>
-      </Button>
-
-      <Text color="#f00">{mes}</Text>
+      ><Text color="theme.50" fontSize="22px" fontWeight="bold" letterSpacing="2px" >TRANSFER</Text></Button>
     </Box>
   );
 }

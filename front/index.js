@@ -56,6 +56,7 @@ React.useEffect(()=>{
         // azulx2: 1e91d6
         // amarillo pasion: FFD972
         // violeta noble: a855f7
+        // violeta x2: 8258ec
       },
       config: {
         // Changing initialColorMode to 'dark'
@@ -75,9 +76,9 @@ React.useEffect(()=>{
           125: "#27272a",
           150: "#363639",
           175: "#545457",
-          200: '#8258ec',
-          300: '#8258ec',
-          400: '#8258ec',
+          200: '#1e91d6',
+          300: '#1e91d6',
+          400: '#1e91d6',
          
         },
         // Redefinig only one shade, rest of the color will remain same

@@ -128,12 +128,7 @@ export default function BuyCurrencie({route, navigation}) {
         <InputGroup>
           <InputLeftAddon children={"$"}/>
 
-          <Input
-            width="120px"
-            placeholder="Amount"
-            onChangeText={handleChange}
-            _focus={{ borderColor:"theme.300" }}
-          />
+          <Input width="120px" placeholder="Amount" onChangeText={handleChange} _focus={{ borderColor:"theme.300" }}/>
 
           <InputRightAddon children={"USD"} />
         </InputGroup>

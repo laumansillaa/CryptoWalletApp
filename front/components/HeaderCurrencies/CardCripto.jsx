@@ -70,7 +70,6 @@ export default function CardCripto({route, navigation}) {
           alignSelf="center"
           py="1px"
           px="11px"
-          bg="theme.125"
           borderRadius="4px"
           color="theme.50"
           fontSize="22px"
@@ -85,12 +84,12 @@ export default function CardCripto({route, navigation}) {
         py="1px"
         px="20px"
         bg="theme.175"
-        borderRadius="4px"
+        borderRadius="40px"
         color="theme.100"
-        fontSize="27px"
+        fontSize="22px"
         fontWeight="bold"
         letterSpacing="1px"
-      >TOKEN PRICE:</Text> 
+      >PRICE:</Text> 
         
       <HStack alignSelf="center" mt="33px">
         <Text mt="-0px" mr="11px" fontSize="32px" fontWeight="bold">$</Text>
@@ -105,7 +104,7 @@ export default function CardCripto({route, navigation}) {
         alignSelf="center"
         mt="70px"
         height="46px"
-        borderRadius="40px"
+        borderRadius="4px"
         bg="theme.300"
         variant="filled"
       ><Text color="theme.50" fontWeight="bold">Purchase now</Text></Button>

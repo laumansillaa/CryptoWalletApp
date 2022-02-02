@@ -7,6 +7,7 @@ import { Dimensions, Pressable } from 'react-native';
 import {
   Box,
   Stack,Text,
+  Divider,
   ChevronLeftIcon,
   InputGroup,
   Input,
@@ -112,167 +113,62 @@ export default function Transfer({route, navigation}) {
   }
 
   return (
-    <>
-      <Box bg="theme.100" height={windowHeight}>
-        {/* Componente amount y button go back */}
-        <HStack justifyContent="space-between" pt="20px" px="13px">
+    <Box bg="theme.100" height={windowHeight * 0.9}>
+      <HStack justifyContent="space-between" pt="20px" px="13px">
         <Pressable onPress={() => navigation.goBack()}>
           <ChevronLeftIcon color="theme.300" size="40px"/>
         </Pressable>
-
-        {/* <VStack> */}
-        {/*   <Box> */}
-        {/*     <Text>Your <Text color="theme.300">{currency}</Text> available amount: {amount}</Text> */}
-        {/*   </Box> */}
-        {/*   <Box> */}
-        {/*     <Text>Transfer amount: {founds}</Text> */}
-        {/*   </Box> */}
-        {/*   <Box> */}
-        {/*     <Text>Transfer beneficiary: {publicKey}</Text> */}
-        {/*   </Box> */}
-        {/*   <Box> */}
-        {/*     <Text>Your {currency} available amount: {amount}</Text> */}
-        {/*   </Box> */}
-          
-        {/* </VStack> */}
 
         <Text
           alignSelf="center"
           py="1px"
           px="11px"
-          bg="theme.125"
           borderRadius="4px"
           color="theme.50"
           fontSize="22px"
           fontWeight="bold"
           letterSpacing="1px"
         ><Text color="theme.300">{currency}</Text> TRANSFER</Text> 
-        </HStack>
+      </HStack>
 
-        <Box
-          alignSelf="center"
-          mt="53px"
-          mb="2"
-          p="10px"
-          width={windowWidth * 0.93}
-          borderRadius="4px"
-          bg="theme.300"
-        >
-          <Text fontSize="16px" color="theme.100" fontWeight="bold">Available amount: {amount}</Text> 
-        </Box>
-
-        {/* Currency and amount */}
-          <Box
-            py="1"
-            alignItems="center"
-            rounded="xl"
-            alignSelf="center"
-            width={375}
-            maxWidth="100%"
-            bg="theme.125"
-          >
-            <Text color="#fff" fontWeight="bold" fontSize="lg" pb="1">Transfer amount: {founds}</Text>
-
-            <Text color="#ffffff"  fontWeight="bold" fontSize="lg" pb="1">Transfer beneficiary: {publicKey}</Text>
-          </Box>
-
-          <Box
-            mt="10px"
-            py="1"
-            mb="5"
-            alignItems="center"
-            rounded="xl"
-            alignSelf="center"
-            width={375}
-            maxWidth="100%"
-            bg="theme.300"
-          >
-            <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
-              Your new {currency} amount will be: :
-            </Text>
-            <Text color="#ffffff" fontWeight="bold" fontSize="4xl"> 
-              {(parseFloat(amount) - parseFloat(founds)).toFixed(4) }
-            </Text>
-          </Box>
-  
-          <HStack alignSelf="center">
-            <Button variant="outline" colorScheme="theme"  isDisabled={disabledMont} rounded="lg" px="7" py="1"  onPress={() => setShowModal(true)}>
-              <Text color="#ffffff" fontSize="2xl" >Mont</Text>
-            </Button>
-
-            <Button variant="outline" colorScheme="theme" isLoading={loading} ml="2"rounded="lg" px="7"  py="1" isDisabled={disabledButton} onPress={() => transferUser()}>
-              <Text color="#ffffff" fontSize="2xl" >Confirm</Text>
-            </Button>
-          </HStack>
-
-          <Text color="theme.300">{mes}</Text>
+      <Box alignSelf="flex-start" mt="50px" px="10px">
+        <Text color="theme.50" fontSize="16px" fontWeight="bold">Your {currency} available amount is {amount}</Text> 
+        <Divider alignSelf="center" my="3" height="1px" width={windowWidth * 0.93} bg='theme.175' />
       </Box>
 
-      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-        <Modal.Content maxWidth="500px">
-          <Modal.CloseButton />
-          <Modal.Header>Amount to transfer</Modal.Header>
-          <Modal.Body>
-            <FormControl>
-              <FormControl.Label>How much {currency} do you want to transfer?</FormControl.Label>
-              <VStack alignItems="center">
-              <InputGroup
-                width={{
-                  base: "70%",
-                  md: "285",
-                }}
-              >
-                <InputLeftAddon children={"$"} />
-                <Input
-                  width={{
-                    base: "70%",
-                    md: "100%",
-                  }}
-                  placeholder="Amount"
-                  onChangeText={setFounds}
-                />
-                
+      <Box alignSelf="center" alignItems="flex-start" width={windowWidth * 0.93}>
+        <VStack alignItems="flex-start" mt="50px">
+          <Text py="8px" px="10px" height="41px" borderRadius="4px" bg="theme.175" color="theme.100" fontSize="14px" fontWeight="bold" letterSpacing="1px">TRANSFER BENEFICIARY:</Text> 
+          <Input mt="9px" height="41px" width={windowWidth * 0.93} borderColor="theme.300" color="theme.50" placeholder="Beneficiary public key" onChangeText={setPublicKey}/>
+        </VStack>
 
-              </InputGroup>
-              <Input
-                mt="5"
-                  width={{
-                    base: "70%",
-                    md: "100%",
-                  }}
-                  placeholder="Public Key.."
-                  onChangeText={setPublicKey}
-                />
-                </VStack>
-            </FormControl>
+        <HStack justifyContent="space-between" mt="25px" width={windowWidth * 0.93}>
+          <Text py="8px" px="10px" height="41px" borderRadius="4px" bg="theme.175" color="theme.100" fontSize="14px" fontWeight="bold" letterSpacing="1px">TRANSFER AMOUNT:</Text> 
+          <Input height="41px" borderColor="theme.300" color="theme.50" placeholder="Transfer amount" onChangeText={setFounds}/>
+        </HStack>
+      </Box>
 
-          </Modal.Body>
-          <Modal.Footer>
-            <Button.Group space={2}>
-              <Button
-                variant="ghost"
-                colorScheme="blueGray"
-                onPress={() => {
-                  setShowModal(false)
-                  
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                onPress={() => {
-                 setShowModal(false)
-            
+      <Box alignSelf="flex-start" mt="50px" px="10px">
+        <Text color="theme.50" fontSize="16px" fontWeight="bold">Your {currency} new amount will be {(parseFloat(amount) - parseFloat(founds)).toFixed(4)}</Text> 
+        <Divider alignSelf="center" my="3" height="1px" width={windowWidth * 0.93} bg='theme.175' />
+      </Box>
 
-                 
-                }}
-              >
-                Confirm
-              </Button>
-            </Button.Group>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal>
-    </>
+      <Button 
+        alignSelf="center"
+        mt="auto"
+        height="60px"
+        width={windowWidth}
+        borderTopRadius="10px"
+        bg="theme.300"
+        variant="filled"
+        isLoading={loading}
+        isDisabled={disabledButton}
+        onPress={() => transferUser()}
+      >
+        <Text color="theme.50" fontSize="22px" fontWeight="bold" letterSpacing="2px" >TRANSFER</Text>
+      </Button>
+
+      <Text color="#f00">{mes}</Text>
+    </Box>
   );
 }

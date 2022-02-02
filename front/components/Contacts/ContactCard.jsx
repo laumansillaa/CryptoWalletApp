@@ -21,7 +21,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { IP_HOST,DEPLOYED_BACKEND_URL } from "@env";
+import { IP_HOST,BACKEND_URL } from "@env";
 import { useDispatch } from 'react-redux';
 import { getDataUser } from "../../redux/actions";
 
@@ -70,7 +70,7 @@ export default function ContactCard({ route, navigation }) {
           stellarPublicKey: stellarPublicKeyChange,
         },
         withCredentials: true,
-        url: `${DEPLOYED_BACKEND_URL}user/updateContact`,
+        url: `${BACKEND_URL}/user/updateContact`,
       });
       dispatch(getDataUser())
 
@@ -114,7 +114,7 @@ export default function ContactCard({ route, navigation }) {
               }}
             >{nameChange}</Text>
 
-            <Divider my="2" bg='theme.150' />
+            <Divider my="2" bg='theme.125' />
 
             <VStack alignItems="center" justifyContent="space-between">
 
@@ -141,7 +141,7 @@ export default function ContactCard({ route, navigation }) {
               <Text color="theme.200">{ethereumPublicKeyChange}</Text>
             </VStack>
 
-            <Divider my="3" bg='theme.150' />
+            <Divider my="3" bg='theme.125' />
             <VStack alignItems="center" justifyContent="space-between">
               <HStack alignItems="center" space={3}>
                 <Text color="theme.50" letterSpacing={4}>Stellar public key</Text>
@@ -166,7 +166,7 @@ export default function ContactCard({ route, navigation }) {
               </HStack>
               <Text color="theme.200">{stellarPublicKeyChange}</Text>
             </VStack>
-            <Divider my="3" bg='theme.150' />
+            <Divider my="3" bg='theme.125' />
           </VStack>
         </Box>
         <>
@@ -198,7 +198,7 @@ export default function ContactCard({ route, navigation }) {
                         letterSpacing: '1',
                         fontSize: "14px",
                       }}>Name</FormControl.Label>
-                    <Input fontSize='17' value={nameChange} bgColor='theme.150' color='theme.200' onChange={handleChangeName} />
+                    <Input fontSize='17' value={nameChange} bgColor='theme.125' color='theme.200' onChange={handleChangeName} />
                   </FormControl>
                   <FormControl >
                     <FormControl.Label
@@ -207,7 +207,7 @@ export default function ContactCard({ route, navigation }) {
                         letterSpacing: '1',
                         fontSize: "14",
                       }}>Ethereum Public Key</FormControl.Label>
-                    <Input fontSize='17' value={ethereumPublicKeyChange} bgColor='theme.150' color='theme.200' onChange={handleChangeEthereum} />
+                    <Input fontSize='17' value={ethereumPublicKeyChange} bgColor='theme.125' color='theme.200' onChange={handleChangeEthereum} />
                   </FormControl>
                   <FormControl>
                     <FormControl.Label
@@ -216,7 +216,7 @@ export default function ContactCard({ route, navigation }) {
                         letterSpacing: '1',
                         fontSize: "14",
                       }}>Stellar Public Key</FormControl.Label>
-                    <Input fontSize='17' value={stellarPublicKeyChange} bgColor='theme.150' color='theme.200' onChange={handleChangeStellar} />
+                    <Input fontSize='17' value={stellarPublicKeyChange} bgColor='theme.125' color='theme.200' onChange={handleChangeStellar} />
                   <FormControl.HelperText>
                   {message}
                 </FormControl.HelperText>

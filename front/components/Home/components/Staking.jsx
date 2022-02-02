@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 import { Dimensions } from 'react-native';
 import {
   Box,
@@ -42,7 +42,7 @@ export default function Staking({route, navigation}) {
       const [disabledMont, setDisableMont] = useState(true)
       const balance = useSelector(state => state.userData.balance)
       const [founds, setFounds] = useState("0.00");
-        const [foundsStalking, setFoundsStalking] = useState("0.00")
+      const [foundsStalking, setFoundsStalking] = useState("0.00")
       const [mes, setMes] = useState("")
       
       React.useEffect(()=>{
@@ -109,7 +109,7 @@ async function stakingUser (){
   
       },
       withCredentials: true,
-      url: `${DEPLOYED_BACKEND_URL}operation/${urlBlockChain}/stake`,
+      url: `${BACKEND_URL}/operation/${urlBlockChain}/stake`,
     });
 
     setMes(response.data)
@@ -154,7 +154,7 @@ async function stakeTaking(){
      
       },
       withCredentials: true,
-      url: `${DEPLOYED_BACKEND_URL}operation/${urlBlockChain}/takestake`,
+      url: `${BACKEND_URL}/operation/${urlBlockChain}/takestake`,
     });
 
     setMes(response.data)
@@ -234,10 +234,10 @@ React.useEffect(()=>{
 
           <Stack direction="row" alignItems="center" rounded="md">
           <Pressable   onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="theme.150" size="9"/>
+          <ChevronLeftIcon color="theme.100" size="9"/>
           </Pressable>
           <VStack>
-          <Text ml="80px" fontSize="lg" color="theme.150" fontWeight="bold" >Amount available </Text> 
+          <Text ml="80px" fontSize="lg" color="theme.100" fontWeight="bold" >Amount available </Text> 
              
           </VStack>
              
@@ -265,7 +265,7 @@ React.useEffect(()=>{
           alignSelf="center"
           width={360}
           maxWidth="100%"
-          bg="theme.150"
+          bg="theme.125"
           
           
          

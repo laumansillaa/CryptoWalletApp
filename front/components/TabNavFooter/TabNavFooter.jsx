@@ -44,12 +44,10 @@ export default function TabNavFooter({navigation}) {
 
     return (<>
       
-        <Box py="1" alignItems="center">
-          <HStack>
-            
-          <Text fontWeight="bold" color="theme.150" px="1">Funds</Text>
-      <Text fontWeight="bold" color="theme.150">{funds?funds:"0.00"} USD</Text> 
-          <Text color="theme.300"> Blockchain: {blockChain.charAt(0).toUpperCase() + blockChain.slice(1)}</Text>
+        <Box py="2" bg="theme.125">
+          <HStack justifyContent="space-between" px="15px">
+            <Text color="theme.50">Funds: {funds?funds:"0.00"} USD</Text> 
+            <Text fontWeight="bold" color="theme.300">{blockChain.charAt(0).toUpperCase() + blockChain.slice(1)}</Text>
           </HStack>
          
         </Box>

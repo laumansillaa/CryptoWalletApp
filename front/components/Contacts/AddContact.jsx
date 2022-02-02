@@ -16,7 +16,7 @@ import {
 } from 'native-base';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { IP_HOST,DEPLOYED_BACKEND_URL } from "@env";
+import { IP_HOST, BACKEND_URL } from "@env";
 import { getDataUser } from '../../redux/actions';
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 
@@ -59,7 +59,7 @@ export default function AddContact({ navigation }) {
           stellarPublicKey: stellarPublicKey,
         },
         withCredentials: true,
-        url: `${DEPLOYED_BACKEND_URL}user/addContact`,
+        url: `${BACKEND_URL}/user/addContact`,
       });
       navigation.navigate('ContactCard', {
         name,
@@ -110,7 +110,7 @@ export default function AddContact({ navigation }) {
                       color: "theme.300",
                       letterSpacing: '2'
                     }}>NAME</FormControl.Label>
-                  <Input bgColor='theme.150' color='theme.200' fontSize='17' name='name' onChangeText={handleName} />
+                  <Input bgColor='theme.125' color='theme.200' fontSize='17' name='name' onChangeText={handleName} />
                 </Box>
                 <Box>
                   <FormControl.Label
@@ -118,7 +118,7 @@ export default function AddContact({ navigation }) {
                       color: "theme.300",
                       letterSpacing: '2'
                     }}>ETHEREUM PUBLIC KEY</FormControl.Label>
-                  <Input bgColor='theme.150' color='theme.200' fontSize='17' name='ethereumPublicKey' onChangeText={handleEthereum} />
+                  <Input bgColor='theme.125' color='theme.200' fontSize='17' name='ethereumPublicKey' onChangeText={handleEthereum} />
                 </Box>
                 <Box>
                   <FormControl.Label
@@ -126,7 +126,7 @@ export default function AddContact({ navigation }) {
                       color: "theme.300",
                       letterSpacing: '2'
                     }}>STELLAR PUBLIC KEY</FormControl.Label>
-                  <Input bgColor='theme.150' color='theme.200' fontSize='17' name='stellarPublicKey' onChangeText={handleStellar} />
+                  <Input bgColor='theme.125' color='theme.200' fontSize='17' name='stellarPublicKey' onChangeText={handleStellar} />
 
                 </Box>
               </Stack>

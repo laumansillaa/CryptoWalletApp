@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 import {
 
   Box,
@@ -96,7 +96,7 @@ async function transferUser (){
   
       },
       withCredentials: true,
-      url: `${DEPLOYED_BACKEND_URL}operation/${urlBlockChain}/sell`,
+      url: `${BACKEND_URL}/operation/${urlBlockChain}/sell`,
     });
     setLoading(false)
     toast.show({
@@ -131,7 +131,7 @@ async function transferUser (){
         
             },
             withCredentials: true,
-            url: `${DEPLOYED_BACKEND_URL}operation/${urlBlockChain}/sell`,
+            url: `${BACKEND_URL}/operation/${urlBlockChain}/sell`,
           });
           setLoading(false)
           toast.show({
@@ -221,7 +221,7 @@ React.useEffect(()=>{
 
           <Stack direction="row" alignItems="center" rounded="md">
           <Pressable   onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="theme.150" size="9"/>
+          <ChevronLeftIcon color="theme.100" size="9"/>
           </Pressable>
           <VStack>
           <Text ml="70px" fontSize="xl" color="theme.100" fontWeight="bold"  >Amount available </Text> 
@@ -232,7 +232,7 @@ React.useEffect(()=>{
           <VStack alignSelf="center">
           
           <Text color="#ffffff" ml="60px" mt="-3" fontWeight="bold"  fontSize="4xl"> {amount} </Text>
-          <Text ml="200px" mt="-5" fontSize="xl"  color="theme.150" fontWeight="bold" >{currency} </Text> 
+          <Text ml="200px" mt="-5" fontSize="xl"  color="theme.100" fontWeight="bold" >{currency} </Text> 
           </VStack>
           
           </Box>
@@ -249,7 +249,7 @@ React.useEffect(()=>{
           alignSelf="center"
           width={375}
           maxWidth="100%"
-          bg="theme.150"
+          bg="theme.125"
           
           
          

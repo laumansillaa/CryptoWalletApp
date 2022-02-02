@@ -29,7 +29,7 @@ export default function Transaction({action, date, mont, money, from, to}) {
       px="4px"
       width="96%"
       height="63px"
-      bg="theme.150"
+      bg="theme.125"
       borderRadius="4px"
     >
       <Stack flexDirection="row" justifyContent="space-around">

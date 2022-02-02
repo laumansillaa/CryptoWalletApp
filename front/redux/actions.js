@@ -1,5 +1,5 @@
 import axios from "axios";
-import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 export const GET_DATA_USER = "GET_DATA_USER";
 export const LOG = "LOG";
 export const LOGOUT = "LOGOUT";
@@ -69,7 +69,7 @@ export const getDataUser = ()=> async dispatch =>{
         const response = await axios({
               method: "get",
               withCredentials: true,
-              url: `${DEPLOYED_BACKEND_URL}user/getData`,
+              url: `${BACKEND_URL}/user/getData`,
             })
 
         const dataUser =  response.data;
@@ -88,7 +88,7 @@ export const geTransactionUser = ()=> async dispatch =>{
         const response = await axios({
               method: "get",
               withCredentials: true,
-              url: `${DEPLOYED_BACKEND_URL}operation/record`,
+              url: `${BACKEND_URL}/operation/record`,
             })
 
         const dataUser =  response.data;
@@ -124,7 +124,7 @@ export const getBalance = ()=> async dispatch =>{
             const response = await axios({
                 method: "get",
                 withCredentials: true,
-                url: `${DEPLOYED_BACKEND_URL}balance/data`,
+                url: `${BACKEND_URL}/balance/data`,
               })
 
           const dataUser =  response.data;
@@ -167,7 +167,7 @@ export const getCryptoChart = (crypto) => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `${DEPLOYED_BACKEND_URL}charts/${crypto}`,
+            url: `${BACKEND_URL}/charts/${crypto}`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_CHART, payload: dataUser})
@@ -182,7 +182,7 @@ export const getCryptoData = (crypto) => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `${DEPLOYED_BACKEND_URL}currencyData/${crypto}`,
+            url: `${BACKEND_URL}/currencyData/${crypto}`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_DATA, payload: dataUser})
@@ -212,7 +212,7 @@ export const getAllStellarData = () => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `${DEPLOYED_BACKEND_URL}currenciesData/stellar`,
+            url: `${BACKEND_URL}/currenciesData/stellar`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_ALL_STELLAR_DATA, payload: dataUser})
@@ -226,7 +226,7 @@ export const getAllEthData = () => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `${DEPLOYED_BACKEND_URL}currenciesData/eth`,
+            url: `${BACKEND_URL}/currenciesData/eth`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_ALL_ETH_DATA, payload: dataUser})

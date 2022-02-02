@@ -20,7 +20,7 @@ import {
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-import { DEPLOYED_BACKEND_URL } from "@env"
+import { BACKEND_URL } from "@env"
 import { Dimensions } from 'react-native';
 const windowHeight = Dimensions.get('window').height
 
@@ -33,7 +33,7 @@ export default function Account({ navigation }) {
       await axios({
         method: "post",
         withCredentials: true,
-        url: `${DEPLOYED_BACKEND_URL}session/signout`,
+        url: `${BACKEND_URL}/session/signout`,
       });
       await AsyncStorage.removeItem('userToken');
       dispatch(Logout());
@@ -48,10 +48,10 @@ export default function Account({ navigation }) {
       <Box bg="theme.100" height={windowHeight}>
         <VStack space={4} alignItems="center" justifyContent='flex-end'>
           <Box w='90%'>
-
             <Text
               textAlign="center"
-              fontSize={18}
+              fontSize="20px"
+              fontWeight="bold"
               color='theme.300'
               letterSpacing={3}
               style={{ textTransform: 'uppercase' }}
@@ -62,7 +62,7 @@ export default function Account({ navigation }) {
           </Box>
         </VStack>
         <Box w='100%' px={3}>
-          <VStack space={2} justifyContent='flex-end'>
+          <VStack space={2} mt="20px" height="70%" justifyContent='space-around'>
             <Pressable onPress={() => navigation.navigate("MyData")} >
               {({ isPressed }) => {
                 return (

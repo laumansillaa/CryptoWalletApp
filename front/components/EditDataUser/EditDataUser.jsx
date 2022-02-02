@@ -19,7 +19,7 @@ Center
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
 import axios from "axios"
-import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 
 import { useSelector, useDispatch } from 'react-redux';
 import {  getDataUser, geTransactionUser } from '../../redux/actions';
@@ -109,7 +109,7 @@ setState({...state, [atr]: e})}
 
           },
           withCredentials: true,
-          url: `${DEPLOYED_BACKEND_URL}user/updateData`,
+          url: `${BACKEND_URL}/user/updateData`,
         })
         dispatch(getDataUser());
         dispatch(geTransactionUser())
@@ -168,7 +168,7 @@ setState({...state, [atr]: e})}
       // borderWidth="1"
       // _dark={{
       //     borderColor: "theme.200",
-      //     backgroundColor: "theme.150",
+      //     backgroundColor: "theme.125",
       //   }}
       // _web={{
       //     shadow: 2,

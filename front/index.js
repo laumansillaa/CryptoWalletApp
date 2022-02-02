@@ -18,10 +18,10 @@ import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 import PasswordReset from './components/PasswordRecovery/PasswordReset';
 import { NativeBaseProvider, extendTheme, Text } from 'native-base';
 import ValidateEmail from './components/Register/ValidateEmail';
-import { IP_HOST, DEPLOYED_BACKEND_URL } from "@env"
+import { IP_HOST, BACKEND_URL } from "@env"
 
 import axios from "axios";
-/* axios.defaults.baseURL = DEPLOYED_BACKEND_URL */
+/* axios.defaults.baseURL = BACKEND_URL */
 
 const Stack = createStackNavigator();
 
@@ -38,16 +38,24 @@ React.useEffect(()=>{
       colors: {
         // Add new color
         theme: {
-          50: '#FFFFFF',
+          50: '#fff',
           100: '#18181b',
-          150: "#27272a",
-          200: '#6ee7b7',
-          300: '#059669',
-          400: '#064e3b',
-          500: '#059669',
+          125: "#27272a",
+          150: "#363639",
+          175: "#545457",
+          200: '#f42272',
+          300: '#f42272',
+          400: '#f42272',
          
         },
+        // Verde manzana: acfd41
+        // Rosa: fd3e81
+        // Azul como el mar: 00a6bf
+        // Fucsia:F42272 
         // Redefinig only one shade, rest of the color will remain same
+        // azulx2: 1e91d6
+        // amarillo pasion: FFD972
+        // violeta noble: a855f7
       },
       config: {
         // Changing initialColorMode to 'dark'
@@ -62,12 +70,14 @@ React.useEffect(()=>{
       colors: {
         // Add new color
         theme: {
-          50: '#FFFFFF',
+          50: '#fff',
           100: '#18181b',
-          150: "#27272a",
-          200: '#fda4af',
-          300: '#e11d48',
-          400: '#881337',
+          125: "#27272a",
+          150: "#363639",
+          175: "#545457",
+          200: '#1e91d6',
+          300: '#1e91d6',
+          400: '#1e91d6',
          
         },
         // Redefinig only one shade, rest of the color will remain same
@@ -77,10 +87,62 @@ React.useEffect(()=>{
    
     setThemeSelect(theme)
   }
-
-
-
 },[blockChain])
+
+
+// React.useEffect(()=>{
+  
+//   if(blockChain === "stellar"){
+
+//    let theme = extendTheme({
+//       colors: {
+//         // Add new color
+//         theme: {
+//           50: '#FFFFFF',
+//           100: '#18181b',
+//           150: "#27272a",
+//           200: '#6ee7b7',
+//           300: '#059669',
+//           400: '#064e3b',
+//           500: '#059669',
+         
+//         },
+//         // Redefinig only one shade, rest of the color will remain same
+//       },
+//       config: {
+//         // Changing initialColorMode to 'dark'
+//         initialColorMode: 'dark',
+//       },
+//     });
+
+//    setThemeSelect(theme)
+//   }else if(blockChain === "ethereum"){
+
+//   let  theme = extendTheme({
+//       colors: {
+//         // Add new color
+//         theme: {
+//           50: '#FFFFFF',
+//           100: '#18181b',
+//           150: "#27272a",
+//           200: '#fda4af',
+//           300: '#e11d48',
+//           400: '#881337',
+         
+//         },
+//         // Redefinig only one shade, rest of the color will remain same
+//       }
+      
+//     });
+   
+//     setThemeSelect(theme)
+//   }
+
+
+
+// },[blockChain])
+
+
 
 const dispatch = useDispatch();
 let userToken =useSelector(state => state.userToken);

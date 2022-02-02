@@ -72,7 +72,7 @@ export default function MyTags({ navigation }) {
               <Text color="theme.200">{data.publicKeys.ethereum}</Text>
             </VStack>
 
-            <Divider my="3" bg='theme.150' />
+            <Divider my="3" bg='theme.125' />
             <VStack alignItems="center" justifyContent="space-between">
               <HStack alignItems="center" space={3}>
                 <Text color="theme.50" letterSpacing={3}>My stellar public key</Text>
@@ -96,7 +96,7 @@ export default function MyTags({ navigation }) {
               </HStack>
               <Text color="theme.200">{data.publicKeys.stellar}</Text>
             </VStack>
-            <Divider my="3" bg='theme.150' />
+            <Divider my="3" bg='theme.125' />
           </VStack>
         </Box>
 

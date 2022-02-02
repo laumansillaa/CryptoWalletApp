@@ -70,14 +70,14 @@ export default function OperationCurrencies({ route, navigation }) {
         <Box height={Dimensions.get('window').height} bg="theme.100">
           
             <VStack>
-                <Box bg="theme.150" width={Dimensions.get('window').width} height={Dimensions.get('window').height /2.25} borderBottomRadius={10} alignSelf="center" alignItems="center">
+                <Box bg="theme.125" width={Dimensions.get('window').width} height={Dimensions.get('window').height /2.25} borderBottomRadius={10} alignSelf="center" alignItems="center">
                     <Stack direction="row" mt="5" mb="5" alignSelf="center">
                         <Box>
                             <Pressable onPress={()=> navigation.goBack()}>
                                 <ChevronLeftIcon ml="-150" color="theme.50" size="9"/>
                             </Pressable>
                         </Box>
-                        <Avatar bg="theme.150" size="lg" alignSelf="center" source={(cryptoData.img)?{
+                        <Avatar bg="theme.125" size="lg" alignSelf="center" source={(cryptoData.img)?{
                             uri: cryptoData.img
                             } : ""}
                         />

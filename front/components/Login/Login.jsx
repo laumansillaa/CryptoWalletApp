@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, } from 'react-native';
 import axios from "axios";
 import { Log, getAllEthData, getAllStellarData } from "../../redux/actions";
-import {IP_HOST, DEPLOYED_BACKEND_URL} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {  Container, Image, FormControl, Input, Button, Icon, Heading, Stack, WarningOutlineIcon, Divider} from "native-base";
@@ -57,7 +57,7 @@ export default function Login ({ navigation }) {
                       password: password,
                     },
                     withCredentials: true,
-                    url: `${DEPLOYED_BACKEND_URL}session/localSignin`,
+                    url: `${BACKEND_URL}/session/localSignin`,
                   });
                   console.log(response)
                   userToken = email;     
@@ -81,7 +81,7 @@ export default function Login ({ navigation }) {
     const onGoogleLogin = async (e) => {
       try {
 
-        let result = await WebBrowser.openBrowserAsync(`https://jralvarezwindey-wallet-app.herokuapp.com/session/googleSignin`);
+        let result = await WebBrowser.openBrowserAsync(`${BACKEND_URL}/session/googleSignin`);
         
         dispatch(Log())
       } catch (error) { console.error(error) }
@@ -172,7 +172,7 @@ export default function Login ({ navigation }) {
             bg= 'theme.50' 
             color= 'theme.100'
             _text={{fontSize:"xl"}} 
-            borderColor= "theme.150" 
+            borderColor= "theme.125" 
             borderWidth="1" >Log in</Button> 
             <FormControl.HelperText>
             {message}
@@ -185,7 +185,7 @@ export default function Login ({ navigation }) {
             leftIcon= {<Icon as={<Fontisto name="google" size={8} color="black" />} />} 
             borderRadius= "4px" 
             _text={{fontSize:"md"}}
-            borderColor= "theme.150" 
+            borderColor= "theme.125" 
             borderWidth="1" >Log in with Google</Button>
 
             <Button onPress={() => navigation.navigate("Register")} 
@@ -194,7 +194,7 @@ export default function Login ({ navigation }) {
             color= 'theme.100'
             borderRadius= "4px"  
             _text={{fontSize:"md"}} 
-            borderColor= "theme.150" 
+            borderColor= "theme.125" 
             borderWidth="1" >Create account</Button>
             
             <Button onPress={() => navigation.navigate("PasswordRecovery")} 
@@ -203,7 +203,7 @@ export default function Login ({ navigation }) {
             color= 'theme.100'
             borderRadius= "4px"  
             _text={{fontSize:"md"}} 
-            borderColor= "theme.150" 
+            borderColor= "theme.125" 
             borderWidth="1" >Forgot password</Button>       
           </Stack>
           </FormControl>

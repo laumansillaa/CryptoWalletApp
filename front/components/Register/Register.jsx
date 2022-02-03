@@ -6,7 +6,7 @@ import { AntDesign } from "@expo/vector-icons"
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
 import axios from "axios"
-import {IP_HOST} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 
 export default function Register({navigation}) {
 
@@ -79,7 +79,7 @@ async function handleSubmit(){
       if(state.firstname&&state.lastname&&state.email&&state.phone&&state.password&&state.pin){
  
           try {
-             await axios.post(`http://${IP_HOST}:3001/session/signup`, state)
+             await axios.post(`${BACKEND_URL}/session/signup`, state)
             setMessage("Sign in succeeded.");
             setEmailSent(true);
           } catch (error) {
@@ -98,7 +98,7 @@ async function handleSubmit(){
   return (
     <Box height={windowsHeight} backgroundColor="theme.100">
       <ScrollView>
-      <Box mt= "40px" backgroundColor="theme.100">
+      <Box  backgroundColor="theme.100">
       <FormControl
       mt= "20px"
       isInvalid
@@ -216,7 +216,7 @@ async function handleSubmit(){
 
           <Divider my="1" bg='#ecfeff' />
 
-          <Button  onPress={() => navigation.navigate("Login") } 
+          <Button mb="10" onPress={() => navigation.goBack() } 
           size="sm" h="9" 
           bg= "theme.50" 
           color= 'theme.100' 

@@ -69,10 +69,10 @@ export default function MyTags({ navigation }) {
                   leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
                 ></Button>
               </HStack>
-              <Text color="theme.150">{data.publicKeys.ethereum}</Text>
+              <Text color="theme.200">{data.publicKeys.ethereum}</Text>
             </VStack>
 
-            <Divider my="3" bg='theme.150' />
+            <Divider my="3" bg='theme.125' />
             <VStack alignItems="center" justifyContent="space-between">
               <HStack alignItems="center" space={3}>
                 <Text color="theme.50" letterSpacing={3}>My stellar public key</Text>
@@ -92,87 +92,15 @@ export default function MyTags({ navigation }) {
                   })
                 }}
                   leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
-                  //colorScheme="green"
                 ></Button>
               </HStack>
-              <Text color="theme.150">{data.publicKeys.stellar}</Text>
+              <Text color="theme.200">{data.publicKeys.stellar}</Text>
             </VStack>
-            <Divider my="3" bg='theme.150' />
+            <Divider my="3" bg='theme.125' />
           </VStack>
         </Box>
 
-        {/* <Center flex={1} px="3">
-      <Box
-        mt="50px"
-        py="1"
-        rounded="md"
-        alignSelf="center"
-        width={375}
-        maxWidth="100%"
-        >
-        
-      </Box>
-      <Box width='100%'>
-        <VStack space={2}>
-          <VStack alignItems="center" justifyContent="space-between">
-            <Text color="dark">My ethereum public key</Text>
-            <HStack alignItems="center" space={3}>
-              <Text color="blueGray.400">{data.publicKeys.ethereum}</Text>
-              <Button onPress={() => {
-                onCopy(data.publicKeys.ethereum)
-                setShow(true)
-                toast.show({
-                  duration: 1200,
-                  placement: "bottom",
-                  render: () => {
-                    return (
-                      <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
-                        successful copy
-                      </Box>
-                    )
-                  },
-                })
-              }}
-              leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
-              colorScheme="green"
-              ></Button>
-            </HStack>
-          </VStack>
-          <Divider my="2" bg='emerald.600' />
-        </VStack>
-      </Box>
-
-      <Box width='100%'>
-        <VStack space={2}>
-          <VStack alignItems="center" justifyContent="space-between">
-            <Text color="dark">My stellar public key</Text>
-            <HStack alignItems="center" space={3}>
-              <Text color="blueGray.400">{data.publicKeys.stellar}</Text>
-              <Button onPress={() => {
-                onCopy(data.publicKeys.stellar)
-                setShow(true)
-                toast.show({
-                  duration: 1200,
-                  placement: "bottom",
-                  render: () => {
-                    return (
-                      <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={5}>
-                        successful copy
-                      </Box>
-                    )
-                  },
-                })
-              }}
-              leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
-                colorScheme="green"
-                ></Button>
-            </HStack>
-          </VStack>
-          <Divider my="2" bg='emerald.600' />
-        </VStack>
-      </Box>
-    </Center>
- */}    </Center>
+            </Center>
     </Box>
   )
 }

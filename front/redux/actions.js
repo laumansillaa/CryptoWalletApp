@@ -1,5 +1,5 @@
 import axios from "axios";
-import {IP_HOST} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 export const GET_DATA_USER = "GET_DATA_USER";
 export const LOG = "LOG";
 export const LOGOUT = "LOGOUT";
@@ -69,14 +69,14 @@ export const getDataUser = ()=> async dispatch =>{
         const response = await axios({
               method: "get",
               withCredentials: true,
-              url: `http://${IP_HOST}:3001/user/getData`,
+              url: `${BACKEND_URL}/user/getData`,
             })
 
         const dataUser =  response.data;
 
         dispatch({type:GET_DATA_USER, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar la data")
     }
 
 }
@@ -88,14 +88,14 @@ export const geTransactionUser = ()=> async dispatch =>{
         const response = await axios({
               method: "get",
               withCredentials: true,
-              url: `http://${IP_HOST}:3001/operation/record`,
+              url: `${BACKEND_URL}/operation/record`,
             })
 
         const dataUser =  response.data;
 
         dispatch({type:GET_TRANSACTION_USER, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar las operaciones")
     }
 
 }
@@ -124,7 +124,7 @@ export const getBalance = ()=> async dispatch =>{
             const response = await axios({
                 method: "get",
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/balance/data`,
+                url: `${BACKEND_URL}/balance/data`,
               })
 
           const dataUser =  response.data;
@@ -134,7 +134,7 @@ export const getBalance = ()=> async dispatch =>{
 
 
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar el balance")
     }
 
 }
@@ -163,29 +163,31 @@ export const getBlockChain =(data)=>{
 
 export const getCryptoChart = (crypto) => async dispatch =>{
     try{
+        console.log(crypto)
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/charts/${crypto}`,
+            url: `${BACKEND_URL}/charts/${crypto}`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_CHART, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar las graficas")
     }
 }
 
 export const getCryptoData = (crypto) => async dispatch =>{
     try{
+       
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/currencyData/${crypto}`,
+            url: `${BACKEND_URL}/currencyData/${crypto}`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_CRYPTO_DATA, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar la data de una crypto")
     }
 }
 
@@ -198,9 +200,10 @@ export const setCryptoData = () => async dispatch =>{
             img: "",
             name: ""
         }
+     
         dispatch({type: GET_CRYPTO_DATA, payload: response})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al eliminar")
     }
 }
 
@@ -209,12 +212,12 @@ export const getAllStellarData = () => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/currenciesData/stellar`,
+            url: `${BACKEND_URL}/currenciesData/stellar`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_ALL_STELLAR_DATA, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar las monedas de stellar")
     }
 }
 
@@ -223,11 +226,11 @@ export const getAllEthData = () => async dispatch =>{
         const response = await axios({
             method: "get",
             withCredentials: true,
-            url: `http://${IP_HOST}:3001/currenciesData/eth`,
+            url: `${BACKEND_URL}/currenciesData/eth`,
             })
         const dataUser =  response.data;
         dispatch({type: GET_ALL_ETH_DATA, payload: dataUser})
     }catch(e){
-        console.log("Error al consultar")
+        console.log("Error al consultar las monedas de ethereum")
     }
 }

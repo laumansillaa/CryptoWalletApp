@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Log } from "../../redux/actions";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {IP_HOST} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 
 
 export default function validateEmail ({navigation}) {
@@ -24,7 +24,7 @@ export default function validateEmail ({navigation}) {
                   token: token
                 },
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/session/verifyUser`,
+                url: `${BACKEND_URL}/session/verifyUser`,
               });
               userToken = token;     
 
@@ -53,10 +53,10 @@ export default function validateEmail ({navigation}) {
             base: "85%",
             md: "25%",
             }}>
-                <Text fontWeight='bold' fontSize='12' color="theme.500">Insert your token</Text>
+                <Text fontWeight='bold' fontSize='12' color="theme.400">Insert your token</Text>
                 <Input variant="filled"  placeholder="Token" value={token} onChangeText={setToken} 
-                 color='theme.500' backgroundColor= 'theme.400' size= "lg" fontWeight='bold' fontSize='12'/>
-                <Button onPress={onSubmit} backgroundColor= 'theme.500'  _text={{fontSize:"md"}}
+                 color='theme.400' backgroundColor= 'theme.50' size= "lg" fontWeight='bold' fontSize='12'/>
+                <Button onPress={onSubmit} backgroundColor= 'theme.400'  _text={{fontSize:"md"}}
           borderColor= "darkBlue.50" borderWidth="1">Submit</Button>
             </Stack>
             </Box>

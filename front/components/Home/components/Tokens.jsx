@@ -21,7 +21,7 @@ export default function Tokens({currency, amount, nav}) {
         px="25px"
         width="90%"
         height="50px"
-        bg="theme.150"
+        bg="theme.125"
         borderRadius="2px"
         borderWidth="0.4px"
         borderColor="theme.400"

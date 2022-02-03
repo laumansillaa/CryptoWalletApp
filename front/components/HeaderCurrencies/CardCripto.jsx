@@ -1,146 +1,119 @@
+import { BACKEND_URL } from "@env"
 import * as React from 'react';
 import { useState } from 'react';
-import io from "socket.io-client";
-import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST} from "@env"
+import { useDispatch, useSelector } from 'react-redux';
+import { Pressable, Dimensions, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import {
-
   Box,
-  
-  Stack,Text,
+  VStack, HStack, Text,
   ChevronLeftIcon,
   InputGroup,
   Input,
   InputLeftAddon,
   Button
-
-  
 } from 'native-base';
-
-import { Pressable} from 'react-native';
-
-
-import { useDispatch, useSelector } from 'react-redux';
+import io from "socket.io-client";
 import { getTokens } from '../../redux/actions';
-import { Dimensions } from 'react-native';
 
 export default function CardCripto({route, navigation}) {
-        const {token} = route.params;
-        const windowHeight = Dimensions.get("window").height
-       const dispatch = useDispatch();
-        const [state, setState] = useState()
-        const stateToken = useSelector((state)=> state.tokens)
-        const [disabledButton, setDisableButton] = useState(true);
-        const [loading, setLoading] = useState(false);
+  const {token} = route.params;
+  const windowHeight = Dimensions.get("window").height
+  const dispatch = useDispatch();
+  const [state, setState] = useState()
+  const stateToken = useSelector((state)=> state.tokens)
+  const [disabledButton, setDisableButton] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-       /*  React.useEffect(async ()=>{
-           let aux =state;
-           if(aux)aux.price =  parseFloat(aux.price).toFixed(4)
-            setState(aux)
-           },[state]) 
- */
+  useFocusEffect(
+    React.useCallback(() => {
+      let so;
 
+      try {
+        so = io(
+          BACKEND_URL === "https://jralvarezwindey-wallet-app.herokuapp.com"
+            ? `${BACKEND_URL}:443`
+            : BACKEND_URL
+        );
+        so.emit("token client", token);
+        so.on(token, msg =>{
+           setState({name:token,price:msg})
+          setDisableButton(false)
+        });
+      } catch(e){ console.error(error) }
 
-        useFocusEffect(
-            React.useCallback(() => {
-    
-                let so;
-            
-              try{
-                so =  (io(`http://${IP_HOST}:3001`))
+      return  () => {
+        setLoading(false)
+        so.disconnect(true);
+      };
+    }, [])
+  );
 
-                so.emit("token client", token);
-                so.on(token, msg =>{
-                  /* dispatch(getTokens({name:token,price:msg})) */
-                   setState({name:token,price:msg})
-                setDisableButton(false)
-                }) 
-
-            }catch(e){
-                console.log("failed to connect")
-            }
-            
-              return  () => {
-                setLoading(false)
-                so.disconnect(true);
-
-              
-              };
-            }, []));
-
-          function loadingButton (){
-            setLoading(true)
-            setTimeout(()=>{
-              navigation.navigate("BuyCurrencie", {
-                token,
-                price:state.price
-              })
-
-            }, 1000)
-           
-
-
-          }  
+  function loadingButton (){
+    setLoading(true)
+    setTimeout(()=>{
+      navigation.navigate("BuyCurrencie", {
+        token,
+        price:state.price
+      })
+    }, 1000)
+  }  
   
-    return (
-      <>    
-       <Box bg="theme.100"
-      height={windowHeight}
-      >
-     
-           <Box
-         mt="10"
-          py="1"
-          
-          rounded="md"
+  return (
+    <Box bg="theme.100" height={windowHeight}>
+      <HStack justifyContent="space-between" pt="20px" px="13px">
+        <Pressable onPress={() => navigation.goBack()}>
+          <ChevronLeftIcon color="theme.300" size="40px"/>
+        </Pressable>
+
+        <Text
           alignSelf="center"
-          width={375}
-          maxWidth="100%"
-         
-          >
+          py="1px"
+          px="11px"
+          borderRadius="4px"
+          color="theme.50"
+          fontSize="22px"
+          fontWeight="bold"
+          letterSpacing="1px"
+        ><Text color="theme.300">{token}</Text> PURCHASE</Text> 
+      </HStack>
 
-          <Stack direction="row" alignItems="center">
-          <Pressable   onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="theme.50" size="9"/>
-          </Pressable>
-             <Text ml="70px" fontSize="xl" color="theme.50" fontWeight="bold" >Currency </Text> 
-             <Text ml="20px" fontSize="xl" color="theme.300" fontWeight="bold" >{token} </Text> 
-          </Stack>
-          </Box>
-          
-          <Box alignSelf="center" alignItems="center" >
-          <Text color="theme.50" fontWeight="bold" fontSize="6xl"> ${state?state.price:""} </Text>
-  {/*         <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${stateToken?.price} </Text> */}
-          <Box
-             bg="theme.400"
-             
-             
-            shadow={9}
-             rounded="md"
-             alignSelf="center"
-             width={300}
-             height={50}
-             alignItems="center"
-             maxWidth="100%"
-             maxHeight="100%"
-          >
-            <Text color="#ffffff" mt="2" fontWeight="bold" fontSize="lg" pb="1">
-             Data {token}:
-            </Text>
-      </Box>
-        <Button mt="5"  variant="outline" colorScheme="theme" isDisabled={disabledButton} isLoading={loading} onPress={()=> loadingButton()}><Text color="theme.50">
-    Buy now:
-        </Text>
+      <Text
+        alignSelf="center"
+        mt="70px"
+        py="1px"
+        px="20px"
+        bg="theme.175"
+        borderRadius="40px"
+        color="theme.100"
+        fontSize="22px"
+        fontWeight="bold"
+        letterSpacing="1px"
+      >PRICE:</Text> 
         
-            </Button>
-          </Box>
-          </Box>   
-         
-     
+      <HStack alignSelf="center" mt="33px">
+        <Text mt="-0px" mr="11px" fontSize="32px" fontWeight="bold">$</Text>
+        <Text fontSize="46px" fontWeight="bold" style={styles.verticallyStretchedText}>{state ? state.price : ""}</Text>
+        <Text mb="-0px" ml="7px" alignSelf="flex-end" fontSize="17px" fontWeight="bold">USD</Text>
+      </HStack>
 
-     
-      </>
-  
- 
+      <Button 
+        isDisabled={disabledButton}
+        isLoading={loading}
+        onPress={() => loadingButton()}
+        alignSelf="center"
+        mt="70px"
+        height="46px"
+        borderRadius="4px"
+        bg="theme.300"
+        variant="filled"
+      ><Text color="theme.50" fontWeight="bold">Purchase now</Text></Button>
+    </Box>   
   );
 }
+
+const styles = StyleSheet.create({
+  verticallyStretchedText: {
+    transform: [{scaleY: 1.7}]
+  }
+});

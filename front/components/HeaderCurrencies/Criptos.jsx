@@ -22,7 +22,7 @@ export default function Criptos({symbol, name, price, percDay, img, nav}) {
             })}
         >
             <Box
-                bg="theme.150"
+                bg="theme.125"
                 mt="1"
                 pl="3"
                 mb="2"
@@ -37,7 +37,7 @@ export default function Criptos({symbol, name, price, percDay, img, nav}) {
                 <Stack direction="row" justifyContent="space-between">
                     <Stack direction="row" mt="1.5">
                         <Stack direction="row" ml="1">
-                            <Avatar bg="theme.150" size="md" alignSelf="center" source={{
+                            <Avatar bg="theme.125" size="md" alignSelf="center" source={{
                                 uri: img
                                 }}
                             />

@@ -34,17 +34,19 @@ export default function HeaderCurrencies({navigation}) {
     //     }
     // },[blockChain])
 
+
     React.useEffect(() => {
         dispatch(getAllStellarData());
         dispatch(getAllEthData());
-    },[])
+    },[blockChain])
 
 
     return (
         <>
+            
             <Stack bg="theme.100">
                 <Box size="16" width={Dimensions.get('window').width} bg="theme.300" borderBottomRadius="10" alignItems="center">
-                    <Text letterSpacing="1px" fontSize="2xl" mt="3" fontWeight="semibold" color="theme.100">CURRENCIES</Text>
+                    <Text letterSpacing="2px" width="100%" fontSize="24px" lineHeight="60px" textAlign="center" fontWeight="bold" color="theme.100">CURRENCIES</Text>
                 </Box>
             </Stack>
             <ScrollView bg="theme.100">

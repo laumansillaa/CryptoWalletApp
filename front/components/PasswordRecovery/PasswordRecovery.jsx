@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons"
 import { validateEmail } from "../Utils/Utils";
 import axios from "axios";
-import {IP_HOST} from "@env";
+import {IP_HOST, BACKEND_URL} from "@env";
 import {Dimensions} from 'react-native';
 
 
@@ -37,9 +37,10 @@ export default function PasswordRecovery({ navigation }) {
                   email: email,
                 },
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/password/tokenrequest`,
+                url: `${BACKEND_URL}/password/tokenrequest`,
               });
             setEmailSent(true);
+            setMessage("Sent Token...");
         } catch (e) {console.log(e)};
 
     }
@@ -59,7 +60,7 @@ export default function PasswordRecovery({ navigation }) {
                     color='coolGray.900' 
                     backgroundColor= '#e4e4e7' 
                     size= "lg" borderRadius= "4px"
-                    borderColor= "dark.900" 
+                    borderColor= "#fafafa" 
                     borderWidth="2"/>
                     {error.email !== "Please enter a valid email" && email !== "" ? 
                     

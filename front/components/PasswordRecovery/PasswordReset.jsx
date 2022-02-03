@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons"
 import { validatePassword } from "../Utils/Utils";
-import {IP_HOST} from "@env";
+import {IP_HOST, BACKEND_URL} from "@env";
 import axios from "axios";
 
 
@@ -43,7 +43,7 @@ export default function PasswordReset({navigation}) {
                   confirmPassword: confirmPassword,
                 },
                 withCredentials: true,
-                url: `http://${IP_HOST}:3001/password/resetpassword`,
+                url: `${BACKEND_URL}/password/resetpassword`,
               });
             setMessage("password changed")
         } catch (e) {console.log(e)};
@@ -51,12 +51,18 @@ export default function PasswordReset({navigation}) {
 
     return (
         <>
-        <Box style={styles.container} height={windowsHeight} >
-            <Center>
-                <FormControl>
-                <Stack>
+        <Box 
+        style={styles.container}
+         height={windowsHeight} 
+         width={windowswidth} 
+         alignSelf="center" 
+         alignItems="center"
+         px="5">
+           
+                <FormControl alignSelf="center" >
+                <Stack alignSelf="center" >
                 <Text>Insert the Token</Text>
-                    <Input placeholder="Token" value={tokenPassword} onChangeText={setTokenPassword} color='coolGray.900' 
+                    <Input placeholder="Token"  w= "250px" value={tokenPassword} onChangeText={setTokenPassword} color='coolGray.900' 
                     backgroundColor= 'darkBlue.50' size= "lg" borderRadius= "4px" InputLeftElement={
                     <Icon as={<AntDesign name="lock1" size={24} color="black" />} size={5} ml="2" color="muted.400" />} />
                     <Text fontSize="xl">Put your new password</Text>
@@ -71,10 +77,10 @@ export default function PasswordReset({navigation}) {
                     InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />} 
                     size={5} ml="2" 
                     color="muted.400" />}
-                    borderColor= "#dark.900" 
+                    borderColor= "dark.900" 
                     borderWidth="2"/>
 
-                    <FormControl.HelperText >
+                    <FormControl.HelperText w="250px">
                     {error.password}
                     </FormControl.HelperText>
 
@@ -86,10 +92,10 @@ export default function PasswordReset({navigation}) {
                     borderRadius= "4px" 
                     w= "250px"
                     InputLeftElement={<Icon as={<AntDesign name="key" size={24} color="black" />}size={5} ml="2" color="muted.400" />}
-                    borderColor= "#dark.900" 
+                    borderColor= "dark.900" 
                     borderWidth="2"/>
 
-                    <FormControl.HelperText>
+                    <FormControl.HelperText w="250px">
                     {error.confirmPassword}
                     </FormControl.HelperText>
 
@@ -121,7 +127,7 @@ export default function PasswordReset({navigation}) {
                     color= 'theme.100'>Go to back</Button>                                        
                 </Stack>
                 </FormControl>
-            </Center>
+           
         </Box>
         </>
     )
@@ -129,6 +135,7 @@ export default function PasswordReset({navigation}) {
 
 
 const windowsHeight = Dimensions.get("window").height;
+const windowswidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
     container: {

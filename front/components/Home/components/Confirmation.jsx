@@ -58,7 +58,7 @@ export default function Confirmation({ navigation }) {
             <Button
                 mt="25px"
                 height="48px"
-                bg="theme.150"
+                bg="theme.125"
                 leftIcon={<ChevronLeftIcon color="theme.50" size="57px" />}
                 onPress={() => navigation.navigate("HomeIndex")}
             />

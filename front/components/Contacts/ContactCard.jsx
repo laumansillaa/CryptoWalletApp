@@ -16,11 +16,12 @@ import {
   Modal,
   FormControl,
   Input,
+  HelperText
 } from "native-base"
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { IP_HOST } from "@env";
+import { IP_HOST,BACKEND_URL } from "@env";
 import { useDispatch } from 'react-redux';
 import { getDataUser } from "../../redux/actions";
 
@@ -39,6 +40,7 @@ export default function ContactCard({ route, navigation }) {
   const [nameChange, setNameChange] = React.useState('')
   const [ethereumPublicKeyChange, setEthereumPublicKeyChange] = React.useState('')
   const [stellarPublicKeyChange, setStellarPublicKeyChange] = React.useState('')
+  const [message, setMessage] = React.useState("");
   React.useEffect(() => {
     setNameChange(name)
     setEthereumPublicKeyChange(ethereumPublicKey)
@@ -55,6 +57,9 @@ export default function ContactCard({ route, navigation }) {
     setEthereumPublicKeyChange(e.target.value)
   }
   async function onSubmit() {
+    if (nameChange) {
+      if (ethereumPublicKeyChange || stellarPublicKeyChange) {
+        setMessage("Successful change")
     try {
       const response = await axios({
         method: "put",
@@ -65,7 +70,7 @@ export default function ContactCard({ route, navigation }) {
           stellarPublicKey: stellarPublicKeyChange,
         },
         withCredentials: true,
-        url: `http://${IP_HOST}:3001/user/updateContact`,
+        url: `${BACKEND_URL}/user/updateContact`,
       });
       dispatch(getDataUser())
 
@@ -73,6 +78,12 @@ export default function ContactCard({ route, navigation }) {
 
       console.error(error);
     }
+  } else {
+    setMessage("Please enter enter a public key")
+  }
+} else {
+  setMessage("Please enter name and public key")
+}
   }
 
   return (
@@ -96,14 +107,14 @@ export default function ContactCard({ route, navigation }) {
         <Box w='80%'>
           <VStack space={2}>
             <Text
-              color="theme.150"
+              color="theme.200"
               letterSpacing='8px'
               style={{
                 textTransform: 'uppercase',
               }}
             >{nameChange}</Text>
 
-            <Divider my="2" bg='theme.150' />
+            <Divider my="2" bg='theme.125' />
 
             <VStack alignItems="center" justifyContent="space-between">
 
@@ -127,10 +138,10 @@ export default function ContactCard({ route, navigation }) {
                   leftIcon={<Icon as={MaterialCommunityIcons} name='content-copy' size={3} />}
                 ></Button>
               </HStack>
-              <Text color="theme.150">{ethereumPublicKeyChange}</Text>
+              <Text color="theme.200">{ethereumPublicKeyChange}</Text>
             </VStack>
 
-            <Divider my="3" bg='theme.150' />
+            <Divider my="3" bg='theme.125' />
             <VStack alignItems="center" justifyContent="space-between">
               <HStack alignItems="center" space={3}>
                 <Text color="theme.50" letterSpacing={4}>Stellar public key</Text>
@@ -153,16 +164,16 @@ export default function ContactCard({ route, navigation }) {
                   colorScheme="green"
                 ></Button>
               </HStack>
-              <Text color="theme.150">{stellarPublicKeyChange}</Text>
+              <Text color="theme.200">{stellarPublicKeyChange}</Text>
             </VStack>
-            <Divider my="3" bg='theme.150' />
+            <Divider my="3" bg='theme.125' />
           </VStack>
         </Box>
         <>
 
           <Button
             variant="outline"
-            //colorScheme="theme.300"
+            colorScheme="theme"
             w='50%'
             mb='54'
             mt='2'
@@ -187,7 +198,7 @@ export default function ContactCard({ route, navigation }) {
                         letterSpacing: '1',
                         fontSize: "14px",
                       }}>Name</FormControl.Label>
-                    <Input fontSize='17' value={nameChange} bgColor='theme.150' color='theme.200' onChange={handleChangeName} />
+                    <Input fontSize='17' value={nameChange} bgColor='theme.125' color='theme.200' onChange={handleChangeName} />
                   </FormControl>
                   <FormControl >
                     <FormControl.Label
@@ -196,7 +207,7 @@ export default function ContactCard({ route, navigation }) {
                         letterSpacing: '1',
                         fontSize: "14",
                       }}>Ethereum Public Key</FormControl.Label>
-                    <Input fontSize='17' value={ethereumPublicKeyChange} bgColor='theme.150' color='theme.200' onChange={handleChangeEthereum} />
+                    <Input fontSize='17' value={ethereumPublicKeyChange} bgColor='theme.125' color='theme.200' onChange={handleChangeEthereum} />
                   </FormControl>
                   <FormControl>
                     <FormControl.Label
@@ -205,7 +216,10 @@ export default function ContactCard({ route, navigation }) {
                         letterSpacing: '1',
                         fontSize: "14",
                       }}>Stellar Public Key</FormControl.Label>
-                    <Input fontSize='17' value={stellarPublicKeyChange} bgColor='theme.150' color='theme.200' onChange={handleChangeStellar} />
+                    <Input fontSize='17' value={stellarPublicKeyChange} bgColor='theme.125' color='theme.200' onChange={handleChangeStellar} />
+                  <FormControl.HelperText>
+                  {message}
+                </FormControl.HelperText>
                   </FormControl>
                 </VStack>
               </Modal.Body>
@@ -226,8 +240,8 @@ export default function ContactCard({ route, navigation }) {
                     alignSelf='center'
                     onPress={() => {
                       onSubmit()
-                      setShowModal(false)
-                      setShow(true)
+                       /* setShowModal(true)
+                      setShow(false) 
                       toast.show({
                         duration: 1600,
                         placement: "bottom",
@@ -238,7 +252,7 @@ export default function ContactCard({ route, navigation }) {
                             </Box>
                           )
                         },
-                      })
+                      }) */
                     }}
                   >
                     <Text color='theme.300'> Save </Text>

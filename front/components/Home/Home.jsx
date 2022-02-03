@@ -32,7 +32,8 @@ import Transaction from './components/Transaction';
 import ButtonChatBot from '../ChatBot/ButtonChatBot';
 
 export default function Home({ navigation }) {
-  const [balanceUSD, setBalanceUsd] = useState("");
+  const [funds, setFunds] = useState("")
+  const [transactions, setTransactions] = useState([]);
   const [founds, setFounds] = useState("");
   const [loadingState, setLoadingState] = useState(false)
   const [isEnabled, setIsEnabled] = useState(false);
@@ -53,31 +54,55 @@ export default function Home({ navigation }) {
       dispatch(geTransactionUser())
     }
 
-    navigation.popToTop()
+    navigation.navigate("CurrenciesIndex")
   },[isEnabled])
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     dispatch(getDataUser())
     dispatch(getBalance())
     dispatch(geTransactionUser())
   },[])
  
-  React.useEffect( () => {
-    const usd = userData?.balance !== undefined 
-      ? parseFloat(userData?.balance[blockChain]?.cryptoBalance).toFixed(2) 
+  React.useEffect(()=>{
+    const funds = userData?.balance?.funds?.balance !== undefined 
+      ? parseFloat(userData.balance.funds.balance).toFixed(0) 
       : 0;
-    setBalanceUsd(usd);
-  },[userData.balance])
- 
+    setFunds(funds);
+  },[userData])
+
   useFocusEffect(
     React.useCallback(() => {
       try{
         dispatch(getBalance())
+        dispatch(geTransactionUser())
       } catch(error) { console.error(error) }
 
       return  () => { };
     }, [])
   );
+
+
+  React.useEffect(() => {
+    setTransactions(userData.transactionCurren?.filter(transaction => transaction.blockchain === blockChain).map((transaction) => {
+      const utcDate = transaction?.createdAt;
+      const utcHour = Number(utcDate?.slice(11,13));
+      let transactionDate;
+      if (utcHour < 3) {
+        transactionDate = `${utcDate?.slice(0,4)}/${utcDate?.slice(5,7)}/${(Number(utcDate?.slice(8,10)) - 1)} - ${24 + Number(utcDate?.slice(11,13))-3}:${utcDate?.slice(14,16)}`
+      } else {
+        transactionDate = `${utcDate?.slice(0,4)}/${utcDate?.slice(5,7)}/${utcDate?.slice(8,10)} - ${Number(utcDate?.slice(11,13))-3}:${utcDate?.slice(14,16)}`
+      }
+
+      return {
+        operationType: transaction.operationType,
+        purchasedAmount: transaction.purchasedAmount,
+        purchasedCurrency: transaction.purchasedCurrency,
+        transactionDate: transactionDate,
+        from: transaction.from,
+        to: transaction.to
+      }
+    }));
+  }, [userData])
 
   return (
     <Box bg="theme.100" height="100%">
@@ -89,7 +114,6 @@ export default function Home({ navigation }) {
         justifyContent="space-between"
         pt="23px"
         pb="13px"
-        height="180px"
         width="81%"
         bg="theme.100"
       >
@@ -97,26 +121,27 @@ export default function Home({ navigation }) {
           Your funds
         </Text>
 
-        <HStack alignSelf="center" height="59px" >
-          <Text mt="2px" fontSize="26px">$</Text>
-          <Text mt="-2px" fontSize="36px" style={styles.verticallyStretchedText}> {balanceUSD} </Text>
-          <Text mb="1px" alignSelf="flex-end" fontSize="15px">USD</Text>
+        <HStack alignSelf="center" mt="10px">
+          <Text mt="6px" mr="10px" fontSize="32px">$</Text>
+          <Text fontSize="46px" style={styles.verticallyStretchedText}>{funds}</Text>
+          <Text mb="4px" ml="10px" alignSelf="flex-end" fontSize="15px">USD</Text>
         </HStack>
 
         <Button  
           onPress={() => setShowModal(true)}
           alignSelf="flex-end"
+          mt="20px"
           p="6px"
           bg="theme.50"
           borderRadius="4px"
         >
-          <Text color="theme.150" fontSize="11px" >
+          <Text color="theme.100" fontSize="11px" >
            Add funds
           </Text>
         </Button>
       </Box>
 
-      <Divider alignSelf="center" my="3" width="81%" bg='theme.150' />
+      <Divider alignSelf="center" my="3" height="2px" width="81%" bg='theme.125' />
 
       <Pressable 
         onPress={() => { navigation.navigate("BalanceUser") }} 
@@ -144,7 +169,7 @@ export default function Home({ navigation }) {
         width="96%"
         rounded="4px"
       >
-        <Text pl="7px" color="theme.300" fontSize="13px" letterSpacing="2px">
+        <Text pl="17px" color="theme.300" fontSize="16px" letterSpacing="2px">
           {`${blockChain} transactions`.toUpperCase()}
         </Text>
       </Box>
@@ -153,25 +178,26 @@ export default function Home({ navigation }) {
    
       <ScrollView>
         <VStack>
-          {userData.transactionCurren ?.filter(transaction => transaction.blockchain === blockChain).map((transaction, index) => {
-            const utcDate = transaction.createdAt;
-            const utcHour = Number(utcDate.slice(11,13));
-            let transactionDate;
-            if (utcHour < 3) {
-              transactionDate = `${utcDate.slice(0,4)}/${utcDate.slice(5,7)}/${(Number(utcDate.slice(8,10)) - 1)} - ${24 + Number(utcDate.slice(11,13))-3}:${utcDate.slice(14,16)}`
-            } else {
-              transactionDate = `${utcDate.slice(0,4)}/${utcDate.slice(5,7)}/${utcDate.slice(8,10)} - ${Number(utcDate.slice(11,13))-3}:${utcDate.slice(14,16)}`
-            }
-            return (
-              <Transaction
-                key={index}
-                action={transaction.operationType}
-                mont={transaction.purchasedAmount}
-                money={transaction.purchasedCurrency}
-                date={transactionDate}
-              />
-            )
-          })}
+          {transactions?.length > 0 
+            ? transactions?.map((transaction, index) => {
+              return (
+                <Transaction
+                  key={index}
+                  action={transaction.operationType}
+                  mont={transaction.purchasedAmount}
+                  money={transaction.purchasedCurrency}
+                  date={transaction.transactionDate}
+                  from={transaction.from}
+                  to={transaction.to}
+                />
+              )
+            })
+            : <Text 
+              mt="17px"
+              mx="13px"
+              color="theme.175"
+              fontSize="18px"
+            >You don't have any transactions yet</Text>}
         </VStack>
       </ScrollView>
 

@@ -19,10 +19,10 @@ Center
 import { useState, useEffect } from 'react';
 import { validateEmail, validateNumber, validatePassword, validateString, validatePin } from '../Utils/Utils';
 import axios from "axios"
-import {IP_HOST} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 
 import { useSelector, useDispatch } from 'react-redux';
-import {  getDataUser } from '../../redux/actions';
+import {  getDataUser, geTransactionUser } from '../../redux/actions';
 
 export default function EditDataUser({navigation}) {
 const userData = useSelector(state => state.userData)
@@ -109,9 +109,10 @@ setState({...state, [atr]: e})}
 
           },
           withCredentials: true,
-          url: `http://${IP_HOST}:3001/user/updateData`,
+          url: `${BACKEND_URL}/user/updateData`,
         })
         dispatch(getDataUser());
+        dispatch(geTransactionUser())
         setMessage("Updated information")
         
         navigation.navigate("AccountComponent");
@@ -144,9 +145,9 @@ setState({...state, [atr]: e})}
   >
     <Stack direction="row" alignItems="center">
       <Pressable onPress={() => navigation.goBack()}>
-        <ChevronLeftIcon color="theme.500" size="10" />
+        <ChevronLeftIcon color="theme.300" size="10" />
       </Pressable>
-      <Text ml="100px" fontSize="xl" color="theme.500" fontWeight="bold" >Edit info</Text>
+      <Text ml="100px" fontSize="xl" color="theme.400" fontWeight="bold" >Edit info</Text>
     </Stack>
   </Box>
     <ScrollView >
@@ -167,7 +168,7 @@ setState({...state, [atr]: e})}
       // borderWidth="1"
       // _dark={{
       //     borderColor: "theme.200",
-      //     backgroundColor: "theme.150",
+      //     backgroundColor: "theme.125",
       //   }}
       // _web={{
       //     shadow: 2,
@@ -202,7 +203,7 @@ setState({...state, [atr]: e})}
           size= "xs" 
           fontWeight='normal' 
           fontSize='16'
-          borderColor= "theme.500"
+          borderColor= "theme.400"
           borderWidth="1"/>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="md" />}>
           {error.firstName}
@@ -240,7 +241,7 @@ setState({...state, [atr]: e})}
         _text={{fontSize:"md"}}
            borderColor= "theme.400"
            borderWidth="1" 
-           bg= 'theme.500'>Confirmar</Button>
+           bg= 'theme.400'>Confirmar</Button>
         
         <FormControl.HelperText>
             {message}

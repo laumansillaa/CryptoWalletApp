@@ -1,237 +1,156 @@
+import {IP_HOST, BACKEND_URL} from "@env"
 import * as React from 'react';
 import { useState } from 'react';
-import io from "socket.io-client";
-import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST} from "@env"
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { Pressable, Dimensions, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import {
-
   Box,
   useToast,
-  Stack,Text,
+  Stack, HStack, Text,
   ChevronLeftIcon,
   InputGroup,
   Input,
   InputLeftAddon,
   Button,
   InputRightAddon
-
-  
 } from 'native-base';
-
-import { Pressable} from 'react-native';
-import { Dimensions } from 'react-native';
-
-import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import { geTransactionUser } from '../../redux/actions';
 import { validateFunds } from '../Utils/Utils';
 
-
-
 export default function BuyCurrencie({route, navigation}) {
   const windowHeight = Dimensions.get("window").height
-    const {token, price} = route.params;
-    const [loading, setLoading] = useState("")
-    const [disabled, setDisabled] = useState(true)
-    const toast = useToast()
-    const [founds, setFounds] = useState("0");
-    const dispatch = useDispatch()
-    const [mes, setMes] = useState("")
-    const [disbledFunds, setDisableFunds]= useState(false)
-    const [state, setState] = useState({});
-    const blockChain = useSelector(state => state.blockChain);
-    const balanceFunds = useSelector(state => state.userData.balance.funds.balance)
+  const windowWidth = Dimensions.get("window").width
+  const {token, price} = route.params;
+  const [loading, setLoading] = useState("")
+  const [disabled, setDisabled] = useState(true)
+  const toast = useToast()
+  const [founds, setFounds] = useState("0");
+  const dispatch = useDispatch()
+  const [mes, setMes] = useState("")
+  const blockChain = useSelector(state => state.blockChain);
+  const balanceFunds = useSelector(state => state.userData.balance.funds.balance)
+  const [blockchainUrl, setBlockchainUrl]= useState("");
 
-    const [urlBlockChain, setUrlBlockChain]= useState("");
+  React.useEffect(() => {
+    setBlockchainUrl(blockChain)
+  },[blockChain])
 
-    React.useEffect(()=>{
-
-      if(blockChain === "stellar"){
-        setUrlBlockChain("stellar")
-      }
-      else if(blockChain === "ethereum"){
-
-        setUrlBlockChain("ethereum");
-      }
-
-
-    },[blockChain])
-
-    
-    React.useEffect(()=>{
-
-      
-      setMes("")
-      if( validateFunds(founds)){
+  React.useEffect(()=>{
+    setMes("")
+    if( validateFunds(founds)){
+      if(parseFloat(founds) > 0){
         if(parseFloat(founds)<= parseFloat(balanceFunds)){
-
           setMes("")
           setDisabled(false)
-           
-        }else{
-          setDisableFunds(false)
+        } else{
           setDisabled(true)
           setMes("Insufficient funds")
         }
-  
-
-
-       
-
       }else{
-        setDisabled(true)
-        setMes("Please write a valid amount ")
+        setMes("")
       }
-     
-   
-
-    },[founds])
-
-
-    async  function  buyToken(){
-       try {
-        setLoading(true)
-        toast.show({
-          title: "Buying...",
-          placement: "top"
-      
-        })
-           
-            const response = await axios({
-              method: "post",
-              data: {
-                amount: founds,
-                currency: "USDT",
-                purchaseCurrency: token
-              },
-              withCredentials: true,
-              url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/purchase`,
-            });
-            dispatch(geTransactionUser())
-            toast.show({
-              title: response.data,
-              placement: "bottom"
-        
-            })
-            setLoading(false)
-            setTimeout(()=>navigation.popToTop(),1000)
-
-          } catch (error) {
-          
-            setDisabled(true)
-            setLoading(false)
-            setMes("Failed buy")
-            
-          } 
-
+    }else{
+      setDisabled(true)
+      setMes("Please enter a valid amount")
     }
+  },[founds])
 
+  function handleChange(e){
+    setFounds(e)
+  }
 
-    function handleChange(e){
+  async function buyToken(){
+     try {
+      setLoading(true)
 
-      setFounds(e)
-     
+      toast.show({
+        title: "Purchasing...",
+        placement: "top"
+      });
 
+      const response = await axios({
+        method: "post",
+        withCredentials: true,
+        url: `${BACKEND_URL}/operation/${blockchainUrl}/purchase`,
+        data: {
+          amount: founds,
+          currency: "USDT",
+          purchaseCurrency: token
+        },
+      });
 
-    }
+      dispatch(geTransactionUser());
 
-
-
+      toast.show({
+        title: response.data,
+        placement: "bottom"
   
-    return (
-      <>    
-      <Box bg="theme.100"
-      height={windowHeight}
-      >
-           <Box
-        mt="10"
-          py="1"
-          rounded="md"
-          alignSelf="center"
-          width={375}
-          
-         
-          >
+      });
 
-          <Stack direction="row" alignItems="center">
-          <Pressable   onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="theme.50" size="9"/>
-          </Pressable>
-             <Text ml="50px" fontSize="xl" color="theme.50" fontWeight="bold" > Buy Currency </Text> 
-             <Text ml="20px" fontSize="xl" color="theme.300" fontWeight="bold" > {token} </Text> 
-          </Stack>
-          </Box>
-          
-          <Box alignSelf="center" alignItems="center" >
-          <Text color="theme.50" fontWeight="bold" fontSize="6xl"> ${price} </Text>
-  {/*         <Text color="darkBlue.900" fontWeight="bold" fontSize="6xl"> ${stateToken?.price} </Text> */}
+      setLoading(false);
 
-          <Box
-             bg="theme.400"
-             
-             
-            shadow={9}
-             rounded="md"
-             alignSelf="center"
-             width={300}
-             height={50}
-             alignItems="center"
-             maxWidth="100%"
-             maxHeight="100%"
-          >
-            <Text color="theme.50" mt="2" fontWeight="bold" fontSize="lg" pb="1">
-             {token}
-            </Text>
-            
-      </Box>
-      <InputGroup
-                 mt="5"
-                 color="theme.50"
-                 colorScheme="theme"
-                 mb="5"
-                 _focus={{
-                  borderColor:"theme.300" ,
-                }}
-               
-                 
-                 >
-                   <InputLeftAddon color="theme.300" children={"$"} />
-                   <Input
-                    borderColor="theme.300"
-                    color="black"
-                    width="250"
-                    _hover={{
-                      bg:"theme.300" ,
-                    }}
-                    colorScheme="theme"
-                     placeholder="Amount"
-                     onChangeText={handleChange}
-                   />
-                <InputRightAddon children={"USD"} />
-                 </InputGroup>
+      setTimeout(()=>navigation.popToTop(),1000)
+    } catch (error) {
+      setDisabled(true)
+      setLoading(false)
+      setMes("Purchase failed")
+    } 
+  }
 
+  return (
+    <Box bg="theme.100" height={windowHeight}>
+      <Pressable onPress={() => navigation.goBack()}>
+        <ChevronLeftIcon mt="20px" ml="10px" color="theme.300" size="40px"/>
+      </Pressable>
+
+      <Text
+        alignSelf="center"
+        mt="50px"
+        py="1px"
+        px="20px"
+        bg="theme.175"
+        borderRadius="4px"
+        color="theme.100"
+        fontSize="27px"
+        fontWeight="bold"
+        letterSpacing="1px"
+      >{token} PRICE:</Text> 
+        
+      <HStack alignSelf="center" mt="43px">
+        <Text mt="-0px" mr="11px" fontSize="32px" fontWeight="bold">$</Text>
+        <Text fontSize="46px" fontWeight="bold" style={styles.verticallyStretchedText}>{price}</Text>
+        <Text mb="-0px" ml="7px" alignSelf="flex-end" fontSize="17px" fontWeight="bold">USD</Text>
+      </HStack>
+
+      <HStack alignSelf="center" justifyContent="space-around" mt="70px" px="20px" width={windowWidth}>
+        <InputGroup>
+          <InputLeftAddon children={"$"}/>
+
+          <Input width="120px" placeholder="Amount" onChangeText={handleChange} _focus={{ borderColor:"theme.300" }}/>
+
+          <InputRightAddon children={"USD"} />
+        </InputGroup>
 
         <Button 
-        px="10"
-          
-          variant="outline" colorScheme="theme"
           isDisabled={disabled}
           isLoading={loading}
-        onPress={()=> buyToken()}>
-          <Text fontSize="lg">
-          Buy
-          </Text>
-           
-            </Button>
-           <Text color="theme.300">{mes}</Text>
-          </Box>
-          
-          
-          </Box>
+          onPress={() => buyToken()}
+          height="46px"
+          borderRadius="4px"
+          bg="theme.300"
+          variant="filled"
+        ><Text color="theme.50" fontWeight="bold">Purchase</Text></Button>
+      </HStack>
 
-     
-      </>
-  
- 
+      <Text mt="11px" ml="25px" color="#f00">{mes}</Text>
+    </Box>
   );
 }
+
+const styles = StyleSheet.create({
+  verticallyStretchedText: {
+    transform: [{scaleY: 1.7}]
+  }
+});

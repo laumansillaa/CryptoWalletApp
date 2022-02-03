@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import {useFocusEffect } from '@react-navigation/native';
-import {IP_HOST} from "@env"
+import {IP_HOST, BACKEND_URL} from "@env"
 import { Dimensions } from 'react-native';
 import {
   Box,
@@ -32,7 +32,7 @@ export default function Staking({route, navigation}) {
   const toast = useToast()
       const {currency, amount,staking} = route.params
       const [disabledButton, setDisableButton] = useState(true)
-      const [disableMount, setDisableMount] = useState(true);
+  
       const [disableTakeOut, setDisableTakeOut] = useState(true)
       const [loading, setLoading] = useState("")
       const [loadingTakeStake, setLoadingTakeStake] = useState("")
@@ -42,7 +42,7 @@ export default function Staking({route, navigation}) {
       const [disabledMont, setDisableMont] = useState(true)
       const balance = useSelector(state => state.userData.balance)
       const [founds, setFounds] = useState("0.00");
-        const [foundsStalking, setFoundsStalking] = useState("0.00")
+      const [foundsStalking, setFoundsStalking] = useState("0.00")
       const [mes, setMes] = useState("")
       
       React.useEffect(()=>{
@@ -59,15 +59,28 @@ export default function Staking({route, navigation}) {
 
 
         if(aux){
-            if(aux.hasOwnProperty("staking")){
-                setDisableTakeOut(false)
-                setFoundsStalking(aux.staking)
-    
-            }else{
-                setDisableMount(false)
+             if(parseFloat(aux.staking) > 0){
+                  setDisableTakeOut(false)
+                  setDisableMont(true)
+                  setFoundsStalking(aux.staking)
+
+             }else{
+
+              if(parseFloat(amount) > 0){
+ 
+                setDisableMont(false)
+        
+               }else{
+                setDisableMont(true)
+               }
+
+                
             }
+       
     
         }
+    
+        
 
         
   
@@ -75,23 +88,7 @@ export default function Staking({route, navigation}) {
 
       },[blockChain, balance])
 
-      React.useEffect(()=>{
-
-        if(parseFloat(amount) > 0){
  
-         setDisableMont(false)
- 
-        }else{
-         setDisableMont(true)
-        }
-   
-   
-       },[])
-
-
-
-
-
 async function stakingUser (){
 
   toast.show({
@@ -112,7 +109,7 @@ async function stakingUser (){
   
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/stake`,
+      url: `${BACKEND_URL}/operation/${urlBlockChain}/stake`,
     });
 
     setMes(response.data)
@@ -157,10 +154,16 @@ async function stakeTaking(){
      
       },
       withCredentials: true,
-      url: `http://${IP_HOST}:3001/operation/${urlBlockChain}/takestake`,
+      url: `${BACKEND_URL}/operation/${urlBlockChain}/takestake`,
     });
 
     setMes(response.data)
+    toast.show({
+      title: "Success...",
+      placement: "top"
+  
+    })
+
     setLoadingTakeStake(false)
     setTimeout(()=>navigation.popToTop(),1000)
 
@@ -231,10 +234,10 @@ React.useEffect(()=>{
 
           <Stack direction="row" alignItems="center" rounded="md">
           <Pressable   onPress={()=> navigation.goBack()}>
-          <ChevronLeftIcon color="theme.150" size="9"/>
+          <ChevronLeftIcon color="theme.100" size="9"/>
           </Pressable>
           <VStack>
-          <Text ml="80px" fontSize="lg" color="theme.150" fontWeight="bold" >Amount available </Text> 
+          <Text ml="80px" fontSize="lg" color="theme.100" fontWeight="bold" >Amount available </Text> 
              
           </VStack>
              
@@ -262,7 +265,7 @@ React.useEffect(()=>{
           alignSelf="center"
           width={360}
           maxWidth="100%"
-          bg="theme.150"
+          bg="theme.125"
           
           
          
@@ -314,7 +317,7 @@ React.useEffect(()=>{
       </Box>
        <HStack alignSelf="center">
 
-      <Button variant="outline" colorScheme="theme" rounded="md" px="7" isDisabled={disabledMont} py="1"  isDisabled={disableMount}  onPress={() => setShowModal(true)}>
+      <Button variant="outline" colorScheme="theme" rounded="md" px="7" isDisabled={disabledMont} py="1"   onPress={() => setShowModal(true)}>
         <Text color="#ffffff" fontSize="2xl" >Mont</Text></Button>
 
         <Button variant="outline" isLoading={loading} colorScheme="theme"  ml="2"rounded="md" px="7"  py="1" isDisabled={disabledButton} onPress={() => stakingUser()}>

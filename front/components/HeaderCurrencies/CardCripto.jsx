@@ -11,13 +11,15 @@ import {
   InputGroup,
   Input,
   InputLeftAddon,
-  Button
+  Button,
+  Divider
 } from 'native-base';
 import io from "socket.io-client";
 import { getTokens } from '../../redux/actions';
 
 export default function CardCripto({route, navigation}) {
   const {token} = route.params;
+  const windowWidth = Dimensions.get("window").width
   const windowHeight = Dimensions.get("window").height
   const dispatch = useDispatch();
   const [state, setState] = useState()
@@ -61,17 +63,15 @@ export default function CardCripto({route, navigation}) {
   
   return (
     <Box bg="theme.100" height={windowHeight}>
-      <HStack justifyContent="space-between" pt="20px" px="13px">
+      <HStack justifyContent="space-between" mt="20px" px="13px">
         <Pressable onPress={() => navigation.goBack()}>
           <ChevronLeftIcon color="theme.300" size="40px"/>
         </Pressable>
 
-        <Text
-          alignSelf="center"
-          py="1px"
-          px="11px"
+        <Text px="11px"
           borderRadius="4px"
-          color="theme.50"
+          bg="theme.175"
+          color="theme.100"
           fontSize="22px"
           fontWeight="bold"
           letterSpacing="1px"
@@ -81,15 +81,12 @@ export default function CardCripto({route, navigation}) {
       <Text
         alignSelf="center"
         mt="70px"
-        py="1px"
-        px="20px"
-        bg="theme.175"
-        borderRadius="40px"
-        color="theme.100"
+        color="theme.50"
         fontSize="22px"
         fontWeight="bold"
-        letterSpacing="1px"
-      >PRICE:</Text> 
+        letterSpacing="2px"
+      >TOKEN PRICE:</Text> 
+      <Divider alignSelf="center" mt="6px" height="1px" width={windowWidth * 0.57} bg='theme.175'/>
         
       <HStack alignSelf="center" mt="33px">
         <Text mt="-0px" mr="11px" fontSize="32px" fontWeight="bold">$</Text>

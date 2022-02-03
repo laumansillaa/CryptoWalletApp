@@ -132,7 +132,7 @@ export default function Transfer({route, navigation}) {
       <Box alignSelf="center" mt="70px">
         <HStack justifyContent="space-between" alignItems="flex-end">
           <Text color="theme.50" fontSize="13px" letterSpacing="1px">AVAILABLE AMOUNT:</Text> 
-          <Text top="3px" color="theme.300" fontSize="18px" fontWeight="bold">{amount} {currency}</Text>
+          <Text top="3px" color="theme.50" fontSize="18px" fontWeight="bold">{amount} {currency}</Text>
         </HStack>
         <Divider mt="6px" height="1px" width={windowWidth * 0.93} bg='theme.175'/>
       </Box>
@@ -141,7 +141,7 @@ export default function Transfer({route, navigation}) {
         <Input 
           height="41px"
           width={windowWidth * 0.93}
-          borderColor="theme.300"
+          borderColor="theme.150"
           color="theme.50"
           placeholder={`Beneficiary ${blockChain} public key`}
           onChangeText={setPublicKey}
@@ -150,10 +150,10 @@ export default function Transfer({route, navigation}) {
         <Input
           mt="39px"
           height="41px"
-          width={windowWidth * 0.57}
-          borderColor="theme.300"
+          width={windowWidth * 0.67}
+          borderColor="theme.150"
           color="theme.50"
-          placeholder={`${currency} amount`}
+          placeholder={`Amount of ${currency} you want to transfer`}
           onChangeText={setFounds}
         />
       </Box>
@@ -163,7 +163,7 @@ export default function Transfer({route, navigation}) {
       <Box mt="25px" alignSelf="center">
         <HStack justifyContent="space-between" alignItems="flex-end">
           <Text color="theme.50" fontSize="13px" letterSpacing="1px">REMAINING AMOUNT:</Text> 
-          <Text top="3px" color="theme.300" fontSize="18px" fontWeight="bold">{(parseFloat(amount) - parseFloat(founds)).toFixed(4)} {currency}</Text>
+          <Text top="3px" color="theme.50" fontSize="18px" fontWeight="bold">{(parseFloat(amount) - parseFloat(founds)).toFixed(4)} {currency}</Text>
         </HStack>
         <Divider mt="6px" height="1px" width={windowWidth * 0.93} bg='theme.175' />
       </Box>

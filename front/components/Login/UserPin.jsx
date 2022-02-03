@@ -1,22 +1,9 @@
-    
-//    function handleSubmit(){
-//         setMessage("Loading...");
-//           if(error === ""){
-//             if(pin !== ""){
-//                 if (pin === userData?.pin) {
-//                         dispatch(Log(userToken));
-//                         setMessage("Sign in succeeded.");
-//                         dispatch(TokenLogOut());                   
-//                     }
-//             
-
-
-import Icon from "react-native-vector-icons/Ionicons"
 import React, { useEffect, useRef, useState } from "react"
+import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView, StatusBar, } from "react-native"
+import Icon from "react-native-vector-icons/Ionicons"
 import ReactNativePinView from "react-native-pin-view"
 import { Text } from "native-base";
-import { useDispatch, useSelector } from 'react-redux';
 import { getDataUser, Log, TokenLogOut} from '../../redux/actions';
 
 export default function UserPin () {
@@ -46,14 +33,14 @@ export default function UserPin () {
         <SafeAreaView
           style={{ flex: 1, backgroundColor: "#18181b", justifyContent: "center", alignItems: "center" }}>
           <Text
-            style={{
-              paddingTop: 24,
-              paddingBottom: 48,
-              color: "#059669",
-              fontSize: 30,
-            }}>
-            Insert your pin
-          </Text>
+            mt="24px"
+            mb="48px"
+            color="#fff"
+            fontSize="22px"
+            fontWeight="bold"
+            letterSpacing="1px"
+          > ENTER YOUR PIN </Text>
+
           <ReactNativePinView
             inputSize={32}
             ref={pinView}
@@ -68,15 +55,16 @@ export default function UserPin () {
             }}
             inputViewEmptyStyle={{
               backgroundColor: "transparent",
-              borderWidth: 1,
+              borderWidth: 0.3,
               borderColor: "#FFF",
             }}
             inputViewFilledStyle={{
-              backgroundColor: "#FFF",
+              backgroundColor: "#363639",
             }}
             buttonViewStyle={{
-              borderWidth: 1,
-              borderColor: "#18181b",
+              borderColor: "#fff",
+              borderWidth: 0.1,
+              backgroundColor: "#000"
             }}
             buttonTextStyle={{
               color: "#FFF",

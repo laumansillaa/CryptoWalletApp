@@ -141,7 +141,7 @@ export default function Home({ navigation }) {
         </Button>
       </Box>
 
-      <Divider alignSelf="center" my="3" height="2px" width="81%" bg='theme.125' />
+      <Divider alignSelf="center" my="10px" height="1px" width="81%" bg='theme.175' />
 
       <Pressable 
         onPress={() => { navigation.navigate("BalanceUser") }} 
@@ -169,7 +169,7 @@ export default function Home({ navigation }) {
         width="96%"
         rounded="4px"
       >
-        <Text pl="17px" color="theme.300" fontSize="16px" letterSpacing="2px">
+        <Text pl="17px" color="theme.300" fontSize="14px" letterSpacing="2px">
           {`${blockChain} transactions`.toUpperCase()}
         </Text>
       </Box>
@@ -178,26 +178,30 @@ export default function Home({ navigation }) {
    
       <ScrollView>
         <VStack>
-          {transactions?.length > 0 
-            ? transactions?.map((transaction, index) => {
-              return (
-                <Transaction
-                  key={index}
-                  action={transaction.operationType}
-                  mont={transaction.purchasedAmount}
-                  money={transaction.purchasedCurrency}
-                  date={transaction.transactionDate}
-                  from={transaction.from}
-                  to={transaction.to}
-                />
-              )
-            })
-            : <Text 
-              mt="17px"
-              mx="13px"
-              color="theme.175"
-              fontSize="18px"
-            >You don't have any transactions yet</Text>}
+          {
+            transactions?.length > 0 
+              ? transactions?.map((transaction, index) => {
+                return (
+                  <Transaction
+                    key={index}
+                    action={transaction.operationType}
+                    mont={transaction.purchasedAmount}
+                    money={transaction.purchasedCurrency}
+                    date={transaction.transactionDate}
+                    from={transaction.from}
+                    to={transaction.to}
+                  />
+                )
+              })
+              : <Text 
+                alignSelf="center"
+                mt="25px"
+                mx="13px"
+                color="theme.175"
+                fontSize="14px"
+                fontWeight="bold"
+              >YOU DON'T HAVE ANY TRANSACTIONS YET</Text>
+          }
         </VStack>
       </ScrollView>
 

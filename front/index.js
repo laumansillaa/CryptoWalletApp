@@ -76,9 +76,9 @@ React.useEffect(()=>{
           125: "#27272a",
           150: "#363639",
           175: "#545457",
-          200: '#1e91d6',
-          300: '#1e91d6',
-          400: '#1e91d6',
+          200: '#8258ec',
+          300: '#8258ec',
+          400: '#8258ec',
          
         },
         // Redefinig only one shade, rest of the color will remain same
